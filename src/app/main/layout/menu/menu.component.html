@@ -1,0 +1,143 @@
+<aside class="primary--sidebar text-center">
+    <ul class="metismenu" id="menu">
+        <div>
+            <a href="/main/dashboard">
+                <img src="../../../../assets/brand-assets/logo.png" alt="ChatMg" class="logo-mini mt-2 mb-5">
+            </a>
+        </div>
+        <li *ngFor="let item of listMainMenu; index as i" class="menu-item"
+            routerLinkActive="mm-active active" [routerLinkActiveOptions]="{exact: false}">
+            <a class="ai-icon" [routerLink]="item.routerLink" aria-expanded="false" [title]="item.title">
+                <i class="pi" [class]="item.icon"></i>
+                <!-- <span class="hover">{{item.title}}</span> -->
+            </a>
+        </li>
+    </ul>
+
+    <div class="secondary-sidebar">
+        <div class="main-nav secondary-menu"><!---->
+            <ul class="menu vertical">
+                <li class="sidebar-item">
+                    <a href="/main/dashboard" aria-current="page"
+                        class="secondary-menu--title secondary-menu--link fs-small router-link-exact-active router-link-active is-active"><svg
+                            width="14" height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            class="secondary-menu--icon">
+                            <path
+                                d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.96 9.96 0 0 1-4.587-1.112l-3.826 1.067a1.25 1.25 0 0 1-1.54-1.54l1.068-3.823A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2Zm0 1.5A8.5 8.5 0 0 0 3.5 12c0 1.47.373 2.883 1.073 4.137l.15.27-1.112 3.984 3.987-1.112.27.15A8.5 8.5 0 1 0 12 3.5ZM8.75 13h4.498a.75.75 0 0 1 .102 1.493l-.102.007H8.75a.75.75 0 0 1-.102-1.493L8.75 13h4.498H8.75Zm0-3.5h6.505a.75.75 0 0 1 .101 1.493l-.101.007H8.75a.75.75 0 0 1-.102-1.493L8.75 9.5h6.505H8.75Z"
+                                fill="currentColor">
+                            </path>
+                        </svg>
+                        All Conversations
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/main/mentions/conversations" class="secondary-menu--title secondary-menu--link fs-small">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            class="secondary-menu--icon">
+                            <path
+                                d="M22 12v1.75a3.75 3.75 0 0 1-7.149 1.586C14.033 16.356 12.84 17 11.5 17 8.992 17 7 14.742 7 12s1.992-5 4.5-5c1.159 0 2.208.482 3.001 1.272L14.5 7.75a.75.75 0 0 1 1.493-.102L16 7.75v6a2.25 2.25 0 0 0 4.495.154l.005-.154V12a8.5 8.5 0 1 0-5.515 7.961.75.75 0 0 1 .527 1.405A9.98 9.98 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2c5.43 0 9.848 4.327 9.996 9.72L22 12v1.75V12ZM11.5 8.5c-1.635 0-3 1.548-3 3.5s1.365 3.5 3 3.5c1.634 0 3-1.548 3-3.5s-1.366-3.5-3-3.5Z"
+                                fill="currentColor">
+                            </path>
+                        </svg>
+                        Mentions
+                        <!----> <!---->
+                    </a> <!---->
+                </li>
+                <li class="sidebar-item">
+                    <a href="/main/unattended/conversations"
+                        class="secondary-menu--title secondary-menu--link fs-small">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            class="secondary-menu--icon">
+                            <path
+                                d="M16 6.5H5.25a1.75 1.75 0 0 0-1.744 1.606l-.004.1L11 12.153l6.03-3.174a3.489 3.489 0 0 0 2.97.985v6.786a3.25 3.25 0 0 1-3.066 3.245L16.75 20H5.25a3.25 3.25 0 0 1-3.245-3.066L2 16.75v-8.5a3.25 3.25 0 0 1 3.066-3.245L5.25 5h11.087A3.487 3.487 0 0 0 16 6.5Zm2.5 3.399-7.15 3.765a.75.75 0 0 1-.603.042l-.096-.042L3.5 9.9v6.85a1.75 1.75 0 0 0 1.606 1.744l.144.006h11.5a1.75 1.75 0 0 0 1.744-1.607l.006-.143V9.899ZM19.5 4a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Z"
+                                fill="currentColor">
+                            </path>
+                        </svg>
+                        Unattended
+                        <!----> <!---->
+                    </a> <!---->
+                </li>
+                <li class="sidebar-item">
+                    <div class="secondary-menu--wrap"><span class="secondary-menu--header fs-small">
+                            Inboxes
+                        </span> <!---->
+                    </div>
+                    <ul class="nested vertical menu">
+                        <li class=""><a href="/main/inbox/27287"
+                                class="button clear menu-item text-truncate text-truncate">
+                                <span class="badge--icon">
+                                    <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg" class="inbox-icon">
+                                        <path
+                                            d="M22.002 12C22.002 6.477 17.524 2 12 2 6.476 1.999 2 6.477 2 12.001c0 5.186 3.947 9.45 9.001 9.952V20.11c-.778-.612-1.478-1.905-1.939-3.61h1.94V15H8.737a18.969 18.969 0 0 1-.135-5h6.794c.068.64.105 1.31.105 2h1.5c0-.684-.033-1.353-.095-2h3.358c.154.64.237 1.31.237 2h1.5ZM4.786 16.5h2.722l.102.396c.317 1.17.748 2.195 1.27 3.015a8.532 8.532 0 0 1-4.094-3.41ZM3.736 10h3.358a20.847 20.847 0 0 0-.095 2c0 1.043.075 2.051.217 3H4.043a8.483 8.483 0 0 1-.544-3c0-.682.08-1.347.232-1.983L3.736 10Zm5.122-5.902.023-.008C8.16 5.222 7.611 6.748 7.298 8.5H4.25c.905-2 2.56-3.587 4.608-4.402Zm3.026-.594L12 3.5l.126.006c1.262.126 2.48 2.125 3.045 4.995H8.83c.568-2.878 1.79-4.88 3.055-4.996Zm3.343.76-.107-.174.291.121a8.533 8.533 0 0 1 4.339 4.29h-3.048c-.298-1.665-.806-3.125-1.475-4.237Z M12 19a1 1 0 0 0 1 1h3v2h-.5a.5.5 0 1 0 0 1h4a.5.5 0 0 0 0-1H19v-2h3a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1h-9a1 1 0 0 0-1 1v5Z"
+                                            fill="currentColor">
+                                        </path>
+                                    </svg>
+                                </span> <!---->
+                                <span title="Zin store" class="menu-label button__content text-truncate">
+                                    Zin store
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu-item--new">
+                            <a href="/main/settings/inboxes/new" class="button small link clear secondary">
+                                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75Z"
+                                        fill="currentColor">
+                                    </path>
+                                </svg>
+                                <span class="button__content">
+                                    New inbox
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <div class="secondary-menu--wrap">
+                        <span class="secondary-menu--header fs-small">
+                            Labels
+                        </span> <!---->
+                    </div>
+                    <ul class="nested vertical menu">
+                        <li class="">
+                            <a href="/main/label/minh01"
+                                class="button clear menu-item text-truncate text-truncate"><!---->
+                                <span class="badge--label" style="background-color: rgb(11, 240, 138);">
+                                </span>
+                                <span title="minh01" class="menu-label button__content text-truncate">
+                                    minh01
+                                </span>
+                            </a>
+                        </li>
+                        <li class=""><a href="/main/label/minh02"
+                                class="button clear menu-item text-truncate text-truncate">
+                                <span class="badge--label" style="background-color: rgb(37, 12, 28);">
+                                </span>
+                                <span title="minh02" class="menu-label button__content text-truncate">
+                                    minh02
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu-item--new">
+                            <a href="/main/settings/labels" class="button small link clear secondary">
+                                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M11.75 3a.75.75 0 0 1 .743.648l.007.102.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75Z"
+                                        fill="currentColor">
+                                    </path>
+                                </svg>
+                                <span class="button__content">
+                                    New label
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>

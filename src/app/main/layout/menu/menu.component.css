@@ -1,0 +1,31 @@
+#menu{
+    width: 64px;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.primary--sidebar{
+    display: flex;
+    flex-direction: column;
+    width: 64px;
+    border-right: 1px solid #f1f5f8;
+    box-sizing: content-box;
+    height: 100%;
+    flex-shrink: 0;
+}
+
+#menu .menu-item{
+    margin-top: 10px;
+}
+
+#menu .menu-item i{
+    padding: 12px;
+    font-size: 22px;
+    color: #446888;
+    border-radius: 8px;
+}
+
+#menu .active i{
+    background: #ebf5ff;
+    color: #1f93ff;
+}

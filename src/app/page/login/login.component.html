@@ -1,0 +1,67 @@
+<main class="row mt-5">
+    <section class="text-center">
+        <img class="hero--logo" src="../../../assets/brand-assets/logo.png" alt="ChatMg">
+        <h2 class="mt-5">
+            Login to ChatMg
+        </h2>
+    </section>
+    <section class="row justify-content-center">
+        <div class="col-sm-12 col-md-4 login">
+            <div class="login-box mt-5">
+                <!-- <div class="oauth-reverse">
+                    <div class="separator">
+                        OR
+                    </div>
+                    <a>
+                        <button class="button expanded button__google_login large">
+                            <img src="/assets/images/auth/google.svg" alt="Google Logo" class="icon">
+                            Login with Google
+                        </button>
+                    </a>
+                </div> -->
+                <form class="" [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <label class="">
+                        Email
+                        <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
+                            placeholder="Email eg: someone@example.com" class="form-control mt-1">
+                            <div *ngIf="(f['email'].dirty || f['email'].touched || submitted) && f['email'].invalid"
+                            class="text-danger">
+                            <div *ngIf="f['email'].errors?.['required']">
+                                Email is required
+                            </div>
+                            <div *ngIf="f['email'].errors?.['email']">
+                                Please enter a valid email
+                            </div>
+                        </div>
+                    </label>
+                    <label class="mt-3">
+                        Password
+                        <input type="text" pInputText [(ngModel)]="model.password" formControlName="password"
+                            placeholder="Password" class="form-control mt-1">
+                    </label>
+                    <div *ngIf="(f['password'].dirty || f['password'].touched || submitted) && f['password'].invalid" class="text-danger"> 
+                        <div *ngIf="f['password'].errors?.['required']">
+                            Password is required
+                        </div>
+                    </div>
+                    <button type="submit" disabled="f['email'].status !== 'VALID' && f['password'].status !== 'VALID'"
+                        class="btn btn-primary mt-3 w-100">
+                        <span>Login</span>
+                    </button>
+                </form>
+            </div>
+            <div class="text-center mt-4">
+                <p>
+                    <a href="/reset-password" class="">
+                        Forgot your password?
+                    </a>
+                </p>
+                <p>
+                    <a href="/signup" class="">
+                        Create new account
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+</main>

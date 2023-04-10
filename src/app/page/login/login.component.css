@@ -1,0 +1,22 @@
+.login-box{
+    background: #fff;
+    border: 1px solid #ebf0f5 !important;
+    border: 1px solid var(--s-75) !important;
+    box-shadow: 0 0.8rem 1.6rem rgba(50,50,93,.08), 0 0.4rem 1.2rem rgba(0,0,0,.07) !important;
+    border-radius: 0.8rem;
+    border-radius: 0.4rem;
+    padding: 32px;
+}
+
+.login .login-box button.btn{
+    height: 46px !important;
+}
+
+form label {
+    display: grid;
+}
+
+.hero--logo {
+    width: auto;
+    height: 100px;
+}
