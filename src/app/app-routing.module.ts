@@ -7,7 +7,8 @@ import { ResetPasswordComponent } from './page/reset-password/reset-password.com
 import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
-  {path: "", component: HomepageComponent},
+  // {path: "", component: HomepageComponent},
+  {path: "", redirectTo: '/login', pathMatch: 'full'},
   {path: "main", loadChildren: () => import('./main/main.module').then(m => m.MainModule)},
   {path: "login", component: LoginComponent},
   {path: "signup", component: SignupComponent},

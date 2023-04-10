@@ -1,18 +1,20 @@
-<aside class="primary--sidebar text-center">
-    <ul class="metismenu" id="menu">
-        <div>
-            <a href="/main/dashboard">
-                <img src="../../../../assets/brand-assets/logo.png" alt="ChatMg" class="logo-mini mt-2 mb-5">
-            </a>
-        </div>
-        <li *ngFor="let item of listMainMenu; index as i" class="menu-item"
-            routerLinkActive="mm-active active" [routerLinkActiveOptions]="{exact: false}">
-            <a class="ai-icon" [routerLink]="item.routerLink" aria-expanded="false" [title]="item.title">
-                <i class="pi" [class]="item.icon"></i>
-                <!-- <span class="hover">{{item.title}}</span> -->
-            </a>
-        </li>
-    </ul>
+<aside class="d-flex">
+    <div class="primary--sidebar text-center">
+        <ul class="metismenu" id="menu">
+            <div>
+                <a href="/main/dashboard">
+                    <img src="../../../../assets/brand-assets/logo.png" alt="ChatMg" class="logo-mini mt-2 mb-5">
+                </a>
+            </div>
+            <li *ngFor="let item of listMainMenu; index as i" class="menu-item" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: false}">
+                <a class="ai-icon" [routerLink]="item.routerLink" aria-expanded="false" [title]="item.title">
+                    <i class="pi" [class]="item.icon"></i>
+                    <!-- <span class="hover">{{item.title}}</span> -->
+                </a>
+            </li>
+        </ul>
+    </div>
 
     <div class="secondary-sidebar">
         <div class="main-nav secondary-menu"><!---->
