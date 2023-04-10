@@ -6,4 +6,33 @@
 
 ul{
     padding: 0;
+    list-style:none;
+}
+
+ul li a{
+    text-decoration: none;
+}
+
+i.pi{
+    font-size: 18px;
+}
+
+.content-left{
+    border-right: 1px solid #f1f5f8;
+    width: 400px;
+}
+
+input.p-inputtext{
+    height: 34px;
+    width: 100%;
+}
+
+p-dropdown .p-dropdown{
+    height: 34px;
+    display: flex;
+    align-items: center;
+}
+
+app-dashboard{
+    width: 100%;
 }

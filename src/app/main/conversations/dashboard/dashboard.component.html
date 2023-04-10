@@ -1,1 +1,64 @@
-<p>dashboard works!</p>
+<div class="d-flex">
+    <div class="content-left">
+        <div class="container">
+            <div class="search-wrap">
+                <div class="search">
+                    <a class="search--link">
+                        <span class="p-input-icon-left py-3 w-100">
+                            <i class="pi pi-search"></i>
+                            <input type="text" pInputText [(ngModel)]="inputSearch" placeholder="Search">
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 title="Conversations" class="page-title">
+                        Conversations
+                    </h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="filter--actions">
+                        <p-dropdown [options]="listStatus" [(ngModel)]="filterStatus" optionLabel="name"
+                            optionValue="code" scrollHeight="300px"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="tab--chat-type tabs--container--with-border tabs--container">
+                <p-tabView>
+                    <p-tabPanel [selected]="true">
+                        <ng-template pTemplate="header">
+                            Mine <span class="badge text-bg-secondary ms-1">4</span>
+                        </ng-template>
+                    </p-tabPanel>
+                    <p-tabPanel header="Header 2">
+                        <ng-template pTemplate="header">
+                            Unassigned<span class="badge text-bg-secondary ms-1">4</span>
+                        </ng-template>
+
+                    </p-tabPanel>
+                    <p-tabPanel header="Header 3">
+                        <ng-template pTemplate="header">
+                            All<span class="badge text-bg-secondary ms-1">4</span>
+                        </ng-template>
+
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+            <p class="content-box">
+                There are no active conversations in this group.
+            </p>
+            <div class="conversations-list">
+            </div>
+        </div>
+    </div>
+    <div class="content-right w-100">
+        <div ng class="current-chat d-flex align-items-center justify-content-center" style="min-height: 100vh">
+            <div>
+                <img src="//d3tq67kexc2w2i.cloudfront.net/packs/media/dashboard/assets/images/chat-a06542d766feaecc071c3a2b77f313e8.svg"
+                    alt="No Chat" style="width: 100px">
+                <span>Please select a conversation from left pane</span>
+            </div>
+        </div>
+    </div>
+</div>

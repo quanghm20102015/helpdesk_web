@@ -12,12 +12,15 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listMainMenu: any = [
-    {routerLink: "/main/dashboard",title: "CONVERSATIONS", icon: "pi-comments" },
-    {routerLink: "/main/contacts",title: "CONTACTS", icon: "pi-users" },
-    {routerLink: "/main/reports",title: "REPORTS", icon: "pi-chart-pie" },
-    {routerLink: "/main/campaigns",title: "CAMPAIGNS", icon: "pi-megaphone" },
-    {routerLink: "/main/account",title: "SETTINGS", icon: "pi-cog" },
-  ];
+  listLabel: any = [
+    {name: 'Label 01',id: 156 },
+    {name: 'Label 02',id: 1680 },
+    {name: 'Label 03',id: 430 },
+  ]
+
+  listInboxes: any = [
+    {name: 'Web 01', id: 200 },
+    {name: 'Page 2', id: 329 },
+  ]
 
 }
