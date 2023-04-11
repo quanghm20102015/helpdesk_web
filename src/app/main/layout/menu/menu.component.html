@@ -2,51 +2,44 @@
     <div class="nav flex-column nav-pills align-items-center primary--sidebar" id="v-pills-tab" role="tablist"
         aria-orientation="vertical">
         <div>
-            <a href="/main/dashboard">
+            <a href="/main/conversations">
                 <img src="../../../../assets/brand-assets/logo.png" alt="ChatMg" class="logo-mini mt-2 mb-5">
             </a>
         </div>
-        <button class="nav-link menu-item" id="v-pills-tab-conversations" data-bs-toggle="pill"
-            data-bs-target="#v-pills-conversations" type="button" role="tab" aria-controls="v-pills-conversations"
-            aria-selected="true" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
-            routerLink="/main/dashboard" aria-expanded="false" title="Conversations">
+        <button class="nav-link menu-item" [ngClass]="{'active': tab == 1}" (click)="setTab(1)"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
+            routerLink="/main/conversations" aria-expanded="false" title="Conversations">
             <i class="pi pi-comments"></i>
         </button>
-        <button class="nav-link menu-item" id="v-pills-tab-contacts" data-bs-toggle="pill"
-            data-bs-target="#v-pills-contacts" type="button" role="tab" aria-controls="v-pills-contacts"
-            aria-selected="true" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
-            routerLink="/main/contacts" aria-expanded="false" title="Contacts">
+        <button class="nav-link menu-item" [ngClass]="{'active': tab == 2}" (click)="setTab(2)"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" routerLink="/main/contacts"
+            aria-expanded="false" title="Contacts">
             <i class="pi pi-users"></i>
         </button>
-        <button class="nav-link menu-item" id="v-pills-tab-reports" data-bs-toggle="pill"
-            data-bs-target="#v-pills-reports" type="button" role="tab" aria-controls="v-pills-reports"
-            aria-selected="true" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
-            routerLink="/main/reports" aria-expanded="false" title="Reports">
+        <button class="nav-link menu-item" [ngClass]="{'active': tab == 3}" (click)="setTab(3)"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" routerLink="/main/reports"
+            aria-expanded="false" title="Reports">
             <i class="pi pi-chart-pie"></i>
         </button>
-        <button class="nav-link menu-item" id="v-pills-tab-campaigns" data-bs-toggle="pill"
-            data-bs-target="#v-pills-campaigns" type="button" role="tab" aria-controls="v-pills-campaigns"
-            aria-selected="true" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
-            routerLink="/main/campaigns" aria-expanded="false" title="Campaigns">
+        <button class="nav-link menu-item" [ngClass]="{'active': tab == 4}" (click)="setTab(4)"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" routerLink="/main/campaigns"
+            aria-expanded="false" title="Campaigns">
             <i class="pi pi-megaphone"></i>
         </button>
-        <button class="nav-link menu-item" id="v-pills-tab-settings" data-bs-toggle="pill"
-            data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
-            aria-selected="true" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
-            routerLink="/main/settings" aria-expanded="false" title="Settings">
+        <button class="nav-link menu-item" [ngClass]="{'active': tab == 5}" (click)="setTab(5)"
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" routerLink="/main/settings"
+            aria-expanded="false" title="Settings">
             <i class="pi pi-cog"></i>
         </button>
     </div>
     <div class="secondary-sidebar">
         <div class="tab-content" id="v-pills-tabContent">
 
-            <div class="tab-pane fade show active" id="v-pills-conversations" role="tabpanel"
-                aria-labelledby="v-pills-tab-conversations" tabindex="0">
+            <div *ngIf="tab == 1">
                 <ul class="menu vertical mt-2">
                     <li class="sidebar-item">
-                        <a aria-current="page" routerLinkActive="active-secondary"
-                            [routerLinkActiveOptions]="{exact: false}" routerLink="/main/dashboard"
-                            aria-expanded="false">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            routerLink="/main/conversations/dashboard" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -59,7 +52,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                            routerLink="/main/mentions/conversations" aria-expanded="false">
+                            routerLink="/main/conversations/mentions" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -72,7 +65,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                            routerLink="/main/unattended/conversations" aria-expanded="false">
+                            routerLink="/main/conversations/unattended" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -90,7 +83,7 @@
                         <ul class="nested vertical menu">
                             <li *ngFor="let item of listInboxes" class="sidebar-item">
                                 <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                                    [routerLink]="['/main/inbox/', item.id]" aria-expanded="false"
+                                    [routerLink]="['/main/conversations/inbox/', item.id]" aria-expanded="false"
                                     class="button clear menu-item text-truncate text-truncate">
                                     <span [title]="item.name">
                                         {{item.name}}
@@ -98,7 +91,8 @@
                                 </a>
                             </li>
                             <li class="menu-item--new">
-                                <a href="/main/settings/inboxes/new" class="fw-light">
+                                <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                                [routerLink]="['/main/settings/inboxes/new']" aria-expanded="false" class="fw-light">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -122,7 +116,7 @@
                         <ul class="nested vertical menu">
                             <li *ngFor="let item of listLabel" class="sidebar-item">
                                 <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                                    [routerLink]="['/main/label/',item.id]" aria-expanded="false">
+                                    [routerLink]="['/main/conversations/label/',item.id]" aria-expanded="false">
                                     <span class="badge--label" style="background-color: rgb(11, 240, 138);">
                                     </span>
                                     <span [title]="item.name" class="menu-label button__content text-truncate">
@@ -131,7 +125,8 @@
                                 </a>
                             </li>
                             <li class="menu-item--new">
-                                <a href="/main/settings/labels" class="fw-light">
+                                <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                                [routerLink]="['/main/settings/labels/new']" aria-expanded="false" class="fw-light">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -149,12 +144,11 @@
                 </ul>
             </div>
 
-            <div class="tab-pane fade" id="v-pills-contacts" role="tabpanel" aria-labelledby="v-pills-tab-contacts"
-                tabindex="0">
+            <div *ngIf="tab == 2">
                 <ul class="menu vertical mt-2">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                            routerLink="/main/contacts" aria-expanded="false">
+                            routerLink="/main/contacts/all" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -172,7 +166,7 @@
                         <ul class="nested vertical menu">
                             <li *ngFor="let item of listLabel" class="sidebar-item">
                                 <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                                    [routerLink]="['/main/label/',item.id]" aria-expanded="false">
+                                    [routerLink]="['/main/contacts/label/',item.id]" aria-expanded="false">
                                     <span class="badge--label" style="background-color: rgb(11, 240, 138);">
                                     </span>
                                     <span [title]="item.name" class="menu-label button__content text-truncate">
@@ -182,7 +176,7 @@
                             </li>
                             <li class="menu-item--new">
                                 <a class="fw-light" routerLinkActive="active-secondary"
-                                    [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/settings/labels']"
+                                    [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/settings/labels/new']"
                                     aria-expanded="false">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -201,11 +195,11 @@
                 </ul>
             </div>
 
-            <div class="tab-pane fade" id="v-pills-reports" role="tabpanel" aria-labelledby="v-pills-tab-reports"
-                tabindex="0">
+            <div *ngIf="tab == 3">
                 <ul class="menu vertical mt-2">
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/reports/overview" aria-current="page">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/reports/overview']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -217,7 +211,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/reports/conversation">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/reports/conversation']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -229,7 +224,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/reports/csat">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/reports/csat']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -241,7 +237,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/reports/agent">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/reports/agent']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -253,7 +250,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/reports/label">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/reports/label']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -265,8 +263,10 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/reports/inboxes"><svg width="14" height="14" fill="none"
-                                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/reports/inboxes']" aria-expanded="false">
+                            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <path
                                     d="M6.25 3h11.5a3.25 3.25 0 0 1 3.245 3.066L21 6.25v11.5a3.25 3.25 0 0 1-3.066 3.245L17.75 21H6.25a3.25 3.25 0 0 1-3.245-3.066L3 17.75V6.25a3.25 3.25 0 0 1 3.066-3.245L6.25 3Zm2.075 11.5H4.5v3.25a1.75 1.75 0 0 0 1.606 1.744l.144.006h11.5a1.75 1.75 0 0 0 1.744-1.607l.006-.143V14.5h-3.825a3.752 3.752 0 0 1-3.475 2.995l-.2.005a3.752 3.752 0 0 1-3.632-2.812l-.043-.188Zm9.425-10H6.25a1.75 1.75 0 0 0-1.744 1.606L4.5 6.25V13H9a.75.75 0 0 1 .743.648l.007.102a2.25 2.25 0 0 0 4.495.154l.005-.154a.75.75 0 0 1 .648-.743L15 13h4.5V6.25a1.75 1.75 0 0 0-1.607-1.744L17.75 4.5Zm-11 5h10.5a.75.75 0 0 1 .102 1.493L17.25 11H6.75a.75.75 0 0 1-.102-1.493L6.75 9.5h10.5-10.5Zm0-3h10.5a.75.75 0 0 1 .102 1.493L17.25 8H6.75a.75.75 0 0 1-.102-1.493L6.75 6.5h10.5-10.5Z"
                                     fill="currentColor">
@@ -276,7 +276,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/reports/teams">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/reports/teams']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -290,8 +291,7 @@
                 </ul>
             </div>
 
-            <div class="tab-pane fade" id="v-pills-campaigns" role="tabpanel" aria-labelledby="v-pills-tab-campaigns"
-                tabindex="0">
+            <div *ngIf="tab == 4">
                 <ul class="menu vertical mt-2">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
@@ -307,7 +307,7 @@
                     </li>
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                            routerLink="/main/campaigns/one_off" aria-expanded="false">
+                            routerLink="/main/campaigns/one-off" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -321,8 +321,7 @@
                 </ul>
             </div>
 
-            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-tab-settings"
-                tabindex="0">
+            <div *ngIf="tab == 5">
                 <ul class="menu vertical mt-2">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
@@ -351,9 +350,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/settings/teams/list" routerLinkActive="active-secondary"
-                            [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/settings/teams']"
-                            aria-expanded="false">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/settings/teams']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -391,8 +389,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/settings/custom-attributes/list"
-                            routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/custom-attributes']" aria-expanded="false"><svg width="14"
                                 height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -404,9 +401,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="/app/accounts/81293/settings/automation/list" routerLinkActive="active-secondary"
-                            [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/settings/automation']"
-                            aria-expanded="false">
+                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
+                            [routerLink]="['/main/settings/automation']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path

@@ -11,7 +11,6 @@ import { InboxesComponent } from './conversations/inboxes/inboxes.component';
 import { LabelsComponent } from './conversations/labels/labels.component';
 import { AccountComponent } from './settings/account/account.component';
 import { AgentsComponent } from './settings/agents/agents.component';
-import { TeamsComponent } from './settings/teams/teams.component';
 import { StInboxesComponent } from './settings/st-inboxes/st-inboxes.component';
 import { StLabelsComponent } from './settings/st-labels/st-labels.component';
 import { AttributesComponent } from './settings/attributes/attributes.component';
@@ -24,6 +23,23 @@ import { ApplicationsComponent } from './settings/applications/applications.comp
 import { BillingComponent } from './settings/billing/billing.component';
 import { SharedModule } from '../shared/shared.module';
 import { MenuComponent } from './layout/menu/menu.component';
+import { ContactsComponent } from './contacts/contacts.component';
+import { CampaignsComponent } from './campaigns/campaigns.component';
+import { CtLabelsComponent } from './contacts/ct-labels/ct-labels.component';
+import { OverviewComponent } from './reports/overview/overview.component';
+import { ConversationComponent } from './reports/conversation/conversation.component';
+import { CsatComponent } from './reports/csat/csat.component';
+import { AgentComponent } from './reports/agent/agent.component';
+import { RpLabelComponent } from './reports/rp-label/rp-label.component';
+import { RpInboxesComponent } from './reports/rp-inboxes/rp-inboxes.component';
+import { RpTeamsComponent } from './reports/rp-teams/rp-teams.component';
+import { OngoingComponent } from './campaigns/ongoing/ongoing.component';
+import { OneOffComponent } from './campaigns/one-off/one-off.component';
+import { GeneralComponent } from './settings/general/general.component';
+import { StTeamsComponent } from './settings/st-teams/st-teams.component';
+import { NewLabelComponent } from './settings/st-labels/new-label/new-label.component';
+import { NewTeamComponent } from './settings/st-teams/new-team/new-team.component';
+import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.component';
 
 
 @NgModule({
@@ -39,7 +55,6 @@ import { MenuComponent } from './layout/menu/menu.component';
     //Setting
     AccountComponent,
     AgentsComponent,
-    TeamsComponent,
     StInboxesComponent,
     StLabelsComponent,
     AttributesComponent,
@@ -49,7 +64,24 @@ import { MenuComponent } from './layout/menu/menu.component';
     CannedResponseComponent,
     IntegrationsComponent,
     ApplicationsComponent,
-    BillingComponent
+    BillingComponent,
+    ContactsComponent,
+    CampaignsComponent,
+    CtLabelsComponent,
+    OverviewComponent,
+    ConversationComponent,
+    CsatComponent,
+    AgentComponent,
+    RpLabelComponent,
+    RpInboxesComponent,
+    RpTeamsComponent,
+    OngoingComponent,
+    OneOffComponent,
+    GeneralComponent,
+    StTeamsComponent,
+    NewLabelComponent,
+    NewTeamComponent,
+    NewInboxComponent
   ],
   imports: [
     CommonModule,

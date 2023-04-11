@@ -10,10 +10,11 @@ import { SignupComponent } from './page/signup/signup.component';
 import { ResetPasswordComponent } from './page/reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContactsComponent } from './contacts/contacts.component';
+import { ContactsComponent } from './main/contacts/contacts.component';
 import { ReportsComponent } from './reports/reports.component';
-import { CampaignsComponent } from './campaigns/campaigns.component';
+import { CampaignsComponent } from './main/campaigns/campaigns.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LabelsComponent } from './main/conversations/labels/labels.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ResetPasswordComponent,
     ContactsComponent,
     ReportsComponent,
-    CampaignsComponent
+    CampaignsComponent,
+    LabelsComponent
   ],
   imports: [
     BrowserModule,
