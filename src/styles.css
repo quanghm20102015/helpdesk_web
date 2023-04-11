@@ -1,38 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
-.logo-mini{
+html {
+    font-size: 14px;
+}
+
+.text-middle{
+    align-self: center;
+}
+
+.logo-mini {
     width: auto;
     height: 50px;
 }
 
-ul{
+ul {
     padding: 0;
-    list-style:none;
+    list-style: none;
 }
 
-ul li a{
+ul li a {
     text-decoration: none;
 }
 
-i.pi{
+i.pi {
     font-size: 18px;
 }
 
-.content-left{
+.content-left {
     border-right: 1px solid #f1f5f8;
     width: 400px;
+    min-width: 400px;
 }
 
-input.p-inputtext{
+input.p-inputtext {
     height: 34px;
     width: 100%;
 }
 
-p-dropdown .p-dropdown{
+p-dropdown .p-dropdown {
     height: 34px;
     display: flex;
     align-items: center;
 }
 
-app-dashboard{
+app-dashboard {
     width: 100%;
+}
+
+.p-tabview .p-tabview-panels{
+    padding: 2px !important;
 }

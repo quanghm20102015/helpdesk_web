@@ -24,7 +24,6 @@ import { BillingComponent } from './settings/billing/billing.component';
 import { SharedModule } from '../shared/shared.module';
 import { MenuComponent } from './layout/menu/menu.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { CampaignsComponent } from './campaigns/campaigns.component';
 import { CtLabelsComponent } from './contacts/ct-labels/ct-labels.component';
 import { OverviewComponent } from './reports/overview/overview.component';
 import { ConversationComponent } from './reports/conversation/conversation.component';
@@ -66,7 +65,6 @@ import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.com
     ApplicationsComponent,
     BillingComponent,
     ContactsComponent,
-    CampaignsComponent,
     CtLabelsComponent,
     OverviewComponent,
     ConversationComponent,

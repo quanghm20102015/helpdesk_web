@@ -31,7 +31,20 @@ export class DashboardComponent implements OnInit {
   ]
 
   listChat: any[] = [
-    {inbox: 'Inbox 01', name: 'Phạm Minh', lastChat: 'Rất vui được gặp bạn', from: '', sendDate:'', status: 1}
+    { inbox: '1', name: 'Phạm Minh', lastChat: 'Rất vui được gặp bạn', sendDate: '10:34 20/04/2023', status: 1 },
+    { inbox: '2', name: 'DungXT', lastChat: 'hello', sendDate: '10:34 20/04/2023', status: 1 },
+    { inbox: '3', name: 'Phạm Minh', lastChat: 'Rất vui được gặp bạn', sendDate: '10:34 20/04/2023', status: 1 }
   ]
+
+  listSelectChat: any[] = []
+
+  listContent: any[] = [
+    { content: 'nội dung email' },
+    { content: 'nội dung email' },
+  ]
+
+  onSelectChat(event: any){
+    console.log(event)
+  }
 
 }
