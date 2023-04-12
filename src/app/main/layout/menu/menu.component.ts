@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,18 +8,40 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
-  constructor(private router: Router) { }
+  constructor(private _fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.router.url);
     this.listRouterTab.forEach(item => {
       this.url
-      console.log(this.url.includes(item.uri))
       if (this.url.includes(item.uri)) {
         this.tab = item.tab
       }
     })
+  }
+
+  model: any = { labelName: '', description: '', labelColor: '' };
+  submitted: boolean = false;
+  form: FormGroup = this._fb.group({
+    labelName: [this.model.labelName, [Validators.required]],
+    description: [this.model.description],
+    labelColor: [this.model.labelColor],
+  });
+
+  onSubmit() {
+    this.submitted = true;
+  }
+
+  rebuilForm() {
+    this.form.reset({
+      labelName: this.model.labelName,
+      description: this.model.description,
+      labelColor: this.model.labelColor,
+    });
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   url: string = this.router.url

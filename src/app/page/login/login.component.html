@@ -19,8 +19,8 @@
                         </button>
                     </a>
                 </div> -->
-                <form class="" [formGroup]="form" (ngSubmit)="onSubmit()">
-                    <label class="">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <label>
                         Email
                         <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
                             placeholder="Email eg: someone@example.com" class="form-control mt-1">

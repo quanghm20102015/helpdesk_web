@@ -49,3 +49,32 @@ app-dashboard {
 .p-tabview .p-tabview-panels{
     padding: 2px !important;
 }
+
+*:focus{
+    box-shadow: none !important;
+}
+
+.p-focus{
+    box-shadow: none !important;
+}
+
+.message-read .ck.ck-editor__top.ck-reset_all{
+    display: none !important;
+}
+
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline{
+    border-radius: 10px !important;
+}
+
+.modal-body .input-container{
+    width: 100%;
+    display: grid;
+}
+
+.input-container{
+    margin-bottom: 8px;
+}
+
+.input-container>span{
+    margin-bottom: 4px;
+}

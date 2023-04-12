@@ -1,0 +1,7 @@
+.messages-and-sidebar {
+    min-height: 500px;
+    height: 100vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
+}

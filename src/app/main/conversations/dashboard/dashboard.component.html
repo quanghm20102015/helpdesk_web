@@ -153,10 +153,36 @@
         </div>
     </div>
     <div class="content-right w-100">
-        <div class="card">
-            <h5>Prepopulated List</h5>
-
+        <div class="messages-and-sidebar container" id="box-messages">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="view-box fill-height">
+                        <ul class="conversation-panel">
+                            <ng-template ngFor let-item [ngForOf]="listContent" let-i="index">
+                                <li class="message-read mt-3">
+                                    <div class="activity-wrap">
+                                        <div class="message-text">
+                                            <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.content"
+                                                readonly="true"></ckeditor>
+                                        </div>
+                                        <div class="message-time">
+                                            <span class="time">
+                                                Apr 12, 12:25 AM
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="context-menu-wrap"></div>
+                                </li>
+                            </ng-template>
+                        </ul>
+                        <div class="conversation-footer">
+                            <ckeditor [editor]="Editor" [data]="content"></ckeditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
         <div *ngIf="!listContent || listContent.length == 0"
             class="current-chat d-flex align-items-center justify-content-center" style="min-height: 100vh">
             <div>

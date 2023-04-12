@@ -7,8 +7,8 @@
             </a>
         </div>
         <button class="nav-link menu-item" [ngClass]="{'active': tab == 1}" (click)="setTab(1)"
-            routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
-            routerLink="/main/conversations" aria-expanded="false" title="Conversations">
+            routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" routerLink="/main/conversations"
+            aria-expanded="false" title="Conversations">
             <i class="pi pi-comments"></i>
         </button>
         <button class="nav-link menu-item" [ngClass]="{'active': tab == 2}" (click)="setTab(2)"
@@ -92,7 +92,8 @@
                             </li>
                             <li class="menu-item--new">
                                 <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                                [routerLink]="['/main/settings/inboxes/new']" aria-expanded="false" class="fw-light">
+                                    [routerLink]="['/main/settings/inboxes/new']" aria-expanded="false"
+                                    class="fw-light">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -125,8 +126,7 @@
                                 </a>
                             </li>
                             <li class="menu-item--new">
-                                <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                                [routerLink]="['/main/settings/labels/new']" aria-expanded="false" class="fw-light">
+                                <a class="fw-light" type="button" data-bs-toggle="modal" data-bs-target="#addLabel">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -175,9 +175,7 @@
                                 </a>
                             </li>
                             <li class="menu-item--new">
-                                <a class="fw-light" routerLinkActive="active-secondary"
-                                    [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/settings/labels/new']"
-                                    aria-expanded="false">
+                                <a class="fw-light" type="button" data-bs-toggle="modal" data-bs-target="#addLabel">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -477,4 +475,53 @@
         </div>
     </div>
 
+</div>
+
+
+<div id="addLabel" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add label</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="content-box">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <p>
+                            Labels let you group the conversations together.
+                        </p>
+                        <label class="input-container">
+                            <span>Label Name</span>
+                            <div class="group-input">
+                                <input type="text" pInputText [(ngModel)]="model.labelName" formControlName="labelName"
+                                    placeholder="Label Name" class="form-control">
+                                <div *ngIf="(f['labelName'].dirty || f['labelName'].touched || submitted) && f['labelName'].invalid"
+                                    class="text-danger">
+                                    <div *ngIf="f['labelName'].errors?.['required']">
+                                        Label Name is required
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="input-container">
+                            <span>Description</span>
+                            <div class="group-input">
+                                <input type="text" pInputText [(ngModel)]="model.description"
+                                    formControlName="description" placeholder="Description" class="form-control">
+                            </div>
+                        </label>
+                        <div class="input-container">
+                            <span>Color</span>
+                            <p-colorPicker [(ngModel)]="model.labelColor" formControlName="labelColor"></p-colorPicker>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Create</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>

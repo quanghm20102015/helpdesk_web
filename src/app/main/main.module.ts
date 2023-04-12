@@ -39,6 +39,7 @@ import { StTeamsComponent } from './settings/st-teams/st-teams.component';
 import { NewLabelComponent } from './settings/st-labels/new-label/new-label.component';
 import { NewTeamComponent } from './settings/st-teams/new-team/new-team.component';
 import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.com
     CommonModule,
     MainRoutingModule,
     RouterModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
   ]
 })
 export class MainModule { }
