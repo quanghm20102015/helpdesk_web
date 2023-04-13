@@ -18,13 +18,14 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.listContent.push(this.listContent[1])
-    this.listContent.push(this.listContent[1])
-    this.listContent.push(this.listContent[1])
-    this.listContent.push(this.listContent[1])
-    this.listContent.push(this.listContent[1])
-    this.listContent.push(this.listContent[1])
-    this.listContent.push(this.listContent[1])
+    this.messenger = this.signature
+    this.listMessenger.push(this.listMessenger[1])
+    this.listMessenger.push(this.listMessenger[1])
+    this.listMessenger.push(this.listMessenger[1])
+    this.listMessenger.push(this.listMessenger[1])
+    this.listMessenger.push(this.listMessenger[1])
+    this.listMessenger.push(this.listMessenger[1])
+    this.listMessenger.push(this.listMessenger[1])
 
     this.scrollDemo = document.querySelector("#box-messages");
     this.scrollDemo.addEventListener("scroll", (event: any) => {
@@ -32,15 +33,17 @@ export class DashboardComponent implements OnInit {
         console.log("Scroll end")
       }
     })
-  
+
   }
 
+  readonly: boolean = true
   scrollDemo: any
-  Editor: any = ClassicEditor;
+  Editor: any = ClassicEditor
 
   inputSearch: string = ''
-  content: string = ''
+  messenger: string = ''
   filterStatus: number = 0
+  signature: string = '<p></p><p>--------------------</p><p>Chữ ký: MinhPV</p><p>SĐT: 033 3494 434</p>'
 
   listStatus: Status[] = [
     { code: 1, name: 'Open' },
@@ -58,11 +61,11 @@ export class DashboardComponent implements OnInit {
 
   listSelectChat: any[] = []
 
-  listContent: any[] = [
-    { id: 1, content: 'nội dung email' },
+  listMessenger: any[] = [
+    { id: 1, messenger: 'nội dung email' },
     {
       id: 2,
-      content: `Breaking News:
+      messenger: `Breaking News:
     Our Latest Release is a Game-Changer!
     AFFILIATES WEBINAR | APRIL 20TH, 9:00-10:00 AM (EDT)
      
@@ -101,4 +104,21 @@ export class DashboardComponent implements OnInit {
     console.log(event)
   }
 
+  uploadedFiles: any = []
+  onUpload(event: any) {
+    console.log(event.target.files)
+    for (let file of event.target.files) {
+      this.uploadedFiles.push(file);
+    }
+  }
+
+  remoteFile(item: any){
+
+  }
+
+  sendMessenger(){
+    let request =  { id: 1, messenger: this.messenger }
+    this.listMessenger.push(request)
+    this.messenger = this.signature
+  }
 }
