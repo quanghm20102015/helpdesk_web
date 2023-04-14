@@ -78,6 +78,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 @NgModule({
@@ -164,6 +165,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
     TreeTableModule,
     VirtualScrollerModule,
     FormsModule,
+    CKEditorModule
   ],
   exports: [
     CommonModule,
@@ -245,6 +247,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
     TreeModule,
     TreeTableModule,
     VirtualScrollerModule,
+    CKEditorModule,
   ]
 })
 export class SharedModule { }

@@ -1,9 +1,106 @@
 /* You can add global styles to this file, and also import other style files */
-.logo-mini{
+html {
+    font-size: 14px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.text-middle {
+    align-self: center;
+}
+
+.logo-mini {
     width: auto;
     height: 50px;
 }
 
-ul{
+ul {
     padding: 0;
+    list-style: none;
+}
+
+ul li a {
+    text-decoration: none;
+}
+
+i.pi {
+    font-size: 18px;
+}
+
+.content-left {
+    border-right: 1px solid #f1f5f8;
+    width: 400px;
+    min-width: 400px;
+}
+
+input.p-inputtext {
+    height: 34px;
+    width: 100%;
+}
+
+p-dropdown .p-dropdown {
+    height: 34px;
+    display: flex;
+    align-items: center;
+}
+
+app-dashboard {
+    width: 100%;
+}
+
+.p-tabview .p-tabview-panels {
+    padding: 2px !important;
+}
+
+*:focus {
+    box-shadow: none !important;
+}
+
+.p-focus {
+    box-shadow: none !important;
+}
+
+.message-read .ck.ck-editor__top.ck-reset_all {
+    display: none !important;
+}
+
+.conversation-panel .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline {
+    border-radius: 10px !important;
+}
+
+.conversation-footer .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline {
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+    background: none;
+    min-height: 150px;
+}
+
+.conversation-footer {
+    background: white;
+    border: 1px solid #ccced1;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 2px 6px 2px rgba(60, 64, 67, 0.149);
+}
+
+.ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar,
+.ck.ck-editor__top .ck-sticky-panel .ck-toolbar.ck-rounded-corners {
+    border: none;
+    background: none;
+}
+
+.modal-body .input-container {
+    width: 100%;
+    display: grid;
+}
+
+.input-container {
+    margin-bottom: 8px;
+}
+
+.input-container>span {
+    margin-bottom: 4px;
 }

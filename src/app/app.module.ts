@@ -10,6 +10,9 @@ import { SignupComponent } from './page/signup/signup.component';
 import { ResetPasswordComponent } from './page/reset-password/reset-password.component';
 import { SharedModule } from './shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReportsComponent } from './reports/reports.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomepageComponent,
     LoginComponent,
     SignupComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     FormsModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
