@@ -45,8 +45,8 @@
                             Password is required
                         </div>
                     </div>
-                    <button type="submit" [disabled]="f['email'].status !== 'VALID' || f['password'].status !== 'VALID'"
-                        class="btn btn-primary mt-3 w-100" (click)="login()">
+                    <button type="submit" [disabled]="f['workemail'].status !== 'VALID' || f['password'].status !== 'VALID'"
+                        class="btn btn-primary mt-3 w-100">
                         <span>Login</span>
                     </button>
                 </form>
@@ -66,3 +66,4 @@
         </div>
     </section>
 </main>
+<p-toast></p-toast>

@@ -4,18 +4,22 @@ import { UserService } from '../../service/user.service';
 import * as CryptoJS from 'crypto-js';
 import { EncrDecrService } from '../../service/encr-decr.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
+  providers: [MessageService]
 })
 export class LoginComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
     private userService: UserService,
     private encrdecrService: EncrDecrService,
-    private router: Router) { }
+    private router: Router,
+    private messageService: MessageService) { }
   model: any = {workemail: '', password: ''}
   submitted: boolean = false
   form: FormGroup = this._fb.group({
@@ -31,11 +35,19 @@ export class LoginComponent implements OnInit {
       password: this.encrdecrService.set("mypassword", this.model.password).toString()
     }
 
-    debugger
-    
     this.submitted = true
     this.userService.login(request).subscribe((result) => {
+      if(result.status == 1){
+        this.router.navigate(['main/conversations']);
+      }
+      else{
+        this.showError(result.message);
+      }
     });
+  }
+  
+  showError(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 
 	rebuilForm() {
