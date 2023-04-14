@@ -22,14 +22,14 @@
                 <form class="" [formGroup]="form" (ngSubmit)="onSubmit()">
                     <label class="">
                         Email
-                        <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
+                        <input type="text" pInputText [(ngModel)]="model.workemail" formControlName="workemail"
                             placeholder="Email eg: someone@example.com" class="form-control mt-1">
-                            <div *ngIf="(f['email'].dirty || f['email'].touched || submitted) && f['email'].invalid"
+                            <div *ngIf="(f['workemail'].dirty || f['workemail'].touched || submitted) && f['workemail'].invalid"
                             class="text-danger">
-                            <div *ngIf="f['email'].errors?.['required']">
+                            <div *ngIf="f['workemail'].errors?.['required']">
                                 Email is required
                             </div>
-                            <div *ngIf="f['email'].errors?.['email']">
+                            <div *ngIf="f['workemail'].errors?.['workemail']">
                                 Please enter a valid email
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                             Password is required
                         </div>
                     </div>
-                    <button type="submit" disabled="f['email'].status !== 'VALID' && f['password'].status !== 'VALID'"
+                    <button type="submit"
                         class="btn btn-primary mt-3 w-100">
                         <span>Login</span>
                     </button>

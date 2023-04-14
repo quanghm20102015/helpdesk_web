@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../service/user.service';
+import * as CryptoJS from 'crypto-js';
+import { EncrDecrService } from '../../service/encr-decr.service';
 
 @Component({
   selector: 'app-login',
@@ -8,11 +11,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private _fb: FormBuilder) { }
-  model: any = {email: '', password: ''}
+  constructor(private _fb: FormBuilder,
+    private userService: UserService,
+    private encrdecrService: EncrDecrService) { }
+  model: any = {workemail: '', password: ''}
   submitted: boolean = false
   form: FormGroup = this._fb.group({
-    email: [this.model.email, [Validators.required,Validators.email]],
+    workemail: [this.model.workemail, [Validators.required,Validators.email]],
     password: [this.model.password, [Validators.required]],
   })  
 
@@ -20,12 +25,21 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(){
+    let request = {
+      workemail: this.model.workemail,
+      password: this.encrdecrService.set("mypassword", this.model.password).toString()
+    }
+
+    debugger
+    
     this.submitted = true
+    this.userService.login(request).subscribe((result) => {
+    });
   }
 
 	rebuilForm() {
 		this.form.reset({
-			email: this.model.email,
+			workemail: this.model.workemail,
 			password: this.model.password,
 		})
 	}
