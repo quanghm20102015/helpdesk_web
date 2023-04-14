@@ -1,0 +1,140 @@
+<div class="container">
+    <div class="settings-header">
+        <div class="row bg-white">
+            <div class="col-12 col-header">
+                <h3 class="page-title mb-0">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        class="icon people header--icon">
+                        <path
+                            d="M4 13.999 13 14a2 2 0 0 1 1.995 1.85L15 16v1.5C14.999 21 11.284 22 8.5 22c-2.722 0-6.335-.956-6.495-4.27L2 17.5v-1.501c0-1.054.816-1.918 1.85-1.995L4 14ZM15.22 14H20c1.054 0 1.918.816 1.994 1.85L22 16v1c-.001 3.062-2.858 4-5 4a7.16 7.16 0 0 1-2.14-.322c.336-.386.607-.827.802-1.327A6.19 6.19 0 0 0 17 19.5l.267-.006c.985-.043 3.086-.363 3.226-2.289L20.5 17v-1a.501.501 0 0 0-.41-.492L20 15.5h-4.051a2.957 2.957 0 0 0-.595-1.34L15.22 14H20h-4.78ZM4 15.499l-.1.01a.51.51 0 0 0-.254.136.506.506 0 0 0-.136.253l-.01.101V17.5c0 1.009.45 1.722 1.417 2.242.826.445 2.003.714 3.266.753l.317.005.317-.005c1.263-.039 2.439-.308 3.266-.753.906-.488 1.359-1.145 1.412-2.057l.005-.186V16a.501.501 0 0 0-.41-.492L13 15.5l-9-.001ZM8.5 3a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm9 2a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7Zm-9-.5c-1.654 0-3 1.346-3 3s1.346 3 3 3 3-1.346 3-3-1.346-3-3-3Zm9 2c-1.103 0-2 .897-2 2s.897 2 2 2 2-.897 2-2-.897-2-2-2Z"
+                            fill="currentColor"></path>
+                    </svg>
+                    <span class="ms-2">Agents</span>
+                </h3>
+
+                <button type="submit" class="btn btn-success" (click)="showDialog()">
+                    <span>+ Add Agent</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 profile--settings">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <table class="woot-table">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div title="" class="columns user-thumbnail-box is-rounded"
+                                        style="height: 40px; width: 40px;">
+                                        <img src="./../../../../assets/img/programmer.png"
+                                            class="user-thumbnail thumbnail-rounded">
+                                        <div aria-hidden="true"
+                                            class="avatar-container user-thumbnail  thumbnail-rounded"
+                                            style="font-size: 16px; display: none;">
+                                            TQ
+                                        </div>
+                                        <div class="source-badge user-online-status user-online-status--online"
+                                            style="width: 10px; height: 10px;"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="agent-name">
+                                        Quan Tran Quan
+                                    </span>
+                                    <span>quantq@sgt.com</span>
+                                </td>
+                                <td>
+                                    <span class="agent-name">
+                                        Administrator
+                                    </span>
+                                    <span>
+                                        Verified
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="button-wrapper">
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <span>
+                    <p><b>Agents</b></p>
+                    <p> An <b>Agent</b> is a member of your Customer Support team. </p>
+                    <p> Agents will be able to view and reply to messages from your users. The list shows all agents
+                        currently in your account. </p>
+                    <p> Click on <b>Add Agent</b> to add a new agent. Agent you add will receive an email with a
+                        confirmation link to activate their account, after which they can access Chatwoot and respond to
+                        messages. </p>
+                    <p> Access to Chatwoot's features are based on following roles. </p>
+                    <p> <b>Agent</b> - Agents with this role can only access inboxes, reports and conversations. They
+                        can assign conversations to other agents or themselves and resolve conversations.</p>
+                    <p> <b>Administrator</b> - Administrator will have access to all Chatwoot features enabled for your
+                        account, including settings, along with all of a normal agents' privileges.</p>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<p-dialog header="Add agent to your team" [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <p class="text-secondary">
+        You can add people who will be able to handle support for your inboxes.
+    </p>
+    <form class="row" [formGroup]="form" >
+        <div class="col-md-12">
+            <label class="label-input">                
+                <span class="text-label">Agent Name</span>
+                <input type="text" pInputText [(ngModel)]="model.agentName" formControlName="agentName"
+                    placeholder="Agent Name" class="form-control mt-1">
+                <div *ngIf="(f['agentName'].dirty || f['agentName'].touched || submitted) && f['agentName'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['agentName'].errors?.['required']">
+                        Agent Name is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <span class="text-label">Role</span>
+                <p-dropdown [options]="listRole" [(ngModel)]="model.role" formControlName="role" optionLabel="name"
+                    optionValue="value"></p-dropdown>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <span class="text-label">Email Address</span>
+                <input type="text" pInputText [(ngModel)]="model.workemail" formControlName="workemail"
+                    placeholder="workemail eg: someone@example.com" class="form-control mt-1">
+                <div *ngIf="(f['workemail'].dirty || f['workemail'].touched || submitted) && f['workemail'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['workemail'].errors?.['required']">
+                        Workemail is required
+                    </div>
+                    <div *ngIf="f['workemail'].errors?.['email']">
+                        Please enter a valid email
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt">
+                <button type="submit" class="btn btn-primary" disabled="disabled">
+                    <span>Add Agent</span>
+                </button>
+                <button class="btn btn-secondary ml-2" (click)="display=false" label="Ok">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

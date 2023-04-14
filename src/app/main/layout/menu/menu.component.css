@@ -68,3 +68,8 @@
     color: #1f93ff;
     border-color: #f5faff;
 }
+
+.btn-logout{
+    position: absolute;
+    bottom: 0;
+}

@@ -24,7 +24,7 @@
                         Email
                         <input type="text" pInputText [(ngModel)]="model.workemail" formControlName="workemail"
                             placeholder="Email eg: someone@example.com" class="form-control mt-1">
-                            <div *ngIf="(f['workemail'].dirty || f['workemail'].touched || submitted) && f['workemail'].invalid"
+                        <div *ngIf="(f['workemail'].dirty || f['workemail'].touched || submitted) && f['workemail'].invalid"
                             class="text-danger">
                             <div *ngIf="f['workemail'].errors?.['required']">
                                 Email is required
@@ -45,7 +45,8 @@
                             Password is required
                         </div>
                     </div>
-                    <button type="submit" [disabled]="f['workemail'].status !== 'VALID' || f['password'].status !== 'VALID'"
+                    <button type="submit"
+                        [disabled]="f['workemail'].status !== 'VALID' || f['password'].status !== 'VALID'"
                         class="btn btn-primary mt-3 w-100">
                         <span>Login</span>
                     </button>
