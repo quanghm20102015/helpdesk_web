@@ -1,1 +1,260 @@
-<p>mentions works!</p>
+<div class="d-flex">
+    <div class="content-left">
+        <div class="container">
+            <div class="search-wrap">
+                <div class="search">
+                    <a class="search--link">
+                        <span class="p-input-icon-left py-3 w-100">
+                            <i class="pi pi-search"></i>
+                            <input type="text" pInputText [(ngModel)]="inputSearch" placeholder="Search">
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 title="Mentions" class="page-title">
+                        Mentions
+                    </h3>
+                </div>
+                <div class="col-md-6">
+                    <div class="filter--actions">
+                        <p-dropdown [options]="listStatus" [(ngModel)]="filterStatus" optionLabel="name"
+                            optionValue="code" scrollHeight="300px"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="tab--chat-type tabs--container--with-border tabs--container">
+                <p-tabView>
+                    <p-tabPanel [selected]="true">
+                        <ng-template pTemplate="header">
+                            Mine <span class="badge text-bg-secondary ms-1">4</span>
+                        </ng-template>
+                    </p-tabPanel>
+                    <p-tabPanel header="Header 2">
+                        <ng-template pTemplate="header">
+                            Unassigned<span class="badge text-bg-secondary ms-1">4</span>
+                        </ng-template>
+                    </p-tabPanel>
+                    <p-tabPanel header="Header 3">
+                        <ng-template pTemplate="header">
+                            All<span class="badge text-bg-secondary ms-1">4</span>
+                        </ng-template>
+                    </p-tabPanel>
+                </p-tabView>
+            </div>
+            <div class="bulk-action__container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <label class="d-flex align-items-center">
+                        <input type="checkbox" class="checkbox">
+                        <span class="ps-1">
+                            {{listSelectChat.length}} conversations selected
+                        </span>
+                    </label>
+                    <div class="bulk-action__actions">
+                        <button class="btn" (click)="op1.toggle($event)">
+                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font tag">
+                                <path
+                                    d="M19.75 2A2.25 2.25 0 0 1 22 4.25v5.462a3.25 3.25 0 0 1-.952 2.298l-8.5 8.503a3.255 3.255 0 0 1-4.597.001L3.489 16.06a3.25 3.25 0 0 1-.003-4.596l8.5-8.51A3.25 3.25 0 0 1 14.284 2h5.465Zm0 1.5h-5.465c-.465 0-.91.185-1.239.513l-8.512 8.523a1.75 1.75 0 0 0 .015 2.462l4.461 4.454a1.755 1.755 0 0 0 2.477 0l8.5-8.503a1.75 1.75 0 0 0 .513-1.237V4.25a.75.75 0 0 0-.75-.75ZM17 5.502a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"
+                                    fill="currentColor">
+                                </path>
+                            </svg>
+                        </button>
+                        <button class="btn" (click)="op2.toggle($event)">
+                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font repeat">
+                                <path
+                                    d="m14.712 2.289l-.087-.078a1 1 0 0 0-1.327.078l-.078.087a.999.999 0 0 0 .078 1.326l1.299 1.297H8.999l-.24.004A6.997 6.997 0 0 0 2 11.993a6.94 6.94 0 0 0 1.189 3.899a.999.999 0 0 0 1.626-1.163l-.135-.218A4.997 4.997 0 0 1 9 6.998h5.595l-1.297 1.297l-.078.087a.999.999 0 0 0 1.492 1.326l3.006-3.003l.077-.087a.999.999 0 0 0-.078-1.326l-3.005-3.003Zm6.075 5.771A.999.999 0 0 0 19 8.677c0 .209.064.402.172.561a4.997 4.997 0 0 1-4.17 7.75H9.414l1.294-1.29l.083-.096a1 1 0 0 0-.006-1.23l-.077-.088l-.095-.084a1.001 1.001 0 0 0-1.232.006l-.088.078l-3.005 3.003l-.083.095a1 1 0 0 0 .006 1.231l.077.087l3.005 3.003l.095.084a1 1 0 0 0 1.397-1.41l-.077-.087l-1.304-1.303H15l.24-.003a6.997 6.997 0 0 0 5.546-10.927v.003Z"
+                                    fill="currentColor">
+                                </path>
+                            </svg>
+                        </button>
+                        <button class="btn" (click)="op3.toggle($event)">
+                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font person-assign">
+                                <path
+                                    d="M11.313 15.5a6.471 6.471 0 0 1 .709-1.5h-7.77a2.249 2.249 0 0 0-2.249 2.25v.577c0 .892.319 1.756.899 2.435c1.566 1.834 3.952 2.74 7.098 2.74c.931 0 1.796-.08 2.592-.24a6.51 6.51 0 0 1-.913-1.366c-.524.07-1.083.105-1.68.105c-2.737 0-4.703-.745-5.957-2.213a2.25 2.25 0 0 1-.539-1.461v-.578a.75.75 0 0 1 .75-.749h7.06ZM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7ZM23 17.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0Zm-4.647-2.853a.5.5 0 0 0-.707.707L19.293 17H15a.5.5 0 1 0 0 1h4.293l-1.647 1.647a.5.5 0 0 0 .707.707l2.5-2.5a.497.497 0 0 0 .147-.345V17.5a.498.498 0 0 0-.15-.357l-2.497-2.496Z"
+                                    fill="currentColor">
+                                </path>
+                            </svg>
+                        </button>
+                        <button class="btn" (click)="op4.toggle($event)">
+                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font people-team-add">
+                                <path
+                                    d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11Zm0 2l-.09.007a.5.5 0 0 0-.402.402L17 14.5V17h-2.502l-.09.008a.5.5 0 0 0-.402.402l-.008.09l.008.09a.5.5 0 0 0 .402.402l.09.008H17v2.503l.008.09a.5.5 0 0 0 .402.402l.09.008l.09-.008a.5.5 0 0 0 .402-.402l.008-.09V18l2.504.001l.09-.008a.5.5 0 0 0 .402-.402l.008-.09l-.008-.09a.5.5 0 0 0-.403-.402l-.09-.008H18v-2.5l-.008-.09a.5.5 0 0 0-.402-.403L17.5 14Zm-3.246-4c.835 0 1.563.454 1.951 1.13a6.44 6.44 0 0 0-1.518.509a.736.736 0 0 0-.433-.139H9.752a.75.75 0 0 0-.75.75v4.249c0 1.41.974 2.594 2.286 2.915a6.42 6.42 0 0 0 .735 1.587l-.02-.001a4.501 4.501 0 0 1-4.501-4.501V12.25A2.25 2.25 0 0 1 9.752 10h4.502Zm-6.848 0a3.243 3.243 0 0 0-.817 1.5H4.25a.75.75 0 0 0-.75.75v2.749a2.501 2.501 0 0 0 3.082 2.433c.085.504.24.985.453 1.432A4.001 4.001 0 0 1 2 14.999V12.25a2.25 2.25 0 0 1 2.096-2.245L4.25 10h3.156Zm12.344 0A2.25 2.25 0 0 1 22 12.25v.56A6.478 6.478 0 0 0 17.5 11l-.245.005A3.21 3.21 0 0 0 16.6 10h3.15ZM18.5 4a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5ZM12 3a3 3 0 1 1 0 6a3 3 0 0 1 0-6ZM5.5 4a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Zm13 1.5a1 1 0 1 0 0 2a1 1 0 0 0 0-2Zm-6.5-1a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3Zm-6.5 1a1 1 0 1 0 0 2a1 1 0 0 0 0-2Z"
+                                    fill="currentColor">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="tooltip">
+                    <p-overlayPanel #op1 [showCloseIcon]="true" [style]="{width: '450px'}">
+                        <ng-template pTemplate>
+                            Box 1
+                        </ng-template>
+                    </p-overlayPanel>
+                    <p-overlayPanel #op2 [showCloseIcon]="true" [style]="{width: '450px'}">
+                        <ng-template pTemplate>
+                            Box 2
+                        </ng-template>
+                    </p-overlayPanel>
+                    <p-overlayPanel #op3 [showCloseIcon]="true" [style]="{width: '450px'}">
+                        <ng-template pTemplate>
+                            Box 3
+                        </ng-template>
+                    </p-overlayPanel>
+                    <p-overlayPanel #op4 [showCloseIcon]="true" [style]="{width: '450px'}">
+                        <ng-template pTemplate>
+                            Box 4
+                        </ng-template>
+                    </p-overlayPanel>
+                </div>
+                <div class="bulk-action__alert">
+                    Conversations visible on this page are only selected.
+                </div>
+            </div>
+            <p *ngIf="!listChat || listChat.length == 0" class="content-box">
+                There are no active conversations in this group.
+            </p>
+            <div class="conversations-list">
+                <p-table [value]="listChat" [(selection)]="listSelectChat" dataKey="inbox" [paginator]="true" [rows]="5"
+                    [selectionPageOnly]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="single">
+                    <!-- <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 4rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th style="min-width:200px">Code</th>
+                        </tr>
+                    </ng-template> -->
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td style="width:30px">
+                                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                            </td>
+                            <td>
+                                <div class="d-flex justify-content-between">
+                                    <div class="box-left">
+                                        <div class="fw-bold">{{item.name}}</div>
+                                        <div>{{item.lastChat}}</div>
+                                    </div>
+                                    <div class="box-right text-middle">
+                                        <div>{{item.sendDate}}</div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="content-right w-100">
+        <div class="conv-header container row">
+            <div class="conversation-header--details col-md-12">
+                <div class="user d-flex">
+                    <div class="user--profile__meta">
+                        <h4 class="sub-block-title user--name text-truncate mb-0">Minh Pham</h4>
+                        <div class="conversation--header--actions text-truncate">
+                            <div class="inbox--name">
+                                Minhtmu_bot
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header-actions-wrap has-open-sidebar">
+                    <div class="d-flex actions--container">
+                        <button type="submit" class="btn btn-outline-secondary border-0 me-2" data-original-title="null">
+                            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font speaker-mute">
+                                <path
+                                    d="M12.92 3.316c.806-.717 2.08-.145 2.08.934v15.496c0 1.078-1.274 1.65-2.08.934l-4.492-3.994a.75.75 0 0 0-.498-.19H4.25A2.25 2.25 0 0 1 2 14.247V9.75a2.25 2.25 0 0 1 2.25-2.25h3.68a.75.75 0 0 0 .498-.19l4.491-3.993Zm.58 1.49L9.425 8.43A2.25 2.25 0 0 1 7.93 9H4.25a.75.75 0 0 0-.75.75v4.497c0 .415.336.75.75.75h3.68a2.25 2.25 0 0 1 1.495.57l4.075 3.623V4.807ZM16.22 9.22a.75.75 0 0 1 1.06 0L19 10.94l1.72-1.72a.75.75 0 1 1 1.06 1.06L20.06 12l1.72 1.72a.75.75 0 1 1-1.06 1.06L19 13.06l-1.72 1.72a.75.75 0 1 1-1.06-1.06L17.94 12l-1.72-1.72a.75.75 0 0 1 0-1.06Z"
+                                    fill="currentColor"></path>
+                            </svg>
+                        </button>
+                        <button type="submit" class="btn btn-outline-secondary border-0 me-2">
+                            <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font share">
+                                <path
+                                    d="M6.747 4h3.464a.75.75 0 0 1 .102 1.493l-.102.007H6.747a2.25 2.25 0 0 0-2.245 2.096l-.005.154v9.5a2.25 2.25 0 0 0 2.096 2.245l.154.005h9.5a2.25 2.25 0 0 0 2.245-2.096l.005-.154v-.498a.75.75 0 0 1 1.494-.101l.006.101v.498a3.75 3.75 0 0 1-3.55 3.745l-.2.005h-9.5a3.75 3.75 0 0 1-3.745-3.55l-.005-.2v-9.5a3.75 3.75 0 0 1 3.55-3.745l.2-.005h3.464-3.464ZM14.5 6.52V3.75a.75.75 0 0 1 1.187-.61l.082.069 5.994 5.75c.28.268.306.7.077.997l-.077.085-5.994 5.752a.75.75 0 0 1-1.262-.434l-.007-.107v-2.725l-.344.03c-2.4.25-4.7 1.33-6.914 3.26-.52.453-1.323.025-1.237-.658.664-5.32 3.446-8.252 8.195-8.62l.3-.02V3.75v2.77ZM16 5.509V7.25a.75.75 0 0 1-.75.75c-3.874 0-6.274 1.676-7.312 5.157l-.079.279.352-.237C10.45 11.737 12.798 11 15.251 11a.75.75 0 0 1 .743.648l.007.102v1.743L20.16 9.5l-4.16-3.991Z"
+                                    fill="currentColor">
+                                </path>
+                            </svg>
+                        </button>
+                        <div class="resolve-actions" status="open">
+                            <div class="button-group">
+                                <button type="submit" class="btn btn-success"><svg width="16" height="16" fill="none"
+                                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon--font checkmark">
+                                        <path
+                                            d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
+                                            fill="currentColor">
+                                        </path>
+                                    </svg>
+                                    <span class="button__content">
+                                        Resolve
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="messages-and-sidebar container" id="box-messages">
+            <div class="row">
+                <div class="col-md-12 bg-light">
+                    <div class="view-box fill-height">
+                        <ul class="conversation-panel">
+                            <ng-template ngFor let-item [ngForOf]="listMessenger" let-i="index">
+                                <li class="message-read mt-3">
+                                    <div class="activity-wrap">
+                                        <div class="message-text">
+                                            <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
+                                                [disabled]="readonly"></ckeditor>
+                                        </div>
+                                        <div class="message-time">
+                                            <span class="time">
+                                                Apr 12, 12:25 AM
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="context-menu-wrap"></div>
+                                </li>
+                            </ng-template>
+                        </ul>
+                        <div class="conversation-footer">
+                            <ckeditor [editor]="Editor" [(ngModel)]="messenger" [data]="signature"></ckeditor>
+                            <div class="groupt-submit mb-3 ms-3">
+                                <div class="btn-groupt d-flex align-items-center">
+                                    <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()">Send</button>
+                                    <label for="attachment" class="text-secondary me-2">
+                                        <i class="pi pi-paperclip"></i>
+                                    </label>
+                                    <input type="file" name="file[]" id="attachment" (change)="onUpload($event)"
+                                        style="visibility: hidden; position: absolute;" multiple />
+                                    <div>
+                                        <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!listMessenger || listMessenger.length == 0"
+            class="current-chat d-flex align-items-center justify-content-center" style="min-height: 100vh">
+            <div>
+                <img src="//d3tq67kexc2w2i.cloudfront.net/packs/media/dashboard/assets/images/chat-a06542d766feaecc071c3a2b77f313e8.svg"
+                    alt="No Chat" style="width: 100px">
+                <span>Please select a conversation from left pane</span>
+            </div>
+        </div>
+    </div>
+
+</div>

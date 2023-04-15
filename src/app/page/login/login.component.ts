@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit {
     password: [this.model.password, [Validators.required]],
   });
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.rebuilForm();
+  }
 
   onSubmit(){
     let request = {
@@ -55,6 +57,7 @@ export class LoginComponent implements OnInit {
 			workemail: this.model.workemail,
 			password: this.model.password,
 		})
+    debugger
 	}
   
 	get f() {

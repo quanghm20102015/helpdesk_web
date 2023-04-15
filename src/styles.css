@@ -104,3 +104,7 @@ app-dashboard {
 .input-container>span {
     margin-bottom: 4px;
 }
+
+app-contacts {
+    width: 100%;
+}
