@@ -18,7 +18,6 @@ import { RpTeamsComponent } from './reports/rp-teams/rp-teams.component';
 import { OngoingComponent } from './campaigns/ongoing/ongoing.component';
 import { OneOffComponent } from './campaigns/one-off/one-off.component';
 import { GeneralComponent } from './settings/general/general.component';
-import { AgentsComponent } from './settings/agents/agents.component';
 import { StTeamsComponent } from './settings/st-teams/st-teams.component';
 import { StInboxesComponent } from './settings/st-inboxes/st-inboxes.component';
 import { StLabelsComponent } from './settings/st-labels/st-labels.component';
@@ -30,6 +29,7 @@ import { BillingComponent } from './settings/billing/billing.component';
 import { NewTeamComponent } from './settings/st-teams/new-team/new-team.component';
 import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.component';
 import { NewLabelComponent } from './settings/st-labels/new-label/new-label.component';
+import { StAgentsComponent } from './settings/st-agents/st-agents.component';
 
 const routes: Routes = [
   {
@@ -62,7 +62,7 @@ const routes: Routes = [
 
       { path: 'settings', redirectTo: 'settings/general', pathMatch: 'full' },
       { path: 'settings/general', component: GeneralComponent },
-      { path: 'settings/agents', component: AgentsComponent },
+      { path: 'settings/agents', component: StAgentsComponent },
       { path: 'settings/teams', component: StTeamsComponent },
       { path: 'settings/teams/new', component: NewTeamComponent },
       { path: 'settings/inboxes', component: StInboxesComponent },

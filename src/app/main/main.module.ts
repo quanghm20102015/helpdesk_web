@@ -10,7 +10,6 @@ import { UnattendedComponent } from './conversations/unattended/unattended.compo
 import { InboxesComponent } from './conversations/inboxes/inboxes.component';
 import { LabelsComponent } from './conversations/labels/labels.component';
 import { AccountComponent } from './settings/account/account.component';
-import { AgentsComponent } from './settings/agents/agents.component';
 import { StInboxesComponent } from './settings/st-inboxes/st-inboxes.component';
 import { StLabelsComponent } from './settings/st-labels/st-labels.component';
 import { AttributesComponent } from './settings/attributes/attributes.component';
@@ -40,6 +39,7 @@ import { NewLabelComponent } from './settings/st-labels/new-label/new-label.comp
 import { NewTeamComponent } from './settings/st-teams/new-team/new-team.component';
 import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StAgentsComponent } from './settings/st-agents/st-agents.component';
 
 
 @NgModule({
@@ -54,7 +54,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LabelsComponent,
     //Setting
     AccountComponent,
-    AgentsComponent,
+    StAgentsComponent,
     StInboxesComponent,
     StLabelsComponent,
     AttributesComponent,
