@@ -13,6 +13,10 @@ export class StAgentsComponent implements OnInit {
     { value: 1, name: 'Administrator' },
     { value: 2, name: 'Agents' },
   ]
+  listData: any = [
+    { name: 'Tran Quan Dan', workemail: 'quantq@sgt.com', role: 1, roleName: 'Administrator', verified: true },
+    { name: 'Nguyen Thi Ha', workemail: 'hant@sgt.com', role: 2, roleName: 'Agents', verified: false },
+  ]
   model: any = { agentName: '', role: null, workemail: '' }
   submitted: boolean = false
   passwordDecrypt: any

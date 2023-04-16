@@ -16,6 +16,10 @@ export class StTeamsComponent implements OnInit {
     teamName: [this.model.teamName, [Validators.required]],
     teamDescription: [this.model.teamDescription],
   })
+  listData: any = [
+    { name: 'Team content', description: 'Team for content' },
+    { name: 'Team sale', description: 'Team for sale' },
+  ]
 
   ngOnInit(): void {
     this.rebuilForm();

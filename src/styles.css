@@ -177,3 +177,26 @@ app-dashboard {
 app-contacts {
     width: 100%;
 }
+
+.p-datatable .p-datatable-thead > tr > th{
+    background: whitesmoke;
+} 
+
+.agent-name{
+    display: block;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+input.p-colorpicker-preview.p-inputtext.ng-star-inserted{
+    width: 18px;
+    height: 18px;
+}
+
+.p-colorpicker .p-disabled,.p-colorpicker .p-component:disabled{
+    opacity: 1;
+}
+
+.p-dialog .p-dialog-content{
+    overflow: inherit;
+}
