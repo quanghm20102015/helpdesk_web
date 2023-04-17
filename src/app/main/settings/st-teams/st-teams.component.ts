@@ -9,12 +9,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class StTeamsComponent implements OnInit {
   constructor(private _fb: FormBuilder) { }
   display: boolean = false;
-  model: any = { teamName: '', teamDescription: '' }
+  model: any = { name: '', description: '' }
   submitted: boolean = false
   passwordDecrypt: any
   form: FormGroup = this._fb.group({
-    teamName: [this.model.teamName, [Validators.required]],
-    teamDescription: [this.model.teamDescription],
+    name: [this.model.name, [Validators.required]],
+    description: [this.model.description],
   })
   listData: any = [
     { name: 'Team content', description: 'Team for content' },
@@ -27,8 +27,8 @@ export class StTeamsComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      teamName: this.model.teamName,
-      teamDescription: this.model.teamDescription
+      name: this.model.name,
+      description: this.model.description
     })
   }
 

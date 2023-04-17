@@ -20,12 +20,15 @@ export class MenuComponent implements OnInit {
     })
   }
 
-  model: any = { labelName: '', description: '', labelColor: '' };
+  display: boolean = false
+
+  model: any = { name: '', description: '', color: '#000000',showSidebar: false };
   submitted: boolean = false;
   form: FormGroup = this._fb.group({
-    labelName: [this.model.labelName, [Validators.required]],
+    name: [this.model.name, [Validators.required]],
     description: [this.model.description],
-    labelColor: [this.model.labelColor],
+    color: [this.model.color],
+    showSidebar: [this.model.showSidebar],
   });
 
   onSubmit() {
@@ -34,9 +37,10 @@ export class MenuComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      labelName: this.model.labelName,
+      name: this.model.name,
       description: this.model.description,
-      labelColor: this.model.labelColor,
+      color: this.model.color,
+      showSidebar: this.model.showSidebar,
     });
   }
 

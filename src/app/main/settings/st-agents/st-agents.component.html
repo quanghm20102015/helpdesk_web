@@ -87,20 +87,27 @@
 
 </div>
 
-<p-dialog header="Add agent to your team" [(visible)]="display" [modal]="true" class="box-dialog"
+<p-dialog [(visible)]="display" [modal]="true" class="box-dialog"
     [style]="{width: '513px'}">
-    <p class="text-secondary">
-        You can add people who will be able to handle support for your inboxes.
-    </p>
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Add agent to your team
+            </p>
+            <p class="text-secondary">
+                You can add people who will be able to handle support for your inboxes.
+            </p>
+        </div>
+    </ng-template>
     <form class="row" [formGroup]="form">
         <div class="col-md-12">
             <label class="label-input">
                 <span class="text-label">Agent Name</span>
-                <input type="text" pInputText [(ngModel)]="model.agentName" formControlName="agentName"
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
                     placeholder="Agent Name" class="form-control mt-1">
-                <div *ngIf="(f['agentName'].dirty || f['agentName'].touched || submitted) && f['agentName'].invalid"
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
                     class="text-danger">
-                    <div *ngIf="f['agentName'].errors?.['required']">
+                    <div *ngIf="f['name'].errors?.['required']">
                         Agent Name is required
                     </div>
                 </div>
@@ -131,7 +138,7 @@
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" disabled="disabled">
+                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors || f['workemail'].errors">
                     <span>Add Agent</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false" label="Ok">

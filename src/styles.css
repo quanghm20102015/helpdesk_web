@@ -189,8 +189,8 @@ app-contacts {
 }
 
 input.p-colorpicker-preview.p-inputtext.ng-star-inserted{
-    width: 18px;
-    height: 18px;
+    width: 25px;
+    height: 25px;
 }
 
 .p-colorpicker .p-disabled,.p-colorpicker .p-component:disabled{

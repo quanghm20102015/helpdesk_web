@@ -1,92 +1,93 @@
-<div class="row">
-    <div class="col-md-6">
-        <h3 title="Contacts" class="page-title p-10">
-            Contacts
-        </h3>
-    </div>
-    <div class="col-md-3">
-        <div class="search-wrap">
-            <div class="search">
-                <a class="search--link">
-                    <span class="p-input-icon-left py-3 w-100">
-                        <i class="pi pi-search"></i>
-                        <input type="text" pInputText [(ngModel)]="inputSearch" placeholder="Search">
-                    </span>
-                </a>
+<div class="container-fulid p-3" style="overflow: hidden">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 title="Contacts" class="page-title p-10">
+                Contacts
+            </h3>
+        </div>
+        <div class="col-md-3">
+            <div class="search-wrap">
+                <div class="search">
+                    <a class="search--link">
+                        <span class="p-input-icon-left py-3 w-100">
+                            <i class="pi pi-search"></i>
+                            <input type="text" pInputText [(ngModel)]="inputSearch" placeholder="Search">
+                        </span>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3 d-flex">
-        <button class="transparent" type="submit"><svg data-v-2beb9cd3="" width="16" height="16" fill="none"
-                viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon icon--font filter">
-                <path
-                    d="M13.5 16a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h3Zm3-5a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1 0-1.5h9Zm3-5a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1 0-1.5h15Z"
-                    fill="currentColor"></path>
-            </svg>
-            <span class="button__content">
-                Filter
-            </span>
-        </button>
+        <div class="col-md-3 d-flex">
+            <button class="transparent" type="submit"><svg data-v-2beb9cd3="" width="16" height="16" fill="none"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon icon--font filter">
+                    <path
+                        d="M13.5 16a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h3Zm3-5a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1 0-1.5h9Zm3-5a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1 0-1.5h15Z"
+                        fill="currentColor"></path>
+                </svg>
+                <span class="button__content">
+                    Filter
+                </span>
+            </button>
 
-        <button class="transparent-contact" type="submit" (click)="createContact()"><svg data-v-2beb9cd3="" width="16"
-                height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                class="icon icon--font person-add">
-                <path
-                    d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11zm-5.477 2a6.47 6.47 0 0 0-.709 1.5H4.253a.749.749 0 0 0-.75.75v.577c0 .535.192 1.053.54 1.46c1.253 1.469 3.22 2.214 5.957 2.214c.597 0 1.157-.035 1.68-.106c.246.495.553.954.912 1.367c-.795.16-1.66.24-2.592.24c-3.146 0-5.532-.906-7.098-2.74a3.75 3.75 0 0 1-.898-2.435v-.578A2.249 2.249 0 0 1 4.253 14h7.77zm5.477 0l-.09.008a.5.5 0 0 0-.402.402L17 14.5V17h-2.496l-.09.008a.5.5 0 0 0-.402.402l-.008.09l.008.09a.5.5 0 0 0 .402.402l.09.008H17L17 20.5l.008.09a.5.5 0 0 0 .402.402l.09.008l.09-.008a.5.5 0 0 0 .402-.402L18 20.5V18h2.504l.09-.008a.5.5 0 0 0 .402-.402l.008-.09l-.008-.09a.5.5 0 0 0-.402-.402l-.09-.008H18L18 14.5l-.008-.09a.5.5 0 0 0-.402-.402L17.5 14zM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7z"
-                    fill="currentColor"></path>
-            </svg>
-            <span class="button__content">
-                New Contact
-            </span>
-        </button>
-        <button class="transparent-import" type="submit" (click)="import()"><svg data-v-2beb9cd3="" width="16"
-                height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                class="icon icon--font upload">
-                <path
-                    d="M6.087 7.75a5.752 5.752 0 0 1 11.326 0h.087a4 4 0 0 1 3.962 4.552 6.534 6.534 0 0 0-1.597-1.364A2.501 2.501 0 0 0 17.5 9.25h-.756a.75.75 0 0 1-.75-.713 4.25 4.25 0 0 0-8.489 0 .75.75 0 0 1-.749.713H6a2.5 2.5 0 0 0 0 5h4.4a6.458 6.458 0 0 0-.357 1.5H6a4 4 0 0 1 0-8h.087ZM22 16.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0Zm-6-1.793V19.5a.5.5 0 0 0 1 0v-4.793l1.646 1.647a.5.5 0 0 0 .708-.708l-2.5-2.5a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 0 0 .708.708L16 14.707Z"
-                    fill="currentColor"></path>
-            </svg>
-            <span class="button__content">
-                Import
-            </span>
-        </button>
+            <button class="transparent-contact" type="submit" (click)="createContact()"><svg data-v-2beb9cd3=""
+                    width="16" height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon--font person-add">
+                    <path
+                        d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11zm-5.477 2a6.47 6.47 0 0 0-.709 1.5H4.253a.749.749 0 0 0-.75.75v.577c0 .535.192 1.053.54 1.46c1.253 1.469 3.22 2.214 5.957 2.214c.597 0 1.157-.035 1.68-.106c.246.495.553.954.912 1.367c-.795.16-1.66.24-2.592.24c-3.146 0-5.532-.906-7.098-2.74a3.75 3.75 0 0 1-.898-2.435v-.578A2.249 2.249 0 0 1 4.253 14h7.77zm5.477 0l-.09.008a.5.5 0 0 0-.402.402L17 14.5V17h-2.496l-.09.008a.5.5 0 0 0-.402.402l-.008.09l.008.09a.5.5 0 0 0 .402.402l.09.008H17L17 20.5l.008.09a.5.5 0 0 0 .402.402l.09.008l.09-.008a.5.5 0 0 0 .402-.402L18 20.5V18h2.504l.09-.008a.5.5 0 0 0 .402-.402l.008-.09l-.008-.09a.5.5 0 0 0-.402-.402l-.09-.008H18L18 14.5l-.008-.09a.5.5 0 0 0-.402-.402L17.5 14zM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7z"
+                        fill="currentColor"></path>
+                </svg>
+                <span class="button__content">
+                    New Contact
+                </span>
+            </button>
+            <button class="transparent-import" type="submit" (click)="import()"><svg data-v-2beb9cd3="" width="16"
+                    height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                    class="icon icon--font upload">
+                    <path
+                        d="M6.087 7.75a5.752 5.752 0 0 1 11.326 0h.087a4 4 0 0 1 3.962 4.552 6.534 6.534 0 0 0-1.597-1.364A2.501 2.501 0 0 0 17.5 9.25h-.756a.75.75 0 0 1-.75-.713 4.25 4.25 0 0 0-8.489 0 .75.75 0 0 1-.749.713H6a2.5 2.5 0 0 0 0 5h4.4a6.458 6.458 0 0 0-.357 1.5H6a4 4 0 0 1 0-8h.087ZM22 16.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0Zm-6-1.793V19.5a.5.5 0 0 0 1 0v-4.793l1.646 1.647a.5.5 0 0 0 .708-.708l-2.5-2.5a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 0 0 .708.708L16 14.707Z"
+                        fill="currentColor"></path>
+                </svg>
+                <span class="button__content">
+                    Import
+                </span>
+            </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p-table [value]="contacts" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>NAME</th>
+                        <th>EMAIL ADDRESS</th>
+                        <th>PHONE NUMBER</th>
+                        <th>COMPANY</th>
+                        <th>CITY</th>
+                        <th>COUNTRY</th>
+                        <th>SOCIAL PROFILES</th>
+                        <th>LAST ACTIVITY</th>
+                        <th>CREATE AT</th>
+                        <th>CONVERSATIONS</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-contact>
+                    <tr>
+                        <td>{{ contact.name }}</td>
+                        <td>{{ contact.emailAddress }}</td>
+                        <td>{{ contact.phoneNumber }}</td>
+                        <td>{{ contact.company }}</td>
+                        <td>{{ contact.city }}</td>
+                        <td>{{ contact.country }}</td>
+                        <td>{{ contact.socialProfiles }}</td>
+                        <td>{{ contact.lastActivity }}</td>
+                        <td>{{ contact.createAt }}</td>
+                        <td>{{ contact.conversations }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </div>
 </div>
-<div class="row p-10">
-    <div class="">
-        <p-table [value]="contacts" [tableStyle]="{ 'min-width': '50rem' }">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>NAME</th>
-                    <th>EMAIL ADDRESS</th>
-                    <th>PHONE NUMBER</th>
-                    <th>COMPANY</th>
-                    <th>CITY</th>
-                    <th>COUNTRY</th>
-                    <th>SOCIAL PROFILES</th>
-                    <th>LAST ACTIVITY</th>
-                    <th>CREATE AT</th>
-                    <th>CONVERSATIONS</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-contact>
-                <tr>
-                    <td>{{ contact.name }}</td>
-                    <td>{{ contact.emailAddress }}</td>
-                    <td>{{ contact.phoneNumber }}</td>
-                    <td>{{ contact.company }}</td>
-                    <td>{{ contact.city }}</td>
-                    <td>{{ contact.country }}</td>
-                    <td>{{ contact.socialProfiles }}</td>
-                    <td>{{ contact.lastActivity }}</td>
-                    <td>{{ contact.createAt }}</td>
-                    <td>{{ contact.conversations }}</td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-</div>
-
 
 <div id="newCOntact" class="modal" tabindex="-1">
     <div class="modal-dialog">

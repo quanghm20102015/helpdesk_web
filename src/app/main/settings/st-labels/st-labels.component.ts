@@ -9,12 +9,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class StLabelsComponent implements OnInit {
   constructor(private _fb: FormBuilder) { }
   display: boolean = false;
-  model: any = { labelName: '', labelDescription: '', color: '#000000',showSidebar: false }
+  model: any = { name: '', description: '', color: '#000000',showSidebar: false }
   submitted: boolean = false
   passwordDecrypt: any
   form: FormGroup = this._fb.group({
-    labelName: [this.model.labelName, [Validators.required]],
-    labelDescription: [this.model.labelDescription],
+    name: [this.model.name, [Validators.required]],
+    description: [this.model.description],
     color: [this.model.color],
     showSidebar: [this.model.showSidebar],
   })
@@ -29,8 +29,8 @@ export class StLabelsComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      labelName: this.model.labelName,
-      labelDescription: this.model.labelDescription, 
+      name: this.model.name,
+      description: this.model.description, 
       color: this.model.color, 
       showSidebar: this.model.showSidebar, 
     })

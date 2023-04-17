@@ -55,10 +55,12 @@
             </div>
             <div class="col-md-4">
                 <span>
-                    <p><b>Teams</b></p>
-                    <p>Teams let you organize your agents into groups based on their responsibilities. <br> An agent can
-                        be part of multiple teams. You can assign conversations to a team when you are working
-                        collaboratively. </p>
+                    <p><b>Labels</b> </p>
+                    <p>Labels help you to categorize conversations and prioritize them. You can assign label to a
+                        conversation from the sidepanel. <br><br>Labels are tied to the account and can be used to
+                        create custom workflows in your organization. You can assign custom color to a label, it makes
+                        it easier to identify the label. You will be able to display the label on the sidebar to filter
+                        the conversations easily.</p>
                 </span>
             </div>
         </div>
@@ -67,20 +69,27 @@
 
 </div>
 
-<p-dialog header="Add label" [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
-    <p class="text-secondary">
-        Labels let you group the conversations together.
-    </p>
+<p-dialog [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Add label
+            </p>
+            <p class="text-secondary">
+                Labels let you group the conversations together.
+            </p>
+        </div>
+    </ng-template>
     <form class="row" [formGroup]="form">
         <div class="col-md-12">
             <label class="label-input">
                 <div class="text-label">Label Name</div>
-                <input type="text" pInputText [(ngModel)]="model.labelName" formControlName="labelName"
-                    placeholder="Example: Sales, Customer Support" class="form-control mt-1">
-                <div *ngIf="(f['labelName'].dirty || f['labelName'].touched || submitted) && f['labelName'].invalid"
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name" placeholder="Label Name"
+                    class="form-control mt-1">
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
                     class="text-danger">
-                    <div *ngIf="f['labelName'].errors?.['required']">
-                        Team name is required
+                    <div *ngIf="f['name'].errors?.['required']">
+                        Label name is required
                     </div>
                 </div>
             </label>
@@ -88,8 +97,8 @@
         <div class="col-md-12">
             <label class="label-input">
                 <div class="text-label">Description</div>
-                <input type="text" pInputText [(ngModel)]="model.labelDescription" formControlName="labelDescription"
-                    placeholder="Label Name" class="form-control mt-1">
+                <input type="text" pInputText [(ngModel)]="model.description" formControlName="description"
+                    placeholder="Label Description" class="form-control mt-1">
             </label>
         </div>
         <div class="col-md-12">
@@ -100,12 +109,13 @@
         </div>
         <div class="col-md-12">
             <label class="label-input">
-                <p-checkbox [(ngModel)]="model.showSidebar" [binary]="true" label="Show label on sidebar" formControlName="showSidebar"></p-checkbox>
+                <p-checkbox [(ngModel)]="model.showSidebar" [binary]="true" label="Show label on sidebar"
+                    formControlName="showSidebar"></p-checkbox>
             </label>
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" disabled="disabled">
+                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
                     <span>Create</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false">

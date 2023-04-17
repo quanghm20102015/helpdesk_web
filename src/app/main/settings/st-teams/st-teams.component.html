@@ -62,19 +62,26 @@
 
 </div>
 
-<p-dialog header="Create a new team" [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
-    <p class="text-secondary">
-        Add a title and description to your new team.
-    </p>
+<p-dialog [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Create a new team
+            </p>
+            <p class="text-secondary">
+                Add a title and description to your new team.
+            </p>
+        </div>
+    </ng-template>
     <form class="row" [formGroup]="form">
         <div class="col-md-12">
             <label class="label-input">
                 <span class="text-label">Team name</span>
-                <input type="text" pInputText [(ngModel)]="model.teamName" formControlName="teamName"
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
                     placeholder="Example: Sales, Customer Support" class="form-control mt-1">
-                <div *ngIf="(f['teamName'].dirty || f['teamName'].touched || submitted) && f['teamName'].invalid"
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
                     class="text-danger">
-                    <div *ngIf="f['teamName'].errors?.['required']">
+                    <div *ngIf="f['name'].errors?.['required']">
                         Team name is required
                     </div>
                 </div>
@@ -83,13 +90,13 @@
         <div class="col-md-12">
             <label class="label-input">
                 <span class="text-label">Team description</span>
-                <input type="text" pInputText [(ngModel)]="model.teamDescription" formControlName="teamDescription"
+                <input type="text" pInputText [(ngModel)]="model.description" formControlName="description"
                     placeholder="Agent Name" class="form-control mt-1">
             </label>
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" disabled="disabled">
+                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
                     <span>Add Team</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false" label="Ok">

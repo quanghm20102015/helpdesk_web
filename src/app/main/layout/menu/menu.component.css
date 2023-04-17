@@ -1,10 +1,10 @@
-#menu{
+#menu {
     width: 64px;
     min-height: 100vh;
     overflow: hidden;
 }
 
-.primary--sidebar{
+.primary--sidebar {
     display: flex;
     flex-direction: column;
     width: 64px;
@@ -14,7 +14,7 @@
     flex-shrink: 0;
 }
 
-.secondary-sidebar{
+.secondary-sidebar {
     display: flex;
     flex-direction: column;
     width: 200px;
@@ -25,7 +25,7 @@
     background: white;
 }
 
-.primary--sidebar .menu-item{
+.primary--sidebar .menu-item {
     width: 40px;
     height: 40px;
     margin: 10px 0px;
@@ -34,42 +34,61 @@
     align-items: center;
 }
 
-.secondary-sidebar .sidebar-item{
+.secondary-sidebar .sidebar-item {
     padding: 0px 5px;
     display: flex;
 }
 
 .secondary-sidebar .sidebar-item a,
-.secondary-sidebar .sidebar-item .secondary-menu--wrap{
+.secondary-sidebar .sidebar-item .secondary-menu--wrap {
     width: 100%;
     padding: 8px;
     color: #37546D;
 }
 
 .sidebar-item .sidebar-item a,
-.menu-item--new a{
+.menu-item--new a {
     padding: 4px 8px !important;
 }
 
-.menu-item--new{
+.menu-item--new {
     display: flex;
     font-size: 13px;
 }
 
-.sidebar-item .fw-semibold{
+.sidebar-item .fw-semibold {
     padding: 0px 8px;
 }
 
 
 
 .tab-content .sidebar-item .active-secondary,
-.tab-content .sidebar-item a:hover{
+.tab-content .sidebar-item a:hover {
     background: #f5faff;
     color: #1f93ff;
     border-color: #f5faff;
 }
 
-.btn-logout{
+.btn-bottom {
     position: absolute;
     bottom: 0;
+    border-radius: 50%;
+}
+
+.status-items {
+    margin-top: 0.5rem;
+}
+
+.status-items i {
+    font-size: 12px;
+}
+
+.dropdown-menu__item .btn {
+    width: 100%;
+}
+
+.dropdown-menu__item:hover {
+    background: #f5faff;
+    color: #1f93ff;
+    border-color: #f5faff;
 }

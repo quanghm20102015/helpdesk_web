@@ -30,6 +30,7 @@ import { NewTeamComponent } from './settings/st-teams/new-team/new-team.componen
 import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.component';
 import { NewLabelComponent } from './settings/st-labels/new-label/new-label.component';
 import { StAgentsComponent } from './settings/st-agents/st-agents.component';
+import { AccountComponent } from './settings/account/account.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,7 @@ const routes: Routes = [
 
       { path: 'settings', redirectTo: 'settings/general', pathMatch: 'full' },
       { path: 'settings/general', component: GeneralComponent },
+      { path: 'settings/account', component: AccountComponent },
       { path: 'settings/agents', component: StAgentsComponent },
       { path: 'settings/teams', component: StTeamsComponent },
       { path: 'settings/teams/new', component: NewTeamComponent },
