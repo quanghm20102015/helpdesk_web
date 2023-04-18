@@ -13,9 +13,10 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.router.url);
     this.listRouterTab.forEach(item => {
-      this.url
+      console.log('Url: ',this.url)
       if (this.url.includes(item.uri)) {
         this.tab = item.tab
+        console.log('Tab: ',this.tab)
       }
     })
   }

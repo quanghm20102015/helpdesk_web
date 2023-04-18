@@ -1,0 +1,27 @@
+#avatarUser {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.item-label{
+    margin-bottom: 15px;
+}
+
+.profile-settings-row{
+    border-bottom: 1px solid #dadada;
+}
+
+.text-label{
+    display: block;
+}
+
+.my-30{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.item-label>*{
+    margin-bottom: 5px;
+}
