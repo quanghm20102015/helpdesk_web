@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StInboxesComponent implements OnInit {
 
+  listData: any = [
+    { name: 'Email sale', type: 'Email' },
+    { name: 'Email customer', type: 'Email' },
+  ]
   constructor() { }
 
   ngOnInit(): void {

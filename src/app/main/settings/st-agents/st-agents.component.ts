@@ -13,11 +13,15 @@ export class StAgentsComponent implements OnInit {
     { value: 1, name: 'Administrator' },
     { value: 2, name: 'Agents' },
   ]
-  model: any = { agentName: '', role: null, workemail: '' }
+  listData: any = [
+    { name: 'Tran Quan Dan', workemail: 'quantq@sgt.com', role: 1, roleName: 'Administrator', verified: true },
+    { name: 'Nguyen Thi Ha', workemail: 'hant@sgt.com', role: 2, roleName: 'Agents', verified: false },
+  ]
+  model: any = { name: '', role: null, workemail: '' }
   submitted: boolean = false
   passwordDecrypt: any
   form: FormGroup = this._fb.group({
-    agentName: [this.model.agentName, [Validators.required]],
+    name: [this.model.name, [Validators.required]],
     role: [this.model.role, [Validators.required]],
     workemail: [this.model.workemail, [Validators.required, Validators.email]],
   })
@@ -28,7 +32,7 @@ export class StAgentsComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      agentName: this.model.agentName,
+      name: this.model.name,
       role: this.model.role,
       workemail: this.model.workemail,
     })
