@@ -1,4 +1,4 @@
-<div class="d-flex align-items-start">
+<div class="d-flex align-items-start" style="position: fixed;min-height: 100vh;">
     <div class="nav flex-column nav-pills align-items-center primary--sidebar" id="v-pills-tab" role="tablist"
         aria-orientation="vertical">
         <div>
@@ -31,9 +31,13 @@
             aria-expanded="false" title="Settings">
             <i class="pi pi-cog"></i>
         </button>
-        <a class="menu-item btn-logout btn btn-outline-secondary" title="Logout" href="http://localhost:4200/login">
+        <button type="text" class="menu-item btn-bottom btn" title="Profile settings"
+            (click)="op.toggle($event)">
+        <img src="../../../../assets/img/programmer.png" alt="user">
+        </button>
+        <!-- <a class="menu-item btn-logout btn btn-outline-secondary" title="Logout" href="http://localhost:4200/login">
             <i class="pi pi-sign-out"></i>
-        </a>
+        </a> -->
     </div>
     <div class="secondary-sidebar">
         <div class="tab-content" id="v-pills-tabContent">
@@ -96,7 +100,7 @@
                             <li class="menu-item--new">
                                 <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                                     [routerLink]="['/main/settings/inboxes/new']" aria-expanded="false"
-                                    class="fw-light">
+                                    (click)="setTab(5)" class="fw-light">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -129,7 +133,7 @@
                                 </a>
                             </li>
                             <li class="menu-item--new">
-                                <a class="fw-light" type="button" data-bs-toggle="modal" data-bs-target="#addLabel">
+                                <a class="fw-light" type="button" (click)="display = true">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -178,7 +182,7 @@
                                 </a>
                             </li>
                             <li class="menu-item--new">
-                                <a class="fw-light" type="button" data-bs-toggle="modal" data-bs-target="#addLabel">
+                                <a class="fw-light" type="button" (click)="display = true">
                                     <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
@@ -389,7 +393,7 @@
                             Labels
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <!-- <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/custom-attributes']" aria-expanded="false"><svg width="14"
                                 height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -400,8 +404,8 @@
                             </svg>
                             Custom Attributes
                         </a>
-                    </li>
-                    <li class="sidebar-item">
+                    </li> -->
+                    <!-- <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/automation']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
@@ -420,7 +424,7 @@
                                 Beta
                             </span>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/canned-response']" aria-expanded="false">
@@ -434,7 +438,7 @@
                             Canned Responses
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <!-- <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/integrations']" aria-expanded="false">
                             <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
@@ -472,7 +476,7 @@
                             </svg>
                             Billing
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -481,50 +485,124 @@
 </div>
 
 
-<div id="addLabel" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add label</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="content-box">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                        <p>
-                            Labels let you group the conversations together.
-                        </p>
-                        <label class="input-container">
-                            <span>Label Name</span>
-                            <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.labelName" formControlName="labelName"
-                                    placeholder="Label Name" class="form-control">
-                                <div *ngIf="(f['labelName'].dirty || f['labelName'].touched || submitted) && f['labelName'].invalid"
-                                    class="text-danger">
-                                    <div *ngIf="f['labelName'].errors?.['required']">
-                                        Label Name is required
-                                    </div>
-                                </div>
-                            </div>
-                        </label>
-                        <label class="input-container">
-                            <span>Description</span>
-                            <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.description"
-                                    formControlName="description" placeholder="Description" class="form-control">
-                            </div>
-                        </label>
-                        <div class="input-container">
-                            <span>Color</span>
-                            <p-colorPicker [(ngModel)]="model.labelColor" formControlName="labelColor"></p-colorPicker>
-                        </div>
-                    </form>
+<p-dialog [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Header content here
+            </p>
+            <p class="text-secondary">
+                Labels let you group the conversations together.
+            </p>
+        </div>
+    </ng-template>
+    <form class="row" [formGroup]="form">
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Label Name</div>
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
+                    placeholder="Example: Sales, Customer Support" class="form-control mt-1">
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['name'].errors?.['required']">
+                        Team name is required
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Create</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Description</div>
+                <input type="text" pInputText [(ngModel)]="model.description" formControlName="description"
+                    placeholder="Label Name" class="form-control mt-1">
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Color</div>
+                <p-colorPicker [(ngModel)]="model.color" formControlName="color"></p-colorPicker>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <p-checkbox [(ngModel)]="model.showSidebar" [binary]="true" label="Show label on sidebar"
+                    formControlName="showSidebar"></p-checkbox>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt">
+                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
+                    <span>Create</span>
+                </button>
+                <button class="btn btn-secondary ml-2" (click)="display=false">
+                    Cancel
+                </button>
             </div>
         </div>
-    </div>
-</div>
+    </form>
+</p-dialog>
+
+<p-overlayPanel #op>
+    <ng-template pTemplate>
+        <div data-v-10cc5adc="" class="options-menu dropdown-pane dropdown-pane--open">
+            <ul class="mb-0">
+                <li class="dropdown-menu--header">
+                    <span class="title">Set yourself as
+                    </span>
+                </li>
+                <li class="dropdown-menu__item status-items">
+                    <button type="button" class="btn text-start">
+                        <span class="button__content">
+                            <i class="pi pi-circle-fill text-success"></i>
+                            Online
+                        </span>
+                    </button>
+                </li>
+                <li class="dropdown-menu__item status-items">
+                    <button type="button" class="btn text-start">
+                        <span class="button__content">
+                            <i class="pi pi-circle-fill text-warning"></i>
+                            Busy
+                        </span>
+                    </button>
+                </li>
+                <li class="dropdown-menu__item status-items">
+                    <button type="button" class="btn text-start">
+                        <span class="button__content">
+                            <i class="pi pi-circle-fill text-secondary"></i>
+                            Offline
+                        </span>
+                    </button>
+                </li>
+                <li class="dropdown-menu__item">
+                    <a class="btn text-start" routerLink="/main/settings/account" aria-expanded="false">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon--font">
+                            <path
+                                d="M17.754 14a2.249 2.249 0 0 1 2.25 2.249v.575c0 .894-.32 1.76-.902 2.438-1.57 1.834-3.957 2.739-7.102 2.739-3.146 0-5.532-.905-7.098-2.74a3.75 3.75 0 0 1-.898-2.435v-.577a2.249 2.249 0 0 1 2.249-2.25h11.501Zm0 1.5H6.253a.749.749 0 0 0-.75.749v.577c0 .536.192 1.054.54 1.461 1.253 1.468 3.219 2.214 5.957 2.214s4.706-.746 5.962-2.214a2.25 2.25 0 0 0 .541-1.463v-.575a.749.749 0 0 0-.749-.75ZM12 2.004a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"
+                                fill="currentColor">
+                            </path>
+                        </svg>
+                        <span class="button__content">
+                            Profile Settings
+                        </span>
+                    </a>
+                </li>
+                <li class="dropdown-menu__item">
+                    <a type="button" class="btn text-start" href="/login">
+                        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon--font power">
+                            <path
+                                d="M8.204 4.82a.75.75 0 0 1 .634 1.36A7.51 7.51 0 0 0 4.5 12.991c0 4.148 3.358 7.51 7.499 7.51s7.499-3.362 7.499-7.51a7.51 7.51 0 0 0-4.323-6.804.75.75 0 1 1 .637-1.358 9.01 9.01 0 0 1 5.186 8.162c0 4.976-4.029 9.01-9 9.01C7.029 22 3 17.966 3 12.99a9.01 9.01 0 0 1 5.204-8.17ZM12 2.496a.75.75 0 0 1 .743.648l.007.102v7.5a.75.75 0 0 1-1.493.102l-.007-.102v-7.5a.75.75 0 0 1 .75-.75Z"
+                                fill="currentColor">
+                            </path>
+                        </svg>
+                        <span class="button__content">
+                            Logout
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+</p-overlayPanel>

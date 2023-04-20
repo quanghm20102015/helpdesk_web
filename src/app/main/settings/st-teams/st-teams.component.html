@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
     <div class="settings-header">
         <div class="row bg-white">
             <div class="col-12 col-header">
@@ -21,54 +21,32 @@
     <div class="col-md-12 profile--settings">
         <div class="row">
             <div class="col-md-8">
-                <div class="card">
-                    <table class="woot-table">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <span class="agent-name">Team Acb</span>
-                                </td>
-                                <td>
-                                    <span>Content maketing</span>
-                                </td>
-                                <td>
-                                    <div class="button-wrapper text-end">
-                                        <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
-                                        <button class="btn btn-sm btn-danger ms-2"><i class="pi pi-times-circle"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="agent-name">Team Acb</span>
-                                </td>
-                                <td>
-                                    <span>Content maketing</span>
-                                </td>
-                                <td>
-                                    <div class="button-wrapper text-end">
-                                        <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
-                                        <button class="btn btn-sm btn-danger ms-2"><i class="pi pi-times-circle"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span class="agent-name">Team Acb</span>
-                                </td>
-                                <td>
-                                    <span>Content maketing</span>
-                                </td>
-                                <td>
-                                    <div class="button-wrapper text-end">
-                                        <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
-                                        <button class="btn btn-sm btn-danger ms-2"><i class="pi pi-times-circle"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <p-table [value]="listData">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td>
+                                <div class="agent-name">{{item.name}}</div>
+                            </td>
+                            <td>
+                                {{item.description}}
+                            </td>
+                            <td>
+                                <div class="button-wrapper text-end">
+                                    <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
+                                    <button class="btn btn-sm btn-danger ms-2"><i
+                                            class="pi pi-times-circle"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
             <div class="col-md-4">
                 <span>
@@ -84,19 +62,26 @@
 
 </div>
 
-<p-dialog header="Create a new team" [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
-    <p class="text-secondary">
-        Add a title and description to your new team.
-    </p>
+<p-dialog [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Create a new team
+            </p>
+            <p class="text-secondary">
+                Add a title and description to your new team.
+            </p>
+        </div>
+    </ng-template>
     <form class="row" [formGroup]="form">
         <div class="col-md-12">
             <label class="label-input">
                 <span class="text-label">Team name</span>
-                <input type="text" pInputText [(ngModel)]="model.teamName" formControlName="teamName"
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
                     placeholder="Example: Sales, Customer Support" class="form-control mt-1">
-                <div *ngIf="(f['teamName'].dirty || f['teamName'].touched || submitted) && f['teamName'].invalid"
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
                     class="text-danger">
-                    <div *ngIf="f['teamName'].errors?.['required']">
+                    <div *ngIf="f['name'].errors?.['required']">
                         Team name is required
                     </div>
                 </div>
@@ -105,13 +90,13 @@
         <div class="col-md-12">
             <label class="label-input">
                 <span class="text-label">Team description</span>
-                <input type="text" pInputText [(ngModel)]="model.teamDescription" formControlName="teamDescription"
+                <input type="text" pInputText [(ngModel)]="model.description" formControlName="description"
                     placeholder="Agent Name" class="form-control mt-1">
             </label>
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" disabled="disabled">
+                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
                     <span>Add Team</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false" label="Ok">

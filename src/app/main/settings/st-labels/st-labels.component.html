@@ -1,1 +1,127 @@
-<p>labels works!</p>
+<div class="container-fluid">
+    <div class="settings-header">
+        <div class="row bg-white">
+            <div class="col-12 col-header">
+                <h3 class="page-title mb-0">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        class="icon people-team header--icon">
+                        <path
+                            d="M14.754 10c.966 0 1.75.784 1.75 1.75v4.749a4.501 4.501 0 0 1-9.002 0V11.75c0-.966.783-1.75 1.75-1.75h5.502Zm0 1.5H9.252a.25.25 0 0 0-.25.25v4.749a3.001 3.001 0 0 0 6.002 0V11.75a.25.25 0 0 0-.25-.25ZM3.75 10h3.381a2.738 2.738 0 0 0-.618 1.5H3.75a.25.25 0 0 0-.25.25v3.249a2.501 2.501 0 0 0 3.082 2.433c.085.504.24.985.453 1.432A4.001 4.001 0 0 1 2 14.999V11.75c0-.966.784-1.75 1.75-1.75Zm13.125 0h3.375c.966 0 1.75.784 1.75 1.75V15a4 4 0 0 1-5.03 3.866c.214-.448.369-.929.455-1.433A2.5 2.5 0 0 0 20.5 15v-3.25a.25.25 0 0 0-.25-.25h-2.757a2.738 2.738 0 0 0-.618-1.5ZM12 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm6.5 1a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm6.5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm6.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-13 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"
+                            fill="currentColor"></path>
+                    </svg>
+                    <span class="ms-2">Labels</span>
+                </h3>
+
+                <button type="submit" class="btn btn-success" (click)="showDialog()">
+                    <span>+ Add label</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 profile--settings">
+        <div class="row">
+            <div class="col-md-8">
+                <p-table [value]="listData">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Color</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td>
+                                <div class="agent-name">{{item.name}}</div>
+                            </td>
+                            <td>
+                                {{item.description}}
+                            </td>
+                            <td>
+                                <p-colorPicker [(ngModel)]="item.color" [disabled]="true"></p-colorPicker>
+                                {{item.color}}
+                            </td>
+                            <td>
+                                <div class="button-wrapper text-end">
+                                    <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
+                                    <button class="btn btn-sm btn-danger ms-2"><i
+                                            class="pi pi-times-circle"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="col-md-4">
+                <span>
+                    <p><b>Labels</b> </p>
+                    <p>Labels help you to categorize conversations and prioritize them. You can assign label to a
+                        conversation from the sidepanel. <br><br>Labels are tied to the account and can be used to
+                        create custom workflows in your organization. You can assign custom color to a label, it makes
+                        it easier to identify the label. You will be able to display the label on the sidebar to filter
+                        the conversations easily.</p>
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<p-dialog [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Add label
+            </p>
+            <p class="text-secondary">
+                Labels let you group the conversations together.
+            </p>
+        </div>
+    </ng-template>
+    <form class="row" [formGroup]="form">
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Label Name</div>
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name" placeholder="Label Name"
+                    class="form-control mt-1">
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['name'].errors?.['required']">
+                        Label name is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Description</div>
+                <input type="text" pInputText [(ngModel)]="model.description" formControlName="description"
+                    placeholder="Label Description" class="form-control mt-1">
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Color</div>
+                <p-colorPicker [(ngModel)]="model.color" formControlName="color"></p-colorPicker>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <p-checkbox [(ngModel)]="model.showSidebar" [binary]="true" label="Show label on sidebar"
+                    formControlName="showSidebar"></p-checkbox>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt">
+                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
+                    <span>Create</span>
+                </button>
+                <button class="btn btn-secondary ml-2" (click)="display=false">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
