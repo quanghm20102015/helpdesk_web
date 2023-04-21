@@ -7,11 +7,16 @@
 .primary--sidebar {
     display: flex;
     flex-direction: column;
-    width: 64px;
     border-right: 1px solid #f1f5f8;
     box-sizing: content-box;
-    height: 100%;
     flex-shrink: 0;
+    width: 55px;
+}
+
+.primary--sidebar img {
+    width: auto;
+    height: 45px;
+    border-radius: 50%;
 }
 
 .secondary-sidebar {

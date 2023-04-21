@@ -14,7 +14,8 @@
 
 .conv-header{
     height: 50px;
-    border-bottom: 1px solid #ebf0f5;
+    /* border-bottom: 1px solid #ebf0f5; */
+    padding-top: 12px;
 }
 
 .date-time{

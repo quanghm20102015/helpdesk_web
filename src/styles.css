@@ -260,3 +260,7 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
 .hide-menu .btn-collapse{
     left: 71px ;
 }
+
+body{
+    overflow: hidden;
+}
