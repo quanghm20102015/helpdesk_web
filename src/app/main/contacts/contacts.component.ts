@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CountryService } from '../../service/country.service';
+import { ContactService } from '../../service/contact.service';
 
 declare var $: any;
 @Component({
@@ -9,39 +11,55 @@ declare var $: any;
 })
 export class ContactsComponent implements OnInit {
 
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder,
+    private countryService: CountryService,
+    private contactService: ContactService) { }
 
   inputSearch: string = ''
   scrollDemo: any
   contacts: any = []
+  countries: any = []
   model: any = 
   { 
-    name: '',
-    emailAddress: '',
+    fullname: '',
+    email: '',
+    bio: '',
     phoneNumber: '',
     company: '',
     city: '',
     country: '',
-    socialProfiles: '',
-    lastActivity: '',
-    createAt: '',
-    conversations: ''
+    facebook: '',
+    twitter: '',
+    linkedin: '',
+    github: ''
+
+    // socialProfiles: '',
+    // lastActivity: '',
+    // createAt: '',
+    // conversations: ''
   };
   
   form: FormGroup = this._fb.group({
-    name: [this.model.name],
-    emailAddress: [this.model.emailAddress],
+    fullname: [this.model.fullname, [Validators.required]],
+    email: [this.model.email],
+    bio: [this.model.bio],
     phoneNumber: [this.model.phoneNumber],
     company: [this.model.company],
     city: [this.model.city],
     country: [this.model.country],
-    socialProfiles: [this.model.socialProfiles],
-    lastActivity: [this.model.lastActivity],
-    createAt: [this.model.createAt],
-    conversations: [this.model.conversations]
+    facebook: [this.model.facebook],
+    twitter: [this.model.twitter],
+    linkedin: [this.model.linkedin],
+    github: [this.model.github]
+
+    // socialProfiles: [this.model.socialProfiles],
+    // lastActivity: [this.model.lastActivity],
+    // createAt: [this.model.createAt],
+    // conversations: [this.model.conversations]
   });
   ngOnInit(): void {
-    this.loadData();
+    this.getAllCountry();
+    this.getContact();
     // this.scrollDemo = document.querySelector("#box-messages");
     // this.scrollDemo.addEventListener("scroll", (event: any) => {
     //   if (this.scrollDemo.scrollHeight - this.scrollDemo.offsetHeight + this.scrollDemo.scrollTop < 1) {
@@ -50,49 +68,23 @@ export class ContactsComponent implements OnInit {
     // })
   }
 
-  loadData(){
-    this.contacts=[
-      {
-        name: 'Van Minh',
-        emailAddress: 'vanminh@th.com',
-        phoneNumber: '0987 928 888',
-        company: 'th',
-        city: 'Ha noi',
-        country: 'VietNam',
-        socialProfiles: '---',
-        lastActivity: '---',
-        createAt: '1 days ago',
-        conversations: '---'
-      },
-      {
-        name: 'Hoang Van',
-        emailAddress: 'hoangvan@th.com',
-        phoneNumber: '0345 928 123',
-        company: 'th',
-        city: 'Ho Chi Minh',
-        country: 'VietNam',
-        socialProfiles: '---',
-        lastActivity: '---',
-        createAt: '2 days ago',
-        conversations: '---'
-      },
-      {
-        name: 'Van Minh',
-        emailAddress: 'vanminh@th.com',
-        phoneNumber: '0349 123 432',
-        company: 'th',
-        city: 'Da Nang',
-        country: 'VietNam',
-        socialProfiles: '---',
-        lastActivity: '---',
-        createAt: '3 days ago',
-        conversations: '---'
-      }
-    ]
+  getAllCountry(){
+    this.countryService.getAllCountry().subscribe((result) => {
+      this.countries = result;
+    });
   }
 
-  onSubmit(){
-    
+  getContact(){
+    this.contactService.getAll().subscribe((result) => {
+      this.contacts = result;
+    });
+  }
+
+  onSubmit(){    
+    debugger
+    this.contactService.create(this.model).subscribe((result) => {
+      
+    });
   }
 
   createContact(){
