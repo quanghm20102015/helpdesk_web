@@ -131,18 +131,18 @@
                         </tr>
                     </ng-template> -->
                     <ng-template pTemplate="body" let-item>
-                        <tr>
+                        <tr (click)="detailMail(item)">
                             <td style="width:30px">
                                 <p-tableCheckbox [value]="item"></p-tableCheckbox>
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <div class="box-left">
-                                        <div class="fw-bold">{{item.name}}</div>
-                                        <div>{{item.lastChat}}</div>
+                                        <div class="fw-bold">{{item.from}}</div>
+                                        <div>{{item.subject}}</div>
                                     </div>
                                     <div class="box-right text-middle">
-                                        <div>{{item.sendDate}}</div>
+                                        <div>{{item.date || 'dd/MM/yyyy'}}</div>
                                     </div>
                                 </div>
                             </td>
@@ -157,12 +157,12 @@
             <div class="conversation-header--details col-md-12">
                 <div class="user d-flex">
                     <div class="user--profile__meta">
-                        <h4 class="sub-block-title user--name text-truncate mb-0">Minh Pham</h4>
-                        <div class="conversation--header--actions text-truncate">
+                        <h4 class="sub-block-title user--name text-truncate mb-0">{{subject}}</h4>
+                        <!-- <div class="conversation--header--actions text-truncate">
                             <div class="inbox--name">
                                 Minhtmu_bot
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="header-actions-wrap has-open-sidebar">

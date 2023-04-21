@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ConfigMailService } from '../../../service/configMail.service';
 
 @Component({
   selector: 'app-menu',
@@ -8,9 +9,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-  constructor(private _fb: FormBuilder, private router: Router) { }
+  constructor(private _fb: FormBuilder, 
+    private router: Router, 
+    private configMailService: ConfigMailService) { }
 
   ngOnInit(): void {
+    this.getListInbox();
     console.log(this.router.url);
     this.listRouterTab.forEach(item => {
       console.log('Url: ',this.url)
@@ -34,6 +38,12 @@ export class MenuComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+  }
+
+  getListInbox(){
+    this.configMailService.getAll().subscribe((result) => {
+      this.listInboxes = result;
+    });
   }
 
   rebuilForm() {
@@ -66,8 +76,8 @@ export class MenuComponent implements OnInit {
   ]
 
   listInboxes: any = [
-    { name: 'Web 01', id: 200 },
-    { name: 'Page 2', id: 329 },
+    // { name: 'Web 01', id: 200 },
+    // { name: 'Page 2', id: 329 },
   ]
 
   setTab(tab: any){
