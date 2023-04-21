@@ -72,8 +72,8 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-contact>
                     <tr>
-                        <td>{{ contact.name }}</td>
-                        <td>{{ contact.emailAddress }}</td>
+                        <td>{{ contact.fullname }}</td>
+                        <td>{{ contact.email }}</td>
                         <td>{{ contact.phoneNumber }}</td>
                         <td>{{ contact.company }}</td>
                         <td>{{ contact.city }}</td>
@@ -98,29 +98,29 @@
             </div>
             <div class="modal-body">
                 <div class="content-box">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="form" >
                         <p>
                             Add basic information details about the contact.
                         </p>
                         <label class="input-container">
                             <span>Full Name</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
+                                <input type="text" pInputText [(ngModel)]="model.fullname" formControlName="fullname"
                                     placeholder="Full Name" class="form-control">
                             </div>
                         </label>
                         <label class="input-container">
                             <span>Email Address</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.emailAddress"
-                                    formControlName="emailAddress" placeholder="Email Address" class="form-control">
+                                <input type="text" pInputText [(ngModel)]="model.email"
+                                    formControlName="email" placeholder="Email Address" class="form-control">
                             </div>
                         </label>
                         <label class="input-container">
                             <span>Bio</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.emailAddress"
-                                    formControlName="emailAddress" placeholder="Bio" class="form-control">
+                                <input type="text" pInputText [(ngModel)]="model.bio"
+                                    formControlName="bio" placeholder="Bio" class="form-control">
                             </div>
                         </label>
                         <label class="input-container">
@@ -140,8 +140,10 @@
                         <label class="input-container">
                             <span>Country Name</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.country" formControlName="country"
-                                    placeholder="Country Name" class="form-control">
+                                <!-- <input type="text" pInputText [(ngModel)]="model.country" formControlName="country"
+                                    placeholder="Country Name" class="form-control"> -->
+                                <p-dropdown [options]="countries" [(ngModel)]="model.country" optionLabel="name" optionValue="id" formControlName="country"></p-dropdown>
+
                             </div>
                         </label>
                         <label class="input-container">
@@ -154,17 +156,17 @@
                         <label class="input-container">
                             <span>Social Profiles</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.socialProfiles"
-                                    formControlName="socialProfiles" placeholder="https://facebook.com/"
+                                <input type="text" pInputText [(ngModel)]="model.facebook"
+                                    formControlName="facebook" placeholder="https://facebook.com/"
                                     class="form-control">
-                                <input type="text" pInputText [(ngModel)]="model.socialProfiles"
-                                    formControlName="socialProfiles" placeholder="https://twitter.com/"
+                                <input type="text" pInputText [(ngModel)]="model.twitter"
+                                    formControlName="twitter" placeholder="https://twitter.com/"
                                     class="form-control">
-                                <input type="text" pInputText [(ngModel)]="model.socialProfiles"
-                                    formControlName="socialProfiles" placeholder="https://linkedin.com/"
+                                <input type="text" pInputText [(ngModel)]="model.linkedin"
+                                    formControlName="linkedin" placeholder="https://linkedin.com/"
                                     class="form-control">
-                                <input type="text" pInputText [(ngModel)]="model.socialProfiles"
-                                    formControlName="socialProfiles" placeholder="https://github.com/"
+                                <input type="text" pInputText [(ngModel)]="model.github"
+                                    formControlName="github" placeholder="https://github.com/"
                                     class="form-control">
                             </div>
                         </label>
@@ -172,7 +174,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Submit</button>
+                <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
