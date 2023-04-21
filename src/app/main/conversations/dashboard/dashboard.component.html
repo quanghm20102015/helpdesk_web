@@ -120,7 +120,7 @@
                 There are no active conversations in this group.
             </p>
             <div class="conversations-list">
-                <p-table [value]="listChat" [(selection)]="listSelectChat" dataKey="inbox" [paginator]="true" [rows]="5"
+                <p-table [value]="listChat" [(selection)]="listSelectChat" dataKey="id" [paginator]="true" [rows]="5"
                     [selectionPageOnly]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="single">
                     <!-- <ng-template pTemplate="header">
                         <tr>
@@ -133,7 +133,7 @@
                     <ng-template pTemplate="body" let-item>
                         <tr (click)="detailMail(item)">
                             <td style="width:30px">
-                                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                                <p-tableCheckbox [value]="item.id"></p-tableCheckbox>
                             </td>
                             <td>
                                 <div class="d-flex justify-content-between">
@@ -141,8 +141,8 @@
                                         <div class="fw-bold">{{item.from}}</div>
                                         <div>{{item.subject}}</div>
                                     </div>
-                                    <div class="box-right text-middle">
-                                        <div>{{item.date || 'dd/MM/yyyy'}}</div>
+                                    <div class="box-right text-middle date-time text-end">
+                                        <div>{{item.dateTime | date:'MM/dd/yy h:mm a'}}</div>
                                     </div>
                                 </div>
                             </td>
@@ -152,7 +152,7 @@
             </div>
         </div>
     </div>
-    <div class="content-right w-100">
+    <div class="content-right w-100" *ngIf="viewMail">
         <div class="conv-header container row">
             <div class="conversation-header--details col-md-12">
                 <div class="user d-flex">
@@ -205,7 +205,7 @@
             </div>
         </div>
         <div class="messages-and-sidebar container" id="box-messages">
-            <div class="row">
+            <div class="row w-100">
                 <div class="col-md-12 bg-light">
                     <div class="view-box fill-height">
                         <ul class="conversation-panel">
@@ -216,9 +216,9 @@
                                             <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
                                                 [disabled]="readonly"></ckeditor>
                                         </div>
-                                        <div class="message-time">
+                                        <div class="message-time mt-2">
                                             <span class="time">
-                                                Apr 12, 12:25 AM
+                                                {{item.dateTime | date:'MM/dd/yy h:mm a'}}
                                             </span>
                                         </div>
                                     </div>

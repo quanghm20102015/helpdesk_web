@@ -3,7 +3,7 @@
     height: calc(100vh - 50px);
     overflow: auto;
     display: flex;
-    flex-direction: column-reverse;
+    /* flex-direction: column-reverse; */
 }
 
 .conversation-header--details{
@@ -15,4 +15,8 @@
 .conv-header{
     height: 50px;
     border-bottom: 1px solid #ebf0f5;
+}
+
+.date-time{
+    width: 67px;
 }

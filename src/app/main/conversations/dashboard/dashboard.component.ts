@@ -29,18 +29,22 @@ export class DashboardComponent implements OnInit {
     // this.listMessenger.push(this.listMessenger[1])
     // this.listMessenger.push(this.listMessenger[1])
 
-    this.scrollDemo = document.querySelector("#box-messages");
-    this.scrollDemo.addEventListener("scroll", (event: any) => {
-      if (this.scrollDemo.scrollHeight - this.scrollDemo.offsetHeight + this.scrollDemo.scrollTop < 1) {
-        console.log("Scroll end")
-      }
-    })
-
   }
 
-  loadListEmail(){
+  // this.scrollDemo = document.querySelector("#box-messages");
+  // this.scrollDemo.addEventListener("scroll", (event: any) => {
+  //   if (this.scrollDemo.scrollHeight - this.scrollDemo.offsetHeight + this.scrollDemo.scrollTop < 1) {
+  //     console.log("Scroll end")
+  //   }
+  // })
+
+  loadListEmail() {
     this.emailInfoService.getAll().subscribe((result) => {
       this.listChat = result;
+      this.listChat.forEach((item) => {
+        item['dateTime'] = new Date(item.date)
+      })
+
     });
   }
 
@@ -85,22 +89,25 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  remoteFile(item: any){
+  remoteFile(item: any) {
 
   }
 
-  sendMessenger(){
-    let request =  { id: 1, messenger: this.messenger }
+  sendMessenger() {
+    let request = { id: 1, messenger: this.messenger, dateTime: new Date() }
     this.listMessenger.push(request)
     this.messenger = this.signature
   }
 
-  detailMail(item: any){    
+  viewMail: boolean = false
+  detailMail(item: any) {
     this.listMessenger = [];
+    this.viewMail = true;
     this.subject = item.subject
     this.listMessenger.push({
       id: item.id,
-      messenger: item.textBody
+      messenger: item.textBody, 
+      dateTime: new Date()
     })
   }
 }
