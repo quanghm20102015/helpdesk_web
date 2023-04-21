@@ -111,27 +111,28 @@ app-dashboard {
     margin-bottom: 4px;
 }
 
-.bg-light{
-    background-color:  rgba(248,249,250) !important;
+.bg-light {
+    background-color: rgba(248, 249, 250) !important;
 }
-.bg-white{
+
+.bg-white {
     background-color: white;
 }
 
-.pt-80{
+.pt-80 {
     padding-top: 80px !important;
 }
 
-.px-30{
+.px-30 {
     padding-left: 30px;
     padding-right: 30px;
 }
 
-.profile--settings{
+.profile--settings {
     padding-top: 20px;
 }
 
-.settings-header{
+.settings-header {
     width: 100%;
     display: contents;
     position: fixed;
@@ -140,43 +141,43 @@ app-dashboard {
     align-items: center;
 }
 
-.col-header{
+.col-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 56px;
 }
 
-.user-thumbnail{
+.user-thumbnail {
     width: 40px;
 }
 
-.thumbnail-rounded{
+.thumbnail-rounded {
     border-radius: 50%;
 }
 
-.box-dialog .label-input{
+.box-dialog .label-input {
     margin-bottom: 1rem;
     width: 100%;
 }
 
-.box-dialog .label-input .text-label{
+.box-dialog .label-input .text-label {
     font-weight: 600;
 }
 
-.box-dialog .btn-groupt .btn{
+.box-dialog .btn-groupt .btn {
     margin-left: 0.5rem;
 }
 
-.button-wrapper i{
+.button-wrapper i {
     font-size: 14px;
 }
 
-.profile--settings .card{
+.profile--settings .card {
     padding: 10px;
 }
 
-.woot-table td{
+.woot-table td {
     height: 50px;
 }
 
@@ -184,29 +185,78 @@ app-contacts {
     width: 100%;
 }
 
-.p-datatable .p-datatable-thead > tr > th{
+.p-datatable .p-datatable-thead>tr>th {
     background: whitesmoke;
-} 
+}
 
-.agent-name{
+.agent-name {
     display: block;
     font-weight: 500;
     text-transform: capitalize;
 }
 
-input.p-colorpicker-preview.p-inputtext.ng-star-inserted{
+input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
     width: 25px;
     height: 25px;
 }
 
-.p-colorpicker .p-disabled,.p-colorpicker .p-component:disabled{
+.p-colorpicker .p-disabled,
+.p-colorpicker .p-component:disabled {
     opacity: 1;
 }
 
-.p-dialog .p-dialog-content{
+.p-dialog .p-dialog-content {
     overflow: inherit;
 }
 
 .conversations-list .p-datatable .p-datatable-tbody > tr > td{
     padding: 0.5rem !important;
+}
+
+.search {
+    margin-left: 42px;
+}
+
+.btn-collapse {
+    position: absolute;
+    top: 17px;
+    left: 272px;
+    display: flex;
+    align-items: center;
+}
+
+.settings-header .col-header {
+    padding-left: 50px;
+}
+
+.secondary-sidebar .sidebar-item {
+    min-width: 200px !important;
+}
+
+.secondary-sidebar {
+    transition: all 0.5s;
+    overflow: hidden;
+}
+
+.hide-menu .secondary-sidebar {
+    width: 0px !important;
+    overflow: hidden;
+}
+
+.container-right {
+    min-height: 100vh;
+    margin-left: 267px;
+    transition: 0.5s all;
+}
+
+.hide-menu .container-right {
+    margin-left: 65px;
+}
+
+.btn-collapse{
+    transition: all 0.5s;
+}
+
+.hide-menu .btn-collapse{
+    left: 71px ;
 }

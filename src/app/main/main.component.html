@@ -1,7 +1,9 @@
-<div class="d-flex">
+<div class="d-flex" id="btncollapse">
     <app-menu></app-menu>
-    <div class="container-fluid p-0 bg-light" style="min-height: 100vh;margin-left: 267px;">
+    <div class="container-fluid p-0 bg-light container-right">
         <router-outlet></router-outlet>
     </div>
+    <button class="btn btn-light btn-collapse" type="button" (click)="onCollapse()">
+        <i class="pi pi-bars"></i>
+    </button>
 </div>
-<!-- <p-tree></p-tree> -->

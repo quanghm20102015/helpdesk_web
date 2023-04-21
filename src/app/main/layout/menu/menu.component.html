@@ -3,7 +3,7 @@
         aria-orientation="vertical">
         <div>
             <a href="/main/conversations">
-                <img src="../../../../assets/brand-assets/logo.png" alt="ChatMg" class="logo-mini mt-2 mb-5">
+                <img src="../../../../assets/brand-assets/logo.png" alt="ChatMg" class="logo-mini mt-3 mb-5">
             </a>
         </div>
         <button class="nav-link menu-item" [ngClass]="{'active': tab == 1}" (click)="setTab(1)"
@@ -31,9 +31,8 @@
             aria-expanded="false" title="Settings">
             <i class="pi pi-cog"></i>
         </button>
-        <button type="text" class="menu-item btn-bottom btn" title="Profile settings"
-            (click)="op.toggle($event)">
-        <img src="../../../../assets/img/programmer.png" alt="user">
+        <button type="text" class="menu-item btn-bottom btn" title="Profile settings" (click)="op.toggle($event)">
+            <img src="../../../../assets/img/programmer.png" alt="user">
         </button>
         <!-- <a class="menu-item btn-logout btn btn-outline-secondary" title="Logout" href="http://localhost:4200/login">
             <i class="pi pi-sign-out"></i>
@@ -43,7 +42,7 @@
         <div class="tab-content" id="v-pills-tabContent">
 
             <div *ngIf="tab == 1">
-                <ul class="menu vertical mt-2">
+                <ul class="menu vertical mt-3">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             routerLink="/main/conversations/dashboard" aria-expanded="false">
@@ -152,7 +151,7 @@
             </div>
 
             <div *ngIf="tab == 2">
-                <ul class="menu vertical mt-2">
+                <ul class="menu vertical mt-3">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             routerLink="/main/contacts/all" aria-expanded="false">
@@ -201,7 +200,7 @@
             </div>
 
             <div *ngIf="tab == 3">
-                <ul class="menu vertical mt-2">
+                <ul class="menu vertical mt-3">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/reports/overview']" aria-expanded="false">
@@ -297,7 +296,7 @@
             </div>
 
             <div *ngIf="tab == 4">
-                <ul class="menu vertical mt-2">
+                <ul class="menu vertical mt-3">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             routerLink="/main/campaigns/ongoing" aria-expanded="false"><svg width="14" height="14"
@@ -327,7 +326,7 @@
             </div>
 
             <div *ngIf="tab == 5">
-                <ul class="menu vertical mt-2">
+                <ul class="menu vertical mt-3">
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/general']" aria-expanded="false">
