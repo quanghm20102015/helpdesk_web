@@ -5,7 +5,7 @@ import * as CryptoJS from 'crypto-js';
 import { EncrDecrService } from '../../service/encr-decr.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-
+import { UserInfoStorageService } from '../../service/user-info-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private encrdecrService: EncrDecrService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService  , 
+    private userInfoStorageService: UserInfoStorageService
     ) { }
   model: any = {workemail: '', password: ''}
   submitted: boolean = false
@@ -42,6 +43,8 @@ export class LoginComponent implements OnInit {
     this.submitted = true
     this.userService.login(request).subscribe((result) => {
       if(result.status == 1){
+        debugger
+        this.setLocalStorage(request.workemail)
         this.router.navigate(['main/conversations']);
       }
       else{
@@ -50,6 +53,13 @@ export class LoginComponent implements OnInit {
     });
   }
   
+  setLocalStorage(email: any){
+    this.userService.getByEmail(email).subscribe((result) => {
+      debugger
+      this.userInfoStorageService.setCompany(result.company)
+    });
+  }
+
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }

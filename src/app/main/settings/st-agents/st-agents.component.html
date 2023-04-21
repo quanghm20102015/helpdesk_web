@@ -46,7 +46,7 @@
                             </td>
                             <td>
                                 <div class="agent-name">
-                                    {{item.name}}
+                                    {{item.fullname}}
                                 </div>
                                 <div>{{item.workemail}}</div>
                             </td>
@@ -138,7 +138,7 @@
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors || f['workemail'].errors">
+                <button type="button" (click)="addAgent()" class="btn btn-primary" [disabled]="f['name'].errors || f['workemail'].errors">
                     <span>Add Agent</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false" label="Ok">

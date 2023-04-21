@@ -81,9 +81,11 @@ export class ContactsComponent implements OnInit {
   }
 
   onSubmit(){    
-    debugger
     this.contactService.create(this.model).subscribe((result) => {
-      
+      if(result.status == 1){
+        $("#newCOntact").modal("hide");
+        this.getContact();
+      }
     });
   }
 

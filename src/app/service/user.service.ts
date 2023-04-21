@@ -13,6 +13,11 @@ export class UserService {
     private serviceInvoker: ServiceInvokerService
   ) {}
 
+  getAll(): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Accounts'
+    );
+  }
   createUser(data: any): Observable<any> {
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts',
@@ -24,6 +29,13 @@ export class UserService {
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts/Login',
       data
+    );
+  }
+  
+  getByEmail(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Accounts/GetByEmail?workemail=' + data,
+       data
     );
   }
 }
