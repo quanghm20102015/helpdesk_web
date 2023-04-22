@@ -31,6 +31,7 @@ import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.com
 import { NewLabelComponent } from './settings/st-labels/new-label/new-label.component';
 import { StAgentsComponent } from './settings/st-agents/st-agents.component';
 import { AccountComponent } from './settings/account/account.component';
+import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 
 const routes: Routes = [
   {
@@ -46,6 +47,7 @@ const routes: Routes = [
 
       { path: 'contacts', redirectTo: 'contacts/all', pathMatch: 'full' },
       { path: 'contacts/all', component: ContactsComponent },
+      { path: 'contacts/detail/:id', component: ContactDetailComponent },
       { path: 'contacts/label/:id', component: CtLabelsComponent },
       
       { path: 'reports', redirectTo: 'reports/overview', pathMatch: 'full' },

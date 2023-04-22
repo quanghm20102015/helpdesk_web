@@ -47,6 +47,10 @@ p {
     margin-bottom: 0;
 }
 
+.p-10{
+    padding: 10px;
+}
+
 .text-middle {
     align-self: center;
 }
@@ -328,8 +332,20 @@ body {
 
 .conv-header {
     padding-top: 12px;
-}
+}   
 
 .date-time {
     width: 67px;
+}
+
+.icon--font{
+    margin-right: 3px;
+}
+
+.contact--metadata>*{
+    margin-bottom: 5px;
+}
+
+.contact-actions>*{
+    margin-left: 5px;
 }
