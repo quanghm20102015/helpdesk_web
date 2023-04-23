@@ -14,7 +14,6 @@ export class ContactService {
   ) {}
 
   create(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/Contacts',
       data
