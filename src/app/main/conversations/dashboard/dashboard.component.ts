@@ -16,10 +16,15 @@ interface Status {
 
 export class DashboardComponent implements OnInit {
 
+  idInterval: any;
   constructor(private emailInfoService: EmailInfoService) { }
 
   ngOnInit(): void {
     this.loadListEmail();
+    
+    this.idInterval = setInterval(() => {
+      this.loadListEmail();
+    }, 5000);
     this.messenger = this.signature
     // this.listMessenger.push(this.listMessenger[1])
     // this.listMessenger.push(this.listMessenger[1])
@@ -31,6 +36,11 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    if (this.idInterval) {
+      clearInterval(this.idInterval);
+    }
+  }
   // this.scrollDemo = document.querySelector("#box-messages");
   // this.scrollDemo.addEventListener("scroll", (event: any) => {
   //   if (this.scrollDemo.scrollHeight - this.scrollDemo.offsetHeight + this.scrollDemo.scrollTop < 1) {
@@ -56,7 +66,7 @@ export class DashboardComponent implements OnInit {
   inputSearch: string = ''
   messenger: string = ''
   filterStatus: number = 0
-  signature: string = '<p></p><p>--------------------</p><p>Chữ ký: MinhPV</p><p>SĐT: 033 3494 434</p>'
+  signature: string = ''
 
   listStatus: Status[] = [
     { code: 1, name: 'Open' },
