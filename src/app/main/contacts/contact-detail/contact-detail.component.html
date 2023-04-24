@@ -1,15 +1,15 @@
-<div class="p-3 pt-2 bg-white" style="overflow: hidden">
+<div class="p-3 pt-2 bg-white" style="overflow: hidden; min-height: 100vh;">
     <div class="row ms-4">
         <div class="col-md-12">
             <div class="d-flex align-items-center">
-                <div class="btn text-primary fs-3" routerLinkActive="ac" [routerLinkActiveOptions]="{exact: false}"
-                    routerLink="/main/contacts/" aria-expanded="false">
+                <div class="btn text-primary fs-3 btn-back-contacts" routerLinkActive="ac"
+                    [routerLinkActiveOptions]="{exact: false}" routerLink="/main/contacts/" aria-expanded="false">
                     < Contacts </div>
                         <h3 class="m-0">{{model.fullname}}</h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-md-6 offset-md-3">
                     <div class="contact--profile">
                         <div class="contact--info">
                             <div class="contact-info--header"></div>
@@ -28,7 +28,8 @@
                                                 </path>
                                             </svg>
                                             <span *ngIf="!model.email" class="text-muted">Not Available</span>
-                                            <span *ngIf="model.email" title="minhtmu@gmail.com" class="text-truncate">{{model.email}}</span>
+                                            <span *ngIf="model.email" title="minhtmu@gmail.com"
+                                                class="text-truncate">{{model.email}}</span>
                                         </a>
                                     </div>
                                     <div class="contact-info--row" title="Phone number">
@@ -56,55 +57,152 @@
                                             </svg>
 
                                             <span *ngIf="!model.company" class="text-muted">Not Available</span>
-                                            <span *ngIf="model.company"
-                                                class="text-muted">{{model.company}}</span>
+                                            <span *ngIf="model.company" class="text-muted">{{model.company}}</span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="contact-actions">
-                                <button type="submit"
-                                    class="btn-primary btn">
-                                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg" class="icon icon--font chat">
-                                        <path
-                                            d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.96 9.96 0 0 1-4.587-1.112l-3.826 1.067a1.25 1.25 0 0 1-1.54-1.54l1.068-3.823A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2Zm0 1.5A8.5 8.5 0 0 0 3.5 12c0 1.47.373 2.883 1.073 4.137l.15.27-1.112 3.984 3.987-1.112.27.15A8.5 8.5 0 1 0 12 3.5ZM8.75 13h4.498a.75.75 0 0 1 .102 1.493l-.102.007H8.75a.75.75 0 0 1-.102-1.493L8.75 13h4.498H8.75Zm0-3.5h6.505a.75.75 0 0 1 .101 1.493l-.101.007H8.75a.75.75 0 0 1-.102-1.493L8.75 9.5h6.505H8.75Z"
-                                            fill="currentColor">
-                                        </path>
-                                    </svg> </button> <button type="submit"
-                                    class="btn-primary btn">
-                                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg" class="icon icon--font edit">
-                                        <path
-                                            d="M21.03 2.97a3.578 3.578 0 0 1 0 5.06L9.062 20a2.25 2.25 0 0 1-.999.58l-5.116 1.395a.75.75 0 0 1-.92-.921l1.395-5.116a2.25 2.25 0 0 1 .58-.999L15.97 2.97a3.578 3.578 0 0 1 5.06 0ZM15 6.06 5.062 16a.75.75 0 0 0-.193.333l-1.05 3.85 3.85-1.05A.75.75 0 0 0 8 18.938L17.94 9 15 6.06Zm2.03-2.03-.97.97L19 7.94l.97-.97a2.079 2.079 0 0 0-2.94-2.94Z"
-                                            fill="currentColor">
-                                        </path>
-                                    </svg>
-                                </button>
-                                <button type="submit"
-                                    class="btn-secondary btn">
-                                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg" class="icon icon--font merge">
-                                        <path
-                                            d="M3 6.75A.75.75 0 0 1 3.75 6h4.5a.75.75 0 0 1 .53.22L13.56 11h5.878L15.72 7.28a.75.75 0 1 1 1.06-1.06l4.998 5a.75.75 0 0 1 0 1.06l-4.998 5a.75.75 0 1 1-1.06-1.06l3.718-3.72H13.56l-4.78 4.78a.75.75 0 0 1-.531.22h-4.5a.75.75 0 0 1 0-1.5h4.19l4.25-4.25L7.94 7.5H3.75A.75.75 0 0 1 3 6.75Z"
-                                            fill="currentColor">
-                                        </path>
-                                    </svg>
-                                </button>
-                                <button type="submit"
-                                    class="btn-danger btn">
-                                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg" class="icon icon--font delete">
-                                        <path
-                                            d="M12 1.75a3.25 3.25 0 0 1 3.245 3.066L15.25 5h5.25a.75.75 0 0 1 .102 1.493L20.5 6.5h-.796l-1.28 13.02a2.75 2.75 0 0 1-2.561 2.474l-.176.006H8.313a2.75 2.75 0 0 1-2.714-2.307l-.023-.174L4.295 6.5H3.5a.75.75 0 0 1-.743-.648L2.75 5.75a.75.75 0 0 1 .648-.743L3.5 5h5.25A3.25 3.25 0 0 1 12 1.75Zm6.197 4.75H5.802l1.267 12.872a1.25 1.25 0 0 0 1.117 1.122l.127.006h7.374c.6 0 1.109-.425 1.225-1.002l.02-.126L18.196 6.5ZM13.75 9.25a.75.75 0 0 1 .743.648L14.5 10v7a.75.75 0 0 1-1.493.102L13 17v-7a.75.75 0 0 1 .75-.75Zm-3.5 0a.75.75 0 0 1 .743.648L11 10v7a.75.75 0 0 1-1.493.102L9.5 17v-7a.75.75 0 0 1 .75-.75Zm1.75-6a1.75 1.75 0 0 0-1.744 1.606L10.25 5h3.5A1.75 1.75 0 0 0 12 3.25Z"
-                                            fill="currentColor">
-                                        </path>
-                                    </svg>
-                                </button>
+                                <p-button icon="pi pi-comment" styleClass="p-button-primary"></p-button>
+                                <p-button (click)="showPositionDialog('right')" icon="pi pi-pencil"
+                                    styleClass="p-button-secondary"></p-button>
+                                <button (click)="confirm()" pButton icon="pi pi-trash" class="p-button-danger"></button>
                             </div>
                         </div>
                     </div>
+                    <div class="mt-4">
+                        <h4>Contact Labels</h4>
+                        <p-multiSelect [options]="listLabels" [(ngModel)]="selectedLabel" defaultLabel="Select Label"
+                            optionLabel="name" class="multiselect-custom">
+                            <ng-template let-value pTemplate="selectedItems">
+                                <div class="label-item label-item-value" *ngFor="let option of selectedLabel">
+                                    <p-colorPicker [(ngModel)]="option.color" [disabled]="true"></p-colorPicker>
+                                    <span class="ms-1">{{option.name}}</span>
+                                </div>
+                                <div *ngIf="!selectedLabel || selectedLabel.length === 0" class="label-placeholder">
+                                    Select Label
+                                </div>
+                            </ng-template>
+                            <ng-template let-label pTemplate="item">
+                                <div class="label-item">
+                                    <p-colorPicker [(ngModel)]="label.color" [disabled]="true"></p-colorPicker>
+                                    <span class="ms-1">{{label.name}}</span>
+                                </div>
+                            </ng-template>
+                        </p-multiSelect>
+                    </div>
+                    <div class="mt-4">
+                        <h4>Notes</h4>
+                        <textarea [rows]="5" [cols]="30" [(ngModel)]="model.notes" pInputTextarea
+                            [autoResize]="true"></textarea>
+                    </div>
+                    <div class="">
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="newCOntact" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create new contact</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="content-box">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <p-dialog header="Edit contact" [(visible)]="displayPosition" [position]="position" [modal]="true"
+        [style]="{width: '400px'}" [draggable]="false" [resizable]="false">
+        <div class="modal-body">
+            <div class="content-box">
+                <form [formGroup]="form">
+                    <label class="input-container">
+                        <span>Full Name</span>
+                        <div class="group-input">
+                            <input type="text" pInputText [(ngModel)]="model.fullname" formControlName="fullname"
+                                placeholder="Full Name" class="form-control">
+                        </div>
+                    </label>
+                    <label class="input-container">
+                        <span>Email Address</span>
+                        <div class="group-input">
+                            <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
+                                placeholder="Email Address" class="form-control">
+                        </div>
+                    </label>
+                    <label class="input-container">
+                        <span>Bio</span>
+                        <div class="group-input">
+                            <input type="text" pInputText [(ngModel)]="model.bio" formControlName="bio"
+                                placeholder="Bio" class="form-control">
+                        </div>
+                    </label>
+                    <label class="input-container">
+                        <span>Phone Number</span>
+                        <div class="group-input">
+                            <input type="text" pInputText [(ngModel)]="model.phoneNumber" formControlName="phoneNumber"
+                                placeholder="Phone Number" class="form-control">
+                        </div>
+                    </label>
+                    <label class="input-container">
+                        <span>Company Name</span>
+                        <div class="group-input">
+                            <input type="text" pInputText [(ngModel)]="model.company" formControlName="company"
+                                placeholder="Company Name" class="form-control">
+                        </div>
+                    </label>
+                    <label class="input-container">
+                        <span>Country Name</span>
+                        <div class="group-input">
+                            <!-- <input type="text" pInputText [(ngModel)]="model.country" formControlName="country"
+                        placeholder="Country Name" class="form-control"> -->
+                            <p-dropdown [options]="countries" [(ngModel)]="model.country" optionLabel="name"
+                                optionValue="id" formControlName="country"></p-dropdown>
+
+                        </div>
+                    </label>
+                    <label class="input-container">
+                        <span>City Name</span>
+                        <div class="group-input">
+                            <input type="text" pInputText [(ngModel)]="model.city" formControlName="city"
+                                placeholder="City Name" class="form-control">
+                        </div>
+                    </label>
+                    <label class="input-container">
+                        <span>Social Profiles</span>
+                        <div class="group-input">
+                            <input type="text" pInputText [(ngModel)]="model.facebook" formControlName="facebook"
+                                placeholder="https://facebook.com/" class="form-control mb-2">
+                            <input type="text" pInputText [(ngModel)]="model.twitter" formControlName="twitter"
+                                placeholder="https://twitter.com/" class="form-control mb-2">
+                            <input type="text" pInputText [(ngModel)]="model.linkedin" formControlName="linkedin"
+                                placeholder="https://linkedin.com/" class="form-control mb-2">
+                            <input type="text" pInputText [(ngModel)]="model.github" formControlName="github"
+                                placeholder="https://github.com/" class="form-control">
+                        </div>
+                    </label>
+                </form>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok"
+                styleClass="p-button-text"></p-button>
+        </ng-template>
+    </p-dialog>
+    <p-confirmDialog header="Confirmation delete" icon="pi pi-exclamation-triangle"></p-confirmDialog>
