@@ -40,6 +40,7 @@ import { NewTeamComponent } from './settings/st-teams/new-team/new-team.componen
 import { NewInboxComponent } from './settings/st-inboxes/new-inbox/new-inbox.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StAgentsComponent } from './settings/st-agents/st-agents.component';
+import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { StAgentsComponent } from './settings/st-agents/st-agents.component';
     StTeamsComponent,
     NewLabelComponent,
     NewTeamComponent,
-    NewInboxComponent
+    NewInboxComponent,
+    ContactDetailComponent,
   ],
   imports: [
     CommonModule,

@@ -3,8 +3,52 @@ html {
     font-size: 14px;
 }
 
+.btn-back {
+    display: none;
+    margin-left: 50px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .view-mail .conv-header .sub-block-title {
+        padding-left: 50px;
+    }
+
+    .view-mail .btn-back {
+        display: inline !important;
+    }
+
+    .view-mail .content-left {
+        display: none;
+    }
+    .view-mail .btn-mobile{
+        justify-content: flex-start !important;
+        padding-left: 50px;
+        padding-top: 5px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
+
 p {
     margin-bottom: 0;
+}
+
+.p-10{
+    padding: 10px;
 }
 
 .text-middle {
@@ -31,11 +75,11 @@ i.pi {
 
 .content-left {
     border-right: 1px solid #f1f5f8;
-    width: 400px;
-    min-width: 400px;
+    min-width: 375px;
+    max-width: 400px;
 }
 
-.content-left>.container{
+.content-left>.container {
     min-height: 100vh;
     background-color: white;
 }
@@ -209,7 +253,7 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
     overflow: inherit;
 }
 
-.conversations-list .p-datatable .p-datatable-tbody > tr > td{
+.conversations-list .p-datatable .p-datatable-tbody>tr>td {
     padding: 0.5rem !important;
 }
 
@@ -253,14 +297,55 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
     margin-left: 65px;
 }
 
-.btn-collapse{
+.btn-collapse {
     transition: all 0.5s;
 }
 
-.hide-menu .btn-collapse{
-    left: 71px ;
+.hide-menu .btn-collapse {
+    left: 71px;
 }
 
-body{
+body {
     overflow: hidden;
+}
+
+.p-paginator .p-paginator-first,
+.p-paginator .p-paginator-prev,
+.p-paginator .p-paginator-next,
+.p-paginator .p-paginator-last {
+    min-width: 1rem;
+}
+
+.p-datatable-wrapper {
+    /* min-height: 300px; */
+    max-height: calc(100vh - 275px);
+}
+
+.messages-and-sidebar {
+    min-height: 500px;
+    height: calc(100vh - 50px);
+    overflow: auto;
+    display: flex;
+    /* flex-direction: column-reverse; */
+}
+
+
+.conv-header {
+    padding-top: 12px;
+}   
+
+.date-time {
+    width: 67px;
+}
+
+.icon--font{
+    margin-right: 3px;
+}
+
+.contact--metadata>*{
+    margin-bottom: 5px;
+}
+
+.contact-actions>*{
+    margin-left: 5px;
 }
