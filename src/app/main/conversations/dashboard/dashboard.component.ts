@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as $ from 'jquery';
 import { EmailInfoService } from '../../../service/emailInfo.service';
+import { StatusService } from '../../../service/status.service';
 
 interface Status {
   code: number,
@@ -17,11 +18,12 @@ interface Status {
 export class DashboardComponent implements OnInit {
 
   idInterval: any;
-  constructor(private emailInfoService: EmailInfoService) { }
+  constructor(private emailInfoService: EmailInfoService,
+    private statusService: StatusService) { }
 
   ngOnInit(): void {
     this.loadListEmail();
-    
+    this.loadStatus();
     this.idInterval = setInterval(() => {
       this.loadListEmail();
     }, 5000);
@@ -34,6 +36,12 @@ export class DashboardComponent implements OnInit {
     // this.listMessenger.push(this.listMessenger[1])
     // this.listMessenger.push(this.listMessenger[1])
 
+  }
+
+  loadStatus(){
+    this.statusService.getAll().subscribe((result) => {
+      this.listStatus = result;
+    });
   }
 
   ngOnDestroy() {
@@ -69,11 +77,11 @@ export class DashboardComponent implements OnInit {
   signature: string = ''
 
   listStatus: Status[] = [
-    { code: 1, name: 'Open' },
-    { code: 2, name: 'Resolved' },
-    { code: 3, name: 'Pending' },
-    { code: 4, name: 'Snoozed' },
-    { code: 0, name: 'All' },
+    // { code: 1, name: 'Open' },
+    // { code: 2, name: 'Resolved' },
+    // { code: 3, name: 'Pending' },
+    // { code: 4, name: 'Snoozed' },
+    // { code: 0, name: 'All' },
   ]
 
   listChat: any[] = [
