@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
     this.submitted = true
     this.userService.login(request).subscribe((result) => {
       if(result.status == 1){
-        debugger
         this.setLocalStorage(request.workemail)
         this.router.navigate(['main/conversations']);
       }
@@ -55,8 +54,8 @@ export class LoginComponent implements OnInit {
   
   setLocalStorage(email: any){
     this.userService.getByEmail(email).subscribe((result) => {
-      debugger
       this.userInfoStorageService.setCompany(result.company)
+      this.userInfoStorageService.setCompanyId(result.idCompany)
     });
   }
 

@@ -9,6 +9,7 @@ import { AppSettings } from '../constants/app-setting';
 export class UserInfoStorageService {
   // conpany: string;
   company: any;
+  companyId: any;
   // accessToken: string;
   // permissions: string;
   // userId: string;
@@ -24,7 +25,10 @@ export class UserInfoStorageService {
   constructor(private http: HttpClient, private _router: Router) { }
 
   setCompany(id: string): void {
-    localStorage.setItem('conpany', id);
+    localStorage.setItem('company', id);
+  }
+  setCompanyId(id: string): void {
+    localStorage.setItem('companyId', id);
   }
   // setReturnUrl(url: string): void {
   //   localStorage.setItem('ReturnUrl', url);
@@ -94,9 +98,12 @@ export class UserInfoStorageService {
   // }
 
   getCompany(): any {
-    return localStorage.getItem('conpany');
+    return localStorage.getItem('company');
   }
 
+  getCompanyId(): any {
+    return localStorage.getItem('companyId');
+  }
   // getKeyRemember(): string {
   //   return localStorage.getItem('KeyRework');
   // }
