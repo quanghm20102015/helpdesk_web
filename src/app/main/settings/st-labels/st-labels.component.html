@@ -44,8 +44,8 @@
                             </td>
                             <td>
                                 <div class="button-wrapper text-end">
-                                    <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
-                                    <button class="btn btn-sm btn-danger ms-2"><i
+                                    <button class="btn btn-sm btn-primary" (click)="edit(item)"><i class="pi pi-sliders-h"></i></button>
+                                    <button class="btn btn-sm btn-danger ms-2" (click)="delete(item)"><i
                                             class="pi pi-times-circle"></i></button>
                                 </div>
                             </td>
@@ -72,8 +72,11 @@
 <p-dialog [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
     <ng-template pTemplate="header">
         <div>
-            <p class="p-dialog-title">
+            <p class="p-dialog-title" *ngIf="create">
                 Add label
+            </p>
+            <p class="p-dialog-title" *ngIf="!create">
+                Update label
             </p>
             <p class="text-secondary">
                 Labels let you group the conversations together.
@@ -115,8 +118,8 @@
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
-                    <span>Create</span>
+                <button type="button" class="btn btn-primary" [disabled]="f['name'].errors" (click)="saveLabel()">
+                    <span>Save</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false">
                     Cancel

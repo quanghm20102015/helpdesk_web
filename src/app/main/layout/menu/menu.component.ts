@@ -2,19 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ConfigMailService } from '../../../service/configMail.service';
+import { LabelService } from '../../../service/label.service';
+import { MessageService } from 'primeng/api';
+import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  providers: [MessageService]
 })
 export class MenuComponent implements OnInit {
   constructor(private _fb: FormBuilder, 
     private router: Router, 
-    private configMailService: ConfigMailService) { }
+    private configMailService: ConfigMailService,
+    private labelService: LabelService,
+    private messageService: MessageService,
+    private userInfoStorageService: UserInfoStorageService) { }
 
   ngOnInit(): void {
+    this.idCompany = this.userInfoStorageService.getCompanyId()
     this.getListInbox();
+    this.loadDataLabel();
     console.log(this.router.url);
     this.listRouterTab.forEach(item => {
       console.log('Url: ',this.url)
@@ -27,7 +36,7 @@ export class MenuComponent implements OnInit {
 
   display: boolean = false
 
-  model: any = { name: '', description: '', color: '#000000',showSidebar: false };
+  model: any = {};
   submitted: boolean = false;
   form: FormGroup = this._fb.group({
     name: [this.model.name, [Validators.required]],
@@ -36,6 +45,7 @@ export class MenuComponent implements OnInit {
     showSidebar: [this.model.showSidebar],
   });
 
+  idCompany: any;
   onSubmit() {
     this.submitted = true;
   }
@@ -70,9 +80,9 @@ export class MenuComponent implements OnInit {
   ]
 
   listLabel: any = [
-    { name: 'Label 01', id: 156 },
-    { name: 'Label 02', id: 1680 },
-    { name: 'Label 03', id: 430 },
+    // { name: 'Label 01', id: 156 },
+    // { name: 'Label 02', id: 1680 },
+    // { name: 'Label 03', id: 430 },
   ]
 
   listInboxes: any = [
@@ -82,5 +92,25 @@ export class MenuComponent implements OnInit {
 
   setTab(tab: any){
     this.tab = tab
+  }
+
+  loadDataLabel(){
+    this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
+      this.listLabel = result;
+    });
+  }
+  saveLabel(){    
+    this.model.idCompany = this.userInfoStorageService.getCompanyId();
+    this.labelService.create(this.model).subscribe((result) => {
+      if(result.status == 1){          
+        this.display = false;
+      }
+      else{
+        this.showError(result.message);
+      }
+    });
+  }
+  showError(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 }

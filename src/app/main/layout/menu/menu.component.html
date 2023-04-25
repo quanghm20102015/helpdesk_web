@@ -530,7 +530,7 @@
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
+                <button type="button" class="btn btn-primary" [disabled]="f['name'].errors" (click)="saveLabel()">
                     <span>Create</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false">

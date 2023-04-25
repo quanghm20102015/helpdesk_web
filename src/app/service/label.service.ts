@@ -7,7 +7,7 @@ import { AppSettings } from "../constants/app-setting";
 @Injectable({
   providedIn: "root",
 })
-export class ContactService {
+export class LabelService {
   constructor(
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService
@@ -15,20 +15,32 @@ export class ContactService {
 
   create(data: any): Observable<any> {
     return this.http.post(
-      AppSettings.HostingAddress + '/Contacts',
+      AppSettings.HostingAddress + '/Labels',
+      data
+    );
+  }
+  
+  update(data: any): Observable<any> {
+    return this.http.put(
+      AppSettings.HostingAddress + '/Labels',
       data
     );
   }
   
   getAll(): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Contacts'
+      AppSettings.HostingAddress + '/Labels'
     );
   }
   
   getByIdCompany(idCompany: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Contacts/GetByIdCompany?idCompany='+ idCompany
+      AppSettings.HostingAddress + '/Labels/GetByIdCompany?idCompany='+ idCompany
+    );
+  }
+  getById(id: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Labels/?id='+ id
     );
   }
 }

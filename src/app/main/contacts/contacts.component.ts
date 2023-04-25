@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../service/country.service';
 import { ContactService } from '../../service/contact.service';
+import { UserInfoStorageService } from '../../service/user-info-storage.service';
 
 declare var $: any;
 @Component({
@@ -13,7 +14,8 @@ export class ContactsComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
     private countryService: CountryService,
-    private contactService: ContactService) { }
+    private contactService: ContactService,
+    private userInfoStorageService: UserInfoStorageService) { }
 
   inputSearch: string = ''
   scrollDemo: any
@@ -38,6 +40,7 @@ export class ContactsComponent implements OnInit {
     // createAt: '',
     // conversations: ''
   };
+  idCompany: any
   
   form: FormGroup = this._fb.group({
     fullname: [this.model.fullname, [Validators.required]],
@@ -58,6 +61,7 @@ export class ContactsComponent implements OnInit {
     // conversations: [this.model.conversations]
   });
   ngOnInit(): void {
+    this.idCompany = this.userInfoStorageService.getCompanyId()
     this.getAllCountry();
     this.getContact();
     // this.scrollDemo = document.querySelector("#box-messages");
@@ -75,12 +79,13 @@ export class ContactsComponent implements OnInit {
   }
 
   getContact(){
-    this.contactService.getAll().subscribe((result) => {
+    this.contactService.getByIdCompany(this.idCompany).subscribe((result) => {
       this.contacts = result;
     });
   }
 
   onSubmit(){    
+    this.model.idCompany = this.idCompany
     this.contactService.create(this.model).subscribe((result) => {
       if(result.status == 1){
         $("#newCOntact").modal("hide");
