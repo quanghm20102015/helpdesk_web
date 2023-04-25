@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-st-labels',
@@ -7,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./st-labels.component.css']
 })
 export class StLabelsComponent implements OnInit {
-  constructor(private _fb: FormBuilder) { }
+  constructor(private _fb: FormBuilder, private confirmationService: ConfirmationService) { }
   display: boolean = false;
   model: any = { name: '', description: '', color: '#000000',showSidebar: false }
   submitted: boolean = false
@@ -42,5 +43,14 @@ export class StLabelsComponent implements OnInit {
 
   showDialog() {
     this.display = true;
+  }
+  
+  confirm() {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+      }
+    });
   }
 }

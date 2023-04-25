@@ -75,7 +75,7 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-contact>
                     <tr>
-                        <td class="btn text-primary" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" [routerLink]="'/main/contacts/detail/' + contact.id"
+                        <td class="pointer text-primary" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}" [routerLink]="'/main/contacts/detail/' + contact.id"
                         aria-expanded="false" title="viewDetail">{{ contact.fullname }}</td>
                         <td>{{ contact.email }}</td>
                         <td>{{ contact.phoneNumber }}</td>

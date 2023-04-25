@@ -111,6 +111,7 @@ export class DashboardComponent implements OnInit {
 
   viewMail: boolean = false
   detailMail(item: any) {
+    console.log(this.listSelectChat)
     this.listMessenger = [];
     this.viewMail = true;
     this.subject = item.subject
