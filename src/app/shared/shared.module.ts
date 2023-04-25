@@ -79,6 +79,7 @@ import { TreeModule } from 'primeng/tree';
 import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -248,6 +249,7 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
     TreeTableModule,
     VirtualScrollerModule,
     CKEditorModule,
-  ]
+  ],
+  providers: [ConfirmationService, MessageService]
 })
 export class SharedModule { }

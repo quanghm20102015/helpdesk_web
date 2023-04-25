@@ -289,12 +289,12 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
 
 .container-right {
     min-height: 100vh;
-    margin-left: 267px;
+    padding-left: 267px !important;
     transition: 0.5s all;
 }
 
 .hide-menu .container-right {
-    margin-left: 65px;
+    padding-left: 65px !important;
 }
 
 .btn-collapse {
@@ -321,10 +321,15 @@ body {
     max-height: calc(100vh - 275px);
 }
 
-.messages-and-sidebar {
-    min-height: 500px;
-    height: calc(100vh - 50px);
+.content-right{
+    height: 100vh;
     overflow: auto;
+}
+
+.messages-and-sidebar {
+    /* min-height: 400px;
+    height: calc(100vh - 60px);
+    overflow: auto; */
     display: flex;
     /* flex-direction: column-reverse; */
 }
@@ -332,14 +337,11 @@ body {
 
 .conv-header {
     padding-top: 12px;
+    padding-bottom: 12px;
 }   
 
 .date-time {
     width: 67px;
-}
-
-.icon--font{
-    margin-right: 3px;
 }
 
 .contact--metadata>*{
@@ -348,4 +350,28 @@ body {
 
 .contact-actions>*{
     margin-left: 5px;
+}
+
+.btn-back-contacts:active{
+    border: none;
+}
+
+.contact--details .contact--metadata svg{
+    margin-right: 3px;
+}
+
+.p-multiselect{
+    max-width: 100%;
+}
+
+.p-multiselect-label .label-item{
+    padding: 5px;
+}
+
+.p-multiselect-label{
+    display: flex !important;
+}
+
+.p-inputtextarea{
+    width: 100%;
 }
