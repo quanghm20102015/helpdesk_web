@@ -1,1 +1,133 @@
-<p>new-inbox works!</p>
+<div class="container-fluid">
+    <div class="settings-header">
+        <div class="row bg-white">
+            <div class="col-12 col-header">
+                <h3 class="page-title mb-0">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        class="icon people-team header--icon">
+                        <path
+                            d="M14.754 10c.966 0 1.75.784 1.75 1.75v4.749a4.501 4.501 0 0 1-9.002 0V11.75c0-.966.783-1.75 1.75-1.75h5.502Zm0 1.5H9.252a.25.25 0 0 0-.25.25v4.749a3.001 3.001 0 0 0 6.002 0V11.75a.25.25 0 0 0-.25-.25ZM3.75 10h3.381a2.738 2.738 0 0 0-.618 1.5H3.75a.25.25 0 0 0-.25.25v3.249a2.501 2.501 0 0 0 3.082 2.433c.085.504.24.985.453 1.432A4.001 4.001 0 0 1 2 14.999V11.75c0-.966.784-1.75 1.75-1.75Zm13.125 0h3.375c.966 0 1.75.784 1.75 1.75V15a4 4 0 0 1-5.03 3.866c.214-.448.369-.929.455-1.433A2.5 2.5 0 0 0 20.5 15v-3.25a.25.25 0 0 0-.25-.25h-2.757a2.738 2.738 0 0 0-.618-1.5ZM12 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm6.5 1a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm-13 0a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5Zm6.5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Zm6.5 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Zm-13 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z"
+                            fill="currentColor"></path>
+                    </svg>
+                    <span class="ms-2">New Inbox</span>
+                </h3>
+<!-- 
+                <button type="submit" class="btn btn-success">
+                    <span>Create Inbox</span>
+                </button> -->
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 profile--settings">
+        <div class="row">
+            <div class="col-md-8">
+                <form class="row" [formGroup]="form">
+                    <div class="col-md-12">
+                        <label class="label-input">
+                            <span class="text-label">Inbox name</span>
+                            <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
+                                placeholder="Enter Inbox name" class="form-control mt-1">
+                            <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
+                                class="text-danger">
+                                <div *ngIf="f['name'].errors?.['required']">
+                                    Inbox name is required
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-input">
+                            <span class="text-label">Email</span>
+                            <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
+                                placeholder="Enter Email" class="form-control mt-1">
+                            <div *ngIf="(f['email'].dirty || f['email'].touched || submitted) && f['email'].invalid"
+                                class="text-danger">
+                                <div *ngIf="f['email'].errors?.['required']">
+                                    Email is required
+                                </div> 
+                                <div *ngIf="f['email'].errors?.['email']">
+                                    Please enter a valid email
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-input">
+                            <span class="text-label">Password</span>
+                            <input type="text" pInputText [(ngModel)]="model.password" formControlName="password"
+                                placeholder="Enter ExamPassword" class="form-control mt-1">
+                            <div *ngIf="(f['password'].dirty || f['password'].touched || submitted) && f['password'].invalid"
+                                class="text-danger">
+                                <div *ngIf="f['password'].errors?.['required']">
+                                    Password is required
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-input">
+                            <span class="text-label">Incoming</span>
+                            <input type="text" pInputText [(ngModel)]="model.incoming" formControlName="incoming"
+                                placeholder="Enter Incoming" class="form-control mt-1">
+                            <div *ngIf="(f['incoming'].dirty || f['incoming'].touched || submitted) && f['incoming'].invalid"
+                                class="text-danger">
+                                <div *ngIf="f['incoming'].errors?.['required']">
+                                    Incoming is required
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-input">
+                            <span class="text-label">IcomingPort</span>
+                            <input type="text" pInputText [(ngModel)]="model.icomingPort" formControlName="icomingPort"
+                                placeholder="Enter IcomingPort" class="form-control mt-1">
+                            <div *ngIf="(f['icomingPort'].dirty || f['icomingPort'].touched || submitted) && f['icomingPort'].invalid"
+                                class="text-danger">
+                                <div *ngIf="f['icomingPort'].errors?.['required']">
+                                    IcomingPort is required
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-input">
+                            <span class="text-label">Outgoing</span>
+                            <input type="text" pInputText [(ngModel)]="model.outgoing" formControlName="outgoing"
+                                placeholder="Enter Outgoing" class="form-control mt-1">
+                            <div *ngIf="(f['outgoing'].dirty || f['outgoing'].touched || submitted) && f['outgoing'].invalid"
+                                class="text-danger">
+                                <div *ngIf="f['outgoing'].errors?.['required']">
+                                    Outgoing is required
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-input">
+                            <span class="text-label">OutgoingPort</span>
+                            <input type="text" pInputText [(ngModel)]="model.outgoingPort" formControlName="outgoingPort"
+                                placeholder="Enter OutgoingPort" class="form-control mt-1">
+                            <div *ngIf="(f['outgoingPort'].dirty || f['outgoingPort'].touched || submitted) && f['outgoingPort'].invalid"
+                                class="text-danger">
+                                <div *ngIf="f['outgoingPort'].errors?.['required']">
+                                    OutgoingPort is required
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <button type="submit" class="btn btn-primary">        
+                            <span>Create</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+                
+            </div>
+        </div>
+
+    </div>
+
+</div>

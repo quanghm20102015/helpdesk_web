@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 import { LabelService } from '../../../service/label.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { MessageService } from 'primeng/api';
@@ -14,7 +15,8 @@ export class StLabelsComponent implements OnInit {
   constructor(private _fb: FormBuilder,
     private labelService: LabelService,
     private userInfoStorageService: UserInfoStorageService,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
   display: boolean = false;
   create: boolean = false;
   model: any = { name: '', description: '', color: '#000000',showSidebar: false }
@@ -101,5 +103,14 @@ export class StLabelsComponent implements OnInit {
 
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
+  
+  confirm() {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+      }
+    });
   }
 }

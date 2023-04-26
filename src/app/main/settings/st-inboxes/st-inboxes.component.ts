@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-st-inboxes',
@@ -11,9 +12,17 @@ export class StInboxesComponent implements OnInit {
     { name: 'Email sale', type: 'Email' },
     { name: 'Email customer', type: 'Email' },
   ]
-  constructor() { }
+  constructor(private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
   }
 
+  confirm() {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+      }
+    });
+  }
 }

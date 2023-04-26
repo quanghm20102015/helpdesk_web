@@ -27,7 +27,8 @@ html {
     .view-mail .content-left {
         display: none;
     }
-    .view-mail .btn-mobile{
+
+    .view-mail .btn-mobile {
         justify-content: flex-start !important;
         padding-left: 50px;
         padding-top: 5px;
@@ -47,7 +48,7 @@ p {
     margin-bottom: 0;
 }
 
-.p-10{
+.p-10 {
     padding: 10px;
 }
 
@@ -264,7 +265,7 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
 .btn-collapse {
     position: absolute;
     top: 17px;
-    left: 272px;
+    left: 260px;
     display: flex;
     align-items: center;
 }
@@ -289,7 +290,7 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
 
 .container-right {
     min-height: 100vh;
-    padding-left: 267px !important;
+    padding-left: 257px !important;
     transition: 0.5s all;
 }
 
@@ -321,7 +322,7 @@ body {
     max-height: calc(100vh - 275px);
 }
 
-.content-right{
+.content-right {
     height: 100vh;
     overflow: auto;
 }
@@ -338,40 +339,57 @@ body {
 .conv-header {
     padding-top: 12px;
     padding-bottom: 12px;
-}   
+}
 
 .date-time {
     width: 67px;
 }
 
-.contact--metadata>*{
+.contact--metadata>* {
     margin-bottom: 5px;
 }
 
-.contact-actions>*{
+.contact-actions button {
     margin-left: 5px;
+    width: 30px !important;
+    height: 28px;
 }
 
-.btn-back-contacts:active{
+.btn-back-contacts:active {
     border: none;
 }
 
-.contact--details .contact--metadata svg{
+.contact--details .contact--metadata svg {
     margin-right: 3px;
 }
 
-.p-multiselect{
+.p-multiselect {
     max-width: 100%;
 }
 
-.p-multiselect-label .label-item{
+.p-multiselect-label .label-item {
     padding: 5px;
 }
 
-.p-multiselect-label{
+.p-multiselect-label {
     display: flex !important;
 }
 
-.p-inputtextarea{
+.p-inputtextarea {
     width: 100%;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.box-detail-contact{
+    border-right: 1px solid #f1f5f8;
+    min-height: 100vh;
+}
+
+.p-button-danger.p-button.p-component.p-button-icon-only{
+    width: 30px;
+    height: 28px;
+    margin-left: 5px;
 }
