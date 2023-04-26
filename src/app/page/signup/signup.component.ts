@@ -35,6 +35,7 @@ export class SignupComponent implements OnInit {
   onSubmit() {
     this.passwordDecrypt = this.model.password
     this.model.password = this.encrdecrService.set("mypassword", this.model.password).toString()
+    this.model.idCompany = 0
     this.submitted = true
     this.userService.createUser(this.model).subscribe((result) => {
       if(result.status == 1){

@@ -68,7 +68,6 @@ export class LoginComponent implements OnInit {
 			workemail: this.model.workemail,
 			password: this.model.password,
 		})
-    debugger
 	}
   
 	get f() {

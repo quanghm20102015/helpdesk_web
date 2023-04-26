@@ -21,15 +21,15 @@
     <div class="col-md-12 profile--settings">
         <div class="row">
             <div class="col-md-8">
-                <form class="row" [formGroup]="form">
+                <form class="row" [formGroup]="form" (submit)="create()">
                     <div class="col-md-12">
                         <label class="label-input">
                             <span class="text-label">Inbox name</span>
-                            <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
+                            <input type="text" pInputText [(ngModel)]="model.yourName" formControlName="yourName"
                                 placeholder="Enter Inbox name" class="form-control mt-1">
-                            <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
+                            <div *ngIf="(f['yourName'].dirty || f['yourName'].touched || submitted) && f['yourName'].invalid"
                                 class="text-danger">
-                                <div *ngIf="f['name'].errors?.['required']">
+                                <div *ngIf="f['yourName'].errors?.['required']">
                                     Inbox name is required
                                 </div>
                             </div>
@@ -79,13 +79,13 @@
                     </div>
                     <div class="col-md-6">
                         <label class="label-input">
-                            <span class="text-label">IcomingPort</span>
-                            <input type="text" pInputText [(ngModel)]="model.icomingPort" formControlName="icomingPort"
-                                placeholder="Enter IcomingPort" class="form-control mt-1">
-                            <div *ngIf="(f['icomingPort'].dirty || f['icomingPort'].touched || submitted) && f['icomingPort'].invalid"
+                            <span class="text-label">incomingPort</span>
+                            <input type="text" pInputText [(ngModel)]="model.incomingPort" formControlName="incomingPort"
+                                placeholder="Enter incomingPort" class="form-control mt-1">
+                            <div *ngIf="(f['incomingPort'].dirty || f['incomingPort'].touched || submitted) && f['incomingPort'].invalid"
                                 class="text-danger">
-                                <div *ngIf="f['icomingPort'].errors?.['required']">
-                                    IcomingPort is required
+                                <div *ngIf="f['incomingPort'].errors?.['required']">
+                                    incomingPort is required
                                 </div>
                             </div>
                         </label>
@@ -131,3 +131,4 @@
     </div>
 
 </div>
+<p-toast></p-toast>

@@ -35,14 +35,14 @@
                     <ng-template pTemplate="body" let-item>
                         <tr>
                             <td>
-                                <div class="agent-name">{{item.name}}</div>
+                                <div class="agent-name">{{item.yourName}}</div>
                             </td>
                             <td>
                                 {{item.type}}
                             </td>
                             <td>
                                 <div class="button-wrapper text-end">
-                                    <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
+                                    <button (click)="edit(item)" class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
                                     <button (click)="confirm()" pButton icon="pi pi-trash" class="p-button-danger"></button>
                                 </div>
                             </td>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
+import { ConfigMailService } from '../../../service/configMail.service';
+import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 
 @Component({
   selector: 'app-st-inboxes',
@@ -9,12 +11,23 @@ import { ConfirmationService } from 'primeng/api';
 export class StInboxesComponent implements OnInit {
 
   listData: any = [
-    { name: 'Email sale', type: 'Email' },
-    { name: 'Email customer', type: 'Email' },
+    // { name: 'Email sale', type: 'Email' },
+    // { name: 'Email customer', type: 'Email' },
   ]
-  constructor(private confirmationService: ConfirmationService) { }
+  idCompany: any;
+  constructor(private confirmationService: ConfirmationService, 
+    private configMailService: ConfigMailService,
+    private userInfoStorageService: UserInfoStorageService) { }
 
   ngOnInit(): void {
+    this.idCompany = this.userInfoStorageService.getCompanyId()
+    this.loadListConfigMail()
+  }
+
+  loadListConfigMail(){    
+    this.configMailService.GetByIdCompany(this.idCompany).subscribe((result) => {
+      this.listData = result;
+    });
   }
 
   confirm() {
@@ -24,5 +37,9 @@ export class StInboxesComponent implements OnInit {
         //Actual logic to perform a confirmation
       }
     });
+  }
+
+  edit(item: any){
+
   }
 }

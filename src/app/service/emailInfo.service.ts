@@ -14,7 +14,6 @@ export class EmailInfoService {
   ) {}
 
   create(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/EmailInfoes',
       data
@@ -24,6 +23,13 @@ export class EmailInfoService {
   getAll(): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/EmailInfoes'
+    );
+  }
+  
+  SendMail(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/SendMail',
+      data
     );
   }
 }

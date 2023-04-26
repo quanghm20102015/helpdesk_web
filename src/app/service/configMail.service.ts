@@ -14,7 +14,6 @@ export class ConfigMailService {
   ) {}
 
   create(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/ConfigMails',
       data
@@ -24,6 +23,12 @@ export class ConfigMailService {
   getAll(): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/ConfigMails'
+    );
+  }
+  
+  GetByIdCompany(idCompany: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/ConfigMails/GetByIdCompany?idCompany='+ idCompany
     );
   }
 }

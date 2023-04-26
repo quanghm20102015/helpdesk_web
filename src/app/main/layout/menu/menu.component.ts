@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
   }
 
   getListInbox(){
-    this.configMailService.getAll().subscribe((result) => {
+    this.configMailService.GetByIdCompany(this.idCompany).subscribe((result) => {
       this.listInboxes = result;
     });
   }

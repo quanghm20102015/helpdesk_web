@@ -3,6 +3,7 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as $ from 'jquery';
 import { EmailInfoService } from '../../../service/emailInfo.service';
 import { StatusService } from '../../../service/status.service';
+import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 
 interface Status {
   code: number,
@@ -18,10 +19,13 @@ interface Status {
 export class DashboardComponent implements OnInit {
 
   idInterval: any;
+  idCompany: any;
   constructor(private emailInfoService: EmailInfoService,
-    private statusService: StatusService) { }
+    private statusService: StatusService,
+    private userInfoStorageService: UserInfoStorageService) { }
 
   ngOnInit(): void {
+    this.idCompany = this.userInfoStorageService.getCompanyId()
     this.loadListEmail();
     this.loadStatus();
     this.idInterval = setInterval(() => {
@@ -49,13 +53,7 @@ export class DashboardComponent implements OnInit {
       clearInterval(this.idInterval);
     }
   }
-  // this.scrollDemo = document.querySelector("#box-messages");
-  // this.scrollDemo.addEventListener("scroll", (event: any) => {
-  //   if (this.scrollDemo.scrollHeight - this.scrollDemo.offsetHeight + this.scrollDemo.scrollTop < 1) {
-  //     console.log("Scroll end")
-  //   }
-  // })
-
+  
   loadListEmail() {
     this.emailInfoService.getAll().subscribe((result) => {
       this.listChat = result;
@@ -77,17 +75,9 @@ export class DashboardComponent implements OnInit {
   signature: string = ''
 
   listStatus: Status[] = [
-    // { code: 1, name: 'Open' },
-    // { code: 2, name: 'Resolved' },
-    // { code: 3, name: 'Pending' },
-    // { code: 4, name: 'Snoozed' },
-    // { code: 0, name: 'All' },
   ]
 
   listChat: any[] = [
-    // { inbox: '1', name: 'Phạm Minh', lastChat: 'Rất vui được gặp bạn', sendDate: '10:34 20/04/2023', status: 1 },
-    // { inbox: '2', name: 'DungXT', lastChat: 'hello', sendDate: '10:34 20/04/2023', status: 1 },
-    // { inbox: '3', name: 'Phạm Minh', lastChat: 'Rất vui được gặp bạn', sendDate: '10:34 20/04/2023', status: 1 }
   ]
 
   listSelectChat: any[] = []
@@ -112,13 +102,32 @@ export class DashboardComponent implements OnInit {
   }
 
   sendMessenger() {
-    let request = { id: 1, messenger: this.messenger, dateTime: new Date() }
-    this.listMessenger.push(request)
-    this.messenger = this.signature
+    let request = {
+      to: this.mailDetails.from,
+      cc: '',
+      bcc: '',
+      subject: this.mailDetails.subject,
+      body: this.messenger,
+      idCompany: this.idCompany
+    }
+    
+    this.emailInfoService.SendMail(request).subscribe((result) => {
+      if(result.status == 1){
+        //thành công
+      }
+      else{
+        //thất bại
+      }
+    });
+    // let request = { id: 1, messenger: this.messenger, dateTime: new Date() }
+    // this.listMessenger.push(request)
+    // this.messenger = this.signature
   }
 
+  mailDetails: any;
   viewMail: boolean = false
   detailMail(item: any) {
+    this.mailDetails = item;
     console.log(this.listSelectChat)
     this.listMessenger = [];
     this.viewMail = true;
