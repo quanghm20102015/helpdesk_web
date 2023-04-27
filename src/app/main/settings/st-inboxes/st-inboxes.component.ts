@@ -40,6 +40,6 @@ export class StInboxesComponent implements OnInit {
   }
 
   edit(item: any){
-
+    
   }
 }
