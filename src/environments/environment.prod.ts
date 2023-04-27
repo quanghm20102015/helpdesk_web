@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   env: {
-    HOSTING_API: 'https://localhost:7257/api'
+    HOSTING_API: 'http://103.63.109.82:443/api'
   }
 };
