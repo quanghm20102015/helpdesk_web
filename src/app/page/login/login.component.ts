@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private encrdecrService: EncrDecrService,
     private router: Router,
-    private messageService: MessageService  , 
+    private messageService: MessageService, 
     private userInfoStorageService: UserInfoStorageService
     ) { }
   model: any = {workemail: '', password: ''}
