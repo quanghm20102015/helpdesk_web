@@ -55,7 +55,7 @@ export class DashboardComponent implements OnInit {
   }
   
   loadListEmail() {
-    this.emailInfoService.getAll().subscribe((result) => {
+    this.emailInfoService.getByIdCompany(this.idCompany).subscribe((result) => {
       this.listChat = result;
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)

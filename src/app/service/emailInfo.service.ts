@@ -32,4 +32,10 @@ export class EmailInfoService {
       data
     );
   }
+
+  getByIdCompany(idCompany: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/GetByIdCompany?idCompany='+ idCompany
+    );
+  }
 }
