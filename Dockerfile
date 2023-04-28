@@ -34,6 +34,6 @@ FROM nginx:latest
 COPY --from=build /usr/src/app/wwwroot/ /usr/share/nginx/html
 
 #copying nginx config from local to image
-COPY /app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /nginx.conf /etc/nginx/conf.d/default.conf
 #exposing internal port
 EXPOSE 80
