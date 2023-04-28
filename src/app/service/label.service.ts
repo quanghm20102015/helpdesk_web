@@ -12,6 +12,18 @@ export class LabelService {
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService
   ) {}
+  
+  getAll(): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Labels'
+    );
+  }
+  
+  getByIdCompany(idCompany: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Labels/GetByIdCompany?idCompany=' + idCompany
+    );
+  }
 
   create(data: any): Observable<any> {
     return this.http.post(
@@ -26,21 +38,16 @@ export class LabelService {
       data
     );
   }
-  
-  getAll(): Observable<any> {
-    return this.http.get(
-      AppSettings.HostingAddress + '/Labels'
-    );
-  }
-  
-  getByIdCompany(idCompany: any): Observable<any> {
-    return this.http.get(
-      AppSettings.HostingAddress + '/Labels/GetByIdCompany?idCompany='+ idCompany
-    );
-  }
+
   getById(id: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Labels/?id='+ id
+      AppSettings.HostingAddress + '/Labels/' + id
+    );
+  }
+  
+  deleteById(id: any): Observable<any> {
+    return this.http.delete(
+      AppSettings.HostingAddress + '/Labels/' + id
     );
   }
 }

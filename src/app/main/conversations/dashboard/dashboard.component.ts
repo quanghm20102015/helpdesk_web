@@ -32,14 +32,6 @@ export class DashboardComponent implements OnInit {
       this.loadListEmail();
     }, 5000);
     this.messenger = this.signature
-    // this.listMessenger.push(this.listMessenger[1])
-    // this.listMessenger.push(this.listMessenger[1])
-    // this.listMessenger.push(this.listMessenger[1])
-    // this.listMessenger.push(this.listMessenger[1])
-    // this.listMessenger.push(this.listMessenger[1])
-    // this.listMessenger.push(this.listMessenger[1])
-    // this.listMessenger.push(this.listMessenger[1])
-
   }
 
   loadStatus(){

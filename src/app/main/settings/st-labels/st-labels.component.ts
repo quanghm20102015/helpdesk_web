@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConfirmationService } from 'primeng/api';
-import { LabelService } from '../../../service/label.service';
-import { UserInfoStorageService } from '../../../service/user-info-storage.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { LabelService } from 'src/app/service/label.service';
+
 
 @Component({
   selector: 'app-st-labels',
@@ -12,105 +11,101 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class StLabelsComponent implements OnInit {
-  constructor(private _fb: FormBuilder,
+  constructor(
+    private _fb: FormBuilder,
+    private confirmationService: ConfirmationService,
     private labelService: LabelService,
-    private userInfoStorageService: UserInfoStorageService,
-    private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+    private messageService: MessageService
+  ) { }
   display: boolean = false;
-  create: boolean = false;
-  model: any = { name: '', description: '', color: '#000000',showSidebar: false }
+  model: any = { name: '', description: '', color: '#000000', showSidebar: false }
   submitted: boolean = false
   passwordDecrypt: any
+  idCompany: number = +(localStorage.getItem('companyId') || 0);
   form: FormGroup = this._fb.group({
     name: [this.model.name, [Validators.required]],
     description: [this.model.description],
     color: [this.model.color],
     showSidebar: [this.model.showSidebar],
   })
-  idCompany: any;
-  listData: any = [
-    // { name: 'Label 01', description: 'Description label', color: '#0BF08A', showSidebar: true },
-    // { name: 'Label 02', description: 'Description label', color: '#250C1C', showSidebar: false },
-  ]
+  listData: any = []
 
   ngOnInit(): void {
-    this.idCompany = this.userInfoStorageService.getCompanyId()
+    this.getList()
     this.rebuilForm();
-    this.loadData();
+    // this.loadData();
   }
 
   rebuilForm() {
     this.form.reset({
-      name: this.model.name,
-      description: this.model.description, 
-      color: this.model.color, 
-      showSidebar: this.model.showSidebar, 
+      name: '',
+      description: '',
+      color: '',
+      showSidebar: false,
     })
+  }
+
+  getList() {
+    if (this.idCompany != 0)
+      this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
+        this.listData = result;
+      })
   }
 
   get f() {
     return this.form.controls
   }
 
-  showDialog() {
-    this.rebuilForm();
-    this.create = true;
-    this.display = true;
+  type: number = 0;
+  title: string = ''
+  showDialogCreate() {
+    this.title = 'Create'
+    this.rebuilForm()
+    this.type = 1
+    this.display = true
   }
 
-  saveLabel(){
-    this.model.idCompany = this.idCompany
-    if(this.create){
-      this.labelService.create(this.model).subscribe((result) => {
-        if(result.status == 1){          
-          this.display = false;
-          this.loadData();
-        }
-        else{
-          this.showError(result.message);
-        }
-      });
-    }
-    else{
-      this.labelService.update(this.model).subscribe((result) => {
-        if(result.status == 1){       
-          this.display = false;
-          this.loadData();
-        }
-        else{
-          this.showError(result.message);
-        }
-      });
-    }
+  showDialogUpdate(item: any) {
+    this.title = 'Update'
+    this.type = 2
+    this.model = { ...item }
+    this.display = true
   }
 
-  loadData(){
-    this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
-      this.listData = result;
-    });
-  }
-
-  edit(item: any){
-    this.create = false;
-    this.model = item
-    this.display = true;
-  }
-
-  delete(item: any){
-    
-  }
-
-  showError(message: any) {
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
-  }
-  
-  confirm() {
+  confirmDelete(id: number) {
     this.confirmationService.confirm({
+      header: 'Confirmation delete',
+      icon: 'pi pi-exclamation-triangle',
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
-        //Actual logic to perform a confirmation
+        this.labelService.deleteById(id).subscribe((result) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete label success' });
+          this.getList()
+        })
       }
     });
   }
+
+  onCreateUpdate() {
+    if (this.form.invalid) {
+      return
+    }
+    let request = { ...this.model, idCompany: this.idCompany }
+    debugger
+    if (this.type === 1) {
+      delete request.id
+      this.labelService.create(request).subscribe((result) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Creat label success' });
+        this.display = false
+        this.getList()
+      })
+    } else {
+      this.labelService.update(request).subscribe((result) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update label success' });
+        this.display = false
+        this.getList()
+      })
+    }
+  }
+
 }
