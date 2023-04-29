@@ -20,7 +20,6 @@ export class StLabelsComponent implements OnInit {
   display: boolean = false;
   model: any = { name: '', description: '', color: '#000000', showSidebar: false }
   submitted: boolean = false
-  passwordDecrypt: any
   idCompany: number = +(localStorage.getItem('companyId') || 0);
   form: FormGroup = this._fb.group({
     name: [this.model.name, [Validators.required]],
@@ -33,7 +32,6 @@ export class StLabelsComponent implements OnInit {
   ngOnInit(): void {
     this.getList()
     this.rebuilForm();
-    // this.loadData();
   }
 
   rebuilForm() {
@@ -45,15 +43,15 @@ export class StLabelsComponent implements OnInit {
     })
   }
 
+  get f() {
+    return this.form.controls
+  }
+
   getList() {
     if (this.idCompany != 0)
       this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
         this.listData = result;
       })
-  }
-
-  get f() {
-    return this.form.controls
   }
 
   type: number = 0;
@@ -91,7 +89,6 @@ export class StLabelsComponent implements OnInit {
       return
     }
     let request = { ...this.model, idCompany: this.idCompany }
-    debugger
     if (this.type === 1) {
       delete request.id
       this.labelService.create(request).subscribe((result) => {

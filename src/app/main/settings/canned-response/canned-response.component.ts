@@ -27,8 +27,8 @@ export class CannedResponseComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      code: this.model.code,
-      content: this.model.content,
+      code: '',
+      content: '',
     })
   }
 

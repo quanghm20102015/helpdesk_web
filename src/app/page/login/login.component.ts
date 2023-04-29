@@ -56,6 +56,10 @@ export class LoginComponent implements OnInit {
     this.userService.getByEmail(email).subscribe((result) => {
       this.userInfoStorageService.setCompany(result.company)
       this.userInfoStorageService.setCompanyId(result.idCompany)
+      this.userInfoStorageService.setFullname(result.fullname)
+      this.userInfoStorageService.setIdUser(result.id)
+      this.userInfoStorageService.setWorkemail(result.workemail)
+      this.userInfoStorageService.setConfirm(result.confirm)
     });
   }
 
@@ -65,8 +69,8 @@ export class LoginComponent implements OnInit {
 
 	rebuilForm() {
 		this.form.reset({
-			workemail: this.model.workemail,
-			password: this.model.password,
+			workemail: '',
+			password: '',
 		})
 	}
   

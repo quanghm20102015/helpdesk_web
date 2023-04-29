@@ -39,13 +39,13 @@ export class NewInboxComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      yourName: this.model.yourName,
-      email: this.model.email,
-      password: this.model.password,
-      incoming: this.model.incoming,
-      incomingPort: this.model.incomingPort,
-      outgoing: this.model.outgoing,
-      outgoingPort: this.model.outgoingPort,
+      yourName: '',
+      email: '',
+      password: '',
+      incoming: '',
+      incomingPort: '',
+      outgoing: '',
+      outgoingPort: '',
     })
   }
 

@@ -33,17 +33,22 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.passwordDecrypt = this.model.password
-    this.model.password = this.encrdecrService.set("mypassword", this.model.password).toString()
-    this.model.idCompany = 0
-    this.model.confirm = 0
     this.submitted = true
-    this.userService.createUser(this.model).subscribe((result) => {
+    this.passwordDecrypt = this.encrdecrService.set("mypassword", this.model.password).toString()
+    this.model.idCompany = 0
+    let request = {
+      fullName: this.model.fullName,
+      company: this.model.company,
+      workemail: this.model.email,
+      password: this.encrdecrService.set("mypassword", this.model.password).toString()
+    }
+    this.userService.createUser(request).subscribe((result) => {
       if(result.status == 1){
         this.router.navigate(['/login']);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Sign success' });
       }
       else{
-        this.model.password = this.passwordDecrypt
+        // this.model.password = this.passwordDecrypt
         this.showError(result.message);
       }
     });
@@ -54,12 +59,11 @@ export class SignupComponent implements OnInit {
   }
 
   rebuilForm() {
-    debugger
     this.form.reset({
-      fullName: this.model.fullName,
-      company: this.model.company,
-      workemail: this.model.workemail,
-      password: this.model.password,
+      fullName: '',
+      company: '',
+      workemail: '',
+      password: '',
     })
   }
 
