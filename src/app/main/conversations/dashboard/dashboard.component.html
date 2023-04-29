@@ -20,7 +20,7 @@
                 <div class="col-md-6">
                     <div class="filter--actions">
                         <p-dropdown [options]="listStatus" [(ngModel)]="filterStatus" optionLabel="statusName"
-                            optionValue="id" scrollHeight="300px"></p-dropdown>
+                            optionValue="id" scrollHeight="300px" (onChange)="loadListEmail()"></p-dropdown>
                     </div>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                 <div class="col-md-6">
                     <div class="header-actions-wrap has-open-sidebar">
                         <div class="d-flex justify-content-end btn-mobile">
-                            <button type="submit" class="btn btn-outline-secondary border-0 me-2"
+                            <!-- <button type="submit" class="btn btn-outline-secondary border-0 me-2"
                                 data-original-title="null">
                                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg" class="icon icon--font speaker-mute">
@@ -191,10 +191,34 @@
                                         fill="currentColor">
                                     </path>
                                 </svg>
-                            </button>
+                            </button> -->
                             <div class="resolve-actions" status="open">
                                 <div class="button-group">
-                                    <button type="submit" class="btn btn-success"><svg width="16" height="16"
+                                    <button type="button" class="btn btn-outline-secondary status-botton" (click)="updateStatus(1, 0)"><svg width="16" height="16"
+                                            fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon--font checkmark">
+                                            <path
+                                                d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
+                                                fill="currentColor">
+                                            </path>
+                                        </svg>
+                                        <span class="button__content">
+                                            Open
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-primary status-botton" (click)="updateStatus(3, 0)"><svg width="16" height="16"
+                                            fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon--font checkmark">
+                                            <path
+                                                d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
+                                                fill="currentColor">
+                                            </path>
+                                        </svg>
+                                        <span class="button__content">
+                                            Pending
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-success status-botton"(click)="updateStatus(2, 0)"><svg width="16" height="16"
                                             fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon--font checkmark">
                                             <path
@@ -268,3 +292,4 @@
     </div>
 
 </div>
+<p-toast></p-toast>

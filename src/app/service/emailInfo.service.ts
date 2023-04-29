@@ -38,4 +38,18 @@ export class EmailInfoService {
       AppSettings.HostingAddress + '/EmailInfoes/GetByIdCompany?idCompany='+ idCompany
     );
   }
+  getByStatus(requets: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/getByStatus?idCompany='+ requets.idCompany + '&status='+ requets.status,
+      requets
+    );
+  }
+
+  
+  UpdateStatus(data: any): Observable<any> {
+    return this.http.put(
+      AppSettings.HostingAddress + '/EmailInfoes/UpdateStatus',
+      data
+    );
+  }
 }

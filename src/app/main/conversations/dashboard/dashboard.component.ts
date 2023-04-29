@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import { EmailInfoService } from '../../../service/emailInfo.service';
 import { StatusService } from '../../../service/status.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
+import { MessageService } from 'primeng/api';
 
 interface Status {
   code: number,
@@ -22,7 +23,8 @@ export class DashboardComponent implements OnInit {
   idCompany: any;
   constructor(private emailInfoService: EmailInfoService,
     private statusService: StatusService,
-    private userInfoStorageService: UserInfoStorageService) { }
+    private userInfoStorageService: UserInfoStorageService,
+    private messageService: MessageService,) { }
 
   ngOnInit(): void {
     this.idCompany = this.userInfoStorageService.getCompanyId()
@@ -47,7 +49,12 @@ export class DashboardComponent implements OnInit {
   }
   
   loadListEmail() {
-    this.emailInfoService.getByIdCompany(this.idCompany).subscribe((result) => {
+    let requets = {
+      idCompany: this.idCompany,
+      status: this.filterStatus
+    }
+    
+    this.emailInfoService.getByStatus(requets).subscribe((result) => {
       this.listChat = result;
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
@@ -106,6 +113,8 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.SendMail(request).subscribe((result) => {
       if(result.status == 1){
         //thành công
+        this.updateStatus(2, 1);
+        this.viewMail = false;
       }
       else{
         //thất bại
@@ -120,7 +129,7 @@ export class DashboardComponent implements OnInit {
   viewMail: boolean = false
   detailMail(item: any) {
     this.mailDetails = item;
-    console.log(this.listSelectChat)
+    
     this.listMessenger = [];
     this.viewMail = true;
     this.subject = item.subject
@@ -129,5 +138,34 @@ export class DashboardComponent implements OnInit {
       messenger: item.textBody, 
       dateTime: new Date()
     })
+  }
+
+  updateStatus(status: any, sendMessenger: any){
+    let requets = {
+      status: status,
+      id: this.mailDetails.id
+    }
+    this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
+      if(result.status == 1){
+        this.loadListEmail();
+        if(sendMessenger == 0){
+          this.showSuccess("Change status success");
+        }
+      }
+    });
+    
+  }
+
+  
+  showError(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
+
+  showSuccess(message: any) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+  
+  showInfo(message: any) {
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
   }
 }

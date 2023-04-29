@@ -36,6 +36,7 @@ export class SignupComponent implements OnInit {
     this.passwordDecrypt = this.model.password
     this.model.password = this.encrdecrService.set("mypassword", this.model.password).toString()
     this.model.idCompany = 0
+    this.model.confirm = 0
     this.submitted = true
     this.userService.createUser(this.model).subscribe((result) => {
       if(result.status == 1){
@@ -65,5 +66,4 @@ export class SignupComponent implements OnInit {
   get f() {
     return this.form.controls
   }
-
 }
