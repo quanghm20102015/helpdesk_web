@@ -12,7 +12,7 @@
                     <span class="ms-2">Teams</span>
                 </h3>
 
-                <button type="submit" class="btn btn-success" (click)="showDialog()">
+                <button type="submit" class="btn btn-success" (click)="showDialogCreate()">
                     <span>+ Create new team</span>
                 </button>
             </div>
@@ -39,8 +39,8 @@
                             </td>
                             <td>
                                 <div class="button-wrapper text-end">
-                                    <button class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
-                                    <button (click)="confirm()" pButton icon="pi pi-trash" class="p-button-danger"></button>
+                                    <button class="btn btn-sm btn-primary" (click)="showDialogUpdate(item)"><i class="pi pi-sliders-h"></i></button>
+                                    <button (click)="confirmDelete(item.id)" pButton icon="pi pi-trash" class="p-button-danger"></button>
                                 </div>
                             </td>
                         </tr>
@@ -65,14 +65,14 @@
     <ng-template pTemplate="header">
         <div>
             <p class="p-dialog-title">
-                Create a new team
+                {{title}} a team
             </p>
             <p class="text-secondary">
-                Add a title and description to your new team.
+                {{title}} a title and description to your team.
             </p>
         </div>
     </ng-template>
-    <form class="row" [formGroup]="form">
+    <form class="row" [formGroup]="form" (ngSubmit)="onCreateUpdate()">
         <div class="col-md-12">
             <label class="label-input">
                 <span class="text-label">Team name</span>
@@ -95,8 +95,8 @@
         </div>
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
-                    <span>Add Team</span>
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                    <span>{{title}} Team</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false" label="Ok">
                     Cancel

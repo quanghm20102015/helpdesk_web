@@ -115,7 +115,7 @@
         </div> -->
         <div class="modal-footer">
             <div class="btn-groupt">
-                <button type="submit" class="btn btn-primary" [disabled]="f['name'].errors">
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
                     <span>{{title}}</span>
                 </button>
                 <button class="btn btn-secondary ml-2" (click)="display=false">

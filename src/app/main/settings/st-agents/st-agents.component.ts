@@ -46,9 +46,9 @@ export class StAgentsComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      name: this.model.name,
-      role: this.model.role,
-      workemail: this.model.workemail,
+      name: '',
+      role: 0,
+      workemail: '',
     })
   }
 

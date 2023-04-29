@@ -15,9 +15,11 @@ export class StInboxesComponent implements OnInit {
     // { name: 'Email customer', type: 'Email' },
   ]
   idCompany: any;
-  constructor(private confirmationService: ConfirmationService, 
+  constructor(
+    private confirmationService: ConfirmationService, 
     private configMailService: ConfigMailService,
-    private userInfoStorageService: UserInfoStorageService) { }
+    private userInfoStorageService: UserInfoStorageService
+    ) { }
 
   ngOnInit(): void {
     this.idCompany = this.userInfoStorageService.getCompanyId()

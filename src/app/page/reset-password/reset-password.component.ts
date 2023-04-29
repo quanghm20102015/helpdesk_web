@@ -24,7 +24,7 @@ export class ResetPasswordComponent implements OnInit {
 
 	rebuilForm() {
 		this.form.reset({
-			email: this.model.email,
+			email: '',
 		})
 	}
   
