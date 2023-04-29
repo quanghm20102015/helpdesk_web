@@ -58,10 +58,10 @@ export class MenuComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      name: this.model.name,
-      description: this.model.description,
-      color: this.model.color,
-      showSidebar: this.model.showSidebar,
+      name: '',
+      description: '',
+      color: '',
+      showSidebar: false,
     });
   }
 
