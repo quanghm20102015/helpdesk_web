@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./new-inbox.component.css']
 })
 export class NewInboxComponent implements OnInit {
-  constructor(private _fb: FormBuilder, 
-    private confirmationService: ConfirmationService, 
+  constructor(private _fb: FormBuilder,
+    private confirmationService: ConfirmationService,
     private configMailService: ConfigMailService,
     private userInfoStorageService: UserInfoStorageService,
     private messageService: MessageService,
@@ -22,7 +22,7 @@ export class NewInboxComponent implements OnInit {
   model: any = { yourName: '', email: '', password: '', incoming: '', incomingPort: '', outgoing: '', outgoingPort: '' }
   submitted: boolean = false
   passwordDecrypt: any
-  idCompany: any
+  idCompany: any = +this.userInfoStorageService.getCompanyId()
   form: FormGroup = this._fb.group({
     yourName: [this.model.yourName, [Validators.required]],
     email: [this.model.email, [Validators.required]],
@@ -33,7 +33,6 @@ export class NewInboxComponent implements OnInit {
     outgoingPort: [this.model.email, [Validators.required]],
   })
   ngOnInit(): void {
-    this.idCompany = this.userInfoStorageService.getCompanyId()
     this.rebuilForm();
   }
 
@@ -53,13 +52,14 @@ export class NewInboxComponent implements OnInit {
     return this.form.controls
   }
 
-  create(){
+  create() {
     this.model.idCompany = this.idCompany
     this.configMailService.create(this.model).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Create success' });
         this.router.navigate(['main/settings/inboxes']);
       }
-      else{
+      else {
         this.showError(result.message)
       }
     });
