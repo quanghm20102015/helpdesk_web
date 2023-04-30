@@ -127,6 +127,7 @@
                                     <span class="badge--label" style="background-color: rgb(11, 240, 138);">
                                     </span>
                                     <span [title]="item.name" class="menu-label button__content text-truncate">
+                                        <p-colorPicker [(ngModel)]="item.color" [disabled]="true"></p-colorPicker>
                                         {{item.name}}
                                     </span>
                                 </a>
@@ -176,6 +177,7 @@
                                     <span class="badge--label" style="background-color: rgb(11, 240, 138);">
                                     </span>
                                     <span [title]="item.name" class="menu-label button__content text-truncate">
+                                        <p-colorPicker [(ngModel)]="item.color" [disabled]="true"></p-colorPicker>
                                         {{item.name}}
                                     </span>
                                 </a>
@@ -488,7 +490,7 @@
     <ng-template pTemplate="header">
         <div>
             <p class="p-dialog-title">
-                Header content here
+                Add label
             </p>
             <p class="text-secondary">
                 Labels let you group the conversations together.
@@ -522,12 +524,12 @@
                 <p-colorPicker [(ngModel)]="model.color" formControlName="color"></p-colorPicker>
             </label>
         </div>
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <label class="label-input">
                 <p-checkbox [(ngModel)]="model.showSidebar" [binary]="true" label="Show label on sidebar"
                     formControlName="showSidebar"></p-checkbox>
             </label>
-        </div>
+        </div> -->
         <div class="modal-footer">
             <div class="btn-groupt">
                 <button type="button" class="btn btn-primary" [disabled]="f['name'].errors" (click)="saveLabel()">

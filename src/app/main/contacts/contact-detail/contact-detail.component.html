@@ -106,8 +106,7 @@
         </div>
     </div>
 
-
-    <div id="newCOntact" class="modal" tabindex="-1">
+    <!-- <div id="newCOntact" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -125,14 +124,13 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div> -->
 
     <p-dialog header="Edit contact" [(visible)]="displayPosition" [position]="position" [modal]="true"
         [style]="{width: '400px'}" [draggable]="false" [resizable]="false">
         <div class="modal-body">
             <div class="content-box">
-                <form [formGroup]="form">
+                <form [formGroup]="form" (ngSubmit)="onSubmitUpdate()">
                     <label class="input-container">
                         <span>Full Name</span>
                         <div class="group-input">
@@ -202,7 +200,7 @@
             </div>
         </div>
         <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="displayPosition=false" label="Ok"
+            <p-button icon="pi pi-check" (click)="onSubmitUpdate()" label="Save"
                 styleClass="p-button-text"></p-button>
         </ng-template>
     </p-dialog>

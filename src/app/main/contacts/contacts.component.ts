@@ -41,6 +41,11 @@ export class ContactsComponent implements OnInit {
     // conversations: ''
   };
   idCompany: any
+
+  file: any = {}
+  formImport: FormGroup = this._fb.group({
+    file: [this.file, [Validators.required]]
+  })
   
   form: FormGroup = this._fb.group({
     fullname: [this.model.fullname, [Validators.required]],
@@ -85,6 +90,7 @@ export class ContactsComponent implements OnInit {
   }
 
   onSubmit(){    
+    debugger
     this.model.idCompany = this.idCompany
     this.contactService.create(this.model).subscribe((result) => {
       if(result.status == 1){
@@ -92,6 +98,10 @@ export class ContactsComponent implements OnInit {
         this.getContact();
       }
     });
+  }
+
+  onSubmitFile(){
+
   }
 
   createContact(){

@@ -19,6 +19,24 @@ export class ContactService {
       data
     );
   }
+  update(data: any): Observable<any> {
+    return this.http.put(
+      AppSettings.HostingAddress + '/Contacts',
+      data
+    );
+  }
+
+  getContact(id: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Contacts/' + id
+    );
+  }
+
+  deleteContact(id: any): Observable<any> {
+    return this.http.delete(
+      AppSettings.HostingAddress + '/Contacts/' + id
+    );
+  }
   
   getAll(): Observable<any> {
     return this.http.get(
