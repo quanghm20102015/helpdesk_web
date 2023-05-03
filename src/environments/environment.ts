@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   env: {
-    HOSTING_API: 'https://localhost:7257/api'
+    HOSTING_API: 'https://localhost:7257/api',
+    WEB_ADDRESS: 'http://localhost:4200'
   }
 };
 

@@ -70,4 +70,19 @@ export class UserService {
       data
     );
   }
+
+  sendMailConfirm(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/SendMailConfirm',
+      data
+    );
+  }
+  
+  confirmSigup(data: any): Observable<any> {
+    debugger
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/ConfirmSigup',
+      data
+    );
+  }
 }

@@ -4,6 +4,7 @@ import { UserService } from '../../service/user.service';
 import { EncrDecrService } from '../../service/encr-decr.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AppSettings } from "../../constants/app-setting";
 
 @Component({
   selector: 'app-signup',
@@ -24,7 +25,7 @@ export class SignupComponent implements OnInit {
   form: FormGroup = this._fb.group({
     fullName: [this.model.fullName, [Validators.required]],
     company: [this.model.company, [Validators.required]],
-    workemail: [this.model.email, [Validators.required, Validators.email]],
+    workemail: [this.model.workemail, [Validators.required, Validators.email]],
     password: [this.model.password, [Validators.required]],
   })
 
@@ -39,17 +40,32 @@ export class SignupComponent implements OnInit {
     let request = {
       fullName: this.model.fullName,
       company: this.model.company,
-      workemail: this.model.email,
+      workemail: this.model.workemail,
       password: this.encrdecrService.set("mypassword", this.model.password).toString()
     }
     this.userService.createUser(request).subscribe((result) => {
       if(result.status == 1){
+        let requestConfirm = {
+          // linkConfirm: AppSettings.WebAddress + "/confirm-sigup/" + this.encrdecrService.set("mypassword", result.id).toString(),
+          linkConfirm: AppSettings.WebAddress + "/confirm-sigup/" + result.id,
+          to: this.model.workemail
+        }
+        this.sendMailConfirm(requestConfirm);
         this.router.navigate(['/login']);
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Sign success' });
       }
       else{
         // this.model.password = this.passwordDecrypt
         this.showError(result.message);
+      }
+    });
+  }
+
+  sendMailConfirm(request: any){    
+    this.userService.sendMailConfirm(request).subscribe((result) => {
+      if(result.status == 1){
+      }
+      else{
       }
     });
   }
