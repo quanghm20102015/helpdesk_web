@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import * as $ from 'jquery';
 import { EmailInfoService } from '../../../service/emailInfo.service';
 import { StatusService } from '../../../service/status.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { MessageService } from 'primeng/api';
+import { LabelService } from 'src/app/service/label.service';
+import { Table } from 'primeng/table';
 
 interface Status {
   code: number,
@@ -17,19 +19,25 @@ interface Status {
   styleUrls: ['./dashboard.component.css']
 })
 
+
 export class DashboardComponent implements OnInit {
+  @ViewChild('dt') dt: Table | undefined;
 
   idInterval: any;
   idCompany: any;
-  constructor(private emailInfoService: EmailInfoService,
+  constructor(
+    private emailInfoService: EmailInfoService,
     private statusService: StatusService,
     private userInfoStorageService: UserInfoStorageService,
-    private messageService: MessageService,) { }
+    private messageService: MessageService,
+    private labelService: LabelService,
+    ) { }
 
   ngOnInit(): void {
     this.idCompany = this.userInfoStorageService.getCompanyId()
     this.loadListEmail();
     this.loadStatus();
+    this.getListLabel();
     this.idInterval = setInterval(() => {
       this.loadListEmail();
     }, 5000);
@@ -73,19 +81,21 @@ export class DashboardComponent implements OnInit {
   filterStatus: number = 0
   signature: string = ''
 
-  listStatus: Status[] = [
-  ]
-
-  listChat: any[] = [
-  ]
-
+  listStatus: Status[] = []
+  listChat: any[] = []
+  selectedLabel: any[] = []
   listSelectChat: any[] = []
-
-  listMessenger: any[] = [
-  ]
+  listMessenger: any[] = []
 
   onSelectChat(event: any) {
     console.log(event)
+  }
+  
+  listLabel: any = []
+  getListLabel(){
+    this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
+      this.listLabel = result;
+    });
   }
 
   uploadedFiles: any = []
@@ -98,6 +108,10 @@ export class DashboardComponent implements OnInit {
 
   remoteFile(item: any) {
 
+  }
+
+  applyFilterGlobal($event: any, stringVal: any) {
+    this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
   sendMessenger() {

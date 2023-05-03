@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ContactService } from 'src/app/service/contact.service';
 import { CountryService } from 'src/app/service/country.service';
+import { LabelService } from 'src/app/service/label.service';
+import { UserInfoStorageService } from 'src/app/service/user-info-storage.service';
 
+declare var $: any;
 @Component({
   selector: 'app-contact-detail',
   templateUrl: './contact-detail.component.html',
@@ -11,16 +15,28 @@ import { CountryService } from 'src/app/service/country.service';
 })
 export class ContactDetailComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private confirmationService: ConfirmationService, private _fb: FormBuilder,
-    private countryService: CountryService) { }
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private confirmationService: ConfirmationService, 
+    private _fb: FormBuilder,
+    private countryService: CountryService,    
+    private contactService: ContactService,
+    private userInfoStorageService: UserInfoStorageService,
+    private labelService: LabelService,
+    private messageService: MessageService,
 
-  model: any = { id: 0, fullname: "quanghm", email: "quanghm2010@gmail.com", bio: "1", phoneNumber: "0343632155", company: "", country: 1, city: "hanoi", facebook: "", twitter: "", linkedin: "", github: ""}
+    ) { }
+
+  model: any = {}
   countries: any = []
   notes: string = ''
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.model.id = +params['id']
     })
+    this.getData()
+    this.getAllCountry()
+    this.getListLabel()
   }
 
   form: FormGroup = this._fb.group({
@@ -36,6 +52,13 @@ export class ContactDetailComponent implements OnInit {
     linkedin: [this.model.linkedin],
     github: [this.model.github]
   });
+    
+  
+  getData() {
+    this.contactService.getContact(this.model.id).subscribe((result) => {
+      this.model = result
+    });
+  }
 
   getAllCountry() {
     this.countryService.getAllCountry().subscribe((result) => {
@@ -44,12 +67,14 @@ export class ContactDetailComponent implements OnInit {
   }
 
   selectedLabel: any = []
+  idCompany: any = this.userInfoStorageService.getCompanyId()
+  getListLabel() {
+    if (this.idCompany != 0)
+      this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
+        this.listLabels = result;
+      })
+  }
   listLabels: any = [
-    { name: 'Label 01', id: 156, color: "#333333" },
-    { name: 'Label 02', id: 1680, color: "#555555" },
-    { name: 'Label 03', id: 430, color: "#858838" },
-    { name: 'Label 04', id: 440, color: "#318888" },
-    { name: 'Label 05', id: 450, color: "#882388" },
   ]
 
   position: string = ''
@@ -65,18 +90,19 @@ export class ContactDetailComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
-        //Actual logic to perform a confirmation
+        this.contactService.deleteContact(this.model.id).subscribe((result) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete contact success' });
+        })
       }
     });
   }
-  
-  onSubmit(){    
-    // this.contactService.create(this.model).subscribe((result) => {
-    //   if(result.status == 1){
-    //     $("#newCOntact").modal("hide");
-    //     this.getContact();
-    //   }
-    // });
+
+  onSubmitUpdate() {
+    this.contactService.update(this.model).subscribe((result) => {
+      if (result.status == 1) {
+        this.displayPosition=false
+      }
+    });
   }
 
 

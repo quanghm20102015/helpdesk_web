@@ -102,7 +102,7 @@
             </div>
             <div class="modal-body">
                 <div class="content-box">
-                    <form [formGroup]="form">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
                         <p>
                             Add basic information details about the contact.
                         </p>
@@ -175,7 +175,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" (click)="onSubmit()">Submit</button>
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
@@ -192,7 +192,7 @@
             </div>
             <div class="modal-body">
                 <div class="content-box">
-                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <form [formGroup]="formImport" (ngSubmit)="onSubmitFile()">
                         <p>
                             Import contacts through a CSV file. Download a sample csv.
                         </p>
