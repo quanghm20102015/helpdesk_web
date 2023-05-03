@@ -38,4 +38,26 @@ export class UserService {
        data
     );
   }
+
+  postLogin(data: any): Observable<any> {
+    debugger
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/PostLogin',
+      data
+    );
+  }
+  
+  postLogout(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/PostLogout',
+      data
+    );
+  }
+
+  GetByIdCompany(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Accounts/GetByIdCompany?idCompany=' + data,
+       data
+    );
+  }
 }

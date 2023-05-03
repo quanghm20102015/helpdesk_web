@@ -5,6 +5,7 @@ import { ConfigMailService } from '../../../service/configMail.service';
 import { LabelService } from '../../../service/label.service';
 import { MessageService } from 'primeng/api';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,10 +19,13 @@ export class MenuComponent implements OnInit {
     private configMailService: ConfigMailService,
     private labelService: LabelService,
     private messageService: MessageService,
-    private userInfoStorageService: UserInfoStorageService) { }
+    private userInfoStorageService: UserInfoStorageService,
+    private userService: UserService) { }
 
+  idInterval: any;
   ngOnInit(): void {
     this.idCompany = this.userInfoStorageService.getCompanyId()
+    this.idUser = this.userInfoStorageService.getIdUser()
     this.getListInbox();
     this.loadDataLabel();
     console.log(this.router.url);
@@ -32,6 +36,13 @@ export class MenuComponent implements OnInit {
         console.log('Tab: ',this.tab)
       }
     })
+
+    this.postLogin();
+    window.addEventListener('beforeunload', this.postLogout, false);
+    
+    // this.idInterval = setInterval(() => {
+    //   this.postLogin();
+    // }, 10000);
   }
 
   display: boolean = false
@@ -46,6 +57,7 @@ export class MenuComponent implements OnInit {
   });
 
   idCompany: any;
+  idUser: any;
   onSubmit() {
     this.submitted = true;
   }
@@ -112,5 +124,28 @@ export class MenuComponent implements OnInit {
   }
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
+
+  postLogin(){
+    let request = {
+    }
+    this.userService.postLogin(request).subscribe((result) => {
+      // if(result.status == 1){
+      // }
+      // else{
+      // }
+    });
+  }
+
+  postLogout(){    
+    let request = {
+      idUser: this.idUser
+    }
+    this.userService.postLogout(request).subscribe((result) => {
+      // if(result.status == 1){
+      // }
+      // else{
+      // }
+    });
   }
 }
