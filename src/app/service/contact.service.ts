@@ -49,4 +49,10 @@ export class ContactService {
       AppSettings.HostingAddress + '/Contacts/GetByIdCompany?idCompany='+ idCompany
     );
   }
+
+  getByIdLabel(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Contacts/GetByIdLabel?idCompany='+ data.idCompany + '&idLabel=' + data.idLabel
+    );
+  }
 }

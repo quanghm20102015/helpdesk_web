@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
       this.userInfoStorageService.setIdUser(result.id)
       this.userInfoStorageService.setWorkemail(result.workemail)
       this.userInfoStorageService.setConfirm(result.confirm)
+      this.userInfoStorageService.setStatus(result.status)
     });
   }
 

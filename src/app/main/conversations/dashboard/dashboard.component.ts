@@ -8,11 +8,6 @@ import { MessageService } from 'primeng/api';
 import { LabelService } from 'src/app/service/label.service';
 import { Table } from 'primeng/table';
 
-interface Status {
-  code: number,
-  name: string
-}
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -31,7 +26,7 @@ export class DashboardComponent implements OnInit {
     private userInfoStorageService: UserInfoStorageService,
     private messageService: MessageService,
     private labelService: LabelService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.idCompany = this.userInfoStorageService.getCompanyId()
@@ -44,7 +39,7 @@ export class DashboardComponent implements OnInit {
     this.messenger = this.signature
   }
 
-  loadStatus(){
+  loadStatus() {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;
     });
@@ -55,13 +50,13 @@ export class DashboardComponent implements OnInit {
       clearInterval(this.idInterval);
     }
   }
-  
+
   loadListEmail() {
     let requets = {
       idCompany: this.idCompany,
       status: this.filterStatus
     }
-    
+
     this.emailInfoService.getByStatus(requets).subscribe((result) => {
       this.listChat = result;
       this.listChat.forEach((item) => {
@@ -81,7 +76,7 @@ export class DashboardComponent implements OnInit {
   filterStatus: number = 0
   signature: string = ''
 
-  listStatus: Status[] = []
+  listStatus: any = []
   listChat: any[] = []
   selectedLabel: any[] = []
   listSelectChat: any[] = []
@@ -90,9 +85,9 @@ export class DashboardComponent implements OnInit {
   onSelectChat(event: any) {
     console.log(event)
   }
-  
+
   listLabel: any = []
-  getListLabel(){
+  getListLabel() {
     this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
       this.listLabel = result;
     });
@@ -123,14 +118,14 @@ export class DashboardComponent implements OnInit {
       body: this.messenger,
       idCompany: this.idCompany
     }
-    
+
     this.emailInfoService.SendMail(request).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
         //thành công
         this.updateStatus(2, 1);
         this.viewMail = false;
       }
-      else{
+      else {
         //thất bại
       }
     });
@@ -143,34 +138,34 @@ export class DashboardComponent implements OnInit {
   viewMail: boolean = false
   detailMail(item: any) {
     this.mailDetails = item;
-    
+
     this.listMessenger = [];
     this.viewMail = true;
     this.subject = item.subject
     this.listMessenger.push({
       id: item.id,
-      messenger: item.textBody, 
+      messenger: item.textBody,
       dateTime: new Date()
     })
   }
 
-  updateStatus(status: any, sendMessenger: any){
+  updateStatus(status: any, sendMessenger: any) {
     let requets = {
       status: status,
       id: this.mailDetails.id
     }
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
         this.loadListEmail();
-        if(sendMessenger == 0){
+        if (sendMessenger == 0) {
           this.showSuccess("Change status success");
         }
       }
     });
-    
+
   }
 
-  
+
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
@@ -178,7 +173,7 @@ export class DashboardComponent implements OnInit {
   showSuccess(message: any) {
     this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
   }
-  
+
   showInfo(message: any) {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
   }
