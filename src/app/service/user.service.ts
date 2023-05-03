@@ -48,7 +48,6 @@ export class UserService {
   }
   
   postLogout(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts/PostLogout',
       data
@@ -64,7 +63,6 @@ export class UserService {
 
   
   changeStatus(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts/ChangeStatus',
       data
@@ -79,7 +77,6 @@ export class UserService {
   }
   
   confirmSigup(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts/ConfirmSigup',
       data
