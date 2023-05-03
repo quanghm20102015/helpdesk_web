@@ -38,8 +38,13 @@ export class MenuComponent implements OnInit {
     })
 
     this.postLogin();
-    window.addEventListener('beforeunload', this.postLogout, false);
+    // window.addEventListener('beforeunload', this.postLogout, false);
     
+    // window.addEventListener('beforeunload', this.postLogout, false);
+    
+    window.addEventListener('beforeunload', (event) => {
+      this.postLogout();
+    });
     // this.idInterval = setInterval(() => {
     //   this.postLogin();
     // }, 10000);
@@ -128,24 +133,39 @@ export class MenuComponent implements OnInit {
 
   postLogin(){
     let request = {
+      idUser: this.idUser
     }
     this.userService.postLogin(request).subscribe((result) => {
-      // if(result.status == 1){
-      // }
-      // else{
-      // }
+      if(result.status == 1){
+      }
+      else{
+      }
     });
   }
 
-  postLogout(){    
+  postLogout(){
     let request = {
       idUser: this.idUser
     }
     this.userService.postLogout(request).subscribe((result) => {
-      // if(result.status == 1){
-      // }
-      // else{
-      // }
+      if(result.status == 1){
+      }
+      else{
+      }
     });
   }
+
+  changeStatus(status: any){    
+    let request = {
+      idUser: this.idUser,
+      status: status
+    }
+    this.userService.changeStatus(request).subscribe((result) => {
+      if(result.status == 1){
+      }
+      else{
+      }
+    });
+  }
+  
 }

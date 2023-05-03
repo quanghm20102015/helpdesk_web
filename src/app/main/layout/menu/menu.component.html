@@ -552,7 +552,7 @@
                     </span>
                 </li>
                 <li class="dropdown-menu__item status-items">
-                    <button type="button" class="btn text-start">
+                    <button type="button" class="btn text-start" (click)="changeStatus(1)">
                         <span class="button__content">
                             <i class="pi pi-circle-fill text-success"></i>
                             Online
@@ -560,7 +560,7 @@
                     </button>
                 </li>
                 <li class="dropdown-menu__item status-items">
-                    <button type="button" class="btn text-start">
+                    <button type="button" class="btn text-start" (click)="changeStatus(2)">
                         <span class="button__content">
                             <i class="pi pi-circle-fill text-warning"></i>
                             Busy
@@ -568,7 +568,7 @@
                     </button>
                 </li>
                 <li class="dropdown-menu__item status-items">
-                    <button type="button" class="btn text-start">
+                    <button type="button" class="btn text-start" (click)="changeStatus(3)">
                         <span class="button__content">
                             <i class="pi pi-circle-fill text-secondary"></i>
                             Offline

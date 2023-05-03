@@ -48,6 +48,7 @@ export class UserService {
   }
   
   postLogout(data: any): Observable<any> {
+    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts/PostLogout',
       data
@@ -58,6 +59,15 @@ export class UserService {
     return this.http.get(
       AppSettings.HostingAddress + '/Accounts/GetByIdCompany?idCompany=' + data,
        data
+    );
+  }
+
+  
+  changeStatus(data: any): Observable<any> {
+    debugger
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/ChangeStatus',
+      data
     );
   }
 }
