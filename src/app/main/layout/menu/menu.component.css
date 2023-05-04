@@ -69,7 +69,8 @@
 
 
 .tab-content .sidebar-item .active-secondary,
-.tab-content .sidebar-item a:hover {
+.tab-content .sidebar-item a:hover,
+.options-menu .active-secondary{
     background: #f5faff;
     color: #1f93ff;
     border-color: #f5faff;
@@ -97,4 +98,10 @@
     background: #f5faff;
     color: #1f93ff;
     border-color: #f5faff;
+}
+
+.btn-status {
+    position: absolute;
+    right: 0;
+    bottom: 0;
 }

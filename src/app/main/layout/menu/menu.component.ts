@@ -51,7 +51,7 @@ export class MenuComponent implements OnInit {
   }
 
   display: boolean = false
-
+  status: any = +this.userInfoStorageService.getStatus()
   model: any = {};
   submitted: boolean = false;
   form: FormGroup = this._fb.group({
@@ -162,6 +162,8 @@ export class MenuComponent implements OnInit {
     }
     this.userService.changeStatus(request).subscribe((result) => {
       if(result.status == 1){
+        this.userInfoStorageService.setStatus(status)
+        this.status = status
       }
       else{
       }

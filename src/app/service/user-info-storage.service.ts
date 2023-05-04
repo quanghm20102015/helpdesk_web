@@ -42,7 +42,9 @@ export class UserInfoStorageService {
   setConfirm(input: string): void {
     localStorage.setItem('confirm', input);
   }
-
+  setStatus(input: string): void {
+    localStorage.setItem('status', input);
+  }
   // setReturnUrl(url: string): void {
   //   localStorage.setItem('ReturnUrl', url);
   // }
@@ -113,7 +115,6 @@ export class UserInfoStorageService {
   getCompany(): any {
     return localStorage.getItem('company');
   }
-
   getCompanyId(): any {
     return localStorage.getItem('companyId');
   }
@@ -128,6 +129,9 @@ export class UserInfoStorageService {
   }
   getConfirm(): any {
     return localStorage.getItem('confirm');
+  }
+  getStatus(): any {
+    return localStorage.getItem('status');
   }
   // getKeyRemember(): string {
   //   return localStorage.getItem('KeyRework');

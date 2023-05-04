@@ -33,6 +33,7 @@
         </button>
         <button type="text" class="menu-item btn-bottom btn" title="Profile settings" (click)="op.toggle($event)">
             <img src="../../../../assets/img/programmer.png" alt="user">
+            <i class="pi pi-circle-fill btn-status" [ngClass]="{'text-success': status === 1, 'text-warning': status === 2, 'text-secondary': status === 3}"></i>
         </button>
         <!-- <a class="menu-item btn-logout btn btn-outline-secondary" title="Logout" href="http://localhost:4200/login">
             <i class="pi pi-sign-out"></i>
@@ -545,14 +546,14 @@
 
 <p-overlayPanel #op>
     <ng-template pTemplate>
-        <div data-v-10cc5adc="" class="options-menu dropdown-pane dropdown-pane--open">
+        <div class="options-menu dropdown-pane dropdown-pane--open">
             <ul class="mb-0">
                 <li class="dropdown-menu--header">
                     <span class="title">Set yourself as
                     </span>
                 </li>
                 <li class="dropdown-menu__item status-items">
-                    <button type="button" class="btn text-start" (click)="changeStatus(1)">
+                    <button type="button" class="btn text-start" (click)="changeStatus(1);op.toggle($event)" [ngClass]="{'active-secondary': status === 1}">
                         <span class="button__content">
                             <i class="pi pi-circle-fill text-success"></i>
                             Online
@@ -560,7 +561,7 @@
                     </button>
                 </li>
                 <li class="dropdown-menu__item status-items">
-                    <button type="button" class="btn text-start" (click)="changeStatus(2)">
+                    <button type="button" class="btn text-start" (click)="changeStatus(2);op.toggle($event)" [ngClass]="{'active-secondary': status === 2}">
                         <span class="button__content">
                             <i class="pi pi-circle-fill text-warning"></i>
                             Busy
@@ -568,7 +569,7 @@
                     </button>
                 </li>
                 <li class="dropdown-menu__item status-items">
-                    <button type="button" class="btn text-start" (click)="changeStatus(3)">
+                    <button type="button" class="btn text-start" (click)="changeStatus(3);op.toggle($event)" [ngClass]="{'active-secondary': status === 3}">
                         <span class="button__content">
                             <i class="pi pi-circle-fill text-secondary"></i>
                             Offline
@@ -576,7 +577,7 @@
                     </button>
                 </li>
                 <li class="dropdown-menu__item">
-                    <a class="btn text-start" routerLink="/main/settings/account" aria-expanded="false">
+                    <a class="btn text-start" routerLink="/main/settings/account" aria-expanded="false" (click)="op.toggle($event)">
                         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                             class="icon icon--font">
                             <path
