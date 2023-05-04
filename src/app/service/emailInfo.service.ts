@@ -59,4 +59,11 @@ export class EmailInfoService {
       requets
     );
   }
+  
+  getByAgent(requets: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/GetByAgent?idCompany='+ requets.idCompany + '&assign='+ requets.assign + '&status='+ requets.status,
+      requets
+    );
+  }
 }

@@ -19,7 +19,8 @@ export class DashboardComponent implements OnInit {
   @ViewChild('dt') dt: Table | undefined;
 
   idInterval: any;
-  idCompany: any;
+  idCompany: any = this.userInfoStorageService.getCompanyId();
+  idUser: any = +this.userInfoStorageService.getIdUser();
   constructor(
     private emailInfoService: EmailInfoService,
     private statusService: StatusService,
@@ -29,7 +30,6 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.idCompany = this.userInfoStorageService.getCompanyId()
     this.loadListEmail();
     this.loadStatus();
     this.getListLabel();
@@ -51,19 +51,34 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  tab: number = 0
   loadListEmail() {
-    let requets = {
-      idCompany: this.idCompany,
-      status: this.filterStatus
+    if (this.tab == 0) {
+      let requets = {
+        idCompany: this.idCompany,
+        assign: this.idUser,
+        status: this.filterStatus
+      }
+
+      this.emailInfoService.getByAgent(requets).subscribe((result) => {
+        this.listChat = result;
+        this.listChat.forEach((item) => {
+          item['dateTime'] = new Date(item.date)
+        })
+      });
+    } else if (this.tab == 1) {
+      let requets = {
+        idCompany: this.idCompany,
+        status: this.filterStatus
+      }
+
+      this.emailInfoService.getByStatus(requets).subscribe((result) => {
+        this.listChat = result;
+        this.listChat.forEach((item) => {
+          item['dateTime'] = new Date(item.date)
+        })
+      });
     }
-
-    this.emailInfoService.getByStatus(requets).subscribe((result) => {
-      this.listChat = result;
-      this.listChat.forEach((item) => {
-        item['dateTime'] = new Date(item.date)
-      })
-
-    });
   }
 
   subject: any = ''
@@ -176,5 +191,10 @@ export class DashboardComponent implements OnInit {
 
   showInfo(message: any) {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
+  }
+
+  handleChange(event: any) {
+    this.tab = event.index
+    this.loadListEmail()
   }
 }
