@@ -1,0 +1,20 @@
+.list-review{
+    margin-top: 15px;
+}
+
+.list-review>span{
+    margin-right: 35px;
+}
+.list-review *{
+    transition: all 0.5s;
+}
+
+.list-review>span:not(.review-active){
+    cursor: pointer;
+}
+
+.review-active svg {
+    width: 35px;
+    min-height: 35px;
+    color: coral;
+}

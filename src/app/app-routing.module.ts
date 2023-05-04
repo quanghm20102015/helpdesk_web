@@ -5,6 +5,7 @@ import { SignupComponent } from './page/signup/signup.component';
 import { ResetPasswordComponent } from './page/reset-password/reset-password.component';
 import { ConfirmSigupComponent } from './page/signup/confirmSigup.component';
 import { SetNewPasswordComponent } from './page/set-new-password/set-new-password.component';
+import { SurveyComponent } from './page/survey/survey.component';
 
 const routes: Routes = [
   // {path: "", component: HomepageComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: "confirm-sigup/:id", component: ConfirmSigupComponent},
   {path: "reset-password", component: ResetPasswordComponent},
   {path: "set-new-password/:token", component: SetNewPasswordComponent},
+  {path: "survey/:id", component: SurveyComponent},
 ];
 
 @NgModule({
