@@ -25,17 +25,17 @@
                 </div>
             </div>
             <div class="tab--chat-type tabs--container--with-border tabs--container">
-                <p-tabView>
+                <p-tabView (onChange)="handleChange($event)">
                     <p-tabPanel [selected]="true">
                         <ng-template pTemplate="header">
                             Mine <span class="badge text-bg-secondary ms-1">4</span>
                         </ng-template>
                     </p-tabPanel>
-                    <p-tabPanel header="Header 2">
+                    <!-- <p-tabPanel header="Header 2">
                         <ng-template pTemplate="header">
                             Unassigned<span class="badge text-bg-secondary ms-1">4</span>
                         </ng-template>
-                    </p-tabPanel>
+                    </p-tabPanel> -->
                     <p-tabPanel header="Header 3">
                         <ng-template pTemplate="header">
                             All<span class="badge text-bg-secondary ms-1">4</span>
@@ -46,7 +46,6 @@
             <div class="bulk-action__container">
                 <div class="d-flex align-items-center justify-content-between">
                     <label class="d-flex align-items-center">
-                        <input type="checkbox" class="checkbox">
                         <span class="ps-1">
                             {{listSelectChat.length}} conversations selected
                         </span>
