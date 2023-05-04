@@ -204,7 +204,15 @@ app-dashboard {
     border-radius: 50%;
 }
 
-.box-dialog .label-input {
+.label-input{
+    display: block;
+}
+
+form .label-input:not(:first-child), form button{
+    margin-top: 15px;
+}
+
+.box-dialog  {
     margin-bottom: 1rem;
     width: 100%;
 }
@@ -417,4 +425,14 @@ p-password input{
     appearance: none;
     border-radius: var(--bs-border-radius);
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.box-middel-center{
+    padding: 40px 30px;
+    border-radius: 10px;
+    border: 1px solid #ebf0f5;
+    box-shadow: 0 0.8rem 1.6rem rgba(50,50,93,.08), 0 0.4rem 1.2rem rgba(0,0,0,.07);
+}
+
+.h-100vh{
+    height: 100vh;
 }
