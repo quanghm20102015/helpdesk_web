@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReportsComponent } from './reports/reports.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
+import { SetNewPasswordComponent } from './page/set-new-password/set-new-password.component';
+import { SurveyComponent } from './page/survey/survey.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { ToastModule } from 'primeng/toast';
     LoginComponent,
     SignupComponent,
     ResetPasswordComponent,
-    ReportsComponent
+    ReportsComponent,
+    SetNewPasswordComponent,
+    SurveyComponent
   ],
   imports: [
     BrowserModule,

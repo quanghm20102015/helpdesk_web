@@ -14,13 +14,15 @@ import { UserService } from '../../../service/user.service';
   providers: [MessageService]
 })
 export class MenuComponent implements OnInit {
-  constructor(private _fb: FormBuilder, 
+  constructor(
+    private _fb: FormBuilder, 
     private router: Router, 
     private configMailService: ConfigMailService,
     private labelService: LabelService,
     private messageService: MessageService,
     private userInfoStorageService: UserInfoStorageService,
-    private userService: UserService) { }
+    private userService: UserService
+    ) { }
 
   idInterval: any;
   ngOnInit(): void {
