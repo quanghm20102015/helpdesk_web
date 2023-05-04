@@ -4,6 +4,8 @@ import { LoginComponent } from './page/login/login.component';
 import { SignupComponent } from './page/signup/signup.component';
 import { ResetPasswordComponent } from './page/reset-password/reset-password.component';
 import { ConfirmSigupComponent } from './page/signup/confirmSigup.component';
+import { ConfirmResetPasswordComponent } from './page/signup/confirm-reset-password.component';
+
 
 const routes: Routes = [
   // {path: "", component: HomepageComponent},
@@ -13,6 +15,7 @@ const routes: Routes = [
   {path: "signup", component: SignupComponent},
   {path: "reset-password", component: ResetPasswordComponent},
   {path: "confirm-sigup/:id", component: ConfirmSigupComponent},
+  {path: "reset-password/:id", component: ConfirmResetPasswordComponent},
 ];
 
 @NgModule({
