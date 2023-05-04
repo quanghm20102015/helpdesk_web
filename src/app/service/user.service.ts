@@ -90,4 +90,11 @@ export class UserService {
       data
     );
   }
+  
+  resetPassword(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/ResetPassword',
+      data
+    );
+  }
 }

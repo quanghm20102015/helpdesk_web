@@ -22,14 +22,14 @@ export class ConfirmSigupComponent implements OnInit {
     private encrdecrService: EncrDecrService,
     private userService: UserService) { }
   ngOnInit(): void {
+    
     this.activatedRoute.params.subscribe((params) => {
-      // this.idUserEncrypt = +params['id']      
-      // this.idUserDecrypt = this.encrdecrService.set("mypassword", this.idUserEncrypt).toString()
-      this.idUser = +params['id']      
+      const { token } = params;
       
       let request = {
-        idUser: this.idUser
+        idGuId: token
       }
+      debugger
       this.userService.confirmSigup(request).subscribe((result) => {
         if(result.status == 1){
           this.router.navigate(['login'])
@@ -37,7 +37,6 @@ export class ConfirmSigupComponent implements OnInit {
         else{
         }
       });
-    })
-    
+    });    
   }
 }

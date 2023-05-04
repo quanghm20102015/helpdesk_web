@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
       if(result.status == 1){
         let requestConfirm = {
           // linkConfirm: AppSettings.WebAddress + "/confirm-sigup/" + this.encrdecrService.set("mypassword", result.id).toString(),
-          linkConfirm: AppSettings.WebAddress + "/confirm-sigup/" + result.id,
+          linkConfirm: AppSettings.WebAddress + "/confirm-sigup/" + result.idGuId,
           to: this.model.workemail,
           fullName: this.model.fullName
         }

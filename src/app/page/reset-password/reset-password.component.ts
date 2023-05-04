@@ -29,24 +29,25 @@ export class ResetPasswordComponent implements OnInit {
   onSubmit(){
     this.submitted = true
     
-    // this.userService.getByEmail(this.model.email).subscribe((result) => {
-    //   // this.idUser = this.encrdecrService.set("mypassword", result.id).toString()      
+    this.userService.getByEmail(this.model.email).subscribe((result) => {
+      this.idUser = result.idGuId 
       
-    // });
-
-    let request = {
-      linkConfirm: AppSettings.WebAddress + "/reset-password/",
-      to: this.model.email,
-    }
-    debugger
-    this.userService.sendMailResetPassword(request).subscribe((result) => {
-      if(result.status == 1){
-        // this.router.navigate(['login'])
-        this.showInfo("Request for password reset is successful. Check your mail for instructions.");
+      let request = {
+        linkConfirm: AppSettings.WebAddress + "/set-new-password/",
+        to: this.model.email,
+        idUser: this.idUser,
       }
-      else{
-      }
+      
+      this.userService.sendMailResetPassword(request).subscribe((result) => {
+        if(result.status == 1){
+          // this.router.navigate(['login'])
+          this.showInfo("Request for password reset is successful. Check your mail for instructions.");
+        }
+        else{
+        }
+      });
     });
+
   }
 
 	rebuilForm() {

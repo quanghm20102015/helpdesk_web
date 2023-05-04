@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: "", redirectTo: '/login', pathMatch: 'full'},
   {path: "login", component: LoginComponent},
   {path: "signup", component: SignupComponent},
-  {path: "confirm-sigup/:id", component: ConfirmSigupComponent},
+  {path: "confirm-sigup/:token", component: ConfirmSigupComponent},
   {path: "reset-password", component: ResetPasswordComponent},
   {path: "set-new-password/:token", component: SetNewPasswordComponent},
   {path: "reset-password/:id", component: ConfirmResetPasswordComponent},
