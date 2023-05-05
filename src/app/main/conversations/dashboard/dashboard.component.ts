@@ -7,6 +7,8 @@ import { UserInfoStorageService } from '../../../service/user-info-storage.servi
 import { MessageService } from 'primeng/api';
 import { LabelService } from 'src/app/service/label.service';
 import { Table } from 'primeng/table';
+import { CsatService } from 'src/app/service/csat.service';
+import { AppSettings } from "../../../constants/app-setting";
 
 @Component({
   selector: 'app-dashboard',
@@ -27,6 +29,7 @@ export class DashboardComponent implements OnInit {
     private userInfoStorageService: UserInfoStorageService,
     private messageService: MessageService,
     private labelService: LabelService,
+    private csatService: CsatService
   ) { }
 
   ngOnInit(): void {
@@ -137,7 +140,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.SendMail(request).subscribe((result) => {
       if (result.status == 1) {
         //thành công
-        this.updateStatus(2, 1);
+        // this.updateStatus(2, 1);
         this.viewMail = false;
       }
       else {
@@ -152,6 +155,7 @@ export class DashboardComponent implements OnInit {
   mailDetails: any;
   viewMail: boolean = false
   detailMail(item: any) {
+    debugger
     this.mailDetails = item;
 
     this.listMessenger = [];
@@ -171,6 +175,9 @@ export class DashboardComponent implements OnInit {
     }
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
       if (result.status == 1) {
+        if(status == 2){
+          this.sendMailCsat(this.mailDetails.idGuId)
+        }
         this.loadListEmail();
         if (sendMessenger == 0) {
           this.showSuccess("Change status success");
@@ -180,6 +187,16 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  sendMailCsat(idGuId: any){
+    let request = {
+      to: this.mailDetails.from,
+      link: AppSettings.WebAddress + "/survey/" + idGuId,
+    }
+
+    this.csatService.sendMail(request).subscribe((result) => {
+      
+    });
+  }
 
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });

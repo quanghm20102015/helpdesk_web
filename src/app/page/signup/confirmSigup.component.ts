@@ -29,7 +29,7 @@ export class ConfirmSigupComponent implements OnInit {
       let request = {
         idGuId: token
       }
-      debugger
+      
       this.userService.confirmSigup(request).subscribe((result) => {
         if(result.status == 1){
           this.router.navigate(['login'])
