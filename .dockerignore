@@ -6,5 +6,3 @@
 /docs
 .gitignore
 *.zip
-* 
-!dist/
