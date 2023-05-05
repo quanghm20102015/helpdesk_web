@@ -59,10 +59,24 @@ export class EmailInfoService {
     );
   }
   
+  getByIdConfigEmail(id: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/GetByIdConfigEmail?idConfigEmail=' + id,
+    );
+  }
   getByAgent(requets: any): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/EmailInfoes/GetByAgent?idCompany='+ requets.idCompany + '&assign='+ requets.assign + '&status='+ requets.status,
       requets
     );
   }
+  
+  getCountByCompanyAgent(requets: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/GetCountByCompanyAgent?idCompany='+ requets.idCompany 
+        + '&assign='+ requets.assign + '&idConfigEmail='+ requets.idConfigEmail + '&status='+ requets.status + '&idLabel='+ requets.idLabel,
+      requets
+    );
+  }
+  
 }

@@ -20,9 +20,6 @@ import { AppSettings } from "../../../constants/app-setting";
 export class DashboardComponent implements OnInit {
   @ViewChild('dt') dt: Table | undefined;
 
-  idInterval: any;
-  idCompany: any = this.userInfoStorageService.getCompanyId();
-  idUser: any = +this.userInfoStorageService.getIdUser();
   constructor(
     private emailInfoService: EmailInfoService,
     private statusService: StatusService,
@@ -32,16 +29,31 @@ export class DashboardComponent implements OnInit {
     private csatService: CsatService
   ) { }
 
+  idInterval: any;
+  idCompany: any = this.userInfoStorageService.getCompanyId();
+  idUser: any = +this.userInfoStorageService.getIdUser();
+  countAll: any = 0
+  countMine: any = 0
   ngOnInit(): void {
     this.loadListEmail();
+    this.getCountEmail()
     this.loadStatus();
     this.getListLabel();
     this.idInterval = setInterval(() => {
       this.loadListEmail();
+      this.getCountEmail()
     }, 5000);
     this.messenger = this.signature
   }
 
+  getCountEmail(){
+    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: 0, status: this.filterStatus, idLabel: 0}
+    this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
+      this.countAll = result.all
+      this.countMine = result.byAgent
+    });
+  }
+  
   loadStatus() {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;
