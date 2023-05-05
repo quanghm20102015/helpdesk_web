@@ -25,12 +25,12 @@ export class NewInboxComponent implements OnInit {
   idCompany: any = +this.userInfoStorageService.getCompanyId()
   form: FormGroup = this._fb.group({
     yourName: [this.model.yourName, [Validators.required]],
-    email: [this.model.email, [Validators.required]],
-    password: [this.model.email, [Validators.required, Validators.email]],
-    incoming: [this.model.email, [Validators.required]],
-    incomingPort: [this.model.email, [Validators.required]],
-    outgoing: [this.model.email, [Validators.required]],
-    outgoingPort: [this.model.email, [Validators.required]],
+    email: [this.model.email, [Validators.required, Validators.email]],
+    password: [this.model.password, [Validators.required]],
+    incoming: [this.model.incoming, [Validators.required]],
+    incomingPort: [this.model.incomingPort, [Validators.required]],
+    outgoing: [this.model.outgoing, [Validators.required]],
+    outgoingPort: [this.model.outgoingPort, [Validators.required]],
   })
   ngOnInit(): void {
     this.rebuilForm();

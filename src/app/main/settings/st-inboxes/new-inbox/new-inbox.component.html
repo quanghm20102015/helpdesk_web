@@ -79,13 +79,13 @@
                     </div>
                     <div class="col-md-6">
                         <label class="label-input">
-                            <span class="text-label">incomingPort</span>
+                            <span class="text-label">IncomingPort</span>
                             <input type="text" pInputText [(ngModel)]="model.incomingPort" formControlName="incomingPort"
                                 placeholder="Enter incomingPort" class="form-control mt-1">
                             <div *ngIf="(f['incomingPort'].dirty || f['incomingPort'].touched || submitted) && f['incomingPort'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['incomingPort'].errors?.['required']">
-                                    incomingPort is required
+                                    IncomingPort is required
                                 </div>
                             </div>
                         </label>

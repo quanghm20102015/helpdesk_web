@@ -42,8 +42,8 @@
                             </td>
                             <td>
                                 <div class="button-wrapper text-end">
-                                    <button (click)="edit(item)" class="btn btn-sm btn-primary"><i class="pi pi-sliders-h"></i></button>
-                                    <button (click)="confirm()" pButton icon="pi pi-trash" class="p-button-danger"></button>
+                                    <button (click)="edit(item)" class="btn btn-sm btn-primary" (click)="showDialogUpdate(item)"><i class="pi pi-sliders-h"></i></button>
+                                    <button (click)="confirm(item.id)" pButton icon="pi pi-trash" class="p-button-danger"></button>
                                 </div>
                             </td>
                         </tr>
@@ -67,3 +67,119 @@
     </div>
 
 </div>
+
+<p-dialog [(visible)]="display" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Update Inbox
+            </p>
+        </div>
+    </ng-template>
+    <form class="row" [formGroup]="form" (submit)="update()" id="form-update">
+        <div class="col-md-12">
+            <label class="label-input">
+                <span class="text-label">Inbox name</span>
+                <input type="text" pInputText [(ngModel)]="model.yourName" formControlName="yourName"
+                    placeholder="Enter Inbox name" class="form-control mt-1">
+                <div *ngIf="(f['yourName'].dirty || f['yourName'].touched || submitted) && f['yourName'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['yourName'].errors?.['required']">
+                        Inbox name is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <span class="text-label">Email</span>
+                <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
+                    placeholder="Enter Email" class="form-control mt-1">
+                <div *ngIf="(f['email'].dirty || f['email'].touched || submitted) && f['email'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['email'].errors?.['required']">
+                        Email is required
+                    </div> 
+                    <div *ngIf="f['email'].errors?.['email']">
+                        Please enter a valid email
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <span class="text-label">Password</span>
+                <p-password [toggleMask]="true" [(ngModel)]="model.password" formControlName="password"
+                    placeholder="Enter Password"></p-password>
+                <div *ngIf="(f['password'].dirty || f['password'].touched || submitted) && f['password'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['password'].errors?.['required']">
+                        Password is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <span class="text-label">Incoming</span>
+                <input type="text" pInputText [(ngModel)]="model.incoming" formControlName="incoming"
+                    placeholder="Enter Incoming" class="form-control mt-1">
+                <div *ngIf="(f['incoming'].dirty || f['incoming'].touched || submitted) && f['incoming'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['incoming'].errors?.['required']">
+                        Incoming is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <span class="text-label">IncomingPort</span>
+                <input type="text" pInputText [(ngModel)]="model.incomingPort" formControlName="incomingPort"
+                    placeholder="Enter incomingPort" class="form-control mt-1">
+                <div *ngIf="(f['incomingPort'].dirty || f['incomingPort'].touched || submitted) && f['incomingPort'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['incomingPort'].errors?.['required']">
+                        incomingPort is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <span class="text-label">Outgoing</span>
+                <input type="text" pInputText [(ngModel)]="model.outgoing" formControlName="outgoing"
+                    placeholder="Enter Outgoing" class="form-control mt-1">
+                <div *ngIf="(f['outgoing'].dirty || f['outgoing'].touched || submitted) && f['outgoing'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['outgoing'].errors?.['required']">
+                        Outgoing is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <span class="text-label">OutgoingPort</span>
+                <input type="text" pInputText [(ngModel)]="model.outgoingPort" formControlName="outgoingPort"
+                    placeholder="Enter OutgoingPort" class="form-control mt-1">
+                <div *ngIf="(f['outgoingPort'].dirty || f['outgoingPort'].touched || submitted) && f['outgoingPort'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['outgoingPort'].errors?.['required']">
+                        OutgoingPort is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt">
+                <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+                    <span>Update</span>
+                </button>
+                <button class="btn btn-secondary ml-2" (click)="display=false">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>

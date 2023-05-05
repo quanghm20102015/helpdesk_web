@@ -31,4 +31,17 @@ export class ConfigMailService {
       AppSettings.HostingAddress + '/ConfigMails/GetByIdCompany?idCompany='+ idCompany
     );
   }
+     
+  putEmailInfo(data: any): Observable<any> {
+    return this.http.put(
+      AppSettings.HostingAddress + '/ConfigMails/PutEmailInfo',
+      data
+    );
+  }
+    
+  deleteById(id: any): Observable<any> {
+    return this.http.delete(
+      AppSettings.HostingAddress + '/ConfigMails/' + id
+    );
+  }
 }

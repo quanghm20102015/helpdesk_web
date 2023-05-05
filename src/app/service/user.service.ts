@@ -40,7 +40,6 @@ export class UserService {
   }
 
   postLogin(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts/PostLogin',
       data

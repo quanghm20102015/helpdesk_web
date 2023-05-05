@@ -52,7 +52,6 @@ export class EmailInfoService {
       data
     );
   }
-  
   getByIdLabel(requets: any): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/EmailInfoes/GetByIdLabel?idCompany='+ requets.idCompany + '&idLable='+ requets.idLabel + '&status='+ requets.status,
