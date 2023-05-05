@@ -1,12 +1,9 @@
-# Stage 1
-FROM node:10-alpine as build-step
-RUN mkdir -p /app
-WORKDIR /app
-COPY package.json /app
+FROM node:6
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+COPY package.json /usr/src/app
+RUN npm cache clean
 RUN npm install
-COPY . /app
-RUN npm run build --prod
-
-# Stage 2
-FROM nginx:1.17.1-alpine
-EXPOSE 8002
+COPY . /usr/src/app
+EXPOSE 4200
+CMD ["npm","start"]
