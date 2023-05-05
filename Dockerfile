@@ -1,9 +1,14 @@
-FROM node:6
-RUN mkdir -p /usr/src/app
+FROM node:latest as build
+
 WORKDIR /usr/src/app
-COPY package.json /usr/src/app
-RUN npm cache clean
+
+COPY ./ /usr/src/app
+
 RUN npm install
-COPY . /usr/src/app
-EXPOSE 4200
-CMD ["npm","start"]
+
+RUN npm run build
+
+FROM nginx:latest
+COPY --from=build /usr/local/app/dist/chat-mg /usr/share/nginx/html
+EXPOSE 80
+
