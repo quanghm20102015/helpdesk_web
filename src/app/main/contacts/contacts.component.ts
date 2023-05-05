@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CountryService } from '../../service/country.service';
 import { ContactService } from '../../service/contact.service';
 import { UserInfoStorageService } from '../../service/user-info-storage.service';
+import { ActivatedRoute } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -12,10 +13,13 @@ declare var $: any;
 })
 export class ContactsComponent implements OnInit {
 
-  constructor(private _fb: FormBuilder,
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private _fb: FormBuilder,
     private countryService: CountryService,
     private contactService: ContactService,
-    private userInfoStorageService: UserInfoStorageService) { }
+    private userInfoStorageService: UserInfoStorageService
+    ) { }
 
   inputSearch: string = ''
   scrollDemo: any
@@ -41,6 +45,11 @@ export class ContactsComponent implements OnInit {
     // conversations: ''
   };
   idCompany: any
+
+  file: any = {}
+  formImport: FormGroup = this._fb.group({
+    file: [this.file, [Validators.required]]
+  })
   
   form: FormGroup = this._fb.group({
     fullname: [this.model.fullname, [Validators.required]],
@@ -60,7 +69,11 @@ export class ContactsComponent implements OnInit {
     // createAt: [this.model.createAt],
     // conversations: [this.model.conversations]
   });
+  id: any
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      this.id = +params['id']
+    })
     this.idCompany = this.userInfoStorageService.getCompanyId()
     this.getAllCountry();
     this.getContact();
@@ -79,12 +92,21 @@ export class ContactsComponent implements OnInit {
   }
 
   getContact(){
-    this.contactService.getByIdCompany(this.idCompany).subscribe((result) => {
-      this.contacts = result;
-    });
+    if(this.id){
+      //get by label
+      this.contactService.getByIdLabel({idCompany: this.idCompany,idLabel: this.id}).subscribe((result) => {
+        this.contacts = result;
+      });
+    } else{
+      //get all
+      this.contactService.getByIdCompany(this.idCompany).subscribe((result) => {
+        this.contacts = result;
+      });
+    }
   }
 
   onSubmit(){    
+    debugger
     this.model.idCompany = this.idCompany
     this.contactService.create(this.model).subscribe((result) => {
       if(result.status == 1){
@@ -92,6 +114,10 @@ export class ContactsComponent implements OnInit {
         this.getContact();
       }
     });
+  }
+
+  onSubmitFile(){
+
   }
 
   createContact(){

@@ -5,6 +5,7 @@ import { ConfigMailService } from '../../../service/configMail.service';
 import { LabelService } from '../../../service/label.service';
 import { MessageService } from 'primeng/api';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
+import { UserService } from '../../../service/user.service';
 
 @Component({
   selector: 'app-menu',
@@ -13,15 +14,20 @@ import { UserInfoStorageService } from '../../../service/user-info-storage.servi
   providers: [MessageService]
 })
 export class MenuComponent implements OnInit {
-  constructor(private _fb: FormBuilder, 
+  constructor(
+    private _fb: FormBuilder, 
     private router: Router, 
     private configMailService: ConfigMailService,
     private labelService: LabelService,
     private messageService: MessageService,
-    private userInfoStorageService: UserInfoStorageService) { }
+    private userInfoStorageService: UserInfoStorageService,
+    private userService: UserService
+    ) { }
 
+  idInterval: any;
   ngOnInit(): void {
     this.idCompany = this.userInfoStorageService.getCompanyId()
+    this.idUser = this.userInfoStorageService.getIdUser()
     this.getListInbox();
     this.loadDataLabel();
     console.log(this.router.url);
@@ -32,10 +38,22 @@ export class MenuComponent implements OnInit {
         console.log('Tab: ',this.tab)
       }
     })
+
+    this.postLogin();
+    // window.addEventListener('beforeunload', this.postLogout, false);
+    
+    // window.addEventListener('beforeunload', this.postLogout, false);
+    
+    window.addEventListener('beforeunload', (event) => {
+      this.postLogout();
+    });
+    // this.idInterval = setInterval(() => {
+    //   this.postLogin();
+    // }, 10000);
   }
 
   display: boolean = false
-
+  status: any = +this.userInfoStorageService.getStatus()
   model: any = {};
   submitted: boolean = false;
   form: FormGroup = this._fb.group({
@@ -46,6 +64,7 @@ export class MenuComponent implements OnInit {
   });
 
   idCompany: any;
+  idUser: any;
   onSubmit() {
     this.submitted = true;
   }
@@ -58,10 +77,10 @@ export class MenuComponent implements OnInit {
 
   rebuilForm() {
     this.form.reset({
-      name: this.model.name,
-      description: this.model.description,
-      color: this.model.color,
-      showSidebar: this.model.showSidebar,
+      name: '',
+      description: '',
+      color: '',
+      showSidebar: false,
     });
   }
 
@@ -112,5 +131,44 @@ export class MenuComponent implements OnInit {
   }
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
+
+  postLogin(){
+    let request = {
+      idUser: this.idUser
+    }
+    this.userService.postLogin(request).subscribe((result) => {
+      if(result.status == 1){
+      }
+      else{
+      }
+    });
+  }
+
+  postLogout(){
+    let request = {
+      idUser: this.idUser
+    }
+    this.userService.postLogout(request).subscribe((result) => {
+      if(result.status == 1){
+      }
+      else{
+      }
+    });
+  }
+
+  changeStatus(status: any){    
+    let request = {
+      idUser: this.idUser,
+      status: status
+    }
+    this.userService.changeStatus(request).subscribe((result) => {
+      if(result.status == 1){
+        this.userInfoStorageService.setStatus(status)
+        this.status = status
+      }
+      else{
+      }
+    });
   }
 }

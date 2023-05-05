@@ -7,7 +7,7 @@ import { AppSettings } from "../constants/app-setting";
 @Injectable({
   providedIn: "root",
 })
-export class LabelService {
+export class AccountService {
   constructor(
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService
@@ -15,39 +15,45 @@ export class LabelService {
   
   getAll(): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Labels'
+      AppSettings.HostingAddress + '/Accounts'
     );
   }
   
-  getByIdCompany(idCompany: any): Observable<any> {
+  getAccount(idUser: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Labels/GetByIdCompany?idCompany=' + idCompany
+      AppSettings.HostingAddress + '/Accounts/' + idUser
     );
   }
 
+  getByEmail(workemail: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Accounts/GetByEmail?workemail=' + workemail
+    );
+  }
+  
   create(data: any): Observable<any> {
     return this.http.post(
-      AppSettings.HostingAddress + '/Labels',
+      AppSettings.HostingAddress + '/Accounts',
       data
     );
   }
   
   update(data: any): Observable<any> {
     return this.http.put(
-      AppSettings.HostingAddress + '/Labels',
+      AppSettings.HostingAddress + '/Accounts',
       data
     );
   }
 
   getById(id: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Labels/' + id
+      AppSettings.HostingAddress + '/Accounts/' + id
     );
   }
   
   deleteById(id: any): Observable<any> {
     return this.http.delete(
-      AppSettings.HostingAddress + '/Labels/' + id
+      AppSettings.HostingAddress + '/Accounts/' + id
     );
   }
 }

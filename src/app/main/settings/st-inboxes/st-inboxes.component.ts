@@ -15,9 +15,11 @@ export class StInboxesComponent implements OnInit {
     // { name: 'Email customer', type: 'Email' },
   ]
   idCompany: any;
-  constructor(private confirmationService: ConfirmationService, 
+  constructor(
+    private confirmationService: ConfirmationService, 
     private configMailService: ConfigMailService,
-    private userInfoStorageService: UserInfoStorageService) { }
+    private userInfoStorageService: UserInfoStorageService
+    ) { }
 
   ngOnInit(): void {
     this.idCompany = this.userInfoStorageService.getCompanyId()
@@ -32,6 +34,8 @@ export class StInboxesComponent implements OnInit {
 
   confirm() {
     this.confirmationService.confirm({
+      header: 'Confirmation delete',
+      icon: 'pi pi-exclamation-triangle',
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
         //Actual logic to perform a confirmation

@@ -33,22 +33,23 @@ export class StAgentsComponent implements OnInit {
     workemail: [this.model.workemail, [Validators.required, Validators.email]],
   })
 
+  idCompany: number = +(localStorage.getItem('companyId') || 0);
   ngOnInit(): void {
     this.loadListAgent();
     this.rebuilForm();
   }
 
   loadListAgent(){    
-    this.userService.getAll().subscribe((result) => {
+    this.userService.GetByIdCompany(this.idCompany).subscribe((result) => {
       this.listData = result;
     });
   }
 
   rebuilForm() {
     this.form.reset({
-      name: this.model.name,
-      role: this.model.role,
-      workemail: this.model.workemail,
+      name: '',
+      role: 0,
+      workemail: '',
     })
   }
 

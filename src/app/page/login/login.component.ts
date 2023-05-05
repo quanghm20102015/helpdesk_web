@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private encrdecrService: EncrDecrService,
     private router: Router,
-    private messageService: MessageService  , 
+    private messageService: MessageService, 
     private userInfoStorageService: UserInfoStorageService
     ) { }
   model: any = {workemail: '', password: ''}
@@ -56,6 +56,11 @@ export class LoginComponent implements OnInit {
     this.userService.getByEmail(email).subscribe((result) => {
       this.userInfoStorageService.setCompany(result.company)
       this.userInfoStorageService.setCompanyId(result.idCompany)
+      this.userInfoStorageService.setFullname(result.fullname)
+      this.userInfoStorageService.setIdUser(result.id)
+      this.userInfoStorageService.setWorkemail(result.workemail)
+      this.userInfoStorageService.setConfirm(result.confirm)
+      this.userInfoStorageService.setStatus(result.status)
     });
   }
 
@@ -65,8 +70,8 @@ export class LoginComponent implements OnInit {
 
 	rebuilForm() {
 		this.form.reset({
-			workemail: this.model.workemail,
-			password: this.model.password,
+			workemail: '',
+			password: '',
 		})
 	}
   

@@ -32,4 +32,38 @@ export class EmailInfoService {
       data
     );
   }
+
+  getByIdCompany(idCompany: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/GetByIdCompany?idCompany='+ idCompany
+    );
+  }
+  getByStatus(requets: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/getByStatus?idCompany='+ requets.idCompany + '&status='+ requets.status,
+      requets
+    );
+  }
+
+  
+  UpdateStatus(data: any): Observable<any> {
+    return this.http.put(
+      AppSettings.HostingAddress + '/EmailInfoes/UpdateStatus',
+      data
+    );
+  }
+  
+  getByIdLabel(requets: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/GetByIdLabel?idCompany='+ requets.idCompany + '&idLable='+ requets.idLabel + '&status='+ requets.status,
+      requets
+    );
+  }
+  
+  getByAgent(requets: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/GetByAgent?idCompany='+ requets.idCompany + '&assign='+ requets.assign + '&status='+ requets.status,
+      requets
+    );
+  }
 }

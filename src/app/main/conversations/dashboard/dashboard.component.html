@@ -20,22 +20,22 @@
                 <div class="col-md-6">
                     <div class="filter--actions">
                         <p-dropdown [options]="listStatus" [(ngModel)]="filterStatus" optionLabel="statusName"
-                            optionValue="id" scrollHeight="300px"></p-dropdown>
+                            optionValue="id" scrollHeight="300px" (onChange)="loadListEmail()"></p-dropdown>
                     </div>
                 </div>
             </div>
             <div class="tab--chat-type tabs--container--with-border tabs--container">
-                <p-tabView>
+                <p-tabView (onChange)="handleChange($event)">
                     <p-tabPanel [selected]="true">
                         <ng-template pTemplate="header">
                             Mine <span class="badge text-bg-secondary ms-1">4</span>
                         </ng-template>
                     </p-tabPanel>
-                    <p-tabPanel header="Header 2">
+                    <!-- <p-tabPanel header="Header 2">
                         <ng-template pTemplate="header">
                             Unassigned<span class="badge text-bg-secondary ms-1">4</span>
                         </ng-template>
-                    </p-tabPanel>
+                    </p-tabPanel> -->
                     <p-tabPanel header="Header 3">
                         <ng-template pTemplate="header">
                             All<span class="badge text-bg-secondary ms-1">4</span>
@@ -46,7 +46,6 @@
             <div class="bulk-action__container">
                 <div class="d-flex align-items-center justify-content-between">
                     <label class="d-flex align-items-center">
-                        <input type="checkbox" class="checkbox">
                         <span class="ps-1">
                             {{listSelectChat.length}} conversations selected
                         </span>
@@ -91,9 +90,34 @@
                     </div>
                 </div>
                 <div class="tooltip">
-                    <p-overlayPanel #op1 [showCloseIcon]="true" [style]="{width: '450px'}">
+                    <p-overlayPanel #op1 [showCloseIcon]="true">
                         <ng-template pTemplate>
-                            Box 1
+                            <div>
+                                <div class="mb-2">Assign Labels</div>
+                                <p-table #dt [value]="listLabel" [(selection)]="selectedLabel" dataKey="id" [rowHover]="true" [globalFilterFields]="['name']">
+                                    <ng-template pTemplate="caption">
+                                        <div class="table-header">
+                                            <span class="p-input-icon-left">
+                                                <i class="pi pi-search"></i>
+                                                <input pInputText type="text"
+                                                    (input)="applyFilterGlobal($event, 'contains')"
+                                                    placeholder="Global Search" />
+                                            </span>
+                                        </div>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-item>
+                                        <tr>
+                                            <td>
+                                                <p-tableCheckbox [value]="item"></p-tableCheckbox>
+                                            </td>
+                                            <td><p-colorPicker [(ngModel)]="item.color"
+                                                [disabled]="true"></p-colorPicker></td>
+                                                <td>{{item.name}}</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                <button class="btn btn-primary mt-2" [disabled]="!selectedLabel || selectedLabel.length === 0 || !listSelectChat || listSelectChat.length === 0">Assign selected labels</button>
+                            </div>
                         </ng-template>
                     </p-overlayPanel>
                     <p-overlayPanel #op2 [showCloseIcon]="true" [style]="{width: '450px'}">
@@ -160,10 +184,9 @@
                     <div class="user d-flex">
                         <div class="user--profile__meta">
                             <button class="btn text-primary btn-back" (click)="viewMail = false">
-                                < Back
-                            </button>
-                            <h4 class="sub-block-title user--name text-wrap mb-0">{{subject}}</h4>
-                            <!-- <div class="conversation--header--actions text-truncate">
+                                < Back </button>
+                                    <h4 class="sub-block-title user--name text-wrap mb-0">{{subject}}</h4>
+                                    <!-- <div class="conversation--header--actions text-truncate">
                             <div class="inbox--name">
                                 Minhtmu_bot
                             </div>
@@ -174,7 +197,7 @@
                 <div class="col-md-6">
                     <div class="header-actions-wrap has-open-sidebar">
                         <div class="d-flex justify-content-end btn-mobile">
-                            <button type="submit" class="btn btn-outline-secondary border-0 me-2"
+                            <!-- <button type="submit" class="btn btn-outline-secondary border-0 me-2"
                                 data-original-title="null">
                                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg" class="icon icon--font speaker-mute">
@@ -191,11 +214,38 @@
                                         fill="currentColor">
                                     </path>
                                 </svg>
-                            </button>
+                            </button> -->
                             <div class="resolve-actions" status="open">
                                 <div class="button-group">
-                                    <button type="submit" class="btn btn-success"><svg width="16" height="16"
-                                            fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                    <button type="button" class="btn btn-outline-secondary status-botton"
+                                        (click)="updateStatus(1, 0)"><svg width="16" height="16" fill="none"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon--font checkmark">
+                                            <path
+                                                d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
+                                                fill="currentColor">
+                                            </path>
+                                        </svg>
+                                        <span class="button__content">
+                                            Open
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-primary status-botton"
+                                        (click)="updateStatus(3, 0)"><svg width="16" height="16" fill="none"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon--font checkmark">
+                                            <path
+                                                d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
+                                                fill="currentColor">
+                                            </path>
+                                        </svg>
+                                        <span class="button__content">
+                                            Pending
+                                        </span>
+                                    </button>
+                                    <button type="button" class="btn btn-success status-botton"
+                                        (click)="updateStatus(2, 0)"><svg width="16" height="16" fill="none"
+                                            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon--font checkmark">
                                             <path
                                                 d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
@@ -268,3 +318,4 @@
     </div>
 
 </div>
+<p-toast></p-toast>

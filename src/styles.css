@@ -175,6 +175,9 @@ app-dashboard {
 
 .profile--settings {
     padding-top: 20px;
+    max-height: calc(100vh - 56px);
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .settings-header {
@@ -201,7 +204,15 @@ app-dashboard {
     border-radius: 50%;
 }
 
-.box-dialog .label-input {
+.label-input{
+    display: block;
+}
+
+form .label-input:not(:first-child), form button{
+    margin-top: 15px;
+}
+
+.box-dialog  {
     margin-bottom: 1rem;
     width: 100%;
 }
@@ -392,4 +403,36 @@ body {
     width: 30px;
     height: 28px;
     margin-left: 5px;
+}
+
+p-password>div{
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+p-password input{
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.box-middel-center{
+    padding: 40px 30px;
+    border-radius: 10px;
+    border: 1px solid #ebf0f5;
+    box-shadow: 0 0.8rem 1.6rem rgba(50,50,93,.08), 0 0.4rem 1.2rem rgba(0,0,0,.07);
+}
+
+.h-100vh{
+    height: 100vh;
 }

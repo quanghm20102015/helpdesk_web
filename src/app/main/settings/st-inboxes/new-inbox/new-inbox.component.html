@@ -54,8 +54,8 @@
                     <div class="col-md-6">
                         <label class="label-input">
                             <span class="text-label">Password</span>
-                            <input type="text" pInputText [(ngModel)]="model.password" formControlName="password"
-                                placeholder="Enter ExamPassword" class="form-control mt-1">
+                            <p-password [toggleMask]="true" [(ngModel)]="model.password" formControlName="password"
+                                placeholder="Enter Password"></p-password>
                             <div *ngIf="(f['password'].dirty || f['password'].touched || submitted) && f['password'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['password'].errors?.['required']">

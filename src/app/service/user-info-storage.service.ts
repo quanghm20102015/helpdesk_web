@@ -24,11 +24,26 @@ export class UserInfoStorageService {
 
   constructor(private http: HttpClient, private _router: Router) { }
 
-  setCompany(id: string): void {
-    localStorage.setItem('company', id);
+  setCompany(input: string): void {
+    localStorage.setItem('company', input);
   }
-  setCompanyId(id: string): void {
-    localStorage.setItem('companyId', id);
+  setCompanyId(input: string): void {
+    localStorage.setItem('companyId', input);
+  }
+  setFullname(input: string): void {
+    localStorage.setItem('fullname', input);
+  }
+  setIdUser(input: string): void {
+    localStorage.setItem('idUser', input);
+  }
+  setWorkemail(input: string): void {
+    localStorage.setItem('workemail', input);
+  }
+  setConfirm(input: string): void {
+    localStorage.setItem('confirm', input);
+  }
+  setStatus(input: string): void {
+    localStorage.setItem('status', input);
   }
   // setReturnUrl(url: string): void {
   //   localStorage.setItem('ReturnUrl', url);
@@ -100,9 +115,23 @@ export class UserInfoStorageService {
   getCompany(): any {
     return localStorage.getItem('company');
   }
-
   getCompanyId(): any {
     return localStorage.getItem('companyId');
+  }
+  getFullname(): any {
+    return localStorage.getItem('fullname');
+  }
+  getIdUser(): any {
+    return localStorage.getItem('idUser');
+  }
+  getWorkemail(): any {
+    return localStorage.getItem('workemail');
+  }
+  getConfirm(): any {
+    return localStorage.getItem('confirm');
+  }
+  getStatus(): any {
+    return localStorage.getItem('status');
   }
   // getKeyRemember(): string {
   //   return localStorage.getItem('KeyRework');
@@ -227,7 +256,7 @@ export class UserInfoStorageService {
   //   } 
   // }
 
-  signOut() { 
+  signOut() {
     this.clearStoreageAll();
   }
 

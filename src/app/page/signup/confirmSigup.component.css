@@ -1,0 +1,10 @@
+.hero--logo{
+    width: auto;
+    height: 50px;
+}
+.signup-right{
+    background: url('../../../assets/img/network-6684428_1920.jpg');
+    min-width: 100wh;
+    min-height: 100vh;
+    background-size: cover;
+}

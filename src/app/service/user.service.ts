@@ -38,4 +38,63 @@ export class UserService {
        data
     );
   }
+
+  postLogin(data: any): Observable<any> {
+    debugger
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/PostLogin',
+      data
+    );
+  }
+  
+  postLogout(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/PostLogout',
+      data
+    );
+  }
+
+  GetByIdCompany(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Accounts/GetByIdCompany?idCompany=' + data,
+       data
+    );
+  }
+
+  
+  changeStatus(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/ChangeStatus',
+      data
+    );
+  }
+
+  sendMailConfirm(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/SendMailConfirm',
+      data
+    );
+  }
+  
+  confirmSigup(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/ConfirmSigup',
+      data
+    );
+  }
+  
+  sendMailResetPassword(data: any): Observable<any> {
+    debugger
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/SendMailResetPassword',
+      data
+    );
+  }
+  
+  resetPassword(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/ResetPassword',
+      data
+    );
+  }
 }
