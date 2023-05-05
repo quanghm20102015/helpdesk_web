@@ -36,15 +36,26 @@ export class LabelsComponent implements OnInit {
     this.idCompany = this.userInfoStorageService.getCompanyId()
     this.loadListEmail();
     this.loadStatus();
+    this.getCountEmail()
     this.getListLabel();
     this.idInterval = setInterval(() => {
+      this.getCountEmail()
       this.loadListEmail();
     }, 5000);
     this.messenger = this.signature
   }
 
   id: number = 0
-  
+  idUser: number = +this.userInfoStorageService.getIdUser()
+  countAll: number = 0
+  countMine: number = 0
+  getCountEmail(){
+    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: 0, status: this.filterStatus, idLabel: this.id}
+    this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
+      this.countAll = result.all
+      this.countMine = result.byAgent
+    });
+  }
   loadStatus() {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;

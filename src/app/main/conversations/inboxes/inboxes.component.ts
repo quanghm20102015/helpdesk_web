@@ -38,13 +38,24 @@ export class InboxesComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       this.id = +params['id']
     })
+    this.getCountEmail()
     this.loadListEmail();
     this.loadStatus();
     this.getListLabel();
     this.idInterval = setInterval(() => {
+      this.getCountEmail()
       this.loadListEmail();
     }, 5000);
     this.messenger = this.signature
+  }
+  countAll: any = 0
+  countMine: any = 0
+  getCountEmail(){
+    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: this.id, status: this.filterStatus, idLabel: 0}
+    this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
+      this.countAll = result.all
+      this.countMine = result.byAgent
+    });
   }
 
   loadStatus() {

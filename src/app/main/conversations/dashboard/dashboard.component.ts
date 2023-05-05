@@ -47,13 +47,13 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountEmail(){
-    let request = {idCompany: this.idCompany, assign: this.idUser}
+    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: 0, status: this.filterStatus, idLabel: 0}
     this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
-      console.log('aa',result)
       this.countAll = result.all
       this.countMine = result.byAgent
     });
   }
+  
   loadStatus() {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;

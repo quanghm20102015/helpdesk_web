@@ -73,7 +73,8 @@ export class EmailInfoService {
   
   getCountByCompanyAgent(requets: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/EmailInfoes/GetCountByCompanyAgent?idCompany='+ requets.idCompany + '&assign='+ requets.assign,
+      AppSettings.HostingAddress + '/EmailInfoes/GetCountByCompanyAgent?idCompany='+ requets.idCompany 
+        + '&assign='+ requets.assign + '&idConfigEmail='+ requets.idConfigEmail + '&status='+ requets.status + '&idLabel='+ requets.idLabel,
       requets
     );
   }

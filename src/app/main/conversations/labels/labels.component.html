@@ -28,7 +28,7 @@
                 <p-tabView>
                     <p-tabPanel [selected]="true">
                         <ng-template pTemplate="header">
-                            Mine <span class="badge text-bg-secondary ms-1">4</span>
+                            Mine <span class="badge text-bg-secondary ms-1">{{countMine}}</span>
                         </ng-template>
                     </p-tabPanel>
                     <!-- <p-tabPanel header="Header 2">
@@ -38,7 +38,7 @@
                     </p-tabPanel> -->
                     <p-tabPanel header="Header 3">
                         <ng-template pTemplate="header">
-                            All<span class="badge text-bg-secondary ms-1">4</span>
+                            All<span class="badge text-bg-secondary ms-1">{{countAll}}</span>
                         </ng-template>
                     </p-tabPanel>
                 </p-tabView>
