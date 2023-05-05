@@ -18,11 +18,13 @@ export class SurveyComponent implements OnInit {
     private userInfoStorageService: UserInfoStorageService
   ) { }
   idCompany: any;
+  idGuIdEmailInfo: any;
   ngOnInit(): void {
     
     this.idCompany = this.userInfoStorageService.getCompanyId();
     this.activatedRoute.params.subscribe((params) => {
-      this.model.id = +params['id']
+      const { token } = params;      
+      this.idGuIdEmailInfo = token;
     })
   }
 
@@ -33,7 +35,7 @@ export class SurveyComponent implements OnInit {
   onSend() {
     this.submit = true
     let request = {
-      idEmailInfo: 0,
+      idGuIdEmailInfo: this.idGuIdEmailInfo,
       idFeedBack: this.model.review,
       descriptionFeedBack: this.model.content,
       idCompany: this.idCompany

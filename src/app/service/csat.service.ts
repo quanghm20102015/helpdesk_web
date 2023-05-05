@@ -19,4 +19,11 @@ export class CsatService {
       data
     );
   }
+
+  sendMail(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Csats/SendMail',
+      data
+    );
+  }
 }

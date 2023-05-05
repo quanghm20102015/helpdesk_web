@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: "confirm-sigup/:token", component: ConfirmSigupComponent},
   {path: "reset-password", component: ResetPasswordComponent},
   {path: "set-new-password/:token", component: SetNewPasswordComponent},
-  {path: "survey/:id", component: SurveyComponent},
+  {path: "survey/:token", component: SurveyComponent},
   {path: "reset-password/:id", component: ConfirmResetPasswordComponent},
 ];
 
