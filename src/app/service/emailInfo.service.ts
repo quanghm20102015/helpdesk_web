@@ -25,6 +25,12 @@ export class EmailInfoService {
       AppSettings.HostingAddress + '/EmailInfoes'
     );
   }
+
+  getEmailInfo(id: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/' + id
+    );
+  }
   
   SendMail(data: any): Observable<any> {
     return this.http.post(
@@ -76,6 +82,12 @@ export class EmailInfoService {
       AppSettings.HostingAddress + '/EmailInfoes/GetCountByCompanyAgent?idCompany='+ requets.idCompany 
         + '&assign='+ requets.assign + '&idConfigEmail='+ requets.idConfigEmail + '&status='+ requets.status + '&idLabel='+ requets.idLabel,
       requets
+    );
+  }  
+
+  postEmailInfoLabel(requets: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoLabels',requets
     );
   }
   
