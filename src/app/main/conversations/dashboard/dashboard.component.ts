@@ -123,7 +123,6 @@ export class DashboardComponent implements OnInit {
   getListLabel() {
     this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
       this.listLabel = result;
-      console.log('this.listLabel', this.listLabel)
     });
   }
 
@@ -169,10 +168,22 @@ export class DashboardComponent implements OnInit {
   }
 
   mailDetails: any;
+  listLabelEmail: any = [];
   viewMail: boolean = false
   detailMail(item: any) {
-    this.mailDetails = item;
-    this.statusName = this.listStatusUpdate.filter((x: { id: any; })=>x.id == this.mailDetails.status)[0].statusName
+    // this.mailDetails = item;
+    this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
+      this.mailDetails = result.emailInfo
+      this.listLabelEmail = result.listLabel
+      this.selectedLabel = []
+      this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      result.listLabel.forEach((item: { check: boolean; }) => {
+        if (item.check == true) {
+          this.selectedLabel.push(item)
+        }
+      });
+    });
+
     this.listMessenger = [];
     this.viewMail = true;
     this.subject = item.subject
@@ -188,7 +199,7 @@ export class DashboardComponent implements OnInit {
       status: this.mailDetails.status,
       id: this.mailDetails.id
     }
-    this.statusName = this.listStatusUpdate.filter((x: { id: any; })=>x.id == this.mailDetails.status)[0].statusName
+    this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
       if (result.status == 1) {
         this.loadListEmail();
@@ -226,7 +237,7 @@ export class DashboardComponent implements OnInit {
     this.loadListEmail()
   }
 
-  updateEmailInfoLabel(){
+  updateEmailInfoLabel() {
     let request = {
       id: 0,
       idEmailInfo: this.mailDetails.id,
@@ -238,9 +249,9 @@ export class DashboardComponent implements OnInit {
   }
 
   listIdLabelSelect: any = []
-  onChangeSelectLabel(){
+  onChangeSelectLabel() {
     this.listIdLabelSelect = []
-    this.selectedLabel.forEach((x)=>{
+    this.selectedLabel.forEach((x) => {
       this.listIdLabelSelect.push(x.id)
     })
   }

@@ -25,7 +25,6 @@ export class ConfirmResetPasswordComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       // this.idUserEncrypt = +params['id']      
       // this.idUserDecrypt = this.encrdecrService.set("mypassword", this.idUserEncrypt).toString()
-      debugger
       this.idUser = +params['id']      
       
       let request = {

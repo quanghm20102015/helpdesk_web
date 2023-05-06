@@ -26,17 +26,17 @@
             </div>
             <div class="tab--chat-type tabs--container--with-border tabs--container">
                 <p-tabView (onChange)="handleChange($event)">
-                    <!--<p-tabPanel [selected]="true">
+                    <p-tabPanel [selected]="true">
                         <ng-template pTemplate="header">
-                            Mine <span class="badge text-bg-secondary ms-1">4</span>
+                            Mine <span class="badge text-bg-secondary ms-1">{{countMine}}</span>
                         </ng-template>
                     </p-tabPanel>
-                     <p-tabPanel header="Header 2">
+                    <!-- <p-tabPanel header="Header 2">
                         <ng-template pTemplate="header">
                             Unassigned<span class="badge text-bg-secondary ms-1">4</span>
                         </ng-template>
                     </p-tabPanel> -->
-                    <p-tabPanel header="Header 3" [selected]="true">
+                    <p-tabPanel header="Header 3">
                         <ng-template pTemplate="header">
                             All<span class="badge text-bg-secondary ms-1">{{countAll}}</span>
                         </ng-template>
@@ -94,7 +94,8 @@
                         <ng-template pTemplate>
                             <div>
                                 <div class="mb-2">Assign Labels</div>
-                                <p-table #dt [value]="listLabel" [(selection)]="selectedLabel" dataKey="id" [rowHover]="true" [globalFilterFields]="['name']">
+                                <p-table #dt [value]="listLabel" [(selection)]="selectedLabel" dataKey="id"
+                                    [rowHover]="true" [globalFilterFields]="['name']">
                                     <ng-template pTemplate="caption">
                                         <div class="table-header">
                                             <span class="p-input-icon-left">
@@ -111,12 +112,15 @@
                                                 <p-tableCheckbox [value]="item"></p-tableCheckbox>
                                             </td>
                                             <td><p-colorPicker [(ngModel)]="item.color"
-                                                [disabled]="true"></p-colorPicker></td>
-                                                <td>{{item.name}}</td>
+                                                    [disabled]="true"></p-colorPicker></td>
+                                            <td>{{item.name}}</td>
                                         </tr>
                                     </ng-template>
                                 </p-table>
-                                <button class="btn btn-primary mt-2" [disabled]="!selectedLabel || selectedLabel.length === 0 || !listSelectChat || listSelectChat.length === 0">Assign selected labels</button>
+                                <button class="btn btn-primary mt-2"
+                                    [disabled]="!selectedLabel || selectedLabel.length === 0 || !listSelectChat || listSelectChat.length === 0">
+                                    Assign selected labels
+                                </button>
                             </div>
                         </ng-template>
                     </p-overlayPanel>
@@ -215,7 +219,58 @@
                                     </path>
                                 </svg>
                             </button> -->
-                            <div class="resolve-actions" status="open">
+                            <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel" defaultLabel="Select label"
+                                optionLabel="name" class="multiselect-custom me-2" (onChange)="onChangeSelectLabel()">
+                                <ng-template let-value pTemplate="selectedItems">
+                                    <div class="label-item label-item-value" *ngFor="let option of selectedLabel">
+                                        <p-colorPicker [(ngModel)]="option.color" [disabled]="true"></p-colorPicker>
+                                        <div class="d-inline ms-1">{{option.name}}</div>
+                                    </div>
+                                    <div *ngIf="!selectedLabel || selectedLabel.length === 0" class="label-placeholder">
+                                        Select Label
+                                    </div>
+                                </ng-template>
+                                <ng-template let-label pTemplate="item">
+                                    <div class="label-item">
+                                        <p-colorPicker [(ngModel)]="label.color" [disabled]="true"></p-colorPicker>
+                                        <div class="d-inline ms-1">{{label.name}}</div>
+                                    </div>
+                                </ng-template>
+                            </p-multiSelect>
+
+                            <button type="button" class="btn btn-primary status-botton" (click)="updateEmailInfoLabel()" [disabled]="listIdLabelSelect.length == 0">
+                                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg" class="icon icon--font checkmark">
+                                    <path
+                                        d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
+                                        fill="currentColor">
+                                    </path>
+                                </svg>
+                                <span class="button__content">
+                                    Update
+                                </span>
+                            </button>
+
+                            <p-dropdown [options]="listStatusUpdate" [(ngModel)]="mailDetails.status"
+                                placeholder="select" optionValue="id" optionLabel="statusName"
+                                (onChange)="updateStatus()">
+                                <ng-template pTemplate="selectedItem">
+                                    <div class="country-item country-item-value" *ngIf="mailDetails.status">
+                                        <span class="country-item"
+                                            [ngClass]="{'text-secondary' : mailDetails.status == 1,'text-success': mailDetails.status == 2, 'text-primary': mailDetails.status == 3}">
+                                            {{statusName}}
+                                        </span>
+                                    </div>
+                                </ng-template>
+                                <ng-template let-item pTemplate="item">
+                                    <button class="country-item" class="btn status-botton"
+                                        [ngClass]="{'btn-outline-secondary' : item.id == 1,'btn-success': item.id == 2, 'btn-primary': item.id == 3}">
+                                        {{item.statusName}}
+                                    </button>
+                                </ng-template>
+                            </p-dropdown>
+
+                            <!-- <div class="resolve-actions" status="open">
                                 <div class="button-group">
                                     <button type="button" class="btn btn-outline-secondary status-botton"
                                         (click)="updateStatus(1, 0)"><svg width="16" height="16" fill="none"
@@ -257,7 +312,7 @@
                                         </span>
                                     </button>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -318,4 +373,3 @@
     </div>
 
 </div>
-<p-toast></p-toast>

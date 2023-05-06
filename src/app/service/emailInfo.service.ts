@@ -25,6 +25,12 @@ export class EmailInfoService {
       AppSettings.HostingAddress + '/EmailInfoes'
     );
   }
+
+  getEmailInfo(id: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/EmailInfoes/' + id
+    );
+  }
   
   SendMail(data: any): Observable<any> {
     return this.http.post(

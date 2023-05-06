@@ -219,7 +219,7 @@
                                     </path>
                                 </svg>
                             </button> -->
-                            <p-multiSelect [options]="listLabel" [(ngModel)]="selectedLabel" defaultLabel="Select label"
+                            <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel" defaultLabel="Select label"
                                 optionLabel="name" class="multiselect-custom me-2" (onChange)="onChangeSelectLabel()">
                                 <ng-template let-value pTemplate="selectedItems">
                                     <div class="label-item label-item-value" *ngFor="let option of selectedLabel">
@@ -227,7 +227,7 @@
                                         <div class="d-inline ms-1">{{option.name}}</div>
                                     </div>
                                     <div *ngIf="!selectedLabel || selectedLabel.length === 0" class="label-placeholder">
-                                        Select Countries
+                                        Select Label
                                     </div>
                                 </ng-template>
                                 <ng-template let-label pTemplate="item">
@@ -373,4 +373,3 @@
     </div>
 
 </div>
-<p-toast></p-toast>

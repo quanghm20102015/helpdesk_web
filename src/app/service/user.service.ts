@@ -83,7 +83,6 @@ export class UserService {
   }
   
   sendMailResetPassword(data: any): Observable<any> {
-    debugger
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts/SendMailResetPassword',
       data
