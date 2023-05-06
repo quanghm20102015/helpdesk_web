@@ -77,6 +77,12 @@ export class EmailInfoService {
         + '&assign='+ requets.assign + '&idConfigEmail='+ requets.idConfigEmail + '&status='+ requets.status + '&idLabel='+ requets.idLabel,
       requets
     );
+  }  
+
+  postEmailInfoLabel(requets: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoLabels',requets
+    );
   }
   
 }

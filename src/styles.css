@@ -436,3 +436,10 @@ p-password input{
 .h-100vh{
     height: 100vh;
 }
+
+.p-multiselect .p-multiselect-label{
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 34px;
+    align-items: center;
+}
