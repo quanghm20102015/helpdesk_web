@@ -106,7 +106,6 @@ export class ContactsComponent implements OnInit {
   }
 
   onSubmit(){    
-    debugger
     this.model.idCompany = this.idCompany
     this.contactService.create(this.model).subscribe((result) => {
       if(result.status == 1){

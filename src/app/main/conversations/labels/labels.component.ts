@@ -8,6 +8,8 @@ import { MessageService } from 'primeng/api';
 import { LabelService } from 'src/app/service/label.service';
 import { Table } from 'primeng/table';
 import { ActivatedRoute } from '@angular/router';
+import { CsatService } from 'src/app/service/csat.service';
+import { AppSettings } from 'src/app/constants/app-setting';
 @Component({
   selector: 'app-labels',
   templateUrl: './labels.component.html',
@@ -16,39 +18,37 @@ import { ActivatedRoute } from '@angular/router';
 export class LabelsComponent implements OnInit {
   @ViewChild('dt') dt: Table | undefined;
 
-  idInterval: any;
-  idCompany: any;
-
   constructor(
-    private activatedRoute: ActivatedRoute,
     private emailInfoService: EmailInfoService,
     private statusService: StatusService,
     private userInfoStorageService: UserInfoStorageService,
     private messageService: MessageService,
     private labelService: LabelService,
-    ) { }
+    private csatService: CsatService,
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
+  id: number = 0
+  idInterval: any;
+  idCompany: any = this.userInfoStorageService.getCompanyId();
+  idUser: any = +this.userInfoStorageService.getIdUser();
+  countAll: any = 0
+  countMine: any = 0
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.id = +params['id']
     })
-    debugger
-    this.idCompany = this.userInfoStorageService.getCompanyId()
     this.loadListEmail();
-    this.loadStatus();
     this.getCountEmail()
+    this.loadStatus();
     this.getListLabel();
     this.idInterval = setInterval(() => {
-      this.getCountEmail()
       this.loadListEmail();
+      this.getCountEmail()
     }, 5000);
     this.messenger = this.signature
   }
 
-  id: number = 0
-  idUser: number = +this.userInfoStorageService.getIdUser()
-  countAll: number = 0
-  countMine: number = 0
   getCountEmail(){
     let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: 0, status: this.filterStatus, idLabel: this.id}
     this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
@@ -56,9 +56,11 @@ export class LabelsComponent implements OnInit {
       this.countMine = result.byAgent
     });
   }
+
   loadStatus() {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;
+      this.listStatusUpdate = result.filter((x: { id: number; }) => x.id != 0)
     });
   }
 
@@ -68,23 +70,23 @@ export class LabelsComponent implements OnInit {
     }
   }
 
+  tab: number = 0
   loadListEmail() {
     let requets = {
       idCompany: this.idCompany,
       status: this.filterStatus,
       idLabel: this.id
     }
-    console.log('loadListEmail()')
     this.emailInfoService.getByIdLabel(requets).subscribe((result) => {
       this.listChat = result;
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
       })
-
     });
   }
 
   subject: any = ''
+  statusName: any = ''
   readonly: boolean = true
   scrollDemo: any
   Editor: any = ClassicEditor
@@ -95,6 +97,7 @@ export class LabelsComponent implements OnInit {
   signature: string = ''
 
   listStatus: any = []
+  listStatusUpdate: any = []
   listChat: any[] = []
   selectedLabel: any[] = []
   listSelectChat: any[] = []
@@ -140,7 +143,7 @@ export class LabelsComponent implements OnInit {
     this.emailInfoService.SendMail(request).subscribe((result) => {
       if (result.status == 1) {
         //thành công
-        this.updateStatus(2, 1);
+        // this.updateStatus(2, 1);
         this.viewMail = false;
       }
       else {
@@ -153,9 +156,21 @@ export class LabelsComponent implements OnInit {
   }
 
   mailDetails: any;
+  listLabelEmail: any = [];
   viewMail: boolean = false
   detailMail(item: any) {
-    this.mailDetails = item;
+    // this.mailDetails = item;
+    this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
+      this.mailDetails = result.emailInfo
+      this.listLabelEmail = result.listLabel
+      this.selectedLabel = []
+      this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      result.listLabel.forEach((item: { check: boolean; }) => {
+        if (item.check == true) {
+          this.selectedLabel.push(item)
+        }
+      });
+    });
 
     this.listMessenger = [];
     this.viewMail = true;
@@ -163,26 +178,35 @@ export class LabelsComponent implements OnInit {
     this.listMessenger.push({
       id: item.id,
       messenger: item.textBody,
-      dateTime: new Date()
+      dateTime: new Date(item.date)
     })
   }
 
-  updateStatus(status: any, sendMessenger: any) {
+  updateStatus() {
     let requets = {
-      status: status,
+      status: this.mailDetails.status,
       id: this.mailDetails.id
     }
+    this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
       if (result.status == 1) {
         this.loadListEmail();
-        if (sendMessenger == 0) {
-          this.showSuccess("Change status success");
-        }
+        this.showSuccess("Change status success");
       }
     });
 
   }
 
+  sendMailCsat(idGuId: any) {
+    let request = {
+      to: this.mailDetails.from,
+      link: AppSettings.WebAddress + "/survey/" + idGuId,
+    }
+
+    this.csatService.sendMail(request).subscribe((result) => {
+
+    });
+  }
 
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
@@ -196,4 +220,27 @@ export class LabelsComponent implements OnInit {
     this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
   }
 
+  handleChange(event: any) {
+    this.tab = event.index
+    this.loadListEmail()
+  }
+
+  updateEmailInfoLabel() {
+    let request = {
+      id: 0,
+      idEmailInfo: this.mailDetails.id,
+      listLabel: this.listIdLabelSelect
+    }
+    this.emailInfoService.postEmailInfoLabel(request).subscribe((result) => {
+      this.showSuccess("Update success");
+    });
+  }
+
+  listIdLabelSelect: any = []
+  onChangeSelectLabel() {
+    this.listIdLabelSelect = []
+    this.selectedLabel.forEach((x) => {
+      this.listIdLabelSelect.push(x.id)
+    })
+  }
 }

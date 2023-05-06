@@ -46,17 +46,18 @@ export class DashboardComponent implements OnInit {
     this.messenger = this.signature
   }
 
-  getCountEmail(){
-    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: 0, status: this.filterStatus, idLabel: 0}
+  getCountEmail() {
+    let request = { idCompany: this.idCompany, assign: this.idUser, idConfigEmail: 0, status: this.filterStatus, idLabel: 0 }
     this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
       this.countAll = result.all
       this.countMine = result.byAgent
     });
   }
-  
+
   loadStatus() {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;
+      this.listStatusUpdate = result.filter((x: { id: number; }) => x.id != 0)
     });
   }
 
@@ -97,6 +98,7 @@ export class DashboardComponent implements OnInit {
   }
 
   subject: any = ''
+  statusName: any = ''
   readonly: boolean = true
   scrollDemo: any
   Editor: any = ClassicEditor
@@ -107,6 +109,7 @@ export class DashboardComponent implements OnInit {
   signature: string = ''
 
   listStatus: any = []
+  listStatusUpdate: any = []
   listChat: any[] = []
   selectedLabel: any[] = []
   listSelectChat: any[] = []
@@ -165,10 +168,21 @@ export class DashboardComponent implements OnInit {
   }
 
   mailDetails: any;
+  listLabelEmail: any = [];
   viewMail: boolean = false
   detailMail(item: any) {
-    debugger
-    this.mailDetails = item;
+    // this.mailDetails = item;
+    this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
+      this.mailDetails = result.emailInfo
+      this.listLabelEmail = result.listLabel
+      this.selectedLabel = []
+      this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      result.listLabel.forEach((item: { check: boolean; }) => {
+        if (item.check == true) {
+          this.selectedLabel.push(item)
+        }
+      });
+    });
 
     this.listMessenger = [];
     this.viewMail = true;
@@ -176,37 +190,33 @@ export class DashboardComponent implements OnInit {
     this.listMessenger.push({
       id: item.id,
       messenger: item.textBody,
-      dateTime: new Date()
+      dateTime: new Date(item.date)
     })
   }
 
-  updateStatus(status: any, sendMessenger: any) {
+  updateStatus() {
     let requets = {
-      status: status,
+      status: this.mailDetails.status,
       id: this.mailDetails.id
     }
+    this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
       if (result.status == 1) {
-        if(status == 2){
-          this.sendMailCsat(this.mailDetails.idGuId)
-        }
         this.loadListEmail();
-        if (sendMessenger == 0) {
-          this.showSuccess("Change status success");
-        }
+        this.showSuccess("Change status success");
       }
     });
 
   }
 
-  sendMailCsat(idGuId: any){
+  sendMailCsat(idGuId: any) {
     let request = {
       to: this.mailDetails.from,
       link: AppSettings.WebAddress + "/survey/" + idGuId,
     }
 
     this.csatService.sendMail(request).subscribe((result) => {
-      
+
     });
   }
 
@@ -225,5 +235,24 @@ export class DashboardComponent implements OnInit {
   handleChange(event: any) {
     this.tab = event.index
     this.loadListEmail()
+  }
+
+  updateEmailInfoLabel() {
+    let request = {
+      id: 0,
+      idEmailInfo: this.mailDetails.id,
+      listLabel: this.listIdLabelSelect
+    }
+    this.emailInfoService.postEmailInfoLabel(request).subscribe((result) => {
+      this.showSuccess("Update success");
+    });
+  }
+
+  listIdLabelSelect: any = []
+  onChangeSelectLabel() {
+    this.listIdLabelSelect = []
+    this.selectedLabel.forEach((x) => {
+      this.listIdLabelSelect.push(x.id)
+    })
   }
 }
