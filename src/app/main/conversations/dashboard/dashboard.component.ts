@@ -36,12 +36,10 @@ export class DashboardComponent implements OnInit {
   countMine: any = 0
   ngOnInit(): void {
     this.loadListEmail();
-    this.getCountEmail()
     this.loadStatus();
     this.getListLabel();
     this.idInterval = setInterval(() => {
       this.loadListEmail();
-      this.getCountEmail()
     }, 5000);
     this.messenger = this.signature
   }
@@ -69,6 +67,7 @@ export class DashboardComponent implements OnInit {
 
   tab: number = 0
   loadListEmail() {
+    this.getCountEmail()
     if (this.tab == 0) {
       let requets = {
         idCompany: this.idCompany,
