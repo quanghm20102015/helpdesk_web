@@ -204,6 +204,10 @@ export class DashboardComponent implements OnInit {
       if (result.status == 1) {
         this.loadListEmail();
         this.showSuccess("Change status success");
+        if(requets.status == 2){
+          //status resole, send mail survey
+          this.sendMailCsat(this.mailDetails.idGuId)
+        }
       }
     });
 
