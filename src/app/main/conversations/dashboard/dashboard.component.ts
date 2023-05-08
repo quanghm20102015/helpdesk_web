@@ -169,7 +169,7 @@ export class DashboardComponent implements OnInit {
   listLabelEmail: any = [];
   viewMail: boolean = false
   detailMail(item: any) {
-    // this.mailDetails = item;
+    this.messenger = "";
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
       this.listLabelEmail = result.listLabel      
