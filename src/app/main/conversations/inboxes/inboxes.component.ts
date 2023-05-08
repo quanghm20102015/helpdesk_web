@@ -120,6 +120,7 @@ export class InboxesComponent implements OnInit {
   selectedLabel: any[] = []
   listSelectChat: any[] = []
   listMessenger: any[] = []
+  listEmailInfo: any[] = []
 
   onSelectChat(event: any) {
     console.log(event)
@@ -183,7 +184,8 @@ export class InboxesComponent implements OnInit {
     // this.mailDetails = item;
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
-      this.listLabelEmail = result.listLabel
+      this.listLabelEmail = result.listLabel      
+      this.listEmailInfo = result.listEmailInfo
       this.selectedLabel = []
       if(this.mailDetails.status > 0){
         this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
@@ -193,16 +195,25 @@ export class InboxesComponent implements OnInit {
           this.selectedLabel.push(item)
         }
       });
+      
+      this.listMessenger = [];
+      this.listEmailInfo.forEach(element => {        
+        this.listMessenger.push({
+          id: element.id,
+          messenger: element.textBody,
+          dateTime: new Date(element.date)
+        })
+      });
     });
 
-    this.listMessenger = [];
+    // this.listMessenger = [];
     this.viewMail = true;
     this.subject = item.subject
-    this.listMessenger.push({
-      id: item.id,
-      messenger: item.textBody,
-      dateTime: new Date(item.date)
-    })
+    // this.listMessenger.push({
+    //   id: item.id,
+    //   messenger: item.textBody,
+    //   dateTime: new Date(item.date)
+    // })
   }
 
   updateStatus() {
