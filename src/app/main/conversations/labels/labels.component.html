@@ -6,7 +6,7 @@
                     <a class="search--link">
                         <span class="p-input-icon-left py-3 w-100">
                             <i class="pi pi-search"></i>
-                            <input type="text" pInputText [(ngModel)]="inputSearch" placeholder="Search">
+                            <input type="text" pInputText [(ngModel)]="textSearch" placeholder="Search">
                         </span>
                     </a>
                 </div>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="filter--actions">
-                        <p-dropdown [options]="listStatus" [(ngModel)]="filterStatus" optionLabel="statusName"
+                        <p-dropdown [options]="listStatus" [(ngModel)]="status" optionLabel="statusName"
                             optionValue="id" scrollHeight="300px" (onChange)="loadListEmail()"></p-dropdown>
                     </div>
                 </div>
