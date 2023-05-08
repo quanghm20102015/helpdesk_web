@@ -99,7 +99,6 @@ export class EmailInfoService {
     );
   }
 
-
   getFillterCount(requets: any): Observable<any> {
     return this.http.post(
       AppSettings.HostingAddress + '/EmailInfoes/GetFillterCount',JSON.stringify(requets),{headers:this.reqHeaders}

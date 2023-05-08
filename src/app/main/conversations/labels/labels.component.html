@@ -6,7 +6,7 @@
                     <a class="search--link">
                         <span class="p-input-icon-left py-3 w-100">
                             <i class="pi pi-search"></i>
-                            <input type="text" pInputText [(ngModel)]="textSearch" placeholder="Search">
+                            <input type="text" pInputText [(ngModel)]="textSearchChange" placeholder="Search" (keyup.enter)="onChangeValue()">
                         </span>
                     </a>
                 </div>

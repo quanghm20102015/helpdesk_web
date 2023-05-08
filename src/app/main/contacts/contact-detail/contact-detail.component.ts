@@ -16,16 +16,16 @@ declare var $: any;
 export class ContactDetailComponent implements OnInit {
 
   constructor(
-    private activatedRoute: ActivatedRoute, 
-    private confirmationService: ConfirmationService, 
+    private activatedRoute: ActivatedRoute,
+    private confirmationService: ConfirmationService,
     private _fb: FormBuilder,
-    private countryService: CountryService,    
+    private countryService: CountryService,
     private contactService: ContactService,
     private userInfoStorageService: UserInfoStorageService,
     private labelService: LabelService,
     private messageService: MessageService,
 
-    ) { }
+  ) { }
 
   model: any = {}
   countries: any = []
@@ -36,7 +36,6 @@ export class ContactDetailComponent implements OnInit {
     })
     this.getData()
     this.getAllCountry()
-    this.getListLabel()
   }
 
   form: FormGroup = this._fb.group({
@@ -52,11 +51,17 @@ export class ContactDetailComponent implements OnInit {
     linkedin: [this.model.linkedin],
     github: [this.model.github]
   });
-    
-  
+
+
   getData() {
     this.contactService.getContact(this.model.id).subscribe((result) => {
-      this.model = result
+      this.model = result.contact
+      this.listLabels = result.listLabel
+      result.listLabel.forEach((item: { check: boolean; }) => {
+        if (item.check == true) {
+          this.selectedLabel.push(item)
+        }
+      });
     });
   }
 
@@ -68,14 +73,7 @@ export class ContactDetailComponent implements OnInit {
 
   selectedLabel: any = []
   idCompany: any = this.userInfoStorageService.getCompanyId()
-  getListLabel() {
-    if (this.idCompany != 0)
-      this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
-        this.listLabels = result;
-      })
-  }
-  listLabels: any = [
-  ]
+  listLabels: any = []
 
   position: string = ''
   displayPosition: boolean = false
@@ -100,10 +98,29 @@ export class ContactDetailComponent implements OnInit {
   onSubmitUpdate() {
     this.contactService.update(this.model).subscribe((result) => {
       if (result.status == 1) {
-        this.displayPosition=false
+        this.displayPosition = false
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update contact success' });
       }
     });
   }
 
+  listIdLabelSelect: any = []
+  onChangeSelectLabel() {
+    this.listIdLabelSelect = []
+    this.selectedLabel.forEach((x: { id: any; }) => {
+      this.listIdLabelSelect.push(x.id)
+    })
+  }
+
+  updateContactLabel() {
+    let request = {
+      id: 0,
+      idContact: this.model.id,
+      listLabel: this.listIdLabelSelect
+    }
+    this.contactService.postContactLabel(request).subscribe((result) => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update success' });
+    });
+  }
 
 }

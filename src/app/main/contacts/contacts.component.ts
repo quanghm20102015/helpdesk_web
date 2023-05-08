@@ -21,7 +21,7 @@ export class ContactsComponent implements OnInit {
     private userInfoStorageService: UserInfoStorageService
     ) { }
 
-  inputSearch: string = ''
+  textSearch: string = ''
   scrollDemo: any
   contacts: any = []
   countries: any = []
@@ -69,12 +69,12 @@ export class ContactsComponent implements OnInit {
     // createAt: [this.model.createAt],
     // conversations: [this.model.conversations]
   });
-  id: any
+  idLabel: any
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      this.id = +params['id']
+      this.idLabel = +params['id']
     })
-    this.idCompany = this.userInfoStorageService.getCompanyId()
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
     this.getAllCountry();
     this.getContact();
     // this.scrollDemo = document.querySelector("#box-messages");
@@ -92,17 +92,14 @@ export class ContactsComponent implements OnInit {
   }
 
   getContact(){
-    if(this.id){
-      //get by label
-      this.contactService.getByIdLabel({idCompany: this.idCompany,idLabel: this.id}).subscribe((result) => {
+      let request = {
+        idCompany: this.idCompany,
+        idLabel: this.idLabel? this.idLabel : 0,
+        textSearch: this.textSearch
+      }
+      this.contactService.getFillter(request).subscribe((result) => {
         this.contacts = result;
       });
-    } else{
-      //get all
-      this.contactService.getByIdCompany(this.idCompany).subscribe((result) => {
-        this.contacts = result;
-      });
-    }
   }
 
   onSubmit(){    

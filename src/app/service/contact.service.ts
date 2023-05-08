@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ServiceInvokerService } from "./service-invoker.service";
 import { Observable } from "rxjs";
 import { AppSettings } from "../constants/app-setting";
@@ -12,6 +12,8 @@ export class ContactService {
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService
   ) {}
+  
+  reqHeaders = new HttpHeaders().set('Content-Type','application/json');
 
   create(data: any): Observable<any> {
     return this.http.post(
@@ -55,4 +57,17 @@ export class ContactService {
       AppSettings.HostingAddress + '/Contacts/GetByIdLabel?idCompany='+ data.idCompany + '&idLabel=' + data.idLabel
     );
   }
+
+  getFillter(requets: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Contacts/GetFillter',JSON.stringify(requets),{headers:this.reqHeaders}
+      );
+  }
+
+  postContactLabel(requets: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/ContactLabels', requets
+    );
+  }
+
 }

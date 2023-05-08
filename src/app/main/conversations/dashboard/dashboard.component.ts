@@ -78,6 +78,11 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  onChangeValue(){
+    this.textSearch = this.textSearchChange
+    this.loadListEmail()
+  }
+
   loadStatus() {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;
@@ -98,6 +103,7 @@ export class DashboardComponent implements OnInit {
   Editor: any = ClassicEditor
 
   textSearch: string = ''
+  textSearchChange: string = ''
   messenger: string = ''
   status: number = 0
   signature: string = ''
