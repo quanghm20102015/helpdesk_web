@@ -29,22 +29,28 @@ export class LabelsComponent implements OnInit {
   ) { }
 
   id: number = 0
+  idOld: number = 0
   idInterval: any;
   idCompany: any = this.userInfoStorageService.getCompanyId();
   idUser: any = +this.userInfoStorageService.getIdUser();
   countAll: any = 0
   countMine: any = 0
+  ngAfterContentChecked(): void{
+    if(this.id != this.idOld){
+      this.idOld = this.id
+      this.loadListEmail()
+    } 
+  }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.id = +params['id']
     })
-    this.loadListEmail();
-    this.getCountEmail()
+    this.idOld = this.id
+    this.loadListEmail()
     this.loadStatus();
     this.getListLabel();
     this.idInterval = setInterval(() => {
       this.loadListEmail();
-      this.getCountEmail()
     }, 5000);
     this.messenger = this.signature
   }
@@ -72,6 +78,7 @@ export class LabelsComponent implements OnInit {
 
   tab: number = 0
   loadListEmail() {
+    this.getCountEmail()
     let requets = {
       idCompany: this.idCompany,
       status: this.filterStatus,

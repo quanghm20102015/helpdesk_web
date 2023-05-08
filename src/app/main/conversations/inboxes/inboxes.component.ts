@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './inboxes.component.html',
   styleUrls: ['./inboxes.component.css']
 })
-export class InboxesComponent implements OnInit {  
+export class InboxesComponent implements OnInit {
   @ViewChild('dt') dt: Table | undefined;
 
   constructor(
@@ -35,12 +35,19 @@ export class InboxesComponent implements OnInit {
   countAll: any = 0
   countMine: any = 0
   id: number = 0
+  idOld: number = 0
+  ngAfterContentChecked(): void{
+    if(this.id != this.idOld){
+      this.idOld = this.id
+      this.loadListEmail()
+    } 
+  }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.id = +params['id']
     })
+    this.idOld = this.id
     this.loadListEmail();
-    this.getCountEmail()
     this.loadStatus();
     this.getListLabel();
     this.idInterval = setInterval(() => {
@@ -50,8 +57,8 @@ export class InboxesComponent implements OnInit {
     this.messenger = this.signature
   }
 
-  getCountEmail(){
-    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: this.id, status: this.filterStatus, idLabel: 0}
+  getCountEmail() {
+    let request = { idCompany: this.idCompany, assign: this.idUser, idConfigEmail: this.id, status: this.filterStatus, idLabel: 0 }
     this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
       this.countAll = result.all
       this.countMine = result.byAgent
@@ -73,6 +80,7 @@ export class InboxesComponent implements OnInit {
 
   tab: number = 0
   loadListEmail() {
+    this.getCountEmail()
     this.emailInfoService.getByIdConfigEmail(this.id).subscribe((result) => {
       this.listChat = result;
       this.listChat.forEach((item) => {
