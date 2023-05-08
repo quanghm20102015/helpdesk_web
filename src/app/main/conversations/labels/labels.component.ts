@@ -144,7 +144,10 @@ export class LabelsComponent implements OnInit {
       bcc: '',
       subject: this.mailDetails.subject,
       body: this.messenger,
-      idCompany: this.idCompany
+      idCompany: this.idCompany,
+      idConfigEmail: this.mailDetails.idConfigEmail,
+      messageId: this.mailDetails.messageId,
+      assign: this.mailDetails.assign
     }
 
     this.emailInfoService.SendMail(request).subscribe((result) => {
