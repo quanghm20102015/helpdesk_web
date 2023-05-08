@@ -104,5 +104,12 @@ export class EmailInfoService {
       AppSettings.HostingAddress + '/EmailInfoes/GetFillterCount',JSON.stringify(requets),{headers:this.reqHeaders}
       );
   }
+  
+  updateAssign(data: any): Observable<any> {
+    return this.http.put(
+      AppSettings.HostingAddress + '/EmailInfoes/UpdateAssign',
+      data
+    );
+  }
 
 }
