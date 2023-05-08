@@ -31,7 +31,7 @@ export class LabelsComponent implements OnInit {
   id: number = 0
   idOld: number = 0
   idInterval: any;
-  idCompany: any = this.userInfoStorageService.getCompanyId();
+  idCompany: any = +this.userInfoStorageService.getCompanyId();
   idUser: any = +this.userInfoStorageService.getIdUser();
   countAll: any = 0
   countMine: any = 0
@@ -55,9 +55,35 @@ export class LabelsComponent implements OnInit {
     this.messenger = this.signature
   }
 
-  getCountEmail(){
-    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: 0, status: this.filterStatus, idLabel: this.id}
-    this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
+  tab: number = 0
+  loadListEmail() {
+    let request = {
+      idCompany: this.idCompany,
+      textSearch: this.textSearch,
+      status: this.status,
+      assign: this.tab == 1? 0 : this.idUser,
+      idConfigEmail: 0,
+      idLabel: this.id,
+    }
+    this.getCountEmail()
+    this.emailInfoService.getFillter(request).subscribe((result) => {
+      this.listChat = result;
+      this.listChat.forEach((item) => {
+        item['dateTime'] = new Date(item.date)
+      })
+    });
+  }
+
+  getCountEmail() {
+    let request = {
+      idCompany: this.idCompany,
+      textSearch: this.textSearch,
+      status: this.status,
+      assign: this.idUser,
+      idConfigEmail: 0,
+      idLabel: this.id,
+    }
+    this.emailInfoService.getFillterCount(request).subscribe((result) => {
       this.countAll = result.all
       this.countMine = result.byAgent
     });
@@ -76,31 +102,15 @@ export class LabelsComponent implements OnInit {
     }
   }
 
-  tab: number = 0
-  loadListEmail() {
-    this.getCountEmail()
-    let requets = {
-      idCompany: this.idCompany,
-      status: this.filterStatus,
-      idLabel: this.id
-    }
-    this.emailInfoService.getByIdLabel(requets).subscribe((result) => {
-      this.listChat = result;
-      this.listChat.forEach((item) => {
-        item['dateTime'] = new Date(item.date)
-      })
-    });
-  }
-
   subject: any = ''
   statusName: any = ''
   readonly: boolean = true
   scrollDemo: any
   Editor: any = ClassicEditor
 
-  inputSearch: string = ''
+  textSearch: string = ''
   messenger: string = ''
-  filterStatus: number = 0
+  status: number = 0
   signature: string = ''
 
   listStatus: any = []
@@ -171,7 +181,9 @@ export class LabelsComponent implements OnInit {
       this.mailDetails = result.emailInfo
       this.listLabelEmail = result.listLabel
       this.selectedLabel = []
-      this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      if(this.mailDetails.status > 0){
+        this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      }
       result.listLabel.forEach((item: { check: boolean; }) => {
         if (item.check == true) {
           this.selectedLabel.push(item)

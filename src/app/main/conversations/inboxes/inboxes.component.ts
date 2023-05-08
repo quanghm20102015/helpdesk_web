@@ -52,14 +52,39 @@ export class InboxesComponent implements OnInit {
     this.getListLabel();
     this.idInterval = setInterval(() => {
       this.loadListEmail();
-      this.getCountEmail()
     }, 5000);
     this.messenger = this.signature
   }
 
+  tab: number = 0
+  loadListEmail() {
+    let request = {
+      idCompany: this.idCompany,
+      textSearch: this.textSearch,
+      status: this.status,
+      assign: this.tab == 1? 0 : this.idUser,
+      idConfigEmail: this.id,
+      idLabel: 0,
+    }
+    this.getCountEmail()
+    this.emailInfoService.getFillter(request).subscribe((result) => {
+      this.listChat = result;
+      this.listChat.forEach((item) => {
+        item['dateTime'] = new Date(item.date)
+      })
+    });
+  }
+
   getCountEmail() {
-    let request = { idCompany: this.idCompany, assign: this.idUser, idConfigEmail: this.id, status: this.filterStatus, idLabel: 0 }
-    this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
+    let request = {
+      idCompany: this.idCompany,
+      textSearch: this.textSearch,
+      status: this.status,
+      assign: this.idUser,
+      idConfigEmail: this.id,
+      idLabel: 0,
+    }
+    this.emailInfoService.getFillterCount(request).subscribe((result) => {
       this.countAll = result.all
       this.countMine = result.byAgent
     });
@@ -78,26 +103,15 @@ export class InboxesComponent implements OnInit {
     }
   }
 
-  tab: number = 0
-  loadListEmail() {
-    this.getCountEmail()
-    this.emailInfoService.getByIdConfigEmail(this.id).subscribe((result) => {
-      this.listChat = result;
-      this.listChat.forEach((item) => {
-        item['dateTime'] = new Date(item.date)
-      })
-    });
-  }
-
   subject: any = ''
   statusName: any = ''
   readonly: boolean = true
   scrollDemo: any
   Editor: any = ClassicEditor
 
-  inputSearch: string = ''
+  textSearch: string = ''
   messenger: string = ''
-  filterStatus: number = 0
+  status: number = 0
   signature: string = ''
 
   listStatus: any = []
@@ -168,7 +182,9 @@ export class InboxesComponent implements OnInit {
       this.mailDetails = result.emailInfo
       this.listLabelEmail = result.listLabel
       this.selectedLabel = []
-      this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      if(this.mailDetails.status > 0){
+        this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      }
       result.listLabel.forEach((item: { check: boolean; }) => {
         if (item.check == true) {
           this.selectedLabel.push(item)
