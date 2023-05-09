@@ -6,3 +6,12 @@
     margin: 8px;
     background: white;
 }
+
+.tab-btn{
+    background: #EFF0F2;
+    border-radius: 8px;
+}
+
+.tab-btn .tab{
+    padding: 10px 20px;
+}

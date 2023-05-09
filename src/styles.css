@@ -8,6 +8,14 @@ html {
     margin-left: 50px;
 }
 
+.text-align-left{
+    text-align: left
+}
+
+.text-align-right{
+    text-align: right
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {}
 
@@ -91,8 +99,9 @@ input.p-inputtext {
 }
 
 p-dropdown .p-dropdown {
+    min-width: 200px;
+    max-width: 300px;
     height: 34px;
-    display: flex;
     align-items: center;
 }
 
@@ -454,4 +463,9 @@ p-multiselect{
 
 .mess-out .ck.ck-editor__main>.ck-editor__editable{
     background: aliceblue;
+}
+
+
+p-dropdown#dropdown-report{
+    text-align: left;
 }
