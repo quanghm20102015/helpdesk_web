@@ -10,6 +10,7 @@ import { Table } from 'primeng/table';
 import { CsatService } from 'src/app/service/csat.service';
 import { AppSettings } from "../../../constants/app-setting";
 import { ActivatedRoute } from '@angular/router';
+import { AccountService } from 'src/app/service/account.service';
 
 @Component({
   selector: 'app-inboxes',
@@ -27,6 +28,7 @@ export class InboxesComponent implements OnInit {
     private labelService: LabelService,
     private csatService: CsatService,
     private activatedRoute: ActivatedRoute,
+    private accountService: AccountService,
   ) { }
 
   idInterval: any;
@@ -43,6 +45,7 @@ export class InboxesComponent implements OnInit {
     } 
   }
   ngOnInit(): void {
+    this.getListUser()
     this.activatedRoute.params.subscribe((params) => {
       this.id = +params['id']
     })
@@ -87,6 +90,25 @@ export class InboxesComponent implements OnInit {
     this.emailInfoService.getFillterCount(request).subscribe((result) => {
       this.countAll = result.all
       this.countMine = result.byAgent
+    });
+  }
+
+  listUser: any = []
+  getListUser() {
+    this.accountService.getByIdCompany(this.idCompany).subscribe((result) => {
+      this.listUser = result
+    });
+  }
+  
+  updateAsign() {
+    let request = {
+      id: this.mailDetails.id,
+      status: this.mailDetails.status,
+      idCompany: this.idCompany,
+      assign: this.mailDetails.assign
+    }
+    this.emailInfoService.updateAssign(request).subscribe((result) => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: "Update success" });
     });
   }
   
@@ -155,6 +177,7 @@ export class InboxesComponent implements OnInit {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
+  sending: boolean = false
   sendMessenger() {
     let request = {
       to: this.mailDetails.from,
@@ -167,20 +190,19 @@ export class InboxesComponent implements OnInit {
       messageId: this.mailDetails.messageId,
       assign: this.mailDetails.assign
     }
-
+    this.sending = true
     this.emailInfoService.SendMail(request).subscribe((result) => {
       if (result.status == 1) {
         //thành công
-        // this.updateStatus(2, 1);
+        this.showSuccess("Send success")
         this.viewMail = false;
+        this.detailMail(this.mailDetails)
       }
       else {
         //thất bại
       }
+      this.sending = false
     });
-    // let request = { id: 1, messenger: this.messenger, dateTime: new Date() }
-    // this.listMessenger.push(request)
-    // this.messenger = this.signature
   }
 
   mailDetails: any;
@@ -190,10 +212,10 @@ export class InboxesComponent implements OnInit {
     this.messenger = "";
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
-      this.listLabelEmail = result.listLabel      
+      this.listLabelEmail = result.listLabel
       this.listEmailInfo = result.listEmailInfo
       this.selectedLabel = []
-      if(this.mailDetails.status > 0){
+      if (this.mailDetails.status > 0) {
         this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
       }
       result.listLabel.forEach((item: { check: boolean; }) => {
@@ -201,13 +223,14 @@ export class InboxesComponent implements OnInit {
           this.selectedLabel.push(item)
         }
       });
-      
+
       this.listMessenger = [];
-      this.listEmailInfo.forEach(element => {        
+      this.listEmailInfo.forEach(element => {
         this.listMessenger.push({
           id: element.id,
           messenger: element.textBody,
-          dateTime: new Date(element.date)
+          dateTime: new Date(element.date),
+          type: element.type,
         })
       });
     });

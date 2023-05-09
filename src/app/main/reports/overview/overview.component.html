@@ -1,1 +1,19 @@
-<p>overview works!</p>
+<div class="d-flex container-box">
+    <div class="w-100">
+        <div class="conv-header container-fluid">
+            <div class="row">
+                <div class="col-md-6 text-middle">
+                    <div class="tab-btn d-flex">
+                        <div class="tab">Overview</div>
+                        <div class="tab">Agent & Group</div>
+                        <div class="tab">CSAT</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <p-dropdown id="dropdown-report" [options]="listRangeDate" [(ngModel)]="rangeDate" optionLabel="name" optionValue="value"></p-dropdown>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -165,6 +165,7 @@ export class DashboardComponent implements OnInit {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
 
+  sending: boolean = false
   sendMessenger() {
     let request = {
       to: this.mailDetails.from,
@@ -177,20 +178,19 @@ export class DashboardComponent implements OnInit {
       messageId: this.mailDetails.messageId,
       assign: this.mailDetails.assign
     }
-
+    this.sending = true
     this.emailInfoService.SendMail(request).subscribe((result) => {
       if (result.status == 1) {
         //thành công
-        // this.updateStatus(2, 1);
+        this.showSuccess("Send success")
         this.viewMail = false;
+        this.detailMail(this.mailDetails)
       }
       else {
         //thất bại
       }
+      this.sending = false
     });
-    // let request = { id: 1, messenger: this.messenger, dateTime: new Date() }
-    // this.listMessenger.push(request)
-    // this.messenger = this.signature
   }
 
   mailDetails: any;
@@ -217,7 +217,8 @@ export class DashboardComponent implements OnInit {
         this.listMessenger.push({
           id: element.id,
           messenger: element.textBody,
-          dateTime: new Date(element.date)
+          dateTime: new Date(element.date),
+          type: element.type,
         })
       });
     });

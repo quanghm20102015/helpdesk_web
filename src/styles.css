@@ -447,3 +447,11 @@ p-password input{
 p-multiselect{
     max-width: 200px;
 }
+
+.mess-in .ck.ck-editor__main>.ck-editor__editable{
+    background: antiquewhite;
+}
+
+.mess-out .ck.ck-editor__main>.ck-editor__editable{
+    background: aliceblue;
+}
