@@ -443,3 +443,7 @@ p-password input{
     height: 34px;
     align-items: center;
 }
+
+p-multiselect{
+    max-width: 200px;
+}

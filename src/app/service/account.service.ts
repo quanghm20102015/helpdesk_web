@@ -56,4 +56,10 @@ export class AccountService {
       AppSettings.HostingAddress + '/Accounts/' + id
     );
   }
+
+  getByIdCompany(idCompany: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Accounts/GetByIdCompany?idCompany=' + idCompany
+    );
+  }
 }

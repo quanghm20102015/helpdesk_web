@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './inboxes.component.html',
   styleUrls: ['./inboxes.component.css']
 })
-export class InboxesComponent implements OnInit {  
+export class InboxesComponent implements OnInit {
   @ViewChild('dt') dt: Table | undefined;
 
   constructor(
@@ -35,27 +35,64 @@ export class InboxesComponent implements OnInit {
   countAll: any = 0
   countMine: any = 0
   id: number = 0
+  idOld: number = 0
+  ngAfterContentChecked(): void{
+    if(this.id != this.idOld){
+      this.idOld = this.id
+      this.loadListEmail()
+    } 
+  }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.id = +params['id']
     })
+    this.idOld = this.id
     this.loadListEmail();
-    this.getCountEmail()
     this.loadStatus();
     this.getListLabel();
     this.idInterval = setInterval(() => {
       this.loadListEmail();
-      this.getCountEmail()
     }, 5000);
     this.messenger = this.signature
   }
 
-  getCountEmail(){
-    let request = {idCompany: this.idCompany, assign: this.idUser, idConfigEmail: this.id, status: this.filterStatus, idLabel: 0}
-    this.emailInfoService.getCountByCompanyAgent(request).subscribe((result) => {
+  tab: number = 0
+  loadListEmail() {
+    let request = {
+      idCompany: this.idCompany,
+      textSearch: this.textSearch,
+      status: this.status,
+      assign: this.tab == 1? 0 : this.idUser,
+      idConfigEmail: this.id,
+      idLabel: 0,
+    }
+    this.getCountEmail()
+    this.emailInfoService.getFillter(request).subscribe((result) => {
+      this.listChat = result;
+      this.listChat.forEach((item) => {
+        item['dateTime'] = new Date(item.date)
+      })
+    });
+  }
+
+  getCountEmail() {
+    let request = {
+      idCompany: this.idCompany,
+      textSearch: this.textSearch,
+      status: this.status,
+      assign: this.idUser,
+      idConfigEmail: this.id,
+      idLabel: 0,
+    }
+    this.emailInfoService.getFillterCount(request).subscribe((result) => {
       this.countAll = result.all
       this.countMine = result.byAgent
     });
+  }
+  
+  onChangeValue(){
+    this.textSearch = this.textSearchChange
+    this.loadListEmail()
   }
 
   loadStatus() {
@@ -71,25 +108,16 @@ export class InboxesComponent implements OnInit {
     }
   }
 
-  tab: number = 0
-  loadListEmail() {
-    this.emailInfoService.getByIdConfigEmail(this.id).subscribe((result) => {
-      this.listChat = result;
-      this.listChat.forEach((item) => {
-        item['dateTime'] = new Date(item.date)
-      })
-    });
-  }
-
   subject: any = ''
   statusName: any = ''
   readonly: boolean = true
   scrollDemo: any
   Editor: any = ClassicEditor
 
-  inputSearch: string = ''
+  textSearch: string = ''
+  textSearchChange: string = ''
   messenger: string = ''
-  filterStatus: number = 0
+  status: number = 0
   signature: string = ''
 
   listStatus: any = []
@@ -98,6 +126,7 @@ export class InboxesComponent implements OnInit {
   selectedLabel: any[] = []
   listSelectChat: any[] = []
   listMessenger: any[] = []
+  listEmailInfo: any[] = []
 
   onSelectChat(event: any) {
     console.log(event)
@@ -133,7 +162,10 @@ export class InboxesComponent implements OnInit {
       bcc: '',
       subject: this.mailDetails.subject,
       body: this.messenger,
-      idCompany: this.idCompany
+      idCompany: this.idCompany,
+      idConfigEmail: this.mailDetails.idConfigEmail,
+      messageId: this.mailDetails.messageId,
+      assign: this.mailDetails.assign
     }
 
     this.emailInfoService.SendMail(request).subscribe((result) => {
@@ -155,27 +187,39 @@ export class InboxesComponent implements OnInit {
   listLabelEmail: any = [];
   viewMail: boolean = false
   detailMail(item: any) {
-    // this.mailDetails = item;
+    this.messenger = "";
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
-      this.listLabelEmail = result.listLabel
+      this.listLabelEmail = result.listLabel      
+      this.listEmailInfo = result.listEmailInfo
       this.selectedLabel = []
-      this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      if(this.mailDetails.status > 0){
+        this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
+      }
       result.listLabel.forEach((item: { check: boolean; }) => {
         if (item.check == true) {
           this.selectedLabel.push(item)
         }
       });
+      
+      this.listMessenger = [];
+      this.listEmailInfo.forEach(element => {        
+        this.listMessenger.push({
+          id: element.id,
+          messenger: element.textBody,
+          dateTime: new Date(element.date)
+        })
+      });
     });
 
-    this.listMessenger = [];
+    // this.listMessenger = [];
     this.viewMail = true;
     this.subject = item.subject
-    this.listMessenger.push({
-      id: item.id,
-      messenger: item.textBody,
-      dateTime: new Date(item.date)
-    })
+    // this.listMessenger.push({
+    //   id: item.id,
+    //   messenger: item.textBody,
+    //   dateTime: new Date(item.date)
+    // })
   }
 
   updateStatus() {
