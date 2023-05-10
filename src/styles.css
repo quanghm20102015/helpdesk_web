@@ -1,4 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "Inter";
+    src: local("Inter"), url(./assets/font/Inter/Inter-VariableFont.ttf) format("truetype");
+}
+
+* {
+    font-family: 'Inter';
+}
+
 html {
     font-size: 14px;
 }
@@ -83,13 +92,16 @@ i.pi {
 }
 
 .content-left {
-    border-right: 1px solid #f1f5f8;
-    min-width: 375px;
-    max-width: 400px;
+    border-right: 1px solid #EFF0F2;
+    width: 232px;
+}
+.content-right {
+    border-left: 1px solid #EFF0F2;
+    width: 232px;
 }
 
 .content-left>.container {
-    min-height: 100vh;
+    height: 100%;
     background-color: white;
 }
 
@@ -99,8 +111,9 @@ input.p-inputtext {
 }
 
 p-dropdown .p-dropdown {
-    min-width: 200px;
+    min-width: 150px;
     max-width: 300px;
+    width: 100%;
     height: 34px;
     align-items: center;
 }
@@ -125,8 +138,12 @@ app-dashboard {
     display: none !important;
 }
 
-.conversation-panel .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline {
-    border-radius: 10px !important;
+.message-read{
+    display: flex;
+}
+
+li.message-read>div{
+    width: 70%;
 }
 
 .conversation-footer .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline {
@@ -166,7 +183,7 @@ app-dashboard {
 }
 
 .bg-light {
-    background-color: rgba(248, 249, 250) !important;
+    background-color: #e6e6e8 !important;
 }
 
 .bg-white {
@@ -278,10 +295,6 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
     padding: 0.5rem !important;
 }
 
-.search {
-    margin-left: 42px;
-}
-
 .btn-collapse {
     position: absolute;
     top: 17px;
@@ -342,15 +355,14 @@ body {
     max-height: calc(100vh - 275px);
 }
 
-.content-right {
+.content-center {
     height: 100vh;
     overflow: auto;
 }
 
 .messages-and-sidebar {
-    /* min-height: 400px;
-    height: calc(100vh - 60px);
-    overflow: auto; */
+    height: calc(100vh - 80px);
+    overflow: auto; 
     display: flex;
     /* flex-direction: column-reverse; */
 }
@@ -457,15 +469,34 @@ p-multiselect{
     max-width: 200px;
 }
 
+.mess-in{
+    justify-content: flex-end;
+}
+
 .mess-in .ck.ck-editor__main>.ck-editor__editable{
-    background: antiquewhite;
+    background: #F6F7F9;
+    color: #000000DE;
+    padding: 12px 16px;
+    border-radius: 20px 20px 0px 20px !important;
+    border: none;
 }
 
 .mess-out .ck.ck-editor__main>.ck-editor__editable{
-    background: aliceblue;
+    background: #3A69DB;
+    color: #FFFFFF;
+    padding: 12px 16px;
+    border-radius: 0px 20px 20px 20px !important;
+    border: none;
 }
-
 
 p-dropdown#dropdown-report{
     text-align: left;
+}
+
+.container-box{
+    margin: 8px;
+    background: white;
+    border-radius: 8px;
+    height: calc(100vh - 20px);
+    overflow: hidden;
 }
