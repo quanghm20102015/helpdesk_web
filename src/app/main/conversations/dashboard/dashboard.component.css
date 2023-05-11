@@ -1,3 +1,29 @@
 .status-botton{
     margin-right: 20px;
 }
+
+.contact-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-label{
+    color: #00000080;
+}
+
+.content-right .row>div{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.name-customer .name{
+    font-weight: 700;
+    color: #3A69DB;
+    align-items: center;
+}
+
+.p-accordion .p-accordion-content, .p-accordion .p-accordion-header{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}

@@ -10,6 +10,8 @@ import { Table } from 'primeng/table';
 import { CsatService } from 'src/app/service/csat.service';
 import { AppSettings } from "../../../constants/app-setting";
 import { AccountService } from 'src/app/service/account.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
 
 @Component({
   selector: 'app-dashboard',
@@ -29,6 +31,8 @@ export class DashboardComponent implements OnInit {
     private labelService: LabelService,
     private csatService: CsatService,
     private accountService: AccountService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) { }
 
   idInterval: any;
@@ -36,7 +40,14 @@ export class DashboardComponent implements OnInit {
   idUser: any = +this.userInfoStorageService.getIdUser();
   countAll: any = 0
   countMine: any = 0
+  id: any = 0
+  idOld: any = 0
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      if (params['id']) this.id = +params['id']
+      this.idOld = this.id
+    })
+
     this.getListUser()
     this.loadListEmail();
     this.loadStatus();
@@ -46,18 +57,52 @@ export class DashboardComponent implements OnInit {
     }, 5000);
     this.messenger = this.signature
   }
-
+  ngAfterContentChecked(): void{
+    if(this.id != this.idOld){
+      this.idOld = this.id
+      this.loadListEmail()
+    }
+  }
+  title: string = ''
   tab: number = 0
   loadListEmail() {
     let request = {
       idCompany: this.idCompany,
       textSearch: this.textSearch,
       status: this.status,
-      assign: this.tab == 1 ? 0 : this.idUser,
+      assign: 0,
       idConfigEmail: 0,
       idLabel: 0,
     }
-    this.getCountEmail()
+    if(this.router.url.includes('/dashboard')){this.title = 'Conversations'}
+    else if(this.router.url.includes('/mentions')){
+      request.assign = this.idUser
+      this.title = 'Mine'
+    }
+    else if (this.router.url.includes('/following')){
+      request.assign = this.idUser
+      this.title = 'Following'
+    }
+    else if(this.router.url.includes('/unattended')){
+      this.title = 'Unassigned'
+    }
+    else if(this.router.url.includes('/resolved')){
+      this.title = 'Resolved'
+    }
+    else if(this.router.url.includes('/trash')){
+      this.title = 'Trash'
+    }
+    else if(this.router.url.includes('/channel/')){
+      request.idConfigEmail = this.id
+      this.idOld = this.id 
+      this.title = 'Channel'
+    }
+    else if(this.router.url.includes('/label/')){
+      request.idLabel = this.id
+      this.idOld = this.id 
+      this.title = 'Label'
+    }
+    // this.getCountEmail()
     this.emailInfoService.getFillter(request).subscribe((result) => {
       this.listChat = result;
       this.listChat.forEach((item) => {
@@ -66,20 +111,20 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  getCountEmail() {
-    let request = {
-      idCompany: this.idCompany,
-      textSearch: this.textSearch,
-      status: this.status,
-      assign: this.idUser,
-      idConfigEmail: 0,
-      idLabel: 0,
-    }
-    this.emailInfoService.getFillterCount(request).subscribe((result) => {
-      this.countAll = result.all
-      this.countMine = result.byAgent
-    });
-  }
+  // getCountEmail() {
+  //   let request = {
+  //     idCompany: this.idCompany,
+  //     textSearch: this.textSearch,
+  //     status: this.status,
+  //     assign: this.idAssign,
+  //     idConfigEmail: this.idIndex,
+  //     idLabel: this.idLabel,
+  //   }
+  //   this.emailInfoService.getFillterCount(request).subscribe((result) => {
+  //     this.countAll = result.all
+  //     this.countMine = result.byAgent
+  //   });
+  // }
 
   onChangeValue() {
     this.textSearch = this.textSearchChange
@@ -214,7 +259,7 @@ export class DashboardComponent implements OnInit {
 
       this.listMessenger = [];
       this.listEmailInfo.forEach(element => {
-        this.listMessenger.push({
+        this.listMessenger.push({ 
           id: element.id,
           messenger: element.textBody,
           dateTime: new Date(element.date),

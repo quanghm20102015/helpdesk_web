@@ -25,6 +25,10 @@ html {
     text-align: right
 }
 
+.cursor-pointer{
+    cursor: pointer;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {}
 
@@ -93,7 +97,8 @@ i.pi {
 
 .content-left {
     border-right: 1px solid #EFF0F2;
-    width: 232px;
+    min-width: 220px;
+    max-width: 220px;
 }
 .content-right {
     border-left: 1px solid #EFF0F2;
@@ -291,6 +296,10 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
     overflow: inherit;
 }
 
+.conversations-list{
+    margin-top: 15px;
+}
+
 .conversations-list .p-datatable .p-datatable-tbody>tr>td {
     padding: 0.5rem !important;
 }
@@ -323,7 +332,7 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
 
 .container-right {
     min-height: 100vh;
-    padding-left: 257px !important;
+    padding-left: 270px !important;
     transition: 0.5s all;
 }
 
@@ -499,4 +508,8 @@ p-dropdown#dropdown-report{
     border-radius: 8px;
     height: calc(100vh - 20px);
     overflow: hidden;
+}
+
+.p-scroller-content{
+    width: 100%;
 }

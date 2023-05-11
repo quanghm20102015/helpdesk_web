@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h3 title="Conversations" class="page-title">
-                        Conversations
+                        {{title}}
                     </h3>
                 </div>
                 <div class="col-md-12">
@@ -25,145 +25,54 @@
                     </div>
                 </div>
             </div>
-            <div class="tab--chat-type tabs--container--with-border tabs--container">
-                <p-tabView (onChange)="handleChange($event)">
-                    <p-tabPanel [selected]="true">
-                        <ng-template pTemplate="header">
-                            Mine <span class="badge text-bg-secondary ms-1">{{countMine}}</span>
-                        </ng-template>
-                    </p-tabPanel>
-                    <!-- <p-tabPanel header="Header 2">
-                        <ng-template pTemplate="header">
-                            Unassigned<span class="badge text-bg-secondary ms-1">4</span>
-                        </ng-template>
-                    </p-tabPanel> -->
-                    <p-tabPanel header="Header 3">
-                        <ng-template pTemplate="header">
-                            All<span class="badge text-bg-secondary ms-1">{{countAll}}</span>
-                        </ng-template>
-                    </p-tabPanel>
-                </p-tabView>
-            </div>
-            <!-- <div class="bulk-action__container" *ngIf="listSelectChat && listSelectChat.length > 0">
-                <div class="d-flex align-items-center justify-content-between">
-                    <label class="d-flex align-items-center">
-                        <span class="ps-1">
-                            {{listSelectChat.length}} conversations selected
-                        </span>
-                    </label>
-                    <div class="bulk-action__actions">
-                        <button class="btn" (click)="op1.toggle($event)">
-                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font tag">
-                                <path
-                                    d="M19.75 2A2.25 2.25 0 0 1 22 4.25v5.462a3.25 3.25 0 0 1-.952 2.298l-8.5 8.503a3.255 3.255 0 0 1-4.597.001L3.489 16.06a3.25 3.25 0 0 1-.003-4.596l8.5-8.51A3.25 3.25 0 0 1 14.284 2h5.465Zm0 1.5h-5.465c-.465 0-.91.185-1.239.513l-8.512 8.523a1.75 1.75 0 0 0 .015 2.462l4.461 4.454a1.755 1.755 0 0 0 2.477 0l8.5-8.503a1.75 1.75 0 0 0 .513-1.237V4.25a.75.75 0 0 0-.75-.75ZM17 5.502a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"
-                                    fill="currentColor">
-                                </path>
-                            </svg>
-                        </button>
-                        <button class="btn" (click)="op2.toggle($event)">
-                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font repeat">
-                                <path
-                                    d="m14.712 2.289l-.087-.078a1 1 0 0 0-1.327.078l-.078.087a.999.999 0 0 0 .078 1.326l1.299 1.297H8.999l-.24.004A6.997 6.997 0 0 0 2 11.993a6.94 6.94 0 0 0 1.189 3.899a.999.999 0 0 0 1.626-1.163l-.135-.218A4.997 4.997 0 0 1 9 6.998h5.595l-1.297 1.297l-.078.087a.999.999 0 0 0 1.492 1.326l3.006-3.003l.077-.087a.999.999 0 0 0-.078-1.326l-3.005-3.003Zm6.075 5.771A.999.999 0 0 0 19 8.677c0 .209.064.402.172.561a4.997 4.997 0 0 1-4.17 7.75H9.414l1.294-1.29l.083-.096a1 1 0 0 0-.006-1.23l-.077-.088l-.095-.084a1.001 1.001 0 0 0-1.232.006l-.088.078l-3.005 3.003l-.083.095a1 1 0 0 0 .006 1.231l.077.087l3.005 3.003l.095.084a1 1 0 0 0 1.397-1.41l-.077-.087l-1.304-1.303H15l.24-.003a6.997 6.997 0 0 0 5.546-10.927v.003Z"
-                                    fill="currentColor">
-                                </path>
-                            </svg>
-                        </button>
-                        <button class="btn" (click)="op3.toggle($event)">
-                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font person-assign">
-                                <path
-                                    d="M11.313 15.5a6.471 6.471 0 0 1 .709-1.5h-7.77a2.249 2.249 0 0 0-2.249 2.25v.577c0 .892.319 1.756.899 2.435c1.566 1.834 3.952 2.74 7.098 2.74c.931 0 1.796-.08 2.592-.24a6.51 6.51 0 0 1-.913-1.366c-.524.07-1.083.105-1.68.105c-2.737 0-4.703-.745-5.957-2.213a2.25 2.25 0 0 1-.539-1.461v-.578a.75.75 0 0 1 .75-.749h7.06ZM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7ZM23 17.5a5.5 5.5 0 1 1-11 0a5.5 5.5 0 0 1 11 0Zm-4.647-2.853a.5.5 0 0 0-.707.707L19.293 17H15a.5.5 0 1 0 0 1h4.293l-1.647 1.647a.5.5 0 0 0 .707.707l2.5-2.5a.497.497 0 0 0 .147-.345V17.5a.498.498 0 0 0-.15-.357l-2.497-2.496Z"
-                                    fill="currentColor">
-                                </path>
-                            </svg>
-                        </button>
-                        <button class="btn" (click)="op4.toggle($event)">
-                            <svg width="12" height="12" fill="none" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg" class="icon icon--font people-team-add">
-                                <path
-                                    d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11Zm0 2l-.09.007a.5.5 0 0 0-.402.402L17 14.5V17h-2.502l-.09.008a.5.5 0 0 0-.402.402l-.008.09l.008.09a.5.5 0 0 0 .402.402l.09.008H17v2.503l.008.09a.5.5 0 0 0 .402.402l.09.008l.09-.008a.5.5 0 0 0 .402-.402l.008-.09V18l2.504.001l.09-.008a.5.5 0 0 0 .402-.402l.008-.09l-.008-.09a.5.5 0 0 0-.403-.402l-.09-.008H18v-2.5l-.008-.09a.5.5 0 0 0-.402-.403L17.5 14Zm-3.246-4c.835 0 1.563.454 1.951 1.13a6.44 6.44 0 0 0-1.518.509a.736.736 0 0 0-.433-.139H9.752a.75.75 0 0 0-.75.75v4.249c0 1.41.974 2.594 2.286 2.915a6.42 6.42 0 0 0 .735 1.587l-.02-.001a4.501 4.501 0 0 1-4.501-4.501V12.25A2.25 2.25 0 0 1 9.752 10h4.502Zm-6.848 0a3.243 3.243 0 0 0-.817 1.5H4.25a.75.75 0 0 0-.75.75v2.749a2.501 2.501 0 0 0 3.082 2.433c.085.504.24.985.453 1.432A4.001 4.001 0 0 1 2 14.999V12.25a2.25 2.25 0 0 1 2.096-2.245L4.25 10h3.156Zm12.344 0A2.25 2.25 0 0 1 22 12.25v.56A6.478 6.478 0 0 0 17.5 11l-.245.005A3.21 3.21 0 0 0 16.6 10h3.15ZM18.5 4a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5ZM12 3a3 3 0 1 1 0 6a3 3 0 0 1 0-6ZM5.5 4a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Zm13 1.5a1 1 0 1 0 0 2a1 1 0 0 0 0-2Zm-6.5-1a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3Zm-6.5 1a1 1 0 1 0 0 2a1 1 0 0 0 0-2Z"
-                                    fill="currentColor">
-                                </path>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="tooltip">
-                    <p-overlayPanel #op1 [showCloseIcon]="true">
-                        <ng-template pTemplate>
-                            <div>
-                                <div class="mb-2">Assign Labels</div>
-                                <p-table #dt [value]="listLabel" [(selection)]="selectedLabel" dataKey="id"
-                                    [rowHover]="true" [globalFilterFields]="['name']">
-                                    <ng-template pTemplate="caption">
-                                        <div class="table-header">
-                                            <span class="p-input-icon-left">
-                                                <i class="pi pi-search"></i>
-                                                <input pInputText type="text"
-                                                    (input)="applyFilterGlobal($event, 'contains')"
-                                                    placeholder="Global Search" />
-                                            </span>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-item>
-                                        <tr>
-                                            <td>
-                                                <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                                            </td>
-                                            <td><p-colorPicker [(ngModel)]="item.color"
-                                                    [disabled]="true"></p-colorPicker></td>
-                                            <td>{{item.name}}</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                                <button class="btn btn-primary mt-2"
-                                    [disabled]="!selectedLabel || selectedLabel.length === 0 || !listSelectChat || listSelectChat.length === 0">
-                                    Assign selected labels
-                                </button>
-                            </div>
-                        </ng-template>
-                    </p-overlayPanel>
-                    <p-overlayPanel #op2 [showCloseIcon]="true" [style]="{width: '450px'}">
-                        <ng-template pTemplate>
-                            Box 2
-                        </ng-template>
-                    </p-overlayPanel>
-                    <p-overlayPanel #op3 [showCloseIcon]="true" [style]="{width: '450px'}">
-                        <ng-template pTemplate>
-                            Box 3
-                        </ng-template>
-                    </p-overlayPanel>
-                    <p-overlayPanel #op4 [showCloseIcon]="true" [style]="{width: '450px'}">
-                        <ng-template pTemplate>
-                            Box 4
-                        </ng-template>
-                    </p-overlayPanel>
-                </div>
-                <div class="bulk-action__alert">
-                    Conversations visible on this page are only selected.
-                </div>
-            </div> -->
             <p *ngIf="!listChat || listChat.length == 0" class="content-box">
                 There are no active conversations in this group.
             </p>
+
             <div class="conversations-list">
+                <!-- <p-virtualScroller [value]="listChat" scrollHeight="500px" [itemSize]="115">
+                    <ng-template let-item pTemplate="item" let-rowIndex="rowIndex">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-top">
+                                    <div class="icon-channel d-flex">
+                                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_676_3558)">
+                                                <path
+                                                    d="M11.9772 2.77094L7.76824 6.97994C7.29893 7.44806 6.66312 7.71095 6.00024 7.71095C5.33737 7.71095 4.70156 7.44806 4.23224 6.97994L0.0232441 2.77094C0.0162441 2.84994 0.000244141 2.92144 0.000244141 2.99994V8.99994C0.00103807 9.66273 0.264685 10.2982 0.733354 10.7668C1.20202 11.2355 1.83745 11.4991 2.50024 11.4999H9.50024C10.163 11.4991 10.7985 11.2355 11.2671 10.7668C11.7358 10.2982 11.9995 9.66273 12.0002 8.99994V2.99994C12.0002 2.92144 11.9842 2.84994 11.9772 2.77094Z"
+                                                    fill="#37C541" />
+                                                <path
+                                                    d="M7.06132 6.27294L11.6283 1.70544C11.4071 1.3386 11.095 1.03496 10.7223 0.823804C10.3496 0.612651 9.92871 0.501109 9.50032 0.499939H2.50031C2.07193 0.501109 1.65107 0.612651 1.27833 0.823804C0.905591 1.03496 0.593554 1.3386 0.372314 1.70544L4.93931 6.27294C5.2211 6.5536 5.60261 6.71117 6.00031 6.71117C6.39802 6.71117 6.77953 6.5536 7.06132 6.27294Z"
+                                                    fill="#37C541" />
+                                            </g>
+                                            <defs>
+                                                <clipPath id="clip0_676_3558">
+                                                    <rect width="12" height="12" fill="white"
+                                                        transform="translate(0.000244141)" />
+                                                </clipPath>
+                                            </defs>
+                                        </svg>
+                                    </div>
+                                    <div class="card-time d-flex">
+                                        <p-badge [value]="'2'" severity="danger"></p-badge>
+                                        <span>2h ago</span>
+                                    </div>
+                                </div>
+                                {{rowIndex+1}}
+                                {{item.fromName}}
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-virtualScroller> -->
+
                 <p-table [value]="listChat" [(selection)]="listSelectChat" dataKey="id" [paginator]="true" [rows]="10"
                     [selectionPageOnly]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="single">
-                    <!-- <ng-template pTemplate="header">
-                        <tr>
-                            <th style="width: 4rem">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                            </th>
-                            <th style="min-width:200px">Code</th>
-                        </tr>
-                    </ng-template> -->
                     <ng-template pTemplate="body" let-item>
                         <tr (click)="detailMail(item)">
-                            <td style="width:30px">
+                            <!-- <td style="width:30px">
                                 <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                            </td>
+                            </td> -->
                             <td>
                                 <div class="d-flex justify-content-between">
                                     <div class="box-left">
@@ -345,7 +254,7 @@
     <div class="content-right" *ngIf="viewMail">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 contact-info">
                     <div class="name-customer">
                         <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -355,7 +264,7 @@
                                 d="M6.00024 9.33273C2.68806 9.33642 0.00393164 12.0205 0.000244141 15.3327C0.000244141 15.7009 0.298713 15.9994 0.6669 15.9994H11.3336C11.7017 15.9994 12.0002 15.7009 12.0002 15.3327C11.9966 12.0205 9.31243 9.33639 6.00024 9.33273Z"
                                 fill="#3A69DB" />
                         </svg>
-                        <span class="ms-2">{{mailDetails.fromName}}</span>
+                        <span class="name ms-2">{{mailDetails.fromName}}</span>
                     </div>
                     <div>
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -369,7 +278,7 @@
                     <div class="info-label">
                         Chanel
                     </div>
-                    <!-- <strong>{{mailDetails.nameConfigEmail}}</strong> -->
+                    <strong>Email Channel name</strong>
                 </div>
                 <div class="col-md-12">
                     <div class="info-label">
@@ -383,7 +292,7 @@
                     <div class="info-label">
                         Follower
                     </div>
-                    <!-- <strong>{{mailDetails.nameConfigEmail}}</strong> -->
+                    <strong>NA</strong>
                 </div>
                 <div class="col-md-12">
                     <div class="info-label">
@@ -408,7 +317,7 @@
                         </ng-template>
                     </p-multiSelect>
 
-                    <button type="button" class="btn btn-primary status-botton" (click)="updateEmailInfoLabel()"
+                    <button type="button" class="btn btn-primary status-botton mt-2" (click)="updateEmailInfoLabel()"
                         [disabled]="listIdLabelSelect.length == 0">
                         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                             class="icon icon--font checkmark">
@@ -421,6 +330,35 @@
                             Update
                         </span>
                     </button>
+                </div>
+
+                <hr style="margin: 12px">
+
+                <div class="col-md-12">
+                    <p-accordion [multiple]="true">
+                        <p-accordionTab [selected]="true">
+                            <ng-template pTemplate="header">
+                                Information
+                            </ng-template>
+
+                            <div class="info-label">
+                                Label
+                            </div>
+                            <strong>2023-01-03 03:52:26</strong>
+                        </p-accordionTab>
+                        <p-accordionTab [selected]="true">
+                            <ng-template pTemplate="header">
+                                Activities
+                            </ng-template>
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <strong>Chris Hoang</strong>
+                                    <div>3d ago</div>
+                                </div>
+                                <div class="info-label">Gmail Forwarding Confirmation - Receive Mail from squadnic1@gmail.com</div>
+                            </div>
+                        </p-accordionTab>
+                    </p-accordion>
                 </div>
             </div>
         </div>
