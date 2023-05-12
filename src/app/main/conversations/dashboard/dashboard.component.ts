@@ -12,6 +12,7 @@ import { AppSettings } from "../../../constants/app-setting";
 import { AccountService } from 'src/app/service/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
+import { HistoryService } from 'src/app/service/history.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,12 +33,14 @@ export class DashboardComponent implements OnInit {
     private csatService: CsatService,
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private historyService: HistoryService
   ) { }
 
   idInterval: any;
   idCompany: any = +this.userInfoStorageService.getCompanyId();
   idUser: any = +this.userInfoStorageService.getIdUser();
+  fullName: any = this.userInfoStorageService.getFullname();
   countAll: any = 0
   countMine: any = 0
   id: any = 0
@@ -230,6 +233,7 @@ export class DashboardComponent implements OnInit {
         this.showSuccess("Send success")
         this.viewMail = false;
         this.detailMail(this.mailDetails)
+        this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
       }
       else {
         //thất bại
@@ -281,7 +285,8 @@ export class DashboardComponent implements OnInit {
   updateStatus() {
     let requets = {
       status: this.mailDetails.status,
-      id: this.mailDetails.id
+      id: this.mailDetails.id,
+      fullName: this.fullName
     }
     this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
@@ -297,6 +302,22 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  addHistory(idEmailInfo: any, content: any){    
+    let request = {
+      idCompany: this.idCompany,
+      idDetail: idEmailInfo,
+      type: 1,
+      content: content,
+      fullName: this.fullName
+    }
+    debugger
+    this.historyService.create(request).subscribe((result) => {
+      if (result.status == 1) {
+      }
+    });
+    
+  }
+
   sendMailCsat(idGuId: any) {
     let request = {
       to: this.mailDetails.from,
@@ -304,7 +325,7 @@ export class DashboardComponent implements OnInit {
     }
 
     this.csatService.sendMail(request).subscribe((result) => {
-
+      this.addHistory(this.mailDetails.id, 'Send mail survey to ' + this.mailDetails.from);
     });
   }
 
@@ -333,6 +354,7 @@ export class DashboardComponent implements OnInit {
     }
     this.emailInfoService.postEmailInfoLabel(request).subscribe((result) => {
       this.showSuccess("Update success");
+      this.addHistory(this.mailDetails.id, 'Update label to email info');
     });
   }
 
