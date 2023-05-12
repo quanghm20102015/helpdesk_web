@@ -71,7 +71,8 @@ export class MenuComponent implements OnInit {
 
   getListInbox(){
     this.configMailService.GetByIdCompany(this.idCompany).subscribe((result) => {
-      this.listInboxes = result;
+      this.listInboxes = result.listConfigMail;
+      console.log('this.listInboxes',this.listInboxes)
     });
   }
 
@@ -116,6 +117,7 @@ export class MenuComponent implements OnInit {
   loadDataLabel(){
     this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
       this.listLabel = result;
+      console.log('this.listLabel',this.listLabel)
     });
   }
   saveLabel(){    

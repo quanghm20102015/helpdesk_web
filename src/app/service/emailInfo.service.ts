@@ -106,8 +106,15 @@ export class EmailInfoService {
   }
   
   updateAssign(data: any): Observable<any> {
-    return this.http.put(
-      AppSettings.HostingAddress + '/EmailInfoes/UpdateAssign',
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoAssigns',
+      data
+    );
+  }
+  
+  updateFollow(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoFollows',
       data
     );
   }

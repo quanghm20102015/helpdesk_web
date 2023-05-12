@@ -1,4 +1,4 @@
-<div class="d-flex align-items-start bg-main-menu">
+<div class="d-flex align-items-start bg-main-menu main-menu">
     <div class="nav flex-column nav-pills align-items-center primary--sidebar" id="v-pills-tab" role="tablist"
         aria-orientation="vertical">
         <div class="logo-main-menu">
@@ -250,12 +250,13 @@
                             <div>
                                 <span>Channel</span>
                             </div>
-                            <div routerLinkActive="active-secondary cursor-pointer" [routerLinkActiveOptions]="{exact: false}"
-                                [routerLink]="['/main/settings/inboxes/new']" aria-expanded="false" (click)="setTab(5)" style="font-size: 20px;">
+                            <div routerLinkActive="active-secondary cursor-pointer"
+                                [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/settings/inboxes/new']"
+                                aria-expanded="false" (click)="setTab(5)" style="font-size: 20px;">
                                 +</div>
                         </li>
-                        <li *ngFor="let item of listInboxes" class="sidebar-item color-ffffff" routerLinkActive="active-secondary"
-                            [routerLinkActiveOptions]="{exact: false}"
+                        <li *ngFor="let item of listInboxes" class="sidebar-item color-ffffff cursor-pointer"
+                            routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/conversations/channel/', item.id]" aria-expanded="false">
                             <div>
                                 {{item.yourName}}
@@ -267,8 +268,8 @@
                             </div>
                             <div (click)="display = true" class="cursor-pointer" style="font-size: 20px;">+</div>
                         </li>
-                        <li *ngFor="let item of listLabel" class="sidebar-item color-ffffff" routerLinkActive="active-secondary"
-                            [routerLinkActiveOptions]="{exact: false}"
+                        <li *ngFor="let item of listLabel" class="sidebar-item color-ffffff cursor-pointer"
+                            routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/conversations/label/',item.id]" aria-expanded="false">
                             <div>
                                 {{item.name}}

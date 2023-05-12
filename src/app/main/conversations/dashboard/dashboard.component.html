@@ -30,58 +30,41 @@
             </p>
 
             <div class="conversations-list">
-                <!-- <p-virtualScroller [value]="listChat" scrollHeight="500px" [itemSize]="115">
-                    <ng-template let-item pTemplate="item" let-rowIndex="rowIndex">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="card-top">
-                                    <div class="icon-channel d-flex">
+                <p-table [value]="listChat" selectionMode="single" dataKey="id" [rows]="10" [selectionPageOnly]="true"
+                    [paginator]="true" [rowsPerPageOptions]="[10,25,50]">
+                    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                        <tr [pSelectableRow]="item">
+                            <td (click)="detailMail(item)" class="item-chat">
+                                <div class="d-flex justify-content-between">
+                                    <div class="box-left">
                                         <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
-                                            <g clip-path="url(#clip0_676_3558)">
+                                            <g clip-path="url(#clip0_705_18790)">
                                                 <path
-                                                    d="M11.9772 2.77094L7.76824 6.97994C7.29893 7.44806 6.66312 7.71095 6.00024 7.71095C5.33737 7.71095 4.70156 7.44806 4.23224 6.97994L0.0232441 2.77094C0.0162441 2.84994 0.000244141 2.92144 0.000244141 2.99994V8.99994C0.00103807 9.66273 0.264685 10.2982 0.733354 10.7668C1.20202 11.2355 1.83745 11.4991 2.50024 11.4999H9.50024C10.163 11.4991 10.7985 11.2355 11.2671 10.7668C11.7358 10.2982 11.9995 9.66273 12.0002 8.99994V2.99994C12.0002 2.92144 11.9842 2.84994 11.9772 2.77094Z"
+                                                    d="M11.9772 2.771L7.76824 6.98C7.29893 7.44812 6.66312 7.71102 6.00024 7.71102C5.33737 7.71102 4.70156 7.44812 4.23224 6.98L0.0232441 2.771C0.0162441 2.85 0.000244141 2.9215 0.000244141 3V9C0.00103807 9.66279 0.264685 10.2982 0.733354 10.7669C1.20202 11.2356 1.83745 11.4992 2.50024 11.5H9.50024C10.163 11.4992 10.7985 11.2356 11.2671 10.7669C11.7358 10.2982 11.9995 9.66279 12.0002 9V3C12.0002 2.9215 11.9842 2.85 11.9772 2.771Z"
                                                     fill="#37C541" />
                                                 <path
-                                                    d="M7.06132 6.27294L11.6283 1.70544C11.4071 1.3386 11.095 1.03496 10.7223 0.823804C10.3496 0.612651 9.92871 0.501109 9.50032 0.499939H2.50031C2.07193 0.501109 1.65107 0.612651 1.27833 0.823804C0.905591 1.03496 0.593554 1.3386 0.372314 1.70544L4.93931 6.27294C5.2211 6.5536 5.60261 6.71117 6.00031 6.71117C6.39802 6.71117 6.77953 6.5536 7.06132 6.27294Z"
+                                                    d="M7.06125 6.273L11.6283 1.7055C11.407 1.33866 11.095 1.03502 10.7222 0.823865C10.3495 0.612712 9.92864 0.50117 9.50025 0.5H2.50025C2.07186 0.50117 1.651 0.612712 1.27827 0.823865C0.905529 1.03502 0.593493 1.33866 0.372253 1.7055L4.93925 6.273C5.22104 6.55366 5.60255 6.71123 6.00025 6.71123C6.39796 6.71123 6.77947 6.55366 7.06125 6.273Z"
                                                     fill="#37C541" />
                                             </g>
                                             <defs>
-                                                <clipPath id="clip0_676_3558">
+                                                <clipPath id="clip0_705_18790">
                                                     <rect width="12" height="12" fill="white"
                                                         transform="translate(0.000244141)" />
                                                 </clipPath>
                                             </defs>
                                         </svg>
-                                    </div>
-                                    <div class="card-time d-flex">
-                                        <p-badge [value]="'2'" severity="danger"></p-badge>
-                                        <span>2h ago</span>
-                                    </div>
-                                </div>
-                                {{rowIndex+1}}
-                                {{item.fromName}}
-                            </div>
-                        </div>
-                    </ng-template>
-                </p-virtualScroller> -->
-
-                <p-table [value]="listChat" [(selection)]="listSelectChat" dataKey="id" [paginator]="true" [rows]="10"
-                    [selectionPageOnly]="true" [rowsPerPageOptions]="[10,25,50]" selectionMode="single">
-                    <ng-template pTemplate="body" let-item>
-                        <tr (click)="detailMail(item)">
-                            <!-- <td style="width:30px">
-                                <p-tableCheckbox [value]="item"></p-tableCheckbox>
-                            </td> -->
-                            <td>
-                                <div class="d-flex justify-content-between">
-                                    <div class="box-left">
-                                        <div class="fw-bold">{{item.from}}</div>
-                                        <div>{{item.subject}}</div>
+                                        <span> #{{ rowIndex + 1}}</span>
                                     </div>
                                     <div class="box-right text-middle date-time text-end">
-                                        <div>{{item.dateTime | date:'MM/dd/yy h:mm a'}}</div>
+                                        <div>{{item.dateTime | date:'dd/MM/yy hh:mm a'}}</div>
                                     </div>
+                                </div>
+                                <div>
+                                    <div class="my-2">
+                                        <div class="fw-bold">{{item.fromName}}</div>
+                                    </div>
+                                    <div class="text-truncate-2 text-chat-firs">{{item.subject}}</div>
                                 </div>
                             </td>
                         </tr>
@@ -97,46 +80,142 @@
                 <div class="col-md-6">
                     <div class="user d-flex">
                         <div class="user--profile__meta">
-                            <button class="btn text-primary btn-back" (click)="viewMail = false">
-                                < Back </button>
-                                    <h4 class="sub-block-title user--name text-wrap mb-0">{{subject}}</h4>
-                                    <!-- <div class="conversation--header--actions text-truncate">
-                            <div class="inbox--name">
-                                Minhtmu_bot
-                            </div>
-                        </div> -->
+                            <!-- <button class="btn text-primary btn-back" (click)="viewMail = false">
+                                < Back </button> -->
+                            <h4 class="sub-block-title user--name text-wrap mb-0">{{subject}}</h4>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="header-actions-wrap has-open-sidebar">
                         <div class="d-flex justify-content-end btn-mobile">
-                            <!-- <button type="submit" class="btn btn-outline-secondary border-0 me-2"
-                                data-original-title="null">
-                                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg" class="icon icon--font speaker-mute">
-                                    <path
-                                        d="M12.92 3.316c.806-.717 2.08-.145 2.08.934v15.496c0 1.078-1.274 1.65-2.08.934l-4.492-3.994a.75.75 0 0 0-.498-.19H4.25A2.25 2.25 0 0 1 2 14.247V9.75a2.25 2.25 0 0 1 2.25-2.25h3.68a.75.75 0 0 0 .498-.19l4.491-3.993Zm.58 1.49L9.425 8.43A2.25 2.25 0 0 1 7.93 9H4.25a.75.75 0 0 0-.75.75v4.497c0 .415.336.75.75.75h3.68a2.25 2.25 0 0 1 1.495.57l4.075 3.623V4.807ZM16.22 9.22a.75.75 0 0 1 1.06 0L19 10.94l1.72-1.72a.75.75 0 1 1 1.06 1.06L20.06 12l1.72 1.72a.75.75 0 1 1-1.06 1.06L19 13.06l-1.72 1.72a.75.75 0 1 1-1.06-1.06L17.94 12l-1.72-1.72a.75.75 0 0 1 0-1.06Z"
-                                        fill="currentColor"></path>
+                            <button type="submit" class="btn btn-outline-secondary border-0 me-2"
+                                pTooltip="Assign member" tooltipPosition="bottom" (click)="op1.toggle($event)">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_705_22958)">
+                                        <path
+                                            d="M15.3335 7.33398H14.0001V6.00065C14.0001 5.82384 13.9299 5.65427 13.8049 5.52925C13.6799 5.40422 13.5103 5.33398 13.3335 5.33398C13.1567 5.33398 12.9871 5.40422 12.8621 5.52925C12.737 5.65427 12.6668 5.82384 12.6668 6.00065V7.33398H11.3335C11.1567 7.33398 10.9871 7.40422 10.8621 7.52924C10.737 7.65427 10.6668 7.82384 10.6668 8.00065C10.6668 8.17746 10.737 8.34703 10.8621 8.47205C10.9871 8.59707 11.1567 8.66731 11.3335 8.66731H12.6668V10.0006C12.6668 10.1775 12.737 10.347 12.8621 10.472C12.9871 10.5971 13.1567 10.6673 13.3335 10.6673C13.5103 10.6673 13.6799 10.5971 13.8049 10.472C13.9299 10.347 14.0001 10.1775 14.0001 10.0006V8.66731H15.3335C15.5103 8.66731 15.6798 8.59707 15.8049 8.47205C15.9299 8.34703 16.0001 8.17746 16.0001 8.00065C16.0001 7.82384 15.9299 7.65427 15.8049 7.52924C15.6798 7.40422 15.5103 7.33398 15.3335 7.33398Z"
+                                            fill="#7C7C7E" />
+                                        <path
+                                            d="M6.00024 8C6.79137 8 7.56473 7.76541 8.22253 7.32588C8.88032 6.88635 9.39301 6.26164 9.69576 5.53074C9.99851 4.79983 10.0777 3.99556 9.92339 3.21964C9.76904 2.44372 9.38808 1.73098 8.82867 1.17157C8.26926 0.612165 7.55653 0.231202 6.78061 0.0768607C6.00468 -0.0774802 5.20042 0.00173314 4.46951 0.304484C3.73861 0.607234 3.11389 1.11992 2.67437 1.77772C2.23484 2.43552 2.00024 3.20888 2.00024 4C2.0013 5.06054 2.42307 6.07734 3.17299 6.82726C3.9229 7.57718 4.9397 7.99894 6.00024 8ZM6.00024 1.33334C6.52766 1.33334 7.04323 1.48973 7.48177 1.78275C7.9203 2.07577 8.26209 2.49224 8.46392 2.97951C8.66576 3.46678 8.71857 4.00296 8.61567 4.52024C8.51278 5.03753 8.2588 5.51268 7.88586 5.88562C7.51292 6.25856 7.03777 6.51254 6.52049 6.61543C6.0032 6.71832 5.46703 6.66551 4.97976 6.46368C4.49249 6.26185 4.07601 5.92005 3.78299 5.48152C3.48997 5.04299 3.33358 4.52742 3.33358 4C3.33358 3.29276 3.61453 2.61448 4.11463 2.11438C4.61472 1.61429 5.293 1.33334 6.00024 1.33334Z"
+                                            fill="#7C7C7E" />
+                                        <path
+                                            d="M6.00024 9.33398C4.40949 9.33575 2.88439 9.96846 1.75955 11.0933C0.634716 12.2181 0.00200871 13.7432 0.000244141 15.334C0.000244141 15.5108 0.070482 15.6804 0.195506 15.8054C0.320531 15.9304 0.4901 16.0007 0.666911 16.0007C0.843722 16.0007 1.01329 15.9304 1.13832 15.8054C1.26334 15.6804 1.33358 15.5108 1.33358 15.334C1.33358 14.0963 1.82524 12.9093 2.70041 12.0342C3.57558 11.159 4.76257 10.6673 6.00024 10.6673C7.23792 10.6673 8.42491 11.159 9.30008 12.0342C10.1752 12.9093 10.6669 14.0963 10.6669 15.334C10.6669 15.5108 10.7371 15.6804 10.8622 15.8054C10.9872 15.9304 11.1568 16.0007 11.3336 16.0007C11.5104 16.0007 11.68 15.9304 11.805 15.8054C11.93 15.6804 12.0002 15.5108 12.0002 15.334C11.9985 13.7432 11.3658 12.2181 10.2409 11.0933C9.1161 9.96846 7.591 9.33575 6.00024 9.33398Z"
+                                            fill="#7C7C7E" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_705_22958">
+                                            <rect width="16" height="16" fill="white"
+                                                transform="translate(0.000244141)" />
+                                        </clipPath>
+                                    </defs>
                                 </svg>
                             </button>
-                            <button type="submit" class="btn btn-outline-secondary border-0 me-2">
-                                <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg" class="icon icon--font share">
-                                    <path
-                                        d="M6.747 4h3.464a.75.75 0 0 1 .102 1.493l-.102.007H6.747a2.25 2.25 0 0 0-2.245 2.096l-.005.154v9.5a2.25 2.25 0 0 0 2.096 2.245l.154.005h9.5a2.25 2.25 0 0 0 2.245-2.096l.005-.154v-.498a.75.75 0 0 1 1.494-.101l.006.101v.498a3.75 3.75 0 0 1-3.55 3.745l-.2.005h-9.5a3.75 3.75 0 0 1-3.745-3.55l-.005-.2v-9.5a3.75 3.75 0 0 1 3.55-3.745l.2-.005h3.464-3.464ZM14.5 6.52V3.75a.75.75 0 0 1 1.187-.61l.082.069 5.994 5.75c.28.268.306.7.077.997l-.077.085-5.994 5.752a.75.75 0 0 1-1.262-.434l-.007-.107v-2.725l-.344.03c-2.4.25-4.7 1.33-6.914 3.26-.52.453-1.323.025-1.237-.658.664-5.32 3.446-8.252 8.195-8.62l.3-.02V3.75v2.77ZM16 5.509V7.25a.75.75 0 0 1-.75.75c-3.874 0-6.274 1.676-7.312 5.157l-.079.279.352-.237C10.45 11.737 12.798 11 15.251 11a.75.75 0 0 1 .743.648l.007.102v1.743L20.16 9.5l-4.16-3.991Z"
-                                        fill="currentColor">
-                                    </path>
+                            <p-overlayPanel #op1>
+                                <ng-template pTemplate>
+                                    <div>
+                                        <div class="action-title">Assign member</div>
+                                        <p-multiSelect [options]="listAssign" [(ngModel)]="selectedAssign"
+                                            defaultLabel="Select Assign" optionLabel="fullname" display="chip"
+                                            class="multiselect-custom me-2" (onChange)="onChangeSelectAssign()">
+                                        </p-multiSelect>
+                                    </div>
+                                </ng-template>
+                            </p-overlayPanel>
+
+                            <button type="submit" class="btn btn-outline-secondary border-0 me-2" pTooltip="Add label"
+                                tooltipPosition="bottom" (click)="op2.toggle($event)">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_705_22963)">
+                                        <ellipse cx="1.33333" cy="1.33333" rx="1.33333" ry="1.33333"
+                                            transform="matrix(1 0 0 -1 10.0002 6)" stroke="#7C7C7E" stroke-width="1.1"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path
+                                            d="M1.84971 7.42994C1.18095 8.17684 1.16656 9.30372 1.78033 10.0964C2.9983 11.6695 4.33138 13.0026 5.90444 14.2205C6.69716 14.8343 7.82403 14.8199 8.57094 14.1512C10.5988 12.3354 12.4559 10.4379 14.2481 8.35262C14.4253 8.14646 14.5362 7.89377 14.561 7.62307C14.671 6.42597 14.897 2.9771 13.9604 2.04048C13.0238 1.10386 9.5749 1.32983 8.3778 1.43983C8.1071 1.4647 7.85442 1.57554 7.64826 1.75273C5.56297 3.54496 3.66543 5.40206 1.84971 7.42994Z"
+                                            stroke="#7C7C7E" stroke-width="1.4" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_705_22963">
+                                            <rect width="16" height="16" fill="white"
+                                                transform="translate(0.000244141)" />
+                                        </clipPath>
+                                    </defs>
                                 </svg>
-                            </button> -->
+                            </button>
+                            <p-overlayPanel #op2>
+                                <ng-template pTemplate>
+                                    <div class="action-title">Add label</div>
+
+                                    <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel" display="chip"
+                                        defaultLabel="Select label" optionLabel="name" class="multiselect-custom me-2"
+                                        (onChange)="onChangeSelectLabel()">
+                                    </p-multiSelect>
+                                </ng-template>
+                            </p-overlayPanel>
+
+                            <button type="submit" class="btn btn-outline-secondary border-0 me-2" pTooltip="Add watcher"
+                                tooltipPosition="bottom" (click)="op3.toggle($event)">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_705_22969)">
+                                        <path
+                                            d="M15.5142 6.27886C14.4802 4.59486 12.1282 1.76953 8.00016 1.76953C3.87216 1.76953 1.52016 4.59486 0.486156 6.27886C0.166508 6.79587 -0.00280762 7.39169 -0.00280762 7.99953C-0.00280762 8.60737 0.166508 9.20319 0.486156 9.7202C1.52016 11.4042 3.87216 14.2295 8.00016 14.2295C12.1282 14.2295 14.4802 11.4042 15.5142 9.7202C15.8338 9.20319 16.0031 8.60737 16.0031 7.99953C16.0031 7.39169 15.8338 6.79587 15.5142 6.27886ZM14.3775 9.0222C13.4895 10.4662 11.4795 12.8962 8.00016 12.8962C4.52082 12.8962 2.51082 10.4662 1.62282 9.0222C1.43291 8.7149 1.33232 8.36078 1.33232 7.99953C1.33232 7.63828 1.43291 7.28417 1.62282 6.97686C2.51082 5.53286 4.52082 3.10286 8.00016 3.10286C11.4795 3.10286 13.4895 5.5302 14.3775 6.97686C14.5674 7.28417 14.668 7.63828 14.668 7.99953C14.668 8.36078 14.5674 8.7149 14.3775 9.0222Z"
+                                            fill="#7C7C7E" />
+                                        <path
+                                            d="M8.00008 4.66602C7.34081 4.66602 6.69635 4.86151 6.14818 5.22778C5.60002 5.59405 5.17278 6.11465 4.92048 6.72374C4.66819 7.33283 4.60218 8.00305 4.7308 8.64965C4.85942 9.29625 5.17689 9.8902 5.64306 10.3564C6.10924 10.8225 6.70318 11.14 7.34978 11.2686C7.99639 11.3973 8.66661 11.3312 9.27569 11.0789C9.88478 10.8267 10.4054 10.3994 10.7716 9.85125C11.1379 9.30309 11.3334 8.65862 11.3334 7.99935C11.3324 7.11562 10.9808 6.26839 10.3559 5.6435C9.73104 5.0186 8.88381 4.66707 8.00008 4.66602ZM8.00008 9.99935C7.60452 9.99935 7.21784 9.88205 6.88894 9.66229C6.56004 9.44253 6.3037 9.13017 6.15232 8.76472C6.00095 8.39926 5.96134 7.99713 6.03851 7.60917C6.11568 7.22121 6.30616 6.86484 6.58587 6.58514C6.86557 6.30543 7.22194 6.11495 7.6099 6.03778C7.99786 5.96061 8.4 6.00021 8.76545 6.15159C9.1309 6.30297 9.44326 6.55931 9.66302 6.88821C9.88278 7.21711 10.0001 7.60379 10.0001 7.99935C10.0001 8.52978 9.78937 9.03849 9.4143 9.41356C9.03922 9.78864 8.53052 9.99935 8.00008 9.99935Z"
+                                            fill="#7C7C7E" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_705_22969">
+                                            <rect width="16" height="16" fill="white"
+                                                transform="translate(0.000244141)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </button>
+                            <p-overlayPanel #op3>
+                                <ng-template pTemplate>
+                                    <div class="action-title">Add watcher</div>
+
+                                    <p-multiSelect [options]="listFollow" [(ngModel)]="selectedFollow" display="chip"
+                                        defaultLabel="Select follow" optionLabel="fullname"
+                                        class="multiselect-custom me-2" (onChange)="onChangeSelectFollow()">
+                                    </p-multiSelect>
+                                </ng-template>
+                            </p-overlayPanel>
+
+                            <button class="btn btn-outline-secondary border-0 me-2" (click)="confirm()"
+                                pTooltip="Delete" tooltipPosition="bottom">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_705_22973)">
+                                        <path
+                                            d="M14.0002 2.66667H11.9335C11.7788 1.91428 11.3694 1.23823 10.7743 0.752479C10.1793 0.266727 9.43497 0.000969683 8.66683 0L7.3335 0C6.56536 0.000969683 5.82104 0.266727 5.226 0.752479C4.63095 1.23823 4.22156 1.91428 4.06683 2.66667H2.00016C1.82335 2.66667 1.65378 2.7369 1.52876 2.86193C1.40373 2.98695 1.3335 3.15652 1.3335 3.33333C1.3335 3.51014 1.40373 3.67971 1.52876 3.80474C1.65378 3.92976 1.82335 4 2.00016 4H2.66683V12.6667C2.66789 13.5504 3.01942 14.3976 3.64431 15.0225C4.2692 15.6474 5.11643 15.9989 6.00016 16H10.0002C10.8839 15.9989 11.7311 15.6474 12.356 15.0225C12.9809 14.3976 13.3324 13.5504 13.3335 12.6667V4H14.0002C14.177 4 14.3465 3.92976 14.4716 3.80474C14.5966 3.67971 14.6668 3.51014 14.6668 3.33333C14.6668 3.15652 14.5966 2.98695 14.4716 2.86193C14.3465 2.7369 14.177 2.66667 14.0002 2.66667ZM7.3335 1.33333H8.66683C9.08035 1.33384 9.48358 1.46225 9.82124 1.70096C10.1589 1.93967 10.4144 2.27699 10.5528 2.66667H5.4475C5.58588 2.27699 5.84143 1.93967 6.17909 1.70096C6.51674 1.46225 6.91998 1.33384 7.3335 1.33333ZM12.0002 12.6667C12.0002 13.1971 11.7894 13.7058 11.4144 14.0809C11.0393 14.456 10.5306 14.6667 10.0002 14.6667H6.00016C5.46973 14.6667 4.96102 14.456 4.58595 14.0809C4.21088 13.7058 4.00016 13.1971 4.00016 12.6667V4H12.0002V12.6667Z"
+                                            fill="#7C7C7E" />
+                                        <path
+                                            d="M6.66691 11.9993C6.84372 11.9993 7.01329 11.9291 7.13831 11.8041C7.26334 11.6791 7.33357 11.5095 7.33357 11.3327V7.33268C7.33357 7.15587 7.26334 6.9863 7.13831 6.86128C7.01329 6.73625 6.84372 6.66602 6.66691 6.66602C6.4901 6.66602 6.32053 6.73625 6.19551 6.86128C6.07048 6.9863 6.00024 7.15587 6.00024 7.33268V11.3327C6.00024 11.5095 6.07048 11.6791 6.19551 11.8041C6.32053 11.9291 6.4901 11.9993 6.66691 11.9993Z"
+                                            fill="#7C7C7E" />
+                                        <path
+                                            d="M9.33348 11.9993C9.51029 11.9993 9.67986 11.9291 9.80489 11.8041C9.92991 11.6791 10.0002 11.5095 10.0002 11.3327V7.33268C10.0002 7.15587 9.92991 6.9863 9.80489 6.86128C9.67986 6.73625 9.51029 6.66602 9.33348 6.66602C9.15667 6.66602 8.9871 6.73625 8.86207 6.86128C8.73705 6.9863 8.66681 7.15587 8.66681 7.33268V11.3327C8.66681 11.5095 8.73705 11.6791 8.86207 11.8041C8.9871 11.9291 9.15667 11.9993 9.33348 11.9993Z"
+                                            fill="#7C7C7E" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_705_22973">
+                                            <rect width="16" height="16" fill="white"
+                                                transform="translate(0.000244141)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </button>
 
                             <p-dropdown [options]="listStatusUpdate" [(ngModel)]="mailDetails.status"
-                                placeholder="select" optionValue="id" optionLabel="statusName"
+                                id="dropdown-status" placeholder="select" optionValue="id" optionLabel="statusName"
                                 (onChange)="updateStatus()">
                                 <ng-template pTemplate="selectedItem">
                                     <div class="country-item country-item-value" *ngIf="mailDetails.status">
-                                        <span class="country-item"
-                                            [ngClass]="{'text-secondary' : mailDetails.status == 1,'text-success': mailDetails.status == 2, 'text-primary': mailDetails.status == 3}">
+                                        <span class="country-item" style="color: #FFFFFF">
                                             {{statusName}}
                                         </span>
                                     </div>
@@ -266,7 +345,9 @@
                         </svg>
                         <span class="name ms-2">{{mailDetails.fromName}}</span>
                     </div>
-                    <div>
+                    <div class="cursor-pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}"
+                        [routerLink]="['/main/contacts/detail',mailDetails.idContact]" target="_blank"
+                        aria-expanded="false">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M11.9999 7.21331C11.8231 7.21331 11.6535 7.28355 11.5285 7.40857C11.4035 7.5336 11.3333 7.70317 11.3333 7.87998V12.6666C11.3333 12.8435 11.263 13.013 11.138 13.1381C11.013 13.2631 10.8434 13.3333 10.6666 13.3333H3.33325C3.15644 13.3333 2.98687 13.2631 2.86185 13.1381C2.73682 13.013 2.66659 12.8435 2.66659 12.6666V5.33331C2.66659 5.1565 2.73682 4.98693 2.86185 4.86191C2.98687 4.73688 3.15644 4.66665 3.33325 4.66665H8.11992C8.29673 4.66665 8.4663 4.59641 8.59132 4.47138C8.71635 4.34636 8.78658 4.17679 8.78658 3.99998C8.78658 3.82317 8.71635 3.6536 8.59132 3.52858C8.4663 3.40355 8.29673 3.33331 8.11992 3.33331H3.33325C2.80282 3.33331 2.29411 3.54403 1.91904 3.9191C1.54397 4.29417 1.33325 4.80288 1.33325 5.33331V12.6666C1.33325 13.1971 1.54397 13.7058 1.91904 14.0809C2.29411 14.4559 2.80282 14.6666 3.33325 14.6666H10.6666C11.197 14.6666 11.7057 14.4559 12.0808 14.0809C12.4559 13.7058 12.6666 13.1971 12.6666 12.6666V7.87998C12.6666 7.70317 12.5963 7.5336 12.4713 7.40857C12.3463 7.28355 12.1767 7.21331 11.9999 7.21331ZM14.6133 1.74665C14.5456 1.58375 14.4162 1.4543 14.2533 1.38665C14.1731 1.35249 14.087 1.33437 13.9999 1.33331H9.99992C9.82311 1.33331 9.65354 1.40355 9.52851 1.52858C9.40349 1.6536 9.33325 1.82317 9.33325 1.99998C9.33325 2.17679 9.40349 2.34636 9.52851 2.47138C9.65354 2.59641 9.82311 2.66665 9.99992 2.66665H12.3933L5.52659 9.52665C5.4641 9.58862 5.4145 9.66236 5.38066 9.74359C5.34681 9.82483 5.32939 9.91197 5.32939 9.99998C5.32939 10.088 5.34681 10.1751 5.38066 10.2564C5.4145 10.3376 5.4641 10.4113 5.52659 10.4733C5.58856 10.5358 5.66229 10.5854 5.74353 10.6192C5.82477 10.6531 5.91191 10.6705 5.99992 10.6705C6.08793 10.6705 6.17506 10.6531 6.2563 10.6192C6.33754 10.5854 6.41128 10.5358 6.47325 10.4733L13.3333 3.60665V5.99998C13.3333 6.17679 13.4035 6.34636 13.5285 6.47138C13.6535 6.59641 13.8231 6.66665 13.9999 6.66665C14.1767 6.66665 14.3463 6.59641 14.4713 6.47138C14.5963 6.34636 14.6666 6.17679 14.6666 5.99998V1.99998C14.6655 1.91286 14.6474 1.82679 14.6133 1.74665Z"
@@ -278,89 +359,63 @@
                     <div class="info-label">
                         Chanel
                     </div>
-                    <strong>Email Channel name</strong>
+                    <strong>{{mailDetails.channelName}}</strong>
                 </div>
                 <div class="col-md-12">
                     <div class="info-label">
                         Assignment agent
                     </div>
-                    <p-dropdown *ngIf="mailDetails" [options]="listUser" [(ngModel)]="mailDetails.assign" class="me-2"
-                        (onChange)="updateAsign()" placeholder="Select a assign" optionLabel="fullname" optionValue="id"
-                        [showClear]="true"></p-dropdown>
+                    <div *ngIf="listAssign && selectedAssign.length === 0"><strong>N/A</strong></div>
+                    <div *ngFor="let item of listAssign">
+                        <div *ngIf="item.check"><strong>{{item.fullname}}</strong></div>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="info-label">
                         Follower
                     </div>
-                    <strong>NA</strong>
+                    <div *ngIf="listFollow && selectedFollow.length === 0"><strong>N/A</strong></div>
+                    <div *ngFor="let item of listFollow">
+                        <div *ngIf="item.check"><strong>{{item.fullname}}</strong></div>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="info-label">
                         Label
                     </div>
-                    <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel" defaultLabel="Select label"
-                        optionLabel="name" class="multiselect-custom me-2" (onChange)="onChangeSelectLabel()">
-                        <ng-template let-value pTemplate="selectedItems">
-                            <div class="label-item label-item-value" *ngFor="let option of selectedLabel">
-                                <p-colorPicker [(ngModel)]="option.color" [disabled]="true"></p-colorPicker>
-                                <div class="d-inline ms-1">{{option.name}}</div>
-                            </div>
-                            <div *ngIf="!selectedLabel || selectedLabel.length === 0" class="label-placeholder">
-                                Select Label
-                            </div>
-                        </ng-template>
-                        <ng-template let-label pTemplate="item">
-                            <div class="label-item">
-                                <p-colorPicker [(ngModel)]="label.color" [disabled]="true"></p-colorPicker>
-                                <div class="d-inline ms-1">{{label.name}}</div>
-                            </div>
-                        </ng-template>
-                    </p-multiSelect>
+                    <div *ngIf="listLabelEmail && selectedLabel.length === 0"><strong>N/A</strong></div>
+                    <div *ngFor="let item of listLabelEmail">
+                        <div *ngIf="item.check"><strong>{{item.name}}</strong></div>
+                    </div>
 
-                    <button type="button" class="btn btn-primary status-botton mt-2" (click)="updateEmailInfoLabel()"
-                        [disabled]="listIdLabelSelect.length == 0">
-                        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon--font checkmark">
-                            <path
-                                d="M4.53 12.97a.75.75 0 0 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l11-11a.75.75 0 0 0-1.06-1.06L8.5 16.94l-3.97-3.97Z"
-                                fill="currentColor">
-                            </path>
-                        </svg>
-                        <span class="button__content">
-                            Update
-                        </span>
-                    </button>
-                </div>
+                    <hr style="margin: 12px">
 
-                <hr style="margin: 12px">
-
-                <div class="col-md-12">
-                    <p-accordion [multiple]="true">
-                        <p-accordionTab [selected]="true">
-                            <ng-template pTemplate="header">
-                                Information
-                            </ng-template>
-
-                            <div class="info-label">
-                                Label
-                            </div>
-                            <strong>2023-01-03 03:52:26</strong>
-                        </p-accordionTab>
-                        <p-accordionTab [selected]="true">
-                            <ng-template pTemplate="header">
-                                Activities
-                            </ng-template>
-                            <div>
-                                <div class="d-flex justify-content-between">
-                                    <strong>Chris Hoang</strong>
-                                    <div>3d ago</div>
+                    <div class="col-md-12">
+                        <p-accordion [multiple]="true">
+                            <p-accordionTab [selected]="true">
+                                <ng-template pTemplate="header">
+                                    Information
+                                </ng-template>
+                                <div class="info-label">
+                                    Created at
                                 </div>
-                                <div class="info-label">Gmail Forwarding Confirmation - Receive Mail from squadnic1@gmail.com</div>
-                            </div>
-                        </p-accordionTab>
-                    </p-accordion>
+                                <strong>{{mailDetails.date | date:'short'}}</strong>
+                            </p-accordionTab>
+                            <p-accordionTab [selected]="true">
+                                <ng-template pTemplate="header">
+                                    Activities
+                                </ng-template>
+                                <div *ngFor="let item of listHistory">
+                                    <div class="d-flex justify-content-between">
+                                        <strong>{{item.fullName}}</strong>
+                                        <div>3d ago</div>
+                                    </div>
+                                    <div class="info-label">{{item.content}}</div>
+                                </div>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

@@ -4,7 +4,7 @@ import * as $ from 'jquery';
 import { EmailInfoService } from '../../../service/emailInfo.service';
 import { StatusService } from '../../../service/status.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { LabelService } from 'src/app/service/label.service';
 import { Table } from 'primeng/table';
 import { CsatService } from 'src/app/service/csat.service';
@@ -34,7 +34,8 @@ export class DashboardComponent implements OnInit {
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private historyService: HistoryService
+    private historyService: HistoryService,
+    private confirmationService: ConfirmationService,
   ) { }
 
   idInterval: any;
@@ -45,6 +46,8 @@ export class DashboardComponent implements OnInit {
   countMine: any = 0
   id: any = 0
   idOld: any = 0
+  listHistory: any = []
+  listFollow: any = []
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) this.id = +params['id']
@@ -60,8 +63,10 @@ export class DashboardComponent implements OnInit {
     }, 5000);
     this.messenger = this.signature
   }
-  ngAfterContentChecked(): void{
-    if(this.id != this.idOld){
+  ngAfterContentChecked(): void {
+    console.log(this.id, this.idOld)
+    console.log(this.router.url)
+    if (this.id != this.idOld) {
       this.idOld = this.id
       this.loadListEmail()
     }
@@ -76,33 +81,33 @@ export class DashboardComponent implements OnInit {
       assign: 0,
       idConfigEmail: 0,
       idLabel: 0,
+      idUserFollow: 0,
     }
-    if(this.router.url.includes('/dashboard')){this.title = 'Conversations'}
-    else if(this.router.url.includes('/mentions')){
+    if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
+    else if (this.router.url.includes('/mentions')) {
       request.assign = this.idUser
       this.title = 'Mine'
     }
-    else if (this.router.url.includes('/following')){
-      request.assign = this.idUser
+    else if (this.router.url.includes('/following')) {
+      request.idUserFollow = this.idUser
       this.title = 'Following'
     }
-    else if(this.router.url.includes('/unattended')){
+    else if (this.router.url.includes('/unattended')) {
       this.title = 'Unassigned'
     }
-    else if(this.router.url.includes('/resolved')){
+    else if (this.router.url.includes('/resolved')) {
       this.title = 'Resolved'
+      this.status = 2
     }
-    else if(this.router.url.includes('/trash')){
+    else if (this.router.url.includes('/trash')) {
       this.title = 'Trash'
     }
-    else if(this.router.url.includes('/channel/')){
+    else if (this.router.url.includes('/channel/')) {
       request.idConfigEmail = this.id
-      this.idOld = this.id 
       this.title = 'Channel'
     }
-    else if(this.router.url.includes('/label/')){
+    else if (this.router.url.includes('/label/')) {
       request.idLabel = this.id
-      this.idOld = this.id 
       this.title = 'Label'
     }
     // this.getCountEmail()
@@ -143,10 +148,9 @@ export class DashboardComponent implements OnInit {
 
   updateAsign() {
     let request = {
-      id: this.mailDetails.id,
-      status: this.mailDetails.status,
-      idCompany: this.idCompany,
-      assign: this.mailDetails.assign
+      id: 0,
+      idEmailInfo: this.mailDetails.id,
+      listAssign: this.listIdAssignSelect
     }
     this.emailInfoService.updateAssign(request).subscribe((result) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: "Update success" });
@@ -182,9 +186,12 @@ export class DashboardComponent implements OnInit {
   listStatusUpdate: any = []
   listChat: any[] = []
   selectedLabel: any[] = []
+  selectedAssign: any[] = []
+  selectedFollow: any[] = []
   listSelectChat: any[] = []
   listMessenger: any[] = []
   listEmailInfo: any[] = []
+  listAssign: any[] = []
 
   onSelectChat(event: any) {
     console.log(event)
@@ -231,7 +238,6 @@ export class DashboardComponent implements OnInit {
       if (result.status == 1) {
         //thành công
         this.showSuccess("Send success")
-        this.viewMail = false;
         this.detailMail(this.mailDetails)
         this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
       }
@@ -244,17 +250,36 @@ export class DashboardComponent implements OnInit {
 
   mailDetails: any;
   listLabelEmail: any = [];
-  viewMail: boolean = false
+  viewMail: boolean = false;
   detailMail(item: any) {
     this.messenger = "";
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
       this.listLabelEmail = result.listLabel
       this.listEmailInfo = result.listEmailInfo
-      this.selectedLabel = []
+      this.listHistory = result.listHistory
+      this.listFollow = result.listFollow
+      this.listAssign = result.listAssign
+
       if (this.mailDetails.status > 0) {
         this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
       }
+      
+      this.selectedAssign = []
+      result.listAssign.forEach((item: { check: boolean; }) => {
+        if (item.check == true) {
+          this.selectedAssign.push(item)
+        }
+      });
+
+      this.selectedFollow = []
+      result.listFollow.forEach((item: { check: boolean; }) => {
+        if (item.check == true) {
+          this.selectedFollow.push(item)
+        }
+      });
+      
+      this.selectedLabel = []
       result.listLabel.forEach((item: { check: boolean; }) => {
         if (item.check == true) {
           this.selectedLabel.push(item)
@@ -263,17 +288,17 @@ export class DashboardComponent implements OnInit {
 
       this.listMessenger = [];
       this.listEmailInfo.forEach(element => {
-        this.listMessenger.push({ 
+        this.listMessenger.push({
           id: element.id,
           messenger: element.textBody,
           dateTime: new Date(element.date),
           type: element.type,
         })
       });
+      this.viewMail = true;
     });
 
     // this.listMessenger = [];
-    this.viewMail = true;
     this.subject = item.subject
     // this.listMessenger.push({
     //   id: item.id,
@@ -302,7 +327,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  addHistory(idEmailInfo: any, content: any){    
+  addHistory(idEmailInfo: any, content: any) {
     let request = {
       idCompany: this.idCompany,
       idDetail: idEmailInfo,
@@ -315,7 +340,7 @@ export class DashboardComponent implements OnInit {
       if (result.status == 1) {
       }
     });
-    
+
   }
 
   sendMailCsat(idGuId: any) {
@@ -355,6 +380,34 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.postEmailInfoLabel(request).subscribe((result) => {
       this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update label to email info');
+      this.detailMail(this.mailDetails)
+    });
+  }
+
+  updateAssign() {
+    let request = {
+      id: 0,
+      idEmailInfo: this.mailDetails.id,
+      listLabel: this.listIdLabelSelect
+    }
+    debugger
+    this.emailInfoService.updateAssign(request).subscribe((result) => {
+      this.showSuccess("Update success");
+      this.addHistory(this.mailDetails.id, 'Update assign to email');
+      this.detailMail(this.mailDetails)
+    });
+  }
+
+  updateFollow() {
+    let request = {
+      id: 0,
+      idEmailInfo: this.mailDetails.id,
+      listFollow: this.listIdFollowSelect
+    }
+    this.emailInfoService.updateFollow(request).subscribe((result) => {
+      this.showSuccess("Update success");
+      this.addHistory(this.mailDetails.id, 'Update follow to email');
+      this.detailMail(this.mailDetails)
     });
   }
 
@@ -364,5 +417,37 @@ export class DashboardComponent implements OnInit {
     this.selectedLabel.forEach((x) => {
       this.listIdLabelSelect.push(x.id)
     })
+    this.updateEmailInfoLabel()
+  }
+
+  listIdFollowSelect: any = []
+  onChangeSelectFollow() {
+    this.listIdFollowSelect = []
+    this.selectedFollow.forEach((x) => {
+      this.listIdFollowSelect.push(x.id)
+    })
+    this.updateFollow()
+  }
+
+  listIdAssignSelect: any = []
+  onChangeSelectAssign() {
+    this.listIdAssignSelect = []
+    this.selectedAssign.forEach((x) => {
+      this.listIdAssignSelect.push(x.id)
+    })
+    this.updateAsign()
+  }
+  
+  confirm() {
+    this.confirmationService.confirm({
+      header: 'Confirmation delete',
+      icon: 'pi pi-exclamation-triangle',
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        // this.emailInfoService.delete(this.mailDetails.id).subscribe((result) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete success' });
+        // })
+      }
+    });
   }
 }
