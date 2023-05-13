@@ -70,4 +70,10 @@ export class ContactService {
     );
   }
 
+  postNoteContact(request: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/ContactNotes', request
+    );
+  }
+
 }

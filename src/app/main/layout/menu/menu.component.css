@@ -4,16 +4,40 @@
     overflow: hidden;
 }
 
+.bg-main-menu {
+    position: fixed;
+    min-height: 100vh;
+    background: #000000DE;
+}
+
+.nav-link {
+    color: #FFFFFF;
+}
+
+.nav-link i.pi {
+    font-size: 20px;
+}
+
+.logo-main-menu {
+    margin-top: 20px;
+}
+
 .primary--sidebar {
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #f1f5f8;
     box-sizing: content-box;
     flex-shrink: 0;
-    width: 55px;
+    width: 70px;
 }
 
-.primary--sidebar img {
+.title-menu {
+    font-weight: 700;
+    font-size: 18px;
+    color: #FFFFFF;
+    margin: 32px 20px;
+}
+
+.avatar-main-menu {
     width: auto;
     height: 45px;
     border-radius: 50%;
@@ -27,55 +51,58 @@
     box-sizing: content-box;
     height: 100%;
     flex-shrink: 0;
-    background: white;
-    min-height: 100vh;
+    background: #242529;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .primary--sidebar .menu-item {
-    width: 40px;
-    height: 40px;
+    width: 52px;
+    height: 52px;
     margin: 10px 0px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 12px;
+}
+
+.menu.vertical{
+    padding: 12px 0px;
+}
+
+.menu.vertical svg{
+    margin-right: 10px;
+}
+
+.list-menu-bottom{
+    margin-top: 20px;
+}
+
+hr{
+    border: 1px solid #FFFFFF29;
+    margin: 0;
 }
 
 .secondary-sidebar .sidebar-item {
-    padding: 0px 5px;
     display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    margin: 3px 0px;
+    color: #FFFFFFB2;
 }
 
-.secondary-sidebar .sidebar-item a,
-.secondary-sidebar .sidebar-item .secondary-menu--wrap {
-    width: 100%;
-    padding: 8px;
-    color: #37546D;
-}
-
-.sidebar-item .sidebar-item a,
-.menu-item--new a {
-    padding: 4px 8px !important;
-}
-
-.menu-item--new {
-    display: flex;
-    font-size: 13px;
-}
-
-.sidebar-item .fw-semibold {
-    padding: 0px 8px;
-}
-
-
-
-.tab-content .sidebar-item .active-secondary,
-.tab-content .sidebar-item a:hover,
-.options-menu .active-secondary{
+.sidebar-item.active-secondary,
+.sidebar-item:hover,
+.options-menu .active-secondary {
     background: #f5faff;
-    color: #1f93ff;
+    color: #FFFFFF !important;
     border-color: #f5faff;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.16);
 }
-
+.sidebar-item>div{
+    align-self: center
+}
 .btn-bottom {
     position: absolute;
     bottom: 0;
@@ -104,4 +131,12 @@
     position: absolute;
     right: 0;
     bottom: 0;
+}
+
+.list-menu-bottom .color-ffffff{
+    color: #FFFFFF;
+}   
+
+.main-menu{
+    max-height: 100vh;
 }

@@ -6,7 +6,8 @@
                     <a class="search--link">
                         <span class="p-input-icon-left py-3 w-100">
                             <i class="pi pi-search"></i>
-                            <input type="text" pInputText [(ngModel)]="textSearchChange" placeholder="Search" (keyup.enter)="onChangeValue()">
+                            <input type="text" pInputText [(ngModel)]="textSearchChange" placeholder="Search"
+                                (keyup.enter)="onChangeValue()">
                         </span>
                     </a>
                 </div>
@@ -219,8 +220,14 @@
                                     </path>
                                 </svg>
                             </button> -->
-                            <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel" defaultLabel="Select label"
-                                optionLabel="name" class="multiselect-custom me-2" (onChange)="onChangeSelectLabel()">
+
+                            <p-dropdown *ngIf="mailDetails" [options]="listUser" [(ngModel)]="mailDetails.assign"
+                            class="me-2" (onChange)="updateAsign()" placeholder="Select a assign"
+                            optionLabel="fullname" optionValue="id" [showClear]="true"></p-dropdown>
+
+                            <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel"
+                                defaultLabel="Select label" optionLabel="name" class="multiselect-custom me-2"
+                                (onChange)="onChangeSelectLabel()">
                                 <ng-template let-value pTemplate="selectedItems">
                                     <div class="label-item label-item-value" *ngFor="let option of selectedLabel">
                                         <p-colorPicker [(ngModel)]="option.color" [disabled]="true"></p-colorPicker>
@@ -238,7 +245,8 @@
                                 </ng-template>
                             </p-multiSelect>
 
-                            <button type="button" class="btn btn-primary status-botton" (click)="updateEmailInfoLabel()" [disabled]="listIdLabelSelect.length == 0">
+                            <button type="button" class="btn btn-primary status-botton" (click)="updateEmailInfoLabel()"
+                                [disabled]="listIdLabelSelect.length == 0">
                                 <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                     xmlns="http://www.w3.org/2000/svg" class="icon icon--font checkmark">
                                     <path
@@ -325,13 +333,14 @@
                     <div class="view-box fill-height">
                         <ul class="conversation-panel">
                             <ng-template ngFor let-item [ngForOf]="listMessenger" let-i="index">
-                                <li class="message-read mt-3">
+                                <li class="message-read mt-3"
+                                    [ngClass]="{'mess-in': item.type == 1, 'mess-out': item.type == 2}">
                                     <div class="activity-wrap">
                                         <div class="message-text">
                                             <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
                                                 [disabled]="readonly"></ckeditor>
                                         </div>
-                                        <div class="message-time mt-2">
+                                        <div class="message-time mb-2">
                                             <span class="time">
                                                 {{item.dateTime | date:'MM/dd/yy h:mm a'}}
                                             </span>
@@ -345,7 +354,7 @@
                             <ckeditor [editor]="Editor" [(ngModel)]="messenger" [data]="signature"></ckeditor>
                             <div class="groupt-submit mb-3 ms-3">
                                 <div class="btn-groupt d-flex align-items-center">
-                                    <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()">Send</button>
+                                    <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()" [disabled]="!messenger || sending">{{sending? 'Sending':'Send'}}</button>
                                     <label for="attachment" class="text-secondary me-2">
                                         <i class="pi pi-paperclip"></i>
                                     </label>

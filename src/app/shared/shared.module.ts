@@ -81,7 +81,6 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
-
 @NgModule({
   declarations: [
   ],

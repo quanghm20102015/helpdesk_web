@@ -1,0 +1,12 @@
+#dropdown-report .p-dropdown.p-component{
+    max-width: 300px;
+}
+
+.tab-btn{
+    background: #EFF0F2;
+    border-radius: 8px;
+}
+
+.tab-btn .tab{
+    padding: 10px 20px;
+}

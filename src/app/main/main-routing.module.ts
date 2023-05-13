@@ -40,10 +40,13 @@ const routes: Routes = [
     children: [
       { path: 'conversations', redirectTo: 'conversations/dashboard', pathMatch: 'full' },
       { path: 'conversations/dashboard', component: DashboardComponent },
-      { path: 'conversations/mentions', component: MentionsComponent },
-      { path: 'conversations/unattended', component: UnattendedComponent },
-      { path: 'conversations/inbox/:id', component: InboxesComponent },
-      { path: 'conversations/label/:id', component: LabelsComponent },
+      { path: 'conversations/mentions', component: DashboardComponent },
+      { path: 'conversations/following', component: DashboardComponent },
+      { path: 'conversations/unattended', component: DashboardComponent },
+      { path: 'conversations/resolved', component: DashboardComponent },
+      { path: 'conversations/trash', component: DashboardComponent },
+      { path: 'conversations/channel/:id', component: DashboardComponent },
+      { path: 'conversations/label/:id', component: DashboardComponent },
 
       { path: 'contacts', redirectTo: 'contacts/all', pathMatch: 'full' },
       { path: 'contacts/all', component: ContactsComponent },

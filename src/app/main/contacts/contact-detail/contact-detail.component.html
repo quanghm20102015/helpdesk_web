@@ -90,9 +90,8 @@
                                 </div>
                             </ng-template>
                         </p-multiSelect> -->
-                        <p-multiSelect [options]="listLabels" [(ngModel)]="selectedLabel"
-                            defaultLabel="Select label" optionLabel="name" class="multiselect-custom me-2"
-                            (onChange)="onChangeSelectLabel()">
+                        <p-multiSelect [options]="listLabels" [(ngModel)]="selectedLabel" defaultLabel="Select label"
+                            optionLabel="name" class="multiselect-custom me-2" (onChange)="onChangeSelectLabel()">
                             <ng-template let-value pTemplate="selectedItems">
                                 <div class="label-item label-item-value" *ngFor="let option of selectedLabel">
                                     <p-colorPicker [(ngModel)]="option.color" [disabled]="true"></p-colorPicker>
@@ -110,8 +109,8 @@
                             </ng-template>
                         </p-multiSelect>
 
-                        <button type="button" class="btn btn-primary status-botton d-block mt-2" (click)="updateContactLabel()"
-                            [disabled]="listIdLabelSelect.length == 0">
+                        <button type="button" class="btn btn-primary status-botton d-block mt-2"
+                            (click)="updateContactLabel()" [disabled]="listIdLabelSelect.length == 0">
                             <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg" class="icon icon--font checkmark">
                                 <path
@@ -126,13 +125,16 @@
                     </div>
                 </div>
                 <div class="col-md-9 bg-light">
-                    <div>
-                        <h4>Notes</h4>
+                    <h4>Notes</h4>
+                    <div class="mb-3">
                         <textarea [rows]="5" [cols]="30" [(ngModel)]="notes" pInputTextarea
                             [autoResize]="true"></textarea>
+                        <button type="button" class="btn btn-primary" (click)="addNote()"
+                            [disabled]="!notes">Save</button>
                     </div>
-                    <div>
-                        <button type="button" class="btn btn-primary" [disabled]="!notes">Save</button>
+                    <div *ngFor="let item of listNote; index as i;">
+                        <textarea pInputTextarea [(ngModel)]="item.note" [autoResize]="true"
+                            [disabled]="true"></textarea>
                     </div>
                 </div>
             </div>

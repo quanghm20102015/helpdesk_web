@@ -30,6 +30,7 @@ export class ContactDetailComponent implements OnInit {
   model: any = {}
   countries: any = []
   notes: string = ''
+  listNote: any = []
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.model.id = +params['id']
@@ -57,11 +58,25 @@ export class ContactDetailComponent implements OnInit {
     this.contactService.getContact(this.model.id).subscribe((result) => {
       this.model = result.contact
       this.listLabels = result.listLabel
+      this.listNote = result.listNote
       result.listLabel.forEach((item: { check: boolean; }) => {
         if (item.check == true) {
           this.selectedLabel.push(item)
         }
       });
+    });
+  }
+
+  addNote(){
+    let request = {
+      id: 0,
+      idContact: this.model.id,
+      note: this.notes
+    }
+    this.contactService.postNoteContact(request).subscribe((result) => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add note success' });
+      this.notes = ''
+      this.getData()
     });
   }
 
