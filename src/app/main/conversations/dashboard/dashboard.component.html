@@ -284,7 +284,7 @@
                         <ul class="conversation-panel">
                             <ng-template ngFor let-item [ngForOf]="listMessenger" let-i="index">
                                 <li class="message-read mt-3"
-                                    [ngClass]="{'mess-in': item.type == 1, 'mess-out': item.type == 2}">
+                                    [ngClass]="{'mess-in': item.type == 1, 'mess-out': item.type == 2, 'mess-center': item.type == 3}">
                                     <div class="activity-wrap">
                                         <div class="message-time mb-1 text-align-right">
                                             <span class="time">

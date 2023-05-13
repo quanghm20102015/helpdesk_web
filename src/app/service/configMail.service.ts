@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ServiceInvokerService } from "./service-invoker.service";
 import { Observable } from "rxjs";
 import { AppSettings } from "../constants/app-setting";
@@ -12,6 +12,8 @@ export class ConfigMailService {
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService
   ) {}
+
+  reqHeaders = new HttpHeaders().set('Content-Type','application/json');
 
   create(data: any): Observable<any> {
     return this.http.post(
@@ -44,4 +46,11 @@ export class ConfigMailService {
       AppSettings.HostingAddress + '/ConfigMails/' + id
     );
   }
+
+  getMenuCount(request: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/GetMenuCount',JSON.stringify(request),{headers:this.reqHeaders}
+      );
+  }
+    
 }

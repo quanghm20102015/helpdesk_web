@@ -5,10 +5,6 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './conversations/dashboard/dashboard.component';
-import { MentionsComponent } from './conversations/mentions/mentions.component';
-import { UnattendedComponent } from './conversations/unattended/unattended.component';
-import { InboxesComponent } from './conversations/inboxes/inboxes.component';
-import { LabelsComponent } from './conversations/labels/labels.component';
 import { AccountComponent } from './settings/account/account.component';
 import { StInboxesComponent } from './settings/st-inboxes/st-inboxes.component';
 import { StLabelsComponent } from './settings/st-labels/st-labels.component';
@@ -49,10 +45,6 @@ import { ContactDetailComponent } from './contacts/contact-detail/contact-detail
     MenuComponent,
     //Conversations
     DashboardComponent,
-    MentionsComponent,
-    UnattendedComponent,
-    InboxesComponent,
-    LabelsComponent,
     //Setting
     AccountComponent,
     StAgentsComponent,
