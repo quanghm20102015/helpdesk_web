@@ -83,6 +83,7 @@ export class DashboardComponent implements OnInit {
       idConfigEmail: 0,
       idLabel: 0,
       idUserFollow: 0,
+      idUserTrash: 0,
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {
@@ -102,6 +103,7 @@ export class DashboardComponent implements OnInit {
     }
     else if (this.router.url.includes('/trash')) {
       this.title = 'Trash'
+      request.idUserTrash = this.idUser
     }
     else if (this.router.url.includes('/channel/')) {
       request.idConfigEmail = this.id
@@ -439,15 +441,29 @@ export class DashboardComponent implements OnInit {
     this.updateAsign()
   }
 
+  delete(){
+    let request = {
+      idEmailInfo: this.mailDetails.id,
+      idUserDelete: this.idUser
+    }
+    this.emailInfoService.delete(request).subscribe((result) => {
+      if(result.status == 1){
+        this.viewMail = false
+        this.loadListEmail()
+        this.showSuccess('Delete success');
+      } else {
+        this.showError('Error')
+      }
+    });
+  }
+
   confirm() {
     this.confirmationService.confirm({
       header: 'Confirmation delete',
       icon: 'pi pi-exclamation-triangle',
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
-        // this.emailInfoService.delete(this.mailDetails.id).subscribe((result) => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete success' });
-        // })
+        this.delete()
       }
     });
   }

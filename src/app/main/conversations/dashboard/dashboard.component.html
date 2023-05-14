@@ -406,9 +406,10 @@
                                     Activities
                                 </ng-template>
                                 <div *ngFor="let item of listHistory">
-                                    <div class="d-flex justify-content-between">
+                                    <!-- <div class="d-flex justify-content-between"> -->
+                                    <div class="">
                                         <strong>{{item.fullName}}</strong>
-                                        <div>3d ago</div>
+                                        <div>{{item.time | date:'short'}}</div>
                                     </div>
                                     <div class="info-label">{{item.content}}</div>
                                 </div>
