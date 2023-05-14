@@ -320,6 +320,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
       if (result.status == 1) {
         this.loadListEmail();
+        this.detailMail(this.mailDetails)
         this.showSuccess("Change status success");
         if (requets.status == 2) {
           //status resole, send mail survey
