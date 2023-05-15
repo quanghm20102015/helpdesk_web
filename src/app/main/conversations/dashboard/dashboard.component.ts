@@ -84,6 +84,7 @@ export class DashboardComponent implements OnInit {
       idLabel: 0,
       idUserFollow: 0,
       idUserTrash: 0,
+      unAssign: false
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {
@@ -96,6 +97,7 @@ export class DashboardComponent implements OnInit {
     }
     else if (this.router.url.includes('/unattended')) {
       this.title = 'Unassigned'
+      request.unAssign = true
     }
     else if (this.router.url.includes('/resolved')) {
       this.title = 'Resolved'
