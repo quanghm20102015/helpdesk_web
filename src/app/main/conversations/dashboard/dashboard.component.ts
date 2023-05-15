@@ -48,12 +48,15 @@ export class DashboardComponent implements OnInit {
   idOld: any = 0
   listHistory: any = []
   listFollow: any = []
+
+  url: string = ''
+  urlOld:string = ''
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
-      if (params['id']) this.id = +params['id']
-      this.idOld = this.id
+      if (params['id']) {
+        this.id = +params['id']
+      }
     })
-
     this.getListUser()
     this.loadListEmail();
     this.loadStatus();
@@ -64,11 +67,9 @@ export class DashboardComponent implements OnInit {
     this.messenger = this.signature
   }
   ngAfterContentChecked(): void {
-    console.log(this.id, this.idOld)
-    console.log(this.router.url)
-    if (this.id != this.idOld) {
-      this.idOld = this.id
+    if ( this.id != this.idOld) {
       this.loadListEmail()
+      this.idOld = this.id
     }
   }
   title: string = ''
@@ -82,6 +83,7 @@ export class DashboardComponent implements OnInit {
       idConfigEmail: 0,
       idLabel: 0,
       idUserFollow: 0,
+      idUserTrash: 0,
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {
@@ -97,10 +99,11 @@ export class DashboardComponent implements OnInit {
     }
     else if (this.router.url.includes('/resolved')) {
       this.title = 'Resolved'
-      this.status = 2
+      request.status = 2
     }
     else if (this.router.url.includes('/trash')) {
       this.title = 'Trash'
+      request.idUserTrash = this.idUser
     }
     else if (this.router.url.includes('/channel/')) {
       request.idConfigEmail = this.id
@@ -264,7 +267,7 @@ export class DashboardComponent implements OnInit {
       if (this.mailDetails.status > 0) {
         this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
       }
-      
+
       this.selectedAssign = []
       result.listAssign.forEach((item: { check: boolean; }) => {
         if (item.check == true) {
@@ -278,7 +281,7 @@ export class DashboardComponent implements OnInit {
           this.selectedFollow.push(item)
         }
       });
-      
+
       this.selectedLabel = []
       result.listLabel.forEach((item: { check: boolean; }) => {
         if (item.check == true) {
@@ -317,6 +320,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
       if (result.status == 1) {
         this.loadListEmail();
+        this.detailMail(this.mailDetails)
         this.showSuccess("Change status success");
         if (requets.status == 2) {
           //status resole, send mail survey
@@ -437,16 +441,30 @@ export class DashboardComponent implements OnInit {
     })
     this.updateAsign()
   }
-  
+
+  delete(){
+    let request = {
+      idEmailInfo: this.mailDetails.id,
+      idUserDelete: this.idUser
+    }
+    this.emailInfoService.delete(request).subscribe((result) => {
+      if(result.status == 1){
+        this.viewMail = false
+        this.loadListEmail()
+        this.showSuccess('Delete success');
+      } else {
+        this.showError('Error')
+      }
+    });
+  }
+
   confirm() {
     this.confirmationService.confirm({
       header: 'Confirmation delete',
       icon: 'pi pi-exclamation-triangle',
       message: 'Are you sure that you want to perform this action?',
       accept: () => {
-        // this.emailInfoService.delete(this.mailDetails.id).subscribe((result) => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete success' });
-        // })
+        this.delete()
       }
     });
   }

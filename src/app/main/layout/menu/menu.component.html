@@ -120,7 +120,7 @@
                                 All
                             </div>
                             <div>
-                                99+
+                                {{emailInfoCount.all? emailInfoCount.all:''}}
                             </div>
                         </li>
                         <li class="sidebar-item cursor-pointer" routerLinkActive="active-secondary"
@@ -145,7 +145,7 @@
                                 Mine
                             </div>
                             <div>
-                                3
+                                {{emailInfoCount.mine? emailInfoCount.mine:''}}
                             </div>
                         </li>
                         <li class="sidebar-item cursor-pointer" routerLinkActive="active-secondary"
@@ -167,7 +167,7 @@
                                 Following
                             </div>
                             <div>
-                                1
+                                {{emailInfoCount.following? emailInfoCount.following:''}}
                             </div>
                         </li>
                         <li class="sidebar-item cursor-pointer" routerLinkActive="active-secondary"
@@ -189,7 +189,7 @@
                                 Unassigned
                             </div>
                             <div>
-                                21
+                                {{emailInfoCount.unassigned? emailInfoCount.unassigned:''}}
                             </div>
                         </li>
                         <li class="sidebar-item cursor-pointer" routerLinkActive="active-secondary"
@@ -211,7 +211,7 @@
                                 Resolved
                             </div>
                             <div>
-                                0
+                                {{emailInfoCount.resolved? emailInfoCount.resolved:''}}
                             </div>
                         </li>
                         <li class="sidebar-item cursor-pointer" routerLinkActive="active-secondary"
@@ -236,7 +236,8 @@
                                 Trash
                             </div>
                             <div>
-                                0
+                                {{emailInfoCount.trash? emailInfoCount.trash:''}}
+
                             </div>
                         </li>
                     </ul>

@@ -56,6 +56,25 @@ html {
     }
 }
 
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	/* background-color: #3A69DB; */
+}
+
+::-webkit-scrollbar
+{
+	width: 5px;
+	/* background-color: #3A69DB; */
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #3A69DB;
+}
+
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {}
 
@@ -510,6 +529,10 @@ p-multiselect {
     max-width: 200px;
 }
 
+.mess-center {
+    justify-content: center;
+}
+
 .mess-out {
     justify-content: flex-end;
 }
@@ -527,6 +550,14 @@ p-multiselect {
     color: #FFFFFF;
     padding: 12px 16px;
     border-radius: 20px 20px 0px 20px !important;
+    border: none;
+}
+
+.mess-center .ck.ck-editor__main>.ck-editor__editable {
+    background: dimgrey;
+    color: #FFFFFF;
+    padding: 12px 16px;
+    border-radius: 20px 20px 20px 20px !important;
     border: none;
 }
 

@@ -15,35 +15,43 @@ import { UserService } from '../../../service/user.service';
 })
 export class MenuComponent implements OnInit {
   constructor(
-    private _fb: FormBuilder, 
-    private router: Router, 
+    private _fb: FormBuilder,
+    private router: Router,
     private configMailService: ConfigMailService,
     private labelService: LabelService,
     private messageService: MessageService,
     private userInfoStorageService: UserInfoStorageService,
     private userService: UserService
-    ) { }
+  ) { }
 
   idInterval: any;
+  idIntervalCountMenu: any;
+
   ngOnInit(): void {
-    this.idCompany = this.userInfoStorageService.getCompanyId()
-    this.idUser = this.userInfoStorageService.getIdUser()
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+    this.idUser = +this.userInfoStorageService.getIdUser()
     this.getListInbox();
     this.loadDataLabel();
+
+    this.getMenuCount();    
+    this.idIntervalCountMenu = setInterval(() => {
+      this.getMenuCount();
+    }, 5000);
+
     console.log(this.router.url);
     this.listRouterTab.forEach(item => {
-      console.log('Url: ',this.url)
+      console.log('Url: ', this.url)
       if (this.url.includes(item.uri)) {
         this.tab = item.tab
-        console.log('Tab: ',this.tab)
+        console.log('Tab: ', this.tab)
       }
     })
 
     this.postLogin();
     // window.addEventListener('beforeunload', this.postLogout, false);
-    
+
     // window.addEventListener('beforeunload', this.postLogout, false);
-    
+
     window.addEventListener('beforeunload', (event) => {
       this.postLogout();
     });
@@ -68,11 +76,22 @@ export class MenuComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
   }
+  
+  emailInfoCount: any = {}
+  getMenuCount(){
+    let request = {
+      idCompany: this.idCompany,
+      idUser: this.idUser
+    }
+    this.configMailService.getMenuCount(request).subscribe((result) => {
+      this.emailInfoCount = result.emailInfoCount;
+    });
+  }
 
-  getListInbox(){
+  getListInbox() {
     this.configMailService.GetByIdCompany(this.idCompany).subscribe((result) => {
       this.listInboxes = result.listConfigMail;
-      console.log('this.listInboxes',this.listInboxes)
+      console.log('this.listInboxes', this.listInboxes)
     });
   }
 
@@ -110,23 +129,23 @@ export class MenuComponent implements OnInit {
     // { name: 'Page 2', id: 329 },
   ]
 
-  setTab(tab: any){
+  setTab(tab: any) {
     this.tab = tab
   }
 
-  loadDataLabel(){
+  loadDataLabel() {
     this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
       this.listLabel = result;
-      console.log('this.listLabel',this.listLabel)
+      console.log('this.listLabel', this.listLabel)
     });
   }
-  saveLabel(){    
+  saveLabel() {
     this.model.idCompany = this.userInfoStorageService.getCompanyId();
     this.labelService.create(this.model).subscribe((result) => {
-      if(result.status == 1){          
+      if (result.status == 1) {
         this.display = false;
       }
-      else{
+      else {
         this.showError(result.message);
       }
     });
@@ -135,42 +154,48 @@ export class MenuComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 
-  postLogin(){
+  postLogin() {
     let request = {
       idUser: this.idUser
     }
     this.userService.postLogin(request).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
       }
-      else{
+      else {
       }
     });
   }
 
-  postLogout(){
+  postLogout() {
     let request = {
       idUser: this.idUser
     }
     this.userService.postLogout(request).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
       }
-      else{
+      else {
       }
     });
   }
 
-  changeStatus(status: any){    
+  changeStatus(status: any) {
     let request = {
       idUser: this.idUser,
       status: status
     }
     this.userService.changeStatus(request).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
         this.userInfoStorageService.setStatus(status)
         this.status = status
       }
-      else{
+      else {
       }
     });
+  }
+  
+  ngOnDestroy() {
+    if (this.idIntervalCountMenu) {
+      clearInterval(this.idIntervalCountMenu);
+    }
   }
 }

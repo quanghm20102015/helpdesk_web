@@ -34,6 +34,19 @@ export class EmailInfoService {
     );
   }
 
+  delete(request: any): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: request
+    };
+    
+    return this.http.delete(
+      AppSettings.HostingAddress + '/EmailInfoes', options
+    );
+  }
+
   SendMail(data: any): Observable<any> {
     return this.http.post(
       AppSettings.HostingAddress + '/EmailInfoes/SendMail',
@@ -46,10 +59,10 @@ export class EmailInfoService {
       AppSettings.HostingAddress + '/EmailInfoes/GetByIdCompany?idCompany=' + idCompany
     );
   }
-  getByStatus(requets: any): Observable<any> {
+  getByStatus(request: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/EmailInfoes/getByStatus?idCompany=' + requets.idCompany + '&status=' + requets.status,
-      requets
+      AppSettings.HostingAddress + '/EmailInfoes/getByStatus?idCompany=' + request.idCompany + '&status=' + request.status,
+      request
     );
   }
 
@@ -60,10 +73,10 @@ export class EmailInfoService {
       data
     );
   }
-  getByIdLabel(requets: any): Observable<any> {
+  getByIdLabel(request: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/EmailInfoes/GetByIdLabel?idCompany=' + requets.idCompany + '&idLable=' + requets.idLabel + '&status=' + requets.status,
-      requets
+      AppSettings.HostingAddress + '/EmailInfoes/GetByIdLabel?idCompany=' + request.idCompany + '&idLable=' + request.idLabel + '&status=' + request.status,
+      request
     );
   }
 
@@ -72,36 +85,36 @@ export class EmailInfoService {
       AppSettings.HostingAddress + '/EmailInfoes/GetByIdConfigEmail?idConfigEmail=' + id,
     );
   }
-  getByAgent(requets: any): Observable<any> {
+  getByAgent(request: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/EmailInfoes/GetByAgent?idCompany=' + requets.idCompany + '&assign=' + requets.assign + '&status=' + requets.status,
-      requets
+      AppSettings.HostingAddress + '/EmailInfoes/GetByAgent?idCompany=' + request.idCompany + '&assign=' + request.assign + '&status=' + request.status,
+      request
     );
   }
 
-  getCountByCompanyAgent(requets: any): Observable<any> {
+  getCountByCompanyAgent(request: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/EmailInfoes/GetCountByCompanyAgent?idCompany=' + requets.idCompany
-      + '&assign=' + requets.assign + '&idConfigEmail=' + requets.idConfigEmail + '&status=' + requets.status + '&idLabel=' + requets.idLabel,
-      requets
+      AppSettings.HostingAddress + '/EmailInfoes/GetCountByCompanyAgent?idCompany=' + request.idCompany
+      + '&assign=' + request.assign + '&idConfigEmail=' + request.idConfigEmail + '&status=' + request.status + '&idLabel=' + request.idLabel,
+      request
     );
   }
 
-  postEmailInfoLabel(requets: any): Observable<any> {
+  postEmailInfoLabel(request: any): Observable<any> {
     return this.http.post(
-      AppSettings.HostingAddress + '/EmailInfoLabels', requets
+      AppSettings.HostingAddress + '/EmailInfoLabels', request
     );
   }
 
-  getFillter(requets: any): Observable<any> {
+  getFillter(request: any): Observable<any> {
     return this.http.post(
-      AppSettings.HostingAddress + '/EmailInfoes/GetFillter',JSON.stringify(requets),{headers:this.reqHeaders}
+      AppSettings.HostingAddress + '/EmailInfoes/GetFillter',JSON.stringify(request),{headers:this.reqHeaders}
     );
   }
 
-  getFillterCount(requets: any): Observable<any> {
+  getFillterCount(request: any): Observable<any> {
     return this.http.post(
-      AppSettings.HostingAddress + '/EmailInfoes/GetFillterCount',JSON.stringify(requets),{headers:this.reqHeaders}
+      AppSettings.HostingAddress + '/EmailInfoes/GetFillterCount',JSON.stringify(request),{headers:this.reqHeaders}
       );
   }
   

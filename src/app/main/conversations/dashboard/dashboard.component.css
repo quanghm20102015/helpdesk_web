@@ -47,3 +47,7 @@
 .header-actions-wrap .btn-mobile>button.btn:hover{
     background-color: #EFF0F2;
 }
+
+.content-right{
+    overflow-wrap: anywhere;
+}
