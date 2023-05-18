@@ -16,15 +16,17 @@ export class MainComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
+
   onResize(event: any) {
-    if (window.innerWidth <= 1025) {
-      let conllapse = $('#btncollapse')
-      conllapse.addClass('hide-menu')
-    }
+    // if (window.innerWidth <= 1025) {
+    //   let conllapse = $('#btncollapse')
+    //   conllapse.addClass('hide-menu')
+    // }
   }
+
   onCollapse() {
-    let conllapse = $('#btncollapse')
-    conllapse.toggleClass('hide-menu')
+    // let conllapse = $('#btncollapse')
+    // conllapse.toggleClass('hide-menu')
   }
 
 }

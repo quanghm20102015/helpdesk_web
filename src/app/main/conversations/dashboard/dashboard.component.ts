@@ -197,6 +197,7 @@ export class DashboardComponent implements OnInit {
   listMessenger: any[] = []
   listEmailInfo: any[] = []
   listAssign: any[] = []
+  filteredListAssign: any[] = []
 
   onSelectChat(event: any) {
     console.log(event)
@@ -311,6 +312,20 @@ export class DashboardComponent implements OnInit {
     //   dateTime: new Date(item.date)
     // })
   }
+  filterAssign(event: any){
+    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
+    let filtered : any[] = [];
+    let query = event.query;
+
+    for(let i = 0; i < this.listAssign.length; i++) {
+        let assign = this.listAssign[i];
+        if (assign.fullname.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+            filtered.push(assign);
+        }
+    }
+
+    this.filteredListAssign = filtered;
+}
 
   updateStatus() {
     let requets = {
@@ -341,7 +356,6 @@ export class DashboardComponent implements OnInit {
       content: content,
       fullName: this.fullName
     }
-    debugger
     this.historyService.create(request).subscribe((result) => {
       if (result.status == 1) {
       }
@@ -396,7 +410,6 @@ export class DashboardComponent implements OnInit {
       idEmailInfo: this.mailDetails.id,
       listLabel: this.listIdLabelSelect
     }
-    debugger
     this.emailInfoService.updateAssign(request).subscribe((result) => {
       this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update assign to email');
