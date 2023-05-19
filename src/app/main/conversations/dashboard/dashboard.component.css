@@ -1,29 +1,30 @@
-.status-botton{
+.status-botton {
     margin-right: 20px;
 }
 
-.contact-info{
+.contact-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.info-label{
-    color: #00000080;
+.info-label {
+    color: rgba(0, 0, 0, 0.5);
 }
 
-.content-right .row>div{
+.content-right .row>div {
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-.name-customer .name{
+.name-customer .name {
     font-weight: 700;
     color: #3A69DB;
     align-items: center;
 }
 
-.p-accordion .p-accordion-content, .p-accordion .p-accordion-header{
+.p-accordion .p-accordion-content,
+.p-accordion .p-accordion-header {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
@@ -32,22 +33,83 @@
     background: #3A69DB;
     color: #FFFFFF !important;
     border-radius: 8px;
-    margin-top: 4px;
-    margin-bottom: 4px;
+}
+
+.item-chat {
+    display: block;
+    border: none !important;
+}
+
+.item-chat .box-left span,
+.item-chat .date-time.text-end {
+    font-size: 10px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.p-highlight .item-chat .box-left span,
+.p-highlight .item-chat .date-time.text-end {
+    color: #FFFFFF;
+}
+
+.icon-mail {
+    color: #37C541;
+}
+
+.p-highlight .icon-mail {
+    color: #FFFFFF;
+}
+
+.p-datatable .p-datatable-tbody>tr {
+    margin-bottom: 8px !important;
 }
 
 .p-highlight .item-chat .text-chat-firs {
     color: #FFFFFF !important;
 }
 
-.text-chat-firs{
-    color: #00000080;
+.text-chat-firs {
+    color: rgba(0, 0, 0, 0.5);
 }
 
-.header-actions-wrap .btn-mobile>button.btn:hover{
+.header-actions-wrap .btn-mobile>button.btn:hover {
     background-color: #EFF0F2;
 }
 
-.content-right{
+.content-right {
     overflow-wrap: anywhere;
+}
+
+.conversations-list tr {
+    margin-bottom: 8px;
+    display: block;
+    border-radius: 8px;
+}
+
+.conversations-list tr:not(.p-highlight) {
+    border: 1px solid #EFF0F2;
+}
+
+.conversations-list tr.p-highlight {
+    border: 1px solid #FFFFFF;
+}
+
+.sub-block-title {
+    font-weight: 700;
+    color: #343436;
+    font-size: 13px;
+}
+
+.p-multiselect-label {
+    width: 450px;
+}
+
+.p-overlaypanel .p-overlaypanel-content {
+    padding: 16px;
+}
+
+.action-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 8px;
 }

@@ -1,3 +1,7 @@
+*{
+    font-size: 13px;
+}
+
 #menu {
     width: 64px;
     min-height: 100vh;
@@ -7,7 +11,7 @@
 .bg-main-menu {
     position: fixed;
     min-height: 100vh;
-    background: #000000DE;
+    background: rgba(0, 0, 0, 0.87);
 }
 
 .nav-link {
@@ -28,6 +32,7 @@
     box-sizing: content-box;
     flex-shrink: 0;
     width: 70px;
+    padding-top: 25px;
 }
 
 .title-menu {
@@ -46,7 +51,7 @@
 .secondary-sidebar {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 208px;
     border-right: 1px solid #f1f5f8;
     box-sizing: content-box;
     height: 100%;
@@ -67,7 +72,7 @@
 }
 
 .menu.vertical{
-    padding: 12px 0px;
+    padding: 12px;
 }
 
 .menu.vertical svg{
