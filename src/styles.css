@@ -168,17 +168,6 @@ i.pi {
     width: 230px;
 }
 
-.content-right {
-    overflow-wrap: anyevery;
-    background: #FFFFFF;
-    height: 100vh;
-    overflow-y: auto;
-    right: 0;
-    position: absolute;
-    border-left: 1px solid #EFF0F2;
-    width: 230px;
-}
-
 .content-left>.container {
     height: 100%;
     background-color: white;
@@ -449,10 +438,15 @@ body {
 
 .content-center {
     padding-left: 230px;
-    padding-right: 230px;
+    padding-right: 250px;
     height: 100vh;
     overflow: auto;
     width: 100%;
+}
+
+.p-overlaypanel-content{
+    padding: 16px !important;
+    min-width: 300px;
 }
 
 .messages-and-sidebar {
@@ -464,8 +458,7 @@ body {
 
 
 .conv-header {
-    padding-top: 6px;
-    padding-bottom: 6px;
+    padding: 10px 16px;
     border-bottom: 1px solid #EFF0F2;
 }
 
