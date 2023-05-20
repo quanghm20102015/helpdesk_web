@@ -25,6 +25,12 @@ export class LabelService {
     );
   }
 
+  getMenuByIdCompany(idCompany: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Labels/GetMenuByIdCompany?idCompany=' + idCompany
+    );
+  }
+
   create(data: any): Observable<any> {
     return this.http.post(
       AppSettings.HostingAddress + '/Labels',

@@ -26,6 +26,9 @@ export class SetNewPasswordComponent implements OnInit {
 
   idGuId: any;
   ngOnInit(): void {
+    if (localStorage.getItem('idUser')) {
+      this.router.navigate(['/main/conversations/dashboard']);
+    }
     this.activatedRoute.params.subscribe((params) => {
       const { token } = params;
       this.idGuId = token;

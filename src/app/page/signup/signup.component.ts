@@ -30,6 +30,9 @@ export class SignupComponent implements OnInit {
   })
 
   ngOnInit(): void {
+    if (localStorage.getItem('idUser')) {
+      this.router.navigate(['/main/conversations/dashboard']);
+    }
     this.rebuilForm();
   }
 

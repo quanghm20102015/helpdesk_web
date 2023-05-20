@@ -506,6 +506,7 @@ export class DashboardComponent implements OnInit {
     this.updateAsign()
   }
 
+  displayDelete: boolean = false
   delete() {
     let request = {
       idEmailInfo: this.mailDetails.id,
@@ -515,6 +516,8 @@ export class DashboardComponent implements OnInit {
       if (result.status == 1) {
         this.viewMail = false
         this.loadListEmail()
+        this.displayDelete = false
+        this.mailDetails = {}
         // this.showSuccess('Delete success');
       } else {
         this.showError('Error')
@@ -525,8 +528,7 @@ export class DashboardComponent implements OnInit {
   confirm() {
     this.confirmationService.confirm({
       header: 'Confirmation delete',
-      icon: 'pi pi-exclamation-triangle',
-      message: 'Are you sure that you want to perform this action?',
+      message: 'Are you sure you want to delete this conversation?',
       accept: () => {
         this.delete()
       }

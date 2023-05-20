@@ -81,7 +81,7 @@
             <label class="label-input">
                 <div class="text-label">Short Code</div>
                 <input type="text" pInputText [(ngModel)]="model.code" formControlName="code"
-                    placeholder="Please enter a short code" class="form-control mt-1">
+                    placeholder="Please enter a short code" class="form-control">
                 <div *ngIf="(f['code'].dirty || f['code'].touched || submitted) && f['code'].invalid"
                     class="text-danger">
                     <div *ngIf="f['code'].errors?.['required']">
@@ -94,7 +94,7 @@
             <label class="label-input">
                 <div class="text-label">Content</div>
                 <input type="text" pInputText [(ngModel)]="model.content" formControlName="content"
-                    placeholder="Please enter a content" class="form-control mt-1">
+                    placeholder="Please enter a content" class="form-control">
                 <div *ngIf="(f['content'].dirty || f['content'].touched || submitted) && f['content'].invalid"
                     class="text-danger">
                     <div *ngIf="f['content'].errors?.['required']">

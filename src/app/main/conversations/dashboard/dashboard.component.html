@@ -41,8 +41,8 @@
                                 <ng-template pTemplate>
                                     <div class="input-search">
                                         <div class="action-title">Search</div>
-                                        <input type="text" pInputText [(ngModel)]="textSearch"
-                                            (keyup)="onKeyupSearch()" placeholder="Search for message" style="margin-bottom: 8px;">
+                                        <input type="text" pInputText [(ngModel)]="textSearch" (keyup)="onKeyupSearch()"
+                                            placeholder="Search for message" style="margin-bottom: 8px;">
                                     </div>
                                     <div>
                                         <p-table [value]="listChatSearch" [scrollable]="true">
@@ -112,7 +112,7 @@
                                 <ng-template pTemplate>
                                     <div class="action-title">Filter</div>
 
-                                    
+
                                 </ng-template>
                             </p-overlayPanel>
                         </div>
@@ -218,7 +218,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="title !== 'Trash'">
                     <div class="header-actions-wrap has-open-sidebar">
                         <div class="d-flex justify-content-end btn-mobile">
                             <button type="submit" class="btn btn-outline-secondary border-0 me-2"
@@ -319,7 +319,7 @@
                                 </ng-template>
                             </p-overlayPanel>
 
-                            <button class="btn btn-outline-secondary border-0 me-2" (click)="confirm()"
+                            <button class="btn btn-outline-secondary border-0 me-2" (click)="displayDelete = true"
                                 pTooltip="Delete" tooltipPosition="bottom">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -354,10 +354,10 @@
                                     </div>
                                 </ng-template>
                                 <ng-template let-item pTemplate="item">
-                                    <button class="country-item" class="btn status-botton"
+                                    <div class="status-item"
                                         [ngClass]="{'btn-outline-secondary' : item.id == 1,'btn-success': item.id == 2, 'btn-primary': item.id == 3}">
-                                        {{item.statusName}}
-                                    </button>
+                                        <span class="status-name">{{item.statusName}}</span>
+                                    </div>
                                 </ng-template>
                             </p-dropdown>
                         </div>
@@ -567,3 +567,33 @@
             </div>
         </div>
     </div>
+</div>
+
+<p-dialog [(visible)]="displayDelete" id="confirmation-delete" [modal]="true" class="box-dialog"
+    [style]="{width: '343px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title text-center">
+                Delete Confirmation
+            </p>
+            <p class="p-dialog-secondary ">
+
+            </p>
+        </div>
+    </ng-template>
+
+    <div class="content-delete text-center">
+        Are you sure you want to delete this conversation?
+    </div>
+
+    <div class="modal-footer justify-content-center">
+        <div class="btn-groupt btn-dialog">
+            <button class="btn btn-outline-secondary btn-cancel" (click)="displayDelete = false">
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary" (click)="delete()">
+                <span>Delete</span>
+            </button>
+        </div>
+    </div>
+</p-dialog>

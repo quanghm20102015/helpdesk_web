@@ -20,21 +20,26 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private encrdecrService: EncrDecrService,
     private router: Router,
-    private messageService: MessageService, 
+    private messageService: MessageService,
     private userInfoStorageService: UserInfoStorageService
-    ) { }
-  model: any = {workemail: '', password: ''}
+  ) { }
+  model: any = { workemail: '', password: '' }
   submitted: boolean = false
   form: FormGroup = this._fb.group({
-    workemail: [this.model.workemail, [Validators.required,Validators.email]],
+    workemail: [this.model.workemail, [Validators.required, Validators.email]],
     password: [this.model.password, [Validators.required]],
   });
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
+    debugger
+    let a = localStorage.getItem('idUser')
+    if (localStorage.getItem('idUser')) {
+      this.router.navigate(['/main/conversations/dashboard']);
+    }
     this.rebuilForm();
   }
 
-  onSubmit(){
+  onSubmit() {
     let request = {
       workemail: this.model.workemail,
       password: this.encrdecrService.set("mypassword", this.model.password).toString()
@@ -42,17 +47,16 @@ export class LoginComponent implements OnInit {
 
     this.submitted = true
     this.userService.login(request).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
         this.setLocalStorage(request.workemail)
-        this.router.navigate(['main/conversations']);
       }
-      else{
+      else {
         this.showError(result.message);
       }
     });
   }
-  
-  setLocalStorage(email: any){
+
+  setLocalStorage(email: any) {
     this.userService.getByEmail(email).subscribe((result) => {
       this.userInfoStorageService.setCompany(result.company)
       this.userInfoStorageService.setCompanyId(result.idCompany)
@@ -61,6 +65,7 @@ export class LoginComponent implements OnInit {
       this.userInfoStorageService.setWorkemail(result.workemail)
       this.userInfoStorageService.setConfirm(result.confirm)
       this.userInfoStorageService.setStatus(result.status)
+      this.router.navigate(['main/conversations']);
     });
   }
 
@@ -68,16 +73,16 @@ export class LoginComponent implements OnInit {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 
-	rebuilForm() {
-		this.form.reset({
-			workemail: '',
-			password: '',
-		})
-	}
-  
-	get f() {
-		return this.form.controls
-	}
+  rebuilForm() {
+    this.form.reset({
+      workemail: '',
+      password: '',
+    })
+  }
+
+  get f() {
+    return this.form.controls
+  }
 
   login() {
     this.router.navigate(['main/conversations']);

@@ -26,7 +26,7 @@
                         <label class="label-input">
                             <span class="text-label">Inbox name</span>
                             <input type="text" pInputText [(ngModel)]="model.yourName" formControlName="yourName"
-                                placeholder="Enter Inbox name" class="form-control mt-1">
+                                placeholder="Enter Inbox name" class="form-control">
                             <div *ngIf="(f['yourName'].dirty || f['yourName'].touched || submitted) && f['yourName'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['yourName'].errors?.['required']">
@@ -39,7 +39,7 @@
                         <label class="label-input">
                             <span class="text-label">Email</span>
                             <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
-                                placeholder="Enter Email" class="form-control mt-1">
+                                placeholder="Enter Email" class="form-control">
                             <div *ngIf="(f['email'].dirty || f['email'].touched || submitted) && f['email'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['email'].errors?.['required']">
@@ -68,7 +68,7 @@
                         <label class="label-input">
                             <span class="text-label">Incoming</span>
                             <input type="text" pInputText [(ngModel)]="model.incoming" formControlName="incoming"
-                                placeholder="Enter Incoming" class="form-control mt-1">
+                                placeholder="Enter Incoming" class="form-control">
                             <div *ngIf="(f['incoming'].dirty || f['incoming'].touched || submitted) && f['incoming'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['incoming'].errors?.['required']">
@@ -81,7 +81,7 @@
                         <label class="label-input">
                             <span class="text-label">IncomingPort</span>
                             <input type="text" pInputText [(ngModel)]="model.incomingPort" formControlName="incomingPort"
-                                placeholder="Enter incomingPort" class="form-control mt-1">
+                                placeholder="Enter incomingPort" class="form-control">
                             <div *ngIf="(f['incomingPort'].dirty || f['incomingPort'].touched || submitted) && f['incomingPort'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['incomingPort'].errors?.['required']">
@@ -94,7 +94,7 @@
                         <label class="label-input">
                             <span class="text-label">Outgoing</span>
                             <input type="text" pInputText [(ngModel)]="model.outgoing" formControlName="outgoing"
-                                placeholder="Enter Outgoing" class="form-control mt-1">
+                                placeholder="Enter Outgoing" class="form-control">
                             <div *ngIf="(f['outgoing'].dirty || f['outgoing'].touched || submitted) && f['outgoing'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['outgoing'].errors?.['required']">
@@ -107,7 +107,7 @@
                         <label class="label-input">
                             <span class="text-label">OutgoingPort</span>
                             <input type="text" pInputText [(ngModel)]="model.outgoingPort" formControlName="outgoingPort"
-                                placeholder="Enter OutgoingPort" class="form-control mt-1">
+                                placeholder="Enter OutgoingPort" class="form-control">
                             <div *ngIf="(f['outgoingPort'].dirty || f['outgoingPort'].touched || submitted) && f['outgoingPort'].invalid"
                                 class="text-danger">
                                 <div *ngIf="f['outgoingPort'].errors?.['required']">

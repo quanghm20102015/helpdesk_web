@@ -39,7 +39,12 @@
     font-weight: 700;
     font-size: 18px;
     color: #FFFFFF;
-    margin: 32px 20px;
+    margin: 32px 20px 24px;
+}
+
+.btn-new-conversation{
+    padding: 8px 0;
+    font-weight: 500;
 }
 
 .avatar-main-menu {
@@ -75,8 +80,12 @@
     padding: 12px;
 }
 
-.menu.vertical svg{
-    margin-right: 10px;
+.menu.vertical.list-top svg{
+    margin-right: 12px;
+}
+
+.menu.vertical.list-menu-bottom svg{
+    margin-right: 8px;
 }
 
 .list-menu-bottom{
@@ -96,6 +105,10 @@ hr{
     color: #FFFFFFB2;
 }
 
+.list-menu-bottom .sidebar-item {
+    padding: 5px 12px !important;
+}
+
 .sidebar-item.active-secondary,
 .sidebar-item:hover,
 .options-menu .active-secondary {
@@ -105,6 +118,14 @@ hr{
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.16);
 }
+
+.sidebar-item.active-secondary .text-count,
+.sidebar-item:hover .text-count,
+.options-menu .active-secondary .text-count,
+.options-menu:hover .text-count{
+    color: #FFFFFF !important;
+}
+
 .sidebar-item>div{
     align-self: center
 }
@@ -144,4 +165,45 @@ hr{
 
 .main-menu{
     max-height: 100vh;
+}
+
+.accordion-header{
+    margin-bottom: 8px;
+}
+
+#panelsStayOpen-headingLabel{
+    margin-top: 8px;    
+}
+
+.accordion-header .icon-add{
+    cursor: pointer;
+    padding-right: 8px;
+}
+
+.accordion-item{
+    background: none;
+    border: none;
+}
+
+.accordion-button{
+    background: none;
+    color: rgba(255, 255, 255, 0.7);
+    box-shadow: none;
+    padding: 8px 12px;
+}
+
+.accordion-body{
+    padding: 0px;
+}
+
+.accordion-button.collapsed .icon-accordion{
+    transform: rotate(-180deg);
+}
+
+.text-menu-botton{
+    color: #F6F7F9;
+}
+
+.item-choose-channel{
+    width: 33.33%;
 }
