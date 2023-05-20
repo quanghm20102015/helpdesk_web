@@ -4,7 +4,7 @@ import * as $ from 'jquery';
 import { EmailInfoService } from '../../../service/emailInfo.service';
 import { StatusService } from '../../../service/status.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import { LabelService } from 'src/app/service/label.service';
 import { Table } from 'primeng/table';
 import { CsatService } from 'src/app/service/csat.service';
@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
   listFollow: any = []
 
   url: string = ''
-  urlOld:string = ''
+  urlOld: string = ''
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) {
@@ -61,13 +61,14 @@ export class DashboardComponent implements OnInit {
     this.loadListEmail();
     this.loadStatus();
     this.getListLabel();
+    this.virtualChats = Array.from({ length: 10000 });
     this.idInterval = setInterval(() => {
       this.loadListEmail();
     }, 5000);
     this.messenger = this.signature
   }
   ngAfterContentChecked(): void {
-    if ( this.id != this.idOld) {
+    if (this.id != this.idOld) {
       this.loadListEmail()
       this.idOld = this.id
     }
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit {
   loadListEmail() {
     let request = {
       idCompany: this.idCompany,
-      textSearch: this.textSearch,
+      textSearch: '',
       status: this.status,
       assign: 0,
       idConfigEmail: 0,
@@ -117,8 +118,59 @@ export class DashboardComponent implements OnInit {
     }
     // this.getCountEmail()
     this.emailInfoService.getFillter(request).subscribe((result) => {
-      this.listChat = result;
+      this.listChat = result.listEmailInfo;
       this.listChat.forEach((item) => {
+        item['dateTime'] = new Date(item.date)
+      })
+    });
+  }
+
+  private timer: any;
+
+  onKeyupSearch() {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.loadListEmailFilter()
+    }, 400);
+  }
+
+  loadListEmailFilter() {
+    let request = {
+      idCompany: this.idCompany,
+      textSearch: this.textSearch,
+      status: this.status,
+      assign: 0,
+      idConfigEmail: 0,
+      idLabel: 0,
+      idUserFollow: 0,
+      idUserTrash: 0,
+      unAssign: false
+    }
+    if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
+    else if (this.router.url.includes('/mentions')) {
+      request.assign = this.idUser
+    }
+    else if (this.router.url.includes('/following')) {
+      request.idUserFollow = this.idUser
+    }
+    else if (this.router.url.includes('/unattended')) {
+      request.unAssign = true
+    }
+    else if (this.router.url.includes('/resolved')) {
+      request.status = 2
+    }
+    else if (this.router.url.includes('/trash')) {
+      request.idUserTrash = this.idUser
+    }
+    else if (this.router.url.includes('/channel/')) {
+      request.idConfigEmail = this.id
+    }
+    else if (this.router.url.includes('/label/')) {
+      request.idLabel = this.id
+    }
+    this.emailInfoService.getFillter(request).subscribe((result) => {
+      this.listChatSearch = result.listEmailInfo;
+      this.listChatSearch.forEach((item) => {
         item['dateTime'] = new Date(item.date)
       })
     });
@@ -138,11 +190,6 @@ export class DashboardComponent implements OnInit {
   //     this.countMine = result.byAgent
   //   });
   // }
-
-  onChangeValue() {
-    this.textSearch = this.textSearchChange
-    this.loadListEmail()
-  }
 
   listUser: any = []
   getListUser() {
@@ -166,6 +213,7 @@ export class DashboardComponent implements OnInit {
     this.statusService.getAll().subscribe((result) => {
       this.listStatus = result;
       this.listStatusUpdate = result.filter((x: { id: number; }) => x.id != 0)
+      this.listStatus = this.listStatusUpdate
     });
   }
 
@@ -182,7 +230,6 @@ export class DashboardComponent implements OnInit {
   Editor: any = ClassicEditor
 
   textSearch: string = ''
-  textSearchChange: string = ''
   messenger: string = ''
   status: number = 0
   signature: string = ''
@@ -190,6 +237,8 @@ export class DashboardComponent implements OnInit {
   listStatus: any = []
   listStatusUpdate: any = []
   listChat: any[] = []
+  listChatSearch: any[] = []
+  virtualChats: any[] = []
   selectedLabel: any[] = []
   selectedAssign: any[] = []
   selectedFollow: any[] = []
@@ -243,7 +292,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.SendMail(request).subscribe((result) => {
       if (result.status == 1) {
         //thành công
-        this.showSuccess("Send success")
+        // ("Send success")
         this.detailMail(this.mailDetails)
         this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
       }
@@ -312,20 +361,20 @@ export class DashboardComponent implements OnInit {
     //   dateTime: new Date(item.date)
     // })
   }
-  filterAssign(event: any){
+  filterAssign(event: any) {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
-    let filtered : any[] = [];
+    let filtered: any[] = [];
     let query = event.query;
 
-    for(let i = 0; i < this.listAssign.length; i++) {
-        let assign = this.listAssign[i];
-        if (assign.fullname.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-            filtered.push(assign);
-        }
+    for (let i = 0; i < this.listAssign.length; i++) {
+      let assign = this.listAssign[i];
+      if (assign.fullname.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(assign);
+      }
     }
 
     this.filteredListAssign = filtered;
-}
+  }
 
   updateStatus() {
     let requets = {
@@ -338,7 +387,7 @@ export class DashboardComponent implements OnInit {
       if (result.status == 1) {
         this.loadListEmail();
         this.detailMail(this.mailDetails)
-        this.showSuccess("Change status success");
+        // this.showSuccess("Change status success");
         if (requets.status == 2) {
           //status resole, send mail survey
           this.sendMailCsat(this.mailDetails.idGuId)
@@ -398,7 +447,7 @@ export class DashboardComponent implements OnInit {
       listLabel: this.listIdLabelSelect
     }
     this.emailInfoService.postEmailInfoLabel(request).subscribe((result) => {
-      this.showSuccess("Update success");
+      // this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update label to email info');
       this.detailMail(this.mailDetails)
     });
@@ -411,7 +460,7 @@ export class DashboardComponent implements OnInit {
       listLabel: this.listIdLabelSelect
     }
     this.emailInfoService.updateAssign(request).subscribe((result) => {
-      this.showSuccess("Update success");
+      // this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update assign to email');
       this.detailMail(this.mailDetails)
     });
@@ -424,7 +473,7 @@ export class DashboardComponent implements OnInit {
       listFollow: this.listIdFollowSelect
     }
     this.emailInfoService.updateFollow(request).subscribe((result) => {
-      this.showSuccess("Update success");
+      // this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update follow to email');
       this.detailMail(this.mailDetails)
     });
@@ -457,16 +506,16 @@ export class DashboardComponent implements OnInit {
     this.updateAsign()
   }
 
-  delete(){
+  delete() {
     let request = {
       idEmailInfo: this.mailDetails.id,
       idUserDelete: this.idUser
     }
     this.emailInfoService.delete(request).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
         this.viewMail = false
         this.loadListEmail()
-        this.showSuccess('Delete success');
+        // this.showSuccess('Delete success');
       } else {
         this.showError('Error')
       }

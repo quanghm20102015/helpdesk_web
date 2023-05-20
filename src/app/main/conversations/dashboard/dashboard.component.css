@@ -2,14 +2,42 @@
     margin-right: 20px;
 }
 
+.group-title{
+    padding: 16px;
+}
+
 .contact-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+.page-title{
+    font-size: 16px;
+    font-weight: 600;
+    color: #343436;
+}
+
 .info-label {
     color: rgba(0, 0, 0, 0.5);
+    margin-bottom: 4px;
+}
+
+.item-img-assign{
+    max-width: 20px;
+}
+
+.item-label{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.item-label>span{
+    color: rgba(0, 0, 0, 0.87);    
+    padding: 4px 12px;
+    background: #EFF0F2;
+    border-radius: 8px;
+    margin-right: 10px;
 }
 
 .content-right .row>div {
@@ -71,13 +99,37 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
-.header-actions-wrap .btn-mobile>button.btn:hover {
+.header-actions-wrap button.btn:hover,
+.content-left .group-title button.btn:hover{
     background-color: #EFF0F2;
+}
+
+.input-search .p-inputtext{
+    width: 268px;
 }
 
 .content-right {
     overflow-wrap: anywhere;
+    background: #FFFFFF;
+    height: 100vh;
+    overflow-y: auto;
+    right: 0;
+    position: absolute;
+    border-left: 1px solid #EFF0F2;
+    width: 250px;
 }
+
+.content-right *{
+    font-weight: 500;
+    font-size: 13px;
+}
+.content-right .row>.col-md-12{
+    padding: 8px 16px;
+}
+
+.content-right .row>.col-md-12.contact-info{
+    padding-top: 16px;
+} 
 
 .conversations-list tr {
     margin-bottom: 8px;
@@ -112,4 +164,33 @@
     font-size: 13px;
     color: rgba(0, 0, 0, 0.87);
     margin-bottom: 8px;
+}
+
+.accordion-item{
+    border: none;
+}
+
+.accordion-button:not(.collapsed){
+    background: none;
+    box-shadow: none
+}
+
+.accordion-button{
+    padding: 12px 0px;
+    font-weight: 500;
+    font-size: 13px;    
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.accordion-body{
+    padding: 0px 0px 12px 0px; 
+}
+
+.accordion-body.his .item-his{
+    margin-bottom: 20px;;
+}
+
+.item-his .text-time{
+    color: rgba(0, 0, 0, 0.38);
+    font-size: 10px;
 }

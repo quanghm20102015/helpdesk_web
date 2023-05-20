@@ -1,7 +1,7 @@
 <div class="d-flex container-box" [ngClass]="{'view-mail': viewMail}">
     <div class="content-left">
         <div class="container">
-            <div class="search-wrap">
+            <!-- <div class="search-wrap">
                 <div class="search">
                     <a class="search--link">
                         <span class="p-input-icon-left py-3 w-100">
@@ -11,12 +11,112 @@
                         </span>
                     </a>
                 </div>
-            </div>
+            </div> -->
             <div class="row">
-                <div class="col-md-12">
-                    <h3 title="Conversations" class="page-title">
-                        {{title}}
-                    </h3>
+                <div class="col-md-12 group-title">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 title="Conversations" class="page-title mb-0">
+                            {{title}}
+                        </h3>
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-outline-secondary border-0 " pTooltip="Search"
+                                tooltipPosition="bottom" (click)="op4.toggle($event)">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_850_24995)">
+                                        <path
+                                            d="M15.8048 14.8623L11.8254 10.883C12.9098 9.55674 13.443 7.8644 13.3147 6.15605C13.1863 4.4477 12.4062 2.85403 11.1358 1.70469C9.8654 0.55535 8.20183 -0.0617289 6.48919 -0.0189077C4.77656 0.0239135 3.1459 0.723359 1.93451 1.93475C0.723114 3.14614 0.0236694 4.7768 -0.0191518 6.48944C-0.0619731 8.20207 0.555106 9.86565 1.70445 11.1361C2.85379 12.4065 4.44745 13.1865 6.15581 13.3149C7.86416 13.4433 9.5565 12.9101 10.8828 11.8257L14.8621 15.805C14.9878 15.9264 15.1562 15.9936 15.331 15.9921C15.5058 15.9906 15.673 15.9205 15.7966 15.7969C15.9203 15.6733 15.9904 15.5061 15.9919 15.3313C15.9934 15.1565 15.9262 14.9881 15.8048 14.8623ZM6.66677 12.0003C5.61193 12.0003 4.58079 11.6875 3.70372 11.1015C2.82666 10.5155 2.14308 9.68253 1.73941 8.70799C1.33574 7.73345 1.23012 6.66109 1.43591 5.62653C1.6417 4.59196 2.14965 3.64165 2.89553 2.89577C3.64141 2.14989 4.59172 1.64194 5.62628 1.43615C6.66085 1.23037 7.7332 1.33598 8.70774 1.73965C9.68228 2.14332 10.5152 2.82691 11.1013 3.70397C11.6873 4.58103 12.0001 5.61218 12.0001 6.66701C11.9985 8.08101 11.4361 9.43664 10.4362 10.4365C9.4364 11.4363 8.08077 11.9988 6.66677 12.0003Z"
+                                            fill="#343436" />
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_850_24995">
+                                            <rect width="16" height="16" fill="white"
+                                                transform="translate(0.000244141)" />
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+
+                            </button>
+                            <p-overlayPanel #op4>
+                                <ng-template pTemplate>
+                                    <div class="input-search">
+                                        <div class="action-title">Search</div>
+                                        <input type="text" pInputText [(ngModel)]="textSearch"
+                                            (keyup)="onKeyupSearch()" placeholder="Search for message" style="margin-bottom: 8px;">
+                                    </div>
+                                    <div>
+                                        <p-table [value]="listChatSearch" [scrollable]="true">
+                                            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                                                <tr [pSelectableRow]="item"
+                                                    [class.p-highlight]="(mailDetails && mailDetails.id === item.id)">
+                                                    <td (click)="detailMail(item)" class="item-chat">
+                                                        <div class="d-flex justify-content-between">
+                                                            <div class="box-left">
+                                                                <svg width="12" height="12" viewBox="0 0 12 12"
+                                                                    fill="none" class="icon-mail"
+                                                                    xmlns="http://www.w3.org/2000/svg">
+                                                                    <g clip-path="url(#clip0_705_18790)">
+                                                                        <path
+                                                                            d="M11.9772 2.771L7.76824 6.98C7.29893 7.44812 6.66312 7.71102 6.00024 7.71102C5.33737 7.71102 4.70156 7.44812 4.23224 6.98L0.0232441 2.771C0.0162441 2.85 0.000244141 2.9215 0.000244141 3V9C0.00103807 9.66279 0.264685 10.2982 0.733354 10.7669C1.20202 11.2356 1.83745 11.4992 2.50024 11.5H9.50024C10.163 11.4992 10.7985 11.2356 11.2671 10.7669C11.7358 10.2982 11.9995 9.66279 12.0002 9V3C12.0002 2.9215 11.9842 2.85 11.9772 2.771Z"
+                                                                            fill="currentColor" />
+                                                                        <path
+                                                                            d="M7.06125 6.273L11.6283 1.7055C11.407 1.33866 11.095 1.03502 10.7222 0.823865C10.3495 0.612712 9.92864 0.50117 9.50025 0.5H2.50025C2.07186 0.50117 1.651 0.612712 1.27827 0.823865C0.905529 1.03502 0.593493 1.33866 0.372253 1.7055L4.93925 6.273C5.22104 6.55366 5.60255 6.71123 6.00025 6.71123C6.39796 6.71123 6.77947 6.55366 7.06125 6.273Z"
+                                                                            fill="currentColor" />
+                                                                    </g>
+                                                                    <defs>
+                                                                        <clipPath id="clip0_705_18790">
+                                                                            <rect width="12" height="12" fill="white"
+                                                                                transform="translate(0.000244141)" />
+                                                                        </clipPath>
+                                                                    </defs>
+                                                                </svg>
+                                                                <span class="ms-1"> #{{ item.id }}</span>
+                                                            </div>
+                                                            <div class="box-right text-middle date-time text-end">
+                                                                <div>{{item.dateTime | date:'dd/MM/yy hh:mm a'}}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="fs-12">
+                                                            <div class="my-2">
+                                                                <div class="fw-600">{{item.fromName}}</div>
+                                                            </div>
+                                                            <div class="text-truncate-2 text-chat-firs">{{item.subject}}
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+
+                                            <ng-template pTemplate="loadingbody" let-columns="columns">
+                                                <tr style="height:46px">
+                                                    <td *ngFor="let col of columns; let even = even">
+                                                        <p-skeleton
+                                                            [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                </ng-template>
+                            </p-overlayPanel>
+
+                            <button type="submit" class="btn btn-outline-secondary border-0" pTooltip="Filter"
+                                tooltipPosition="bottom" (click)="op5.toggle($event)">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M2.00024 3.3335H14.0002M4.00024 8.00016H12.0002M6.00024 12.6668H10.0002"
+                                        stroke="#343436" stroke-width="1.4" stroke-linecap="round" />
+                                </svg>
+                            </button>
+                            <p-overlayPanel #op5>
+                                <ng-template pTemplate>
+                                    <div class="action-title">Filter</div>
+
+                                    
+                                </ng-template>
+                            </p-overlayPanel>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="filter--actions">
@@ -30,9 +130,9 @@
             </p>
 
             <div class="conversations-list">
-                <p-table [value]="listChat" [scrollable]="true" [virtualScrollItemSize]="10" >
+                <p-table [value]="listChat" [scrollable]="true">
                     <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
-                        <tr [pSelectableRow]="item" [ngClass]="{'p-highlight': (mailDetails && mailDetails.id === item.id)}">
+                        <tr [pSelectableRow]="item" [class.p-highlight]="(mailDetails && mailDetails.id === item.id)">
                             <td (click)="detailMail(item)" class="item-chat">
                                 <div class="d-flex justify-content-between">
                                     <div class="box-left">
@@ -65,6 +165,15 @@
                                     </div>
                                     <div class="text-truncate-2 text-chat-firs">{{item.subject}}</div>
                                 </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template pTemplate="loadingbody" let-columns="columns">
+                        <tr style="height:46px">
+                            <td *ngFor="let col of columns; let even = even">
+                                <p-skeleton
+                                    [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
                             </td>
                         </tr>
                     </ng-template>
@@ -136,10 +245,6 @@
                                 </svg>
                             </button>
                             <p-overlayPanel #op1>
-                                <!-- <p-autoComplete [(ngModel)]="selectedAssign" [suggestions]="filteredListAssign"
-                                    (completeMethod)="filterAssign($event)" [multiple]="true" field="fullname" [forceSelection]="true" [unique]="true"
-                                    [dropdown]="true"></p-autoComplete> -->
-
                                 <ng-template pTemplate>
                                     <div>
                                         <div class="action-title">Assign to</div>
@@ -349,33 +454,92 @@
                     <div class="info-label">
                         Assignment agent
                     </div>
-                    <div *ngIf="listAssign && selectedAssign.length === 0"><strong>N/A</strong></div>
-                    <div *ngFor="let item of listAssign">
-                        <div *ngIf="item.check"><strong>{{item.fullname}}</strong></div>
+                    <div *ngIf="!selectedAssign || selectedAssign.length === 0"><strong>N/A</strong></div>
+                    <div class="d-flex align-items-center">
+                        <div *ngFor="let item of listAssign">
+                            <div *ngIf="item.check" class="item-img-assign">
+                                <img src="../../../../assets/img/avatar1.png" alt="" title="{{item.fullname}}"
+                                    style="width: 24px; height: 24px; border-radius: 50%;">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="info-label">
                         Follower
                     </div>
-                    <div *ngIf="listFollow && selectedFollow.length === 0"><strong>N/A</strong></div>
-                    <div *ngFor="let item of listFollow">
-                        <div *ngIf="item.check"><strong>{{item.fullname}}</strong></div>
+                    <div *ngIf="!selectedFollow || selectedFollow.length === 0"><strong>N/A</strong></div>
+                    <div class="d-flex align-items-center">
+                        <div *ngFor="let item of listFollow">
+                            <div *ngIf="item.check" class="item-img-assign">
+                                <img src="../../../../assets/img/avatar2.png" alt="" title="{{item.fullname}}"
+                                    style="width: 24px; height: 24px; border-radius: 50%;">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="info-label">
                         Label
                     </div>
-                    <div *ngIf="listLabelEmail && selectedLabel.length === 0"><strong>N/A</strong></div>
-                    <div *ngFor="let item of listLabelEmail">
-                        <div *ngIf="item.check"><strong>{{item.name}}</strong></div>
+                    <div *ngIf="!selectedLabel || selectedLabel.length === 0"><strong>N/A</strong></div>
+                    <div>
+                        <span *ngFor="let item of listLabelEmail" class="item-label">
+                            <span *ngIf="item.check">
+                                #{{item.name}}
+                            </span>
+                        </span>
                     </div>
 
-                    <hr style="margin: 12px">
+                    <hr style="margin: 16px 0 14px">
 
                     <div class="col-md-12">
-                        <p-accordion [multiple]="true">
+                        <div class="accordion" id="accordionPanelsStayOpenExample">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseOne">
+                                        Information
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                                    aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body">
+                                        <div class="info-label">
+                                            Created at
+                                        </div>
+                                        <strong>{{mailDetails.date | date:'short'}}</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr style="margin: 12px 0 14px">
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseTwo">
+                                        Activities
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse"
+                                    aria-labelledby="panelsStayOpen-headingTwo">
+                                    <div class="accordion-body his">
+                                        <div *ngFor="let item of listHistory" class="item-his">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <strong>{{item.fullName}}</strong>
+                                                <div class="text-time">{{item.time | date:'short'}}</div>
+                                            </div>
+                                            <div class="info-label text-truncate-1" title="{{item.content}}">
+                                                {{item.content}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <p-accordion [multiple]="true">
                             <p-accordionTab [selected]="true">
                                 <ng-template pTemplate="header">
                                     Information
@@ -390,7 +554,6 @@
                                     Activities
                                 </ng-template>
                                 <div *ngFor="let item of listHistory">
-                                    <!-- <div class="d-flex justify-content-between"> -->
                                     <div class="">
                                         <strong>{{item.fullName}}</strong>
                                         <div>{{item.time | date:'short'}}</div>
@@ -398,7 +561,7 @@
                                     <div class="info-label">{{item.content}}</div>
                                 </div>
                             </p-accordionTab>
-                        </p-accordion>
+                        </p-accordion> -->
                     </div>
                 </div>
             </div>
