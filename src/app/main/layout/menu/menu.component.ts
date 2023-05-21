@@ -134,6 +134,7 @@ export class MenuComponent implements OnInit {
     this.labelService.create(this.model).subscribe((result) => {
       if (result.status == 1) {
         this.display = false;
+        this.getListLabel()
       }
       else {
         this.showError(result.message);

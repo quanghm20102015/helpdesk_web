@@ -39,63 +39,66 @@
                             </button>
                             <p-overlayPanel #op4>
                                 <ng-template pTemplate>
-                                    <div class="input-search">
-                                        <div class="action-title">Search</div>
-                                        <input type="text" pInputText [(ngModel)]="textSearch" (keyup)="onKeyupSearch()"
-                                            placeholder="Search for message" style="margin-bottom: 8px;">
-                                    </div>
-                                    <div>
-                                        <p-table [value]="listChatSearch" [scrollable]="true">
-                                            <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
-                                                <tr [pSelectableRow]="item"
-                                                    [class.p-highlight]="(mailDetails && mailDetails.id === item.id)">
-                                                    <td (click)="detailMail(item)" class="item-chat">
-                                                        <div class="d-flex justify-content-between">
-                                                            <div class="box-left">
-                                                                <svg width="12" height="12" viewBox="0 0 12 12"
-                                                                    fill="none" class="icon-mail"
-                                                                    xmlns="http://www.w3.org/2000/svg">
-                                                                    <g clip-path="url(#clip0_705_18790)">
-                                                                        <path
-                                                                            d="M11.9772 2.771L7.76824 6.98C7.29893 7.44812 6.66312 7.71102 6.00024 7.71102C5.33737 7.71102 4.70156 7.44812 4.23224 6.98L0.0232441 2.771C0.0162441 2.85 0.000244141 2.9215 0.000244141 3V9C0.00103807 9.66279 0.264685 10.2982 0.733354 10.7669C1.20202 11.2356 1.83745 11.4992 2.50024 11.5H9.50024C10.163 11.4992 10.7985 11.2356 11.2671 10.7669C11.7358 10.2982 11.9995 9.66279 12.0002 9V3C12.0002 2.9215 11.9842 2.85 11.9772 2.771Z"
-                                                                            fill="currentColor" />
-                                                                        <path
-                                                                            d="M7.06125 6.273L11.6283 1.7055C11.407 1.33866 11.095 1.03502 10.7222 0.823865C10.3495 0.612712 9.92864 0.50117 9.50025 0.5H2.50025C2.07186 0.50117 1.651 0.612712 1.27827 0.823865C0.905529 1.03502 0.593493 1.33866 0.372253 1.7055L4.93925 6.273C5.22104 6.55366 5.60255 6.71123 6.00025 6.71123C6.39796 6.71123 6.77947 6.55366 7.06125 6.273Z"
-                                                                            fill="currentColor" />
-                                                                    </g>
-                                                                    <defs>
-                                                                        <clipPath id="clip0_705_18790">
-                                                                            <rect width="12" height="12" fill="white"
-                                                                                transform="translate(0.000244141)" />
-                                                                        </clipPath>
-                                                                    </defs>
-                                                                </svg>
-                                                                <span class="ms-1"> #{{ item.id }}</span>
+                                    <div id="tooltip-search">
+                                        <div class="input-search">
+                                            <div class="action-title">Search</div>
+                                            <input type="text" pInputText [(ngModel)]="textSearch"
+                                                (keyup)="onKeyupSearch()" placeholder="Search for message"
+                                                style="margin-bottom: 8px;">
+                                        </div>
+                                        <div>
+                                            <p-table [value]="listChatSearch" [scrollable]="true">
+                                                <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                                                    <tr [pSelectableRow]="item"
+                                                        [class.p-highlight]="(mailDetails && mailDetails.id === item.id)">
+                                                        <td (click)="detailMail(item)" class="item-chat">
+                                                            <div class="d-flex justify-content-between">
+                                                                <div class="box-left">
+                                                                    <svg width="16" height="16" viewBox="0 0 16 16"
+                                                                        class="icon-mail" fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <g clip-path="url(#clip0_102_33650)">
+                                                                            <path
+                                                                                d="M15.9693 3.69434L10.3573 9.30634C9.73158 9.93051 8.88383 10.281 8 10.281C7.11617 10.281 6.26842 9.93051 5.64267 9.30634L0.0306667 3.69434C0.0213333 3.79967 0 3.895 0 3.99967V11.9997C0.00105857 12.8834 0.352588 13.7306 0.97748 14.3555C1.60237 14.9804 2.4496 15.3319 3.33333 15.333H12.6667C13.5504 15.3319 14.3976 14.9804 15.0225 14.3555C15.6474 13.7306 15.9989 12.8834 16 11.9997V3.99967C16 3.895 15.9787 3.79967 15.9693 3.69434Z"
+                                                                                fill="currentColor" />
+                                                                            <path
+                                                                                d="M9.41464 8.36433L15.504 2.27433C15.209 1.7852 14.7929 1.38035 14.296 1.09881C13.799 0.817274 13.2378 0.668553 12.6666 0.666992H3.33331C2.76212 0.668553 2.20097 0.817274 1.70399 1.09881C1.20701 1.38035 0.790957 1.7852 0.495972 2.27433L6.58531 8.36433C6.96102 8.73853 7.4697 8.94864 7.99997 8.94864C8.53025 8.94864 9.03893 8.73853 9.41464 8.36433Z"
+                                                                                fill="currentColor" />
+                                                                        </g>
+                                                                        <defs>
+                                                                            <clipPath id="clip0_102_33650">
+                                                                                <rect width="16" height="16"
+                                                                                    fill="white" />
+                                                                            </clipPath>
+                                                                        </defs>
+                                                                    </svg>
+                                                                    <span class="ms-1 fs-13"> #{{ item.id }}</span>
+                                                                    <div class="">{{item.fromName}}</div>
+                                                                </div>
                                                             </div>
-                                                            <div class="box-right text-middle date-time text-end">
-                                                                <div>{{item.dateTime | date:'dd/MM/yy hh:mm a'}}</div>
+                                                            <div class="fs-13">
+                                                                <div class="text-truncate-1 text-chat-firs">
+                                                                    {{item.subject}}
+                                                                </div>
+                                                                <div class="box-right date-time text-end fs-10">
+                                                                    <div>{{item.dateTime | date:'MMM d, y'}}
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="fs-12">
-                                                            <div class="my-2">
-                                                                <div class="fw-600">{{item.fromName}}</div>
-                                                            </div>
-                                                            <div class="text-truncate-2 text-chat-firs">{{item.subject}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </ng-template>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
 
-                                            <ng-template pTemplate="loadingbody" let-columns="columns">
-                                                <tr style="height:46px">
-                                                    <td *ngFor="let col of columns; let even = even">
-                                                        <p-skeleton
-                                                            [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
-                                                    </td>
-                                                </tr>
-                                            </ng-template>
-                                        </p-table>
+                                                <ng-template pTemplate="loadingbody" let-columns="columns">
+                                                    <tr style="height:46px">
+                                                        <td *ngFor="let col of columns; let even = even">
+                                                            <p-skeleton
+                                                                [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
                                     </div>
                                 </ng-template>
                             </p-overlayPanel>
@@ -110,18 +113,34 @@
                             </button>
                             <p-overlayPanel #op5>
                                 <ng-template pTemplate>
-                                    <div class="action-title">Filter</div>
+                                    <div id="tooltip-filter">
+                                        <div class="action-title d-flex justify-content-between align-items-center m-0">
+                                            <div>Filter</div>
+                                            <div class="text-danger fw-500 fs-13 cursor-pointer" (click)="clearFilter()">Clear filter</div>
+                                        </div>
+                                        <div class="filter-content">
+                                            <div class="filter-item">
+                                                <div class="filter-label">Time</div>
+                                                <p-calendar [(ngModel)]="modelFilter.date" dateFormat="dd/mm/yy" [showIcon]="true" placeholder="Choose date" [showClear]="true" ></p-calendar>
+                                            </div>
+                                            <div class="filter-item" style="margin-top: 8px;">
+                                                <div class="filter-label">Status</div>
+                                                <div class="filter--actions">
+                                                    <p-dropdown [options]="listStatus" [(ngModel)]="modelFilter.status"
+                                                        optionLabel="statusName" optionValue="id" scrollHeight="300px"
+                                                        (onChange)="loadListEmail()"></p-dropdown>
+                                                </div>
+                                            </div>
+                                            <div class="filter-item btn-filter">
+                                                <button type="button" class="btn btn-primary" (click)="filter()">Filter</button>
+                                            </div>
 
+                                        </div>
 
+                                    </div>
                                 </ng-template>
                             </p-overlayPanel>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="filter--actions">
-                        <p-dropdown [options]="listStatus" [(ngModel)]="status" optionLabel="statusName"
-                            optionValue="id" scrollHeight="300px" (onChange)="loadListEmail()"></p-dropdown>
                     </div>
                 </div>
             </div>
@@ -155,7 +174,9 @@
                                         </svg>
                                         <span class="ms-1"> #{{ item.id }}</span>
                                     </div>
-                                    <div class="box-right text-middle date-time text-end">
+                                    <div class="box-right date-time text-end">
+                                        <p-tag *ngIf="item.countUnread" [value]="item.countUnread"
+                                            severity="danger"></p-tag>
                                         <div>{{item.dateTime | date:'dd/MM/yy hh:mm a'}}</div>
                                     </div>
                                 </div>

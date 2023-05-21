@@ -204,6 +204,15 @@ hr{
     color: #F6F7F9;
 }
 
-.item-choose-channel{
-    width: 33.33%;
+.item-choose-channel .icon-channel{
+    padding: 8px 32px;
+}
+
+.item-choose-channel[disabled]>div{
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+.item-choose-channel:not([disabled])>div{
+    cursor: pointer;
 }
