@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CsatService } from '../../service/csat.service';
 import { UserInfoStorageService } from '../../service/user-info-storage.service';
 
@@ -15,11 +15,15 @@ export class SurveyComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private _fb: FormBuilder,
     private csatService: CsatService,
+    private router: Router,
     private userInfoStorageService: UserInfoStorageService
   ) { }
   idCompany: any;
   idGuIdEmailInfo: any;
   ngOnInit(): void {
+    if (localStorage.getItem('idUser')) {
+      this.router.navigate(['/main/conversations/dashboard']);
+    }
     
     this.idCompany = this.userInfoStorageService.getCompanyId();
     this.activatedRoute.params.subscribe((params) => {

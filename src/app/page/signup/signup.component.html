@@ -24,7 +24,7 @@
                                         <span>Full name</span>
                                     </div>
                                     <input type="text" pInputText [(ngModel)]="model.fullName" formControlName="fullName"
-                                        placeholder="FullName" class="form-control mt-1">
+                                        placeholder="FullName" class="form-control">
                                     <div *ngIf="(f['fullName'].dirty || f['fullName'].touched || submitted) && f['fullName'].invalid"
                                         class="text-danger">
                                         <div *ngIf="f['fullName'].errors?.['required']">
@@ -43,7 +43,7 @@
                                         <span>Company name</span>
                                     </div>
                                     <input type="text" pInputText [(ngModel)]="model.company" formControlName="company"
-                                        placeholder="Company name" class="form-control mt-1">
+                                        placeholder="Company name" class="form-control">
                                     <div *ngIf="(f['company'].dirty || f['company'].touched || submitted) && f['company'].invalid"
                                         class="text-danger">
                                         <div *ngIf="f['company'].errors?.['required']">
@@ -64,7 +64,7 @@
                                     <span>Work email</span>
                                 </div>
                                 <input type="text" pInputText [(ngModel)]="model.workemail" formControlName="workemail"
-                                    placeholder="Email eg: someone@example.com" class="form-control mt-1">
+                                    placeholder="Email eg: someone@example.com" class="form-control">
                                 <div *ngIf="(f['workemail'].dirty || f['workemail'].touched || submitted) && f['workemail'].invalid"
                                     class="text-danger">
                                     <div *ngIf="f['workemail'].errors?.['required']">
@@ -87,7 +87,7 @@
                                     <span>Password</span>
                                 </div>
                                 <input type="password" pInputText [(ngModel)]="model.password" formControlName="password"
-                                    placeholder="Password" class="form-control mt-1">
+                                    placeholder="Password" class="form-control">
                                 <div *ngIf="(f['password'].dirty || f['password'].touched || submitted) && f['password'].invalid"
                                     class="text-danger">
                                     <div *ngIf="f['password'].errors?.['required']">

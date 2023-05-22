@@ -194,3 +194,27 @@
     color: rgba(0, 0, 0, 0.38);
     font-size: 10px;
 }
+
+.box-right.date-time{
+    display: flex;
+    align-items: center;
+}
+
+.filter-content{
+    margin-top: 16px;
+}
+
+.filter-label{
+    margin-bottom: 4px;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 13px;
+}
+
+.filter-item.btn-filter{
+    margin-top: 24px;
+}
+
+.filter-item.btn-filter .btn{
+    height: 36px;
+    width: 100%;
+}

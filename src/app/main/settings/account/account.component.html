@@ -39,17 +39,17 @@
                     <div class="item-label">
                         <label class="text-label">Your full name</label>
                         <input type="text" pInputText [(ngModel)]="model.fullname" placeholder="Full name"
-                            formControlName="fullname" class="form-control mt-1">
+                            formControlName="fullname" class="form-control">
                     </div>
                     <div class="item-label">
                         <label class="text-label">Company name</label>
                         <input type="text" pInputText [(ngModel)]="model.company" placeholder="Company name"
-                            formControlName="company" class="form-control mt-1">
+                            formControlName="company" class="form-control">
                     </div>
                     <div class="item-label">
                         <label class="text-label">Your workemail address</label>
                         <input type="text" pInputText [(ngModel)]="model.workemail" placeholder="Your workemail address"
-                            formControlName="workemail" class="form-control mt-1">
+                            formControlName="workemail" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
                         <span>
@@ -89,15 +89,15 @@
                 <form [formGroup]="formChangePassword" (ngSubmit)="onChangePassword()">
                     <div class="item-label">
                         <label class="text-label">Current password</label>
-                        <input type="text" pInputText placeholder="Current password" class="form-control mt-1">
+                        <input type="text" pInputText placeholder="Current password" class="form-control">
                     </div>
                     <div class="item-label">
                         <label class="text-label">New password</label>
-                        <input type="text" pInputText placeholder="New password" class="form-control mt-1">
+                        <input type="text" pInputText placeholder="New password" class="form-control">
                     </div>
                     <div class="item-label">
                         <label class="text-label">Confirm new password</label>
-                        <input type="text" pInputText placeholder="Confirm new password" class="form-control mt-1">
+                        <input type="text" pInputText placeholder="Confirm new password" class="form-control">
                     </div>
                     <button class="btn btn-primary">
                         <span>

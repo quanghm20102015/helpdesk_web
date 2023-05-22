@@ -104,7 +104,7 @@
             <label class="label-input">
                 <span class="text-label">Agent Name</span>
                 <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
-                    placeholder="Agent Name" class="form-control mt-1">
+                    placeholder="Agent Name" class="form-control">
                 <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
                     class="text-danger">
                     <div *ngIf="f['name'].errors?.['required']">
@@ -124,7 +124,7 @@
             <label class="label-input">
                 <span class="text-label">Email Address</span>
                 <input type="text" pInputText [(ngModel)]="model.workemail" formControlName="workemail"
-                    placeholder="workemail eg: someone@example.com" class="form-control mt-1">
+                    placeholder="workemail eg: someone@example.com" class="form-control">
                 <div *ngIf="(f['workemail'].dirty || f['workemail'].touched || submitted) && f['workemail'].invalid"
                     class="text-danger">
                     <div *ngIf="f['workemail'].errors?.['required']">

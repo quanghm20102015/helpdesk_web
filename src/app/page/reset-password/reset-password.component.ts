@@ -4,6 +4,7 @@ import { UserService } from '../../service/user.service';
 import { MessageService } from 'primeng/api';
 import { AppSettings } from "../../constants/app-setting";
 import { EncrDecrService } from '../../service/encr-decr.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,10 +14,13 @@ import { EncrDecrService } from '../../service/encr-decr.service';
 })
 export class ResetPasswordComponent implements OnInit {
 
-  constructor(private _fb: FormBuilder,
+  constructor(
+    private _fb: FormBuilder,
     private userService: UserService,
     private messageService: MessageService,
-    private encrdecrService: EncrDecrService ) { }
+    private router: Router,
+    private encrdecrService: EncrDecrService 
+    ) { }
   model: any = {email: ''}
   submitted: boolean = false
   form: FormGroup = this._fb.group({
@@ -24,6 +28,9 @@ export class ResetPasswordComponent implements OnInit {
   })  
   idUser: any;
   ngOnInit(): void {
+    if (localStorage.getItem('idUser')) {
+      this.router.navigate(['/main/conversations/dashboard']);
+    }
   }
 
   onSubmit(){

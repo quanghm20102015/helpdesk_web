@@ -13,6 +13,7 @@ import { AccountService } from 'src/app/service/account.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
 import { HistoryService } from 'src/app/service/history.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -48,7 +49,8 @@ export class DashboardComponent implements OnInit {
   idOld: any = 0
   listHistory: any = []
   listFollow: any = []
-
+  modelFilter: any = { date: null, status: 1 }
+  date: any = null
   url: string = ''
   urlOld: string = ''
   ngOnInit(): void {
@@ -62,9 +64,9 @@ export class DashboardComponent implements OnInit {
     this.loadStatus();
     this.getListLabel();
     this.virtualChats = Array.from({ length: 10000 });
-    this.idInterval = setInterval(() => {
-      this.loadListEmail();
-    }, 5000);
+    // this.idInterval = setInterval(() => {
+    //   this.loadListEmail();
+    // }, 5000);
     this.messenger = this.signature
   }
   ngAfterContentChecked(): void {
@@ -85,7 +87,8 @@ export class DashboardComponent implements OnInit {
       idLabel: 0,
       idUserFollow: 0,
       idUserTrash: 0,
-      unAssign: false
+      unAssign: false,
+      // dateTime: this.date
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {
@@ -506,6 +509,7 @@ export class DashboardComponent implements OnInit {
     this.updateAsign()
   }
 
+  displayDelete: boolean = false
   delete() {
     let request = {
       idEmailInfo: this.mailDetails.id,
@@ -515,6 +519,8 @@ export class DashboardComponent implements OnInit {
       if (result.status == 1) {
         this.viewMail = false
         this.loadListEmail()
+        this.displayDelete = false
+        this.mailDetails = {}
         // this.showSuccess('Delete success');
       } else {
         this.showError('Error')
@@ -525,11 +531,22 @@ export class DashboardComponent implements OnInit {
   confirm() {
     this.confirmationService.confirm({
       header: 'Confirmation delete',
-      icon: 'pi pi-exclamation-triangle',
-      message: 'Are you sure that you want to perform this action?',
+      message: 'Are you sure you want to delete this conversation?',
       accept: () => {
         this.delete()
       }
     });
+  }
+
+  filter(){
+    this.date = this.modelFilter.date
+    this.status = this.modelFilter.status
+    this.loadListEmail()
+  }
+
+  clearFilter(){
+    this.status = 1
+    this.date = null
+    this.filter()
   }
 }

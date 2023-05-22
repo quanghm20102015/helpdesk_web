@@ -33,6 +33,12 @@ export class ConfigMailService {
       AppSettings.HostingAddress + '/ConfigMails/GetByIdCompany?idCompany='+ idCompany
     );
   }
+
+  getMenuByIdCompany(idCompany: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/ConfigMails/GetMenuByIdCompany?idCompany='+ idCompany
+    );
+  }
      
   putEmailInfo(data: any): Observable<any> {
     return this.http.put(

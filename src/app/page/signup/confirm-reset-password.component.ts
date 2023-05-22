@@ -22,6 +22,9 @@ export class ConfirmResetPasswordComponent implements OnInit {
     private encrdecrService: EncrDecrService,
     private userService: UserService) { }
   ngOnInit(): void {
+    if (localStorage.getItem('idUser')) {
+      this.router.navigate(['/main/conversations/dashboard']);
+    }
     this.activatedRoute.params.subscribe((params) => {
       // this.idUserEncrypt = +params['id']      
       // this.idUserDecrypt = this.encrdecrService.set("mypassword", this.idUserEncrypt).toString()

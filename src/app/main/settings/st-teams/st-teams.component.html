@@ -77,7 +77,7 @@
             <label class="label-input">
                 <span class="text-label">Team name</span>
                 <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
-                    placeholder="Example: Sales, Customer Support" class="form-control mt-1">
+                    placeholder="Example: Sales, Customer Support" class="form-control">
                 <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
                     class="text-danger">
                     <div *ngIf="f['name'].errors?.['required']">
@@ -90,7 +90,7 @@
             <label class="label-input">
                 <span class="text-label">Team description</span>
                 <input type="text" pInputText [(ngModel)]="model.description" formControlName="description"
-                    placeholder="Team description" class="form-control mt-1">
+                    placeholder="Team description" class="form-control">
             </label>
         </div>
         <div class="modal-footer">

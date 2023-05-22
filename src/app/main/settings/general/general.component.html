@@ -31,7 +31,7 @@
                     <label class="d-block mb-3">
                         Account name
                         <input type="text" pInputText [(ngModel)]="model.username" formControlName="username"
-                            placeholder="Account name" class="form-control mt-1">
+                            placeholder="Account name" class="form-control">
                         <div *ngIf="(f['username'].dirty || f['username'].touched || submitted) && f['username'].invalid"
                             class="text-danger">
                             <div *ngIf="f['username'].errors?.['username']">
@@ -42,7 +42,7 @@
                     <label class="d-block">
                         Number of days after a ticket should auto resolve if there is no activity
                         <input type="number" pInputText [(ngModel)]="model.dayResolve" formControlName="dayResolve"
-                            placeholder="Number of days after a ticket should auto resolve" class="form-control mt-1">
+                            placeholder="Number of days after a ticket should auto resolve" class="form-control">
                         <div *ngIf="(f['dayResolve'].dirty || f['dayResolve'].touched || submitted) && f['dayResolve'].invalid"
                             class="text-danger">
                             <div *ngIf="f['dayResolve'].errors?.['dayResolve']">

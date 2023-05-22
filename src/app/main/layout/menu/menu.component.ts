@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
     this.idUser = +this.userInfoStorageService.getIdUser()
     this.getListInbox();
-    this.loadDataLabel();
+    this.getListLabel();
 
     this.getMenuCount();    
     this.idIntervalCountMenu = setInterval(() => {
@@ -43,10 +43,8 @@ export class MenuComponent implements OnInit {
       console.log('Url: ', this.url)
       if (this.url.includes(item.uri)) {
         this.tab = item.tab
-        console.log('Tab: ', this.tab)
       }
     })
-
     this.postLogin();
     // window.addEventListener('beforeunload', this.postLogout, false);
 
@@ -61,6 +59,7 @@ export class MenuComponent implements OnInit {
   }
 
   display: boolean = false
+  displayChooseChannel: boolean = false
   status: any = +this.userInfoStorageService.getStatus()
   model: any = {};
   submitted: boolean = false;
@@ -89,9 +88,8 @@ export class MenuComponent implements OnInit {
   }
 
   getListInbox() {
-    this.configMailService.GetByIdCompany(this.idCompany).subscribe((result) => {
-      this.listInboxes = result.listConfigMail;
-      console.log('this.listInboxes', this.listInboxes)
+    this.configMailService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
+      this.listInboxes = result;
     });
   }
 
@@ -118,25 +116,17 @@ export class MenuComponent implements OnInit {
     { tab: 5, uri: '/main/settings' },
   ]
 
-  listLabel: any = [
-    // { name: 'Label 01', id: 156 },
-    // { name: 'Label 02', id: 1680 },
-    // { name: 'Label 03', id: 430 },
-  ]
+  listLabel: any = []
 
-  listInboxes: any = [
-    // { name: 'Web 01', id: 200 },
-    // { name: 'Page 2', id: 329 },
-  ]
+  listInboxes: any = []
 
   setTab(tab: any) {
     this.tab = tab
   }
 
-  loadDataLabel() {
-    this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
+  getListLabel() {
+    this.labelService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
       this.listLabel = result;
-      console.log('this.listLabel', this.listLabel)
     });
   }
   saveLabel() {
@@ -144,6 +134,7 @@ export class MenuComponent implements OnInit {
     this.labelService.create(this.model).subscribe((result) => {
       if (result.status == 1) {
         this.display = false;
+        this.getListLabel()
       }
       else {
         this.showError(result.message);
@@ -176,6 +167,11 @@ export class MenuComponent implements OnInit {
       else {
       }
     });
+  }
+
+  onLogout(){
+    localStorage.clear();
+    this.router.navigate(['/login'])
   }
 
   changeStatus(status: any) {
