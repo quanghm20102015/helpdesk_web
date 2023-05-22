@@ -64,9 +64,9 @@ export class DashboardComponent implements OnInit {
     this.loadStatus();
     this.getListLabel();
     this.virtualChats = Array.from({ length: 10000 });
-    // this.idInterval = setInterval(() => {
-    //   this.loadListEmail();
-    // }, 5000);
+    this.idInterval = setInterval(() => {
+      this.loadListEmail();
+    }, 5000);
     this.messenger = this.signature
   }
   ngAfterContentChecked(): void {
