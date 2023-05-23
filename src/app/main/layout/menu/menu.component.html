@@ -1107,13 +1107,15 @@
         </div>
         <div class="col-md-12 flex flex-wrap gap-3 input-radio">
             <span *ngFor="let category of categories" class="p-field-checkbox">
-                <p-radioButton [inputId]="category.value" [value]="category" formControlName="selectedCategory"
+                <p-radioButton [inputId]="category.value" [value]="category.value" formControlName="selectedCategory"
                     [(ngModel)]="modelNewConversation.selectedCategory"
                     formControlName="selectedCategory"></p-radioButton>
                 <label [for]="category.value">{{category.name}}</label>
             </span>
         </div>
-        <div class="col-md-6">
+
+        <div class="col-md-6"
+            *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory == 1">
             <label class="label-input">
                 <div class="text-label">User name<span class="text-required">*</span></div>
                 <input type="text" pInputText [(ngModel)]="modelNewConversation.username" formControlName="username"
@@ -1126,7 +1128,8 @@
                 </div>
             </label>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6"
+            *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory == 1">
             <label class="label-input">
                 <div class="text-label">Email<span class="text-required">*</span></div>
                 <input type="text" pInputText [(ngModel)]="modelNewConversation.email" formControlName="email"
@@ -1139,8 +1142,9 @@
                 </div>
             </label>
         </div>
-        <hr class="hr-dialog">
-        <div class="col-md-12">
+
+        <div class="col-md-12"
+            *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory != 1">
             <label class="label-input">
                 <div class="text-label">Agent</div>
                 <p-multiSelect [options]="listUser" [(ngModel)]="selectedAgent" display="chip"
@@ -1149,6 +1153,9 @@
                 </p-multiSelect>
             </label>
         </div>
+
+        <hr class="hr-dialog">
+
         <div class="col-md-12 d-flex row-title-input">
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_91_29433)">
@@ -1191,7 +1198,7 @@
         </div>
         <div class="col-md-12">
             <label class="label-input mb-16">
-                <div class="text-label">Assignees</div>
+                <div class="text-label">Watchers</div>
                 <p-multiSelect [options]="listUser" [(ngModel)]="selectedFollow" display="chip"
                     defaultLabel="Please select watchers" optionLabel="fullname" class="multiselect-custom me-2">
                 </p-multiSelect>
@@ -1199,7 +1206,7 @@
         </div>
         <div class="col-md-12">
             <label class="label-input">
-                <div class="text-label">Assignees</div>
+                <div class="text-label">Label</div>
                 <p-multiSelect [options]="listLabel" [(ngModel)]="selectedLabel" display="chip"
                     defaultLabel="Please add label" optionLabel="name" class="multiselect-custom me-2">
                 </p-multiSelect>
