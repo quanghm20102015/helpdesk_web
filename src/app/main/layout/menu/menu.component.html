@@ -90,7 +90,7 @@
             <div *ngIf="tab == 1">
                 <div class="title-menu">Greetings</div>
                 <div style="padding: 0px 12px;">
-                    <div class="btn btn-primary btn-new-conversation w-100">
+                    <div class="btn btn-primary btn-new-conversation w-100" (click)="displayNewConvesation = true">
                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M11.8336 7.33333H9.16691V4.66667C9.16691 4.48986 9.09667 4.32029 8.97165 4.19526C8.84662 4.07024 8.67706 4 8.50024 4C8.32343 4 8.15386 4.07024 8.02884 4.19526C7.90382 4.32029 7.83358 4.48986 7.83358 4.66667V7.33333H5.16691C4.9901 7.33333 4.82053 7.40357 4.69551 7.5286C4.57048 7.65362 4.50024 7.82319 4.50024 8C4.50024 8.17681 4.57048 8.34638 4.69551 8.4714C4.82053 8.59643 4.9901 8.66667 5.16691 8.66667H7.83358V11.3333C7.83358 11.5101 7.90382 11.6797 8.02884 11.8047C8.15386 11.9298 8.32343 12 8.50024 12C8.67706 12 8.84662 11.9298 8.97165 11.8047C9.09667 11.6797 9.16691 11.5101 9.16691 11.3333V8.66667H11.8336C12.0104 8.66667 12.18 8.59643 12.305 8.4714C12.43 8.34638 12.5002 8.17681 12.5002 8C12.5002 7.82319 12.43 7.65362 12.305 7.5286C12.18 7.40357 12.0104 7.33333 11.8336 7.33333Z"
@@ -1048,3 +1048,110 @@
         </div>
     </ng-template>
 </p-overlayPanel>
+
+
+<p-dialog [(visible)]="displayNewConvesation" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                New Conversation
+            </p>
+        </div>
+    </ng-template>
+
+    <form class="row" [formGroup]="form">
+        <div class="col-md-12">
+            <div class="text-label">Requester</div>
+        </div>
+        <div class="col-md-12 flex flex-wrap gap-3">
+            <!-- <div class="flex align-items-center">
+                <p-radioButton name="requester" value="End user" inputId="1" [(ngModel)]="selectedRequester"></p-radioButton>
+                <label for="1" class="ml-2">End user</label>
+            </div>            
+            <div class="flex align-items-center">
+                <p-radioButton name="requester" value="Member" inputId="2" [(ngModel)]="selectedRequester"></p-radioButton>
+                <label for="2" class="ml-2">Member</label>
+            </div> -->
+            <div *ngFor="let category of categories" class="p-field-checkbox">
+                <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory"
+                    [disabled]="category.key === 'R'"></p-radioButton>
+                <label [for]="category.key">{{category.name}}</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <div class="text-label">User Name</div>
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
+                    placeholder="Please enter user name" class="form-control">
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['name'].errors?.['required']">
+                        User name is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-6">
+            <label class="label-input">
+                <div class="text-label">Email</div>
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
+                    placeholder="Please enter your email" class="form-control">
+                <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
+                    class="text-danger">
+                    <div *ngIf="f['name'].errors?.['required']">
+                        Email is required
+                    </div>
+                </div>
+            </label>
+        </div>         
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Agent</div>
+                <p-multiSelect [options]="listUser" [(ngModel)]="selectedAgent" display="chip"
+                    defaultLabel="Please select agents" optionLabel="fullname"
+                    class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div> 
+        <div class="col-md-12">
+            <div class="text-label">Conversation Information</div>
+        </div>        
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Assignees</div>
+                <p-multiSelect [options]="listUser" [(ngModel)]="selectedAssign" display="chip"
+                    defaultLabel="Please select assignees" optionLabel="fullname"
+                    class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div>        
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Assignees</div>
+                <p-multiSelect [options]="listUser" [(ngModel)]="selectedFollow" display="chip"
+                    defaultLabel="Please select watchers" optionLabel="fullname"
+                    class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div>        
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Assignees</div>
+                <p-multiSelect [options]="listLabel" [(ngModel)]="selectedLabel" display="chip"
+                    defaultLabel="Please add label" optionLabel="name"
+                    class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt btn-dialog">
+                <button class="btn btn-outline-secondary btn-cancel" (click)="displayNewConvesation = false">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary ml-2" (click)="saveConversation()">
+                    <span>Create with Open</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
