@@ -638,6 +638,10 @@ p-multiselect {
     justify-content: center;
 }
 
+.mess-note {
+    justify-content: flex-end;
+}
+
 .mess-out {
     justify-content: flex-end;
 }
@@ -658,14 +662,22 @@ p-multiselect {
     border: none;
 }
 
+
 .mess-center .ck.ck-editor__main>.ck-editor__editable {
     background: dimgrey;
-    color: #FFFFFF;
+    color: #F6F7F9;
     padding: 12px 16px;
     border-radius: 20px 20px 20px 20px !important;
     border: none;
 }
 
+.mess-note .ck.ck-editor__main>.ck-editor__editable {
+    background: #FFE0B6;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 12px 16px;
+    border-radius: 20px 20px 0px 20px !important;
+    border: none;
+}
 p-dropdown#dropdown-report {
     text-align: left;
 }

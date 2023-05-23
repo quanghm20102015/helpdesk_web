@@ -270,7 +270,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="icon-add" (click)="displayChooseChannel = true; resetFormChannel()">
+                                    <div class="icon-add" (click)="displayChooseChannel = true;">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="m-0"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -1086,7 +1086,7 @@
             </p>
         </div>
     </ng-template>
-    <form class="row" [formGroup]="formNewConversation">
+    <div class="row">
         <div class="col-md-12 d-flex row-title-input">
             <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_91_29600)">
@@ -1107,9 +1107,7 @@
         </div>
         <div class="col-md-12 flex flex-wrap gap-3 input-radio">
             <span *ngFor="let category of categories" class="p-field-checkbox">
-                <p-radioButton [inputId]="category.value" [value]="category.value" formControlName="selectedCategory"
-                    [(ngModel)]="modelNewConversation.selectedCategory"
-                    formControlName="selectedCategory"></p-radioButton>
+                <p-radioButton [inputId]="category.value" [value]="category.value" [(ngModel)]="selectedCategory"></p-radioButton>
                 <label [for]="category.value">{{category.name}}</label>
             </span>
         </div>
@@ -1118,37 +1116,25 @@
             *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory == 1">
             <label class="label-input">
                 <div class="text-label">User name<span class="text-required">*</span></div>
-                <input type="text" pInputText [(ngModel)]="modelNewConversation.username" formControlName="username"
+                <input type="text" pInputText [(ngModel)]="modelNewConversation.username"
                     placeholder="Please enter user name" class="form-control">
-                <div *ngIf="(fnew['username'].dirty || fnew['username'].touched || submitted) && fnew['username'].invalid"
-                    class="text-danger">
-                    <div *ngIf="fnew['username'].errors?.['required']">
-                        User name is required
-                    </div>
-                </div>
             </label>
         </div>
         <div class="col-md-6"
             *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory == 1">
             <label class="label-input">
                 <div class="text-label">Email<span class="text-required">*</span></div>
-                <input type="text" pInputText [(ngModel)]="modelNewConversation.email" formControlName="email"
+                <input type="text" pInputText [(ngModel)]="modelNewConversation.email"
                     placeholder="Please enter your email" class="form-control">
-                <div *ngIf="(fnew['email'].dirty || fnew['email'].touched || submitted) && fnew['email'].invalid"
-                    class="text-danger">
-                    <div *ngIf="fnew['email'].errors?.['required']">
-                        Email is required
-                    </div>
-                </div>
             </label>
         </div>
 
         <div class="col-md-12"
             *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory != 1">
             <label class="label-input">
-                <div class="text-label">Agent</div>
+                <div class="text-label">Agent<span class="text-required">*</span></div>
                 <p-multiSelect [options]="listUser" [(ngModel)]="selectedAgent" display="chip"
-                    formControlName="selectedAgent" defaultLabel="Please select agents" optionLabel="fullname"
+                    formControlName="selectedAgent" optionValue="id" defaultLabel="Please select agents" optionLabel="fullname"
                     class="multiselect-custom me-2">
                 </p-multiSelect>
             </label>
@@ -1192,7 +1178,7 @@
             <label class="label-input mb-16">
                 <div class="text-label">Assignees</div>
                 <p-multiSelect [options]="listUser" [(ngModel)]="selectedAssign" display="chip"
-                    defaultLabel="Please select assignees" optionLabel="fullname" class="multiselect-custom me-2">
+                    defaultLabel="Please select assignees" optionLabel="fullname" optionValue="id" class="multiselect-custom me-2">
                 </p-multiSelect>
             </label>
         </div>
@@ -1200,7 +1186,7 @@
             <label class="label-input mb-16">
                 <div class="text-label">Watchers</div>
                 <p-multiSelect [options]="listUser" [(ngModel)]="selectedFollow" display="chip"
-                    defaultLabel="Please select watchers" optionLabel="fullname" class="multiselect-custom me-2">
+                    defaultLabel="Please select watchers" optionLabel="fullname" optionValue="id" class="multiselect-custom me-2">
                 </p-multiSelect>
             </label>
         </div>
@@ -1208,7 +1194,7 @@
             <label class="label-input">
                 <div class="text-label">Label</div>
                 <p-multiSelect [options]="listLabel" [(ngModel)]="selectedLabel" display="chip"
-                    defaultLabel="Please add label" optionLabel="name" class="multiselect-custom me-2">
+                    defaultLabel="Please add label" optionLabel="name" optionValue="id" class="multiselect-custom me-2">
                 </p-multiSelect>
             </label>
         </div>
@@ -1222,7 +1208,7 @@
                 </button>
             </div>
         </div>
-    </form>
+    </div>
 </p-dialog>
 
 <p-toast></p-toast>
