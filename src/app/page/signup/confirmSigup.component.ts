@@ -23,7 +23,7 @@ export class ConfirmSigupComponent implements OnInit {
     private userService: UserService) { }
   ngOnInit(): void {
     if (localStorage.getItem('idUser')) {
-      this.router.navigate(['/main/conversations/dashboard']);
+      this.router.navigate(['/main/conversations/mentions']);
     }
     
     this.activatedRoute.params.subscribe((params) => {

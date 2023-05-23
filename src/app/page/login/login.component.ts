@@ -31,10 +31,9 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    debugger
     let a = localStorage.getItem('idUser')
     if (localStorage.getItem('idUser')) {
-      this.router.navigate(['/main/conversations/dashboard']);
+      this.router.navigate(['/main/conversations/mentions']);
     }
     this.rebuilForm();
   }

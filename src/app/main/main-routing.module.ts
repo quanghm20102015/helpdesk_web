@@ -34,7 +34,7 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
-      { path: 'conversations', redirectTo: 'conversations/dashboard', pathMatch: 'full' },
+      { path: 'conversations', redirectTo: 'conversations/mentions', pathMatch: 'full' },
       { path: 'conversations/dashboard', component: DashboardComponent },
       { path: 'conversations/mentions', component: DashboardComponent },
       { path: 'conversations/following', component: DashboardComponent },

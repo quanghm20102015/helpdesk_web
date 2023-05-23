@@ -67,7 +67,6 @@ export class StInboxesComponent implements OnInit {
 
   update(){
     this.configMailService.putEmailInfo(this.model).subscribe((result) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update success' });
       this.display = false
     });
     this.submitted = true

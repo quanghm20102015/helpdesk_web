@@ -133,6 +133,19 @@ p {
     padding: 10px;
 }
 
+#dialog-m16 .p-dialog-header {
+    padding-bottom: 16px;
+}
+
+#dialog-m16 .hr-dialog {
+    padding-top: 16px;
+    border-top: 2px solid #eff0f2;
+}
+
+.label-input {
+    margin-bottom: 4px;
+}
+
 .text-middle {
     align-self: center;
 }
@@ -190,7 +203,7 @@ input.p-inputtext {
     padding: 10px 12px;
 }
 
-.conv-header p-dropdown .p-dropdown{
+.conv-header p-dropdown .p-dropdown {
     height: 34px;
 }
 
@@ -247,11 +260,9 @@ li.message-read>div {
 }
 
 .conversation-footer {
-    margin-top: 40px;
     background: white;
     border: 1px solid #ccced1;
     border-radius: 10px;
-    margin-bottom: 20px;
     box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302), 0 2px 6px 2px rgba(60, 64, 67, 0.149);
 }
 
@@ -464,6 +475,7 @@ body {
     overflow: auto;
     width: 100%;
 }
+
 .p-overlaypanel-content {
     padding: 16px !important;
 }
@@ -477,16 +489,16 @@ body {
     width: 240px;
 }
 
-#tooltip-filter .action-title{
+#tooltip-filter .action-title {
     padding-bottom: 16px;
     border-bottom: 1px solid #eff0f2;
 }
 
-#tooltip-search .item-chat{
+#tooltip-search .item-chat {
     padding: 12px 8px;
 }
 
-#tooltip-search .p-selectable-row:not(:last-child) .item-chat{
+#tooltip-search .p-selectable-row:not(:last-child) .item-chat {
     border-bottom: 1px solid #eff0f2 !important;
 }
 
@@ -494,6 +506,7 @@ body {
     height: calc(100vh - 80px);
     overflow: auto;
     display: flex;
+    margin-bottom: 280px;
     /* flex-direction: column-reverse; */
 }
 
@@ -726,24 +739,24 @@ p-dropdown#dropdown-report {
     margin-top: 16px;
 }
 
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item{
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
     padding: 8px;
     color: rgba(0, 0, 0, 0.87);
     font-size: 13px;
     border-radius: 4px;
 }
 
-.p-dropdown-panel .p-dropdown-items{
+.p-dropdown-panel .p-dropdown-items {
     padding: 4px;
     border-radius: 8px;
 }
 
-.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight{
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
     background: #EFF0F2;
     color: rgba(0, 0, 0, 0.87);
 }
 
-.p-tag.p-tag-danger{
+.p-tag.p-tag-danger {
     padding: 4px 6px;
     font-size: 12px;
     font-weight: 500;
@@ -755,7 +768,7 @@ p-dropdown#dropdown-report {
     border-radius: 9999px;
 }
 
-button.p-element.p-ripple.p-datepicker-trigger.p-button.p-component.p-button-icon-only{
+button.p-element.p-ripple.p-datepicker-trigger.p-button.p-component.p-button-icon-only {
     position: absolute;
     background: none;
     color: rgba(0, 0, 0, 0.5);
@@ -764,14 +777,57 @@ button.p-element.p-ripple.p-datepicker-trigger.p-button.p-component.p-button-ico
     height: 40px;
 }
 
-p-calendar.p-calendar-clearable .p-inputtext{
+p-calendar.p-calendar-clearable .p-inputtext {
     padding-left: 38px;
 }
 
-.p-calendar{
+.p-calendar {
     width: 100%;
 }
 
-span.p-calendar.p-calendar-w-btn{
+span.p-calendar.p-calendar-w-btn {
     width: 100%;
+}
+
+.accordion-button::after {
+    content: ""
+}
+
+input#range {
+    border-radius: 8px;
+}
+
+.p-calendar .p-datepicker {
+    width: 240px;
+    height: 240px;
+}
+
+.p-datepicker table td>span {
+    width: 24px;
+    height: 24px;
+}
+
+.p-datepicker table th,
+.p-datepicker table td {
+    padding: 0px;
+}
+
+.p-calendar .p-datepicker {
+    box-shadow: 0px 2px 6px -1px rgba(0, 0, 0, 0.1), 0px 6px 24px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
+    color: #3A69DB;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-prev, .p-datepicker .p-datepicker-header .p-datepicker-next>span{
+    color: #7C7C7E;
+}
+
+.accordion-button::after{
+    display: none;
 }
