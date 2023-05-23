@@ -82,7 +82,7 @@ export class MenuComponent implements OnInit {
   });
   
   modelNewConversation: any = {
-    selectedCategory: null,
+    selectedCategory: 1,
     username: '',
     email: ''
   }

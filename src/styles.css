@@ -99,6 +99,9 @@ html {
     }
 }
 
+hr{
+    opacity: 1;
+}
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: none;
