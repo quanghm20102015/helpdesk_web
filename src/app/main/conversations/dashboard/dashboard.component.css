@@ -221,7 +221,7 @@
 
 .fit-chat{
     position: fixed;
-    bottom: 0;
+    bottom: 10;
     left: 0;
     width: 100%;
     padding-left: 528px;
