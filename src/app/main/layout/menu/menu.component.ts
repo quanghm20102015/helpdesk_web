@@ -90,12 +90,6 @@ export class MenuComponent implements OnInit {
     email: ''
   }
 
-  formNewConversation: FormGroup = this._fb.group({
-    selectedCategory: [this.modelNewConversation.selectedCategory],
-    username: [this.modelNewConversation.username, [Validators.required]],
-    email: [this.modelNewConversation.email, [Validators.required]]
-  });
-
   idCompany: any;
   idUser: any;
   onSubmit() {
@@ -127,13 +121,6 @@ export class MenuComponent implements OnInit {
       showSidebar: false,
     });
   }
-  
-  resetFormChannel(){
-    this.formChannel.reset({
-      yourName: '',
-      email: '',
-    });
-  }
 
   get f() {
     return this.form.controls;
@@ -141,10 +128,6 @@ export class MenuComponent implements OnInit {
 
   get fchannel() {
     return this.formChannel.controls;
-  }
-
-  get fnew() {
-    return this.formNewConversation.controls;
   }
 
   url: string = this.router.url
