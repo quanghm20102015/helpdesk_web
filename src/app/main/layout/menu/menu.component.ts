@@ -65,6 +65,7 @@ export class MenuComponent implements OnInit {
   display: boolean = false
   displayChooseChannel: boolean = false
   displayChooseChannel2: boolean = false
+  displayChooseChannel3: boolean = false
   status: any = +this.userInfoStorageService.getStatus()
   model: any = {};
   submitted: boolean = false;
@@ -78,6 +79,18 @@ export class MenuComponent implements OnInit {
   formChannel: FormGroup = this._fb.group({
     yourName: [this.modelChannel.yourName, [Validators.required]],
     email: [this.modelChannel.email, [Validators.required, Validators.email]],
+  });
+  
+  modelNewConversation: any = {
+    selectedCategory: null,
+    username: '',
+    email: ''
+  }
+
+  formNewConversation: FormGroup = this._fb.group({
+    selectedCategory: [this.modelNewConversation.selectedCategory],
+    username: [this.modelNewConversation.username, [Validators.required]],
+    email: [this.modelNewConversation.email, [Validators.required]]
   });
 
   idCompany: any;
@@ -111,6 +124,13 @@ export class MenuComponent implements OnInit {
       showSidebar: false,
     });
   }
+  
+  resetFormChannel(){
+    this.formChannel.reset({
+      yourName: '',
+      email: '',
+    });
+  }
 
   get f() {
     return this.form.controls;
@@ -119,6 +139,11 @@ export class MenuComponent implements OnInit {
   get fchannel() {
     return this.formChannel.controls;
   }
+
+  get fnew() {
+    return this.formNewConversation.controls;
+  }
+
   url: string = this.router.url
   tab: number = 0
   listRouterTab: any[] = [
@@ -142,11 +167,14 @@ export class MenuComponent implements OnInit {
       this.listLabel = result;
     });
   }
+
   saveLabel() {
     this.model.idCompany = this.userInfoStorageService.getCompanyId();
     this.labelService.create(this.model).subscribe((result) => {
       if (result.status == 1) {
         this.display = false;
+        this.rebuilForm()
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
         this.getListLabel()
       }
       else {
@@ -206,12 +234,23 @@ export class MenuComponent implements OnInit {
     this.configMailService.addChannel(this.modelChannel).subscribe((result) => {
       if (result.status == 1) {
         this.displayChooseChannel2 = false
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add channel success" });
         this.getListInbox()
       }
       else {
         this.showError(result.message)
       }
     });
+  }
+
+  toSetting(){
+    this.displayChooseChannel3 = false
+    this.router.navigate(['/main/settings/inboxes'])
+  }
+
+  toTakeMe(){
+    this.displayChooseChannel3 = false
+    // this.router.navigate(['/main/settings/inboxes'])
   }
 
   // update(){
@@ -245,10 +284,11 @@ export class MenuComponent implements OnInit {
 
   selectedCategory: any = null;
 
-  categories: any[] = [{name: 'Accounting', key: 'A'}, {name: 'Marketing', key: 'M'}, {name: 'Production', key: 'P'}, {name: 'Research', key: 'R'}];
+  categories: any[] = [{name: 'End user', value: 1}, {name: 'Member', value: 2}];
 
   saveConversation(){
     debugger;
+    this.modelNewConversation
     if(this.ingredient == 1){
       debugger;
     }

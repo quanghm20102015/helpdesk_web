@@ -74,10 +74,12 @@ export class DashboardComponent implements OnInit {
     if (this.id != this.idOld) {
       this.loadListEmail()
       this.idOld = this.id
+      this.rows = 10
     }
   }
   title: string = ''
   tab: number = 0
+  total: number = 0
   loadListEmail() {
     let request = {
       idCompany: this.idCompany,
@@ -123,7 +125,8 @@ export class DashboardComponent implements OnInit {
     }
     // this.getCountEmail()
     this.emailInfoService.getFillter(request).subscribe((result) => {
-      this.listChat = result.listEmailInfo;
+      this.listChat = result.listEmailInfo.slice(0, this.rows) ;
+      this.total = result.total
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
       })
@@ -186,6 +189,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  loadmore(){
+    this.rows += 10
+    this.loadListEmail()
+  }
   // getCountEmail() {
   //   let request = {
   //     idCompany: this.idCompany,
@@ -215,7 +222,7 @@ export class DashboardComponent implements OnInit {
       listAssign: this.listIdAssignSelect
     }
     this.emailInfoService.updateAssign(request).subscribe((result) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: "Update success" });
+      // this.messageService.add({ severity: 'success', summary: 'Success', detail: "Update success" });
     });
   }
 
@@ -243,6 +250,7 @@ export class DashboardComponent implements OnInit {
   messenger: string = ''
   status: number = 0
   signature: string = ''
+  rows: number = 10
 
   listStatus: any = []
   listStatusUpdate: any = []

@@ -115,6 +115,10 @@ html {
     border-radius: 15px;
 }
 
+.mb-16{
+    margin-bottom: 16px;
+}
+
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {}
@@ -187,6 +191,13 @@ i.pi {
     position: absolute;
     border-right: 1px solid #EFF0F2;
     width: 230px;
+    min-height: 100vh;
+    z-index: 2;
+}
+
+app-menu{
+    position: relative;
+    z-index: 10;
 }
 
 .content-left>.container {
@@ -465,7 +476,7 @@ body {
 
 .p-datatable-wrapper {
     /* min-height: 300px; */
-    max-height: calc(100vh - 167px);
+    max-height: calc(100vh - 147px);
 }
 
 .content-center {
@@ -506,10 +517,18 @@ body {
     height: calc(100vh - 80px);
     overflow: auto;
     display: flex;
-    margin-bottom: 280px;
     /* flex-direction: column-reverse; */
 }
 
+.conversation-panel{
+    margin-bottom: 280px;
+}
+
+
+
+#tooltip-search .p-datatable-wrapper{
+    height: 322px !important;
+}
 
 .conv-header {
     padding: 10px 16px;
@@ -830,4 +849,32 @@ input#range {
 
 .accordion-button::after{
     display: none;
+}
+
+#channel-done .p-dialog .p-dialog-header{
+    justify-content: center !important;
+    padding: 48px;
+}
+
+#channel-done .p-dialog-header .p-dialog-header-icon>span{
+    display: none !important;
+}
+
+#channel-done .p-dialog-header *{
+    text-align: center;
+}
+
+#channel-done .p-dialog-header .p-dialog-title{
+    font-weight: 600;
+    font-size: 24px;
+    color: rgba(0, 0, 0, 0.87);
+    margin-bottom: 16px;
+}
+
+#channel-done .p-dialog-content{
+    padding-bottom: 40px;
+}
+
+.text-required{
+    color: #F95353;
 }
