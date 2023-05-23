@@ -281,7 +281,7 @@ export class DashboardComponent implements OnInit {
   sending: boolean = false
   sendMessenger() {
     let request = {
-      to: this.mailDetails.from,
+      to: this.mailDetails.type == 1 ? this.mailDetails.from : this.mailDetails.to,
       cc: '',
       bcc: '',
       subject: this.mailDetails.subject,
@@ -289,21 +289,37 @@ export class DashboardComponent implements OnInit {
       idCompany: this.idCompany,
       idConfigEmail: this.mailDetails.idConfigEmail,
       messageId: this.mailDetails.messageId,
-      assign: this.mailDetails.assign
+      assign: 0
     }
     this.sending = true
-    this.emailInfoService.SendMail(request).subscribe((result) => {
-      if (result.status == 1) {
-        //thành công
-        // ("Send success")
-        this.detailMail(this.mailDetails)
-        this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
-      }
-      else {
-        //thất bại
-      }
-      this.sending = false
-    });
+    if(this.mailDetails.newConversation == false){
+      this.emailInfoService.SendMail(request).subscribe((result) => {
+        if (result.status == 1) {
+          //thành công
+          // ("Send success")
+          this.detailMail(this.mailDetails)
+          this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
+        }
+        else {
+          //thất bại
+        }
+        this.sending = false
+      });
+    }
+    else{      
+      this.emailInfoService.SendMailNewConversation(request).subscribe((result) => {
+        if (result.status == 1) {
+          //thành công
+          // ("Send success")
+          this.detailMail(this.mailDetails)
+          this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
+        }
+        else {
+          //thất bại
+        }
+        this.sending = false
+      });
+    }
   }
 
   mailDetails: any;

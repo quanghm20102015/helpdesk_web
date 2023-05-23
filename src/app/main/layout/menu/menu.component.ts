@@ -26,13 +26,14 @@ export class MenuComponent implements OnInit {
 
   idInterval: any;
   idIntervalCountMenu: any;
+  displayNewConvesation: boolean = false
 
   ngOnInit(): void {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
     this.idUser = +this.userInfoStorageService.getIdUser()
     this.getListInbox();
     this.getListLabel();
-
+    this.getListUser();
     this.getMenuCount();    
     this.idIntervalCountMenu = setInterval(() => {
       this.getMenuCount();
@@ -192,6 +193,37 @@ export class MenuComponent implements OnInit {
   ngOnDestroy() {
     if (this.idIntervalCountMenu) {
       clearInterval(this.idIntervalCountMenu);
+    }
+  }
+
+  
+  selectedLabel: any[] = []
+  selectedAssign: any[] = []
+  selectedFollow: any[] = []
+  selectedAgent: any[] = []
+  selectedRequester: number = 0;
+  listUser: any = []
+  ingredient: any;
+  getListUser() {
+    this.userService.GetByIdCompany(this.idCompany).subscribe((result) => {
+      this.listUser = result
+    });
+  }
+
+  city: string = '';
+
+  selectedCategory: any = null;
+
+  categories: any[] = [{name: 'Accounting', key: 'A'}, {name: 'Marketing', key: 'M'}, {name: 'Production', key: 'P'}, {name: 'Research', key: 'R'}];
+
+  saveConversation(){
+    debugger;
+    if(this.ingredient == 1){
+      debugger;
+    }
+    else if(this.ingredient == 2){
+
+      debugger;
     }
   }
 }
