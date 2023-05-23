@@ -6,6 +6,7 @@ import { LabelService } from '../../../service/label.service';
 import { MessageService } from 'primeng/api';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { UserService } from '../../../service/user.service';
+import { EmailInfoService } from 'src/app/service/emailInfo.service';
 
 @Component({
   selector: 'app-menu',
@@ -21,7 +22,9 @@ export class MenuComponent implements OnInit {
     private labelService: LabelService,
     private messageService: MessageService,
     private userInfoStorageService: UserInfoStorageService,
-    private userService: UserService
+    private userService: UserService,
+    private emailInfoService: EmailInfoService
+    
   ) { }
 
   idInterval: any;
@@ -289,10 +292,19 @@ export class MenuComponent implements OnInit {
   saveConversation(){
     debugger;
     this.modelNewConversation
-    if(this.ingredient == 1){
-      debugger;
+    this.modelNewConversation.listAgent = this.selectedAgent
+    this.modelNewConversation.listLabel = this.selectedLabel
+    this.modelNewConversation.listAssign = this.selectedAssign
+    this.modelNewConversation.listFollow = this.selectedFollow
+    this.modelNewConversation.idCompany = this.idCompany
+    this.modelNewConversation.idConfigEmail = 5
+    if(this.modelNewConversation.selectedCategory.value == 1){
+      this.emailInfoService.newConversation(this.modelNewConversation).subscribe((result) => {
+        debugger
+        this.displayNewConvesation = false
+      });
     }
-    else if(this.ingredient == 2){
+    else if(this.modelNewConversation.selectedCategory.value == 2){
 
       debugger;
     }

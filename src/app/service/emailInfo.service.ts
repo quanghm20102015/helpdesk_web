@@ -139,4 +139,10 @@ export class EmailInfoService {
     );
   }
 
+  newConversation(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/NewConversation',
+      data
+    );
+  }
 }
