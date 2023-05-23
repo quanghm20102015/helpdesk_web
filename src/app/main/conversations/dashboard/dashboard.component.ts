@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
   date: any = null
   url: string = ''
   urlOld: string = ''
+  onInit: boolean = true
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) {
@@ -88,7 +89,8 @@ export class DashboardComponent implements OnInit {
       idUserFollow: 0,
       idUserTrash: 0,
       unAssign: false,
-      // dateTime: this.date
+      fromDate: this.date? this.date[0] : null,
+      toDate: this.date? this.date[1] : null,
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {
@@ -125,6 +127,11 @@ export class DashboardComponent implements OnInit {
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
       })
+      if(this.onInit && this.router.url.includes('/mentions')){
+        this.onInit = false
+        this.detailMail(this.listChat[0])
+      }
+
     });
   }
 
@@ -313,8 +320,19 @@ export class DashboardComponent implements OnInit {
     this.messenger = "";
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
-      this.listLabelEmail = result.listLabel
       this.listEmailInfo = result.listEmailInfo
+      this.listMessenger = [];
+      this.listEmailInfo.forEach(element => {
+        this.listMessenger.push({
+          id: element.id,
+          messenger: element.textBody,
+          dateTime: new Date(element.date),
+          type: element.type,
+        })
+      });
+      this.viewMail = true;
+
+      this.listLabelEmail = result.listLabel
       this.listHistory = result.listHistory
       this.listFollow = result.listFollow
       this.listAssign = result.listAssign
@@ -322,6 +340,7 @@ export class DashboardComponent implements OnInit {
       if (this.mailDetails.status > 0) {
         this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
       }
+
 
       this.selectedAssign = []
       result.listAssign.forEach((item: { check: boolean; }) => {
@@ -343,17 +362,6 @@ export class DashboardComponent implements OnInit {
           this.selectedLabel.push(item)
         }
       });
-
-      this.listMessenger = [];
-      this.listEmailInfo.forEach(element => {
-        this.listMessenger.push({
-          id: element.id,
-          messenger: element.textBody,
-          dateTime: new Date(element.date),
-          type: element.type,
-        })
-      });
-      this.viewMail = true;
     });
 
     // this.listMessenger = [];
@@ -545,8 +553,8 @@ export class DashboardComponent implements OnInit {
   }
 
   clearFilter(){
-    this.status = 1
-    this.date = null
+    this.modelFilter.status = 0
+    this.modelFilter.date = null
     this.filter()
   }
 }

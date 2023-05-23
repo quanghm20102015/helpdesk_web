@@ -116,12 +116,16 @@
                                     <div id="tooltip-filter">
                                         <div class="action-title d-flex justify-content-between align-items-center m-0">
                                             <div>Filter</div>
-                                            <div class="text-danger fw-500 fs-13 cursor-pointer" (click)="clearFilter()">Clear filter</div>
+                                            <div class="text-danger fw-500 fs-13 cursor-pointer"
+                                                (click)="clearFilter()">Clear filter</div>
                                         </div>
                                         <div class="filter-content">
                                             <div class="filter-item">
                                                 <div class="filter-label">Time</div>
-                                                <p-calendar [(ngModel)]="modelFilter.date" dateFormat="dd/mm/yy" [showIcon]="true" placeholder="Choose date" [showClear]="true" ></p-calendar>
+                                                <p-calendar [(ngModel)]="modelFilter.date" selectionMode="range"
+                                                    dateFormat="dd/mm/yy" [readonlyInput]="true" inputId="range"
+                                                    [showIcon]="true" placeholder="Choose date"
+                                                    [showClear]="true"></p-calendar>
                                             </div>
                                             <div class="filter-item" style="margin-top: 8px;">
                                                 <div class="filter-label">Status</div>
@@ -132,7 +136,8 @@
                                                 </div>
                                             </div>
                                             <div class="filter-item btn-filter">
-                                                <button type="button" class="btn btn-primary" (click)="filter()">Filter</button>
+                                                <button type="button" class="btn btn-primary"
+                                                    (click)="filter()">Filter</button>
                                             </div>
 
                                         </div>
@@ -409,19 +414,21 @@
                                 </li>
                             </ng-template>
                         </ul>
-                        <div class="conversation-footer">
-                            <ckeditor [editor]="Editor" [(ngModel)]="messenger" [data]="signature"></ckeditor>
-                            <div class="groupt-submit mb-3 ms-3">
-                                <div class="btn-groupt d-flex align-items-center">
-                                    <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
-                                        [disabled]="!messenger || sending">{{sending? 'Sending':'Send'}}</button>
-                                    <label for="attachment" class="text-secondary me-2">
-                                        <i class="pi pi-paperclip"></i>
-                                    </label>
-                                    <input type="file" name="file[]" id="attachment" (change)="onUpload($event)"
-                                        style="visibility: hidden; position: absolute;" multiple />
-                                    <div>
-                                        <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
+                        <div class="fit-chat">
+                            <div class="conversation-footer">
+                                <ckeditor [editor]="Editor" [(ngModel)]="messenger" [data]="signature"></ckeditor>
+                                <div class="groupt-submit mb-3 ms-3">
+                                    <div class="btn-groupt d-flex align-items-center">
+                                        <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
+                                            [disabled]="!messenger || sending">{{sending? 'Sending':'Send'}}</button>
+                                        <label for="attachment" class="text-secondary me-2">
+                                            <i class="pi pi-paperclip"></i>
+                                        </label>
+                                        <input type="file" name="file[]" id="attachment" (change)="onUpload($event)"
+                                            style="visibility: hidden; position: absolute;" multiple />
+                                        <div>
+                                            <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -512,7 +519,7 @@
                         </span>
                     </div>
 
-                    <hr style="margin: 16px 0 14px">
+                    <hr style="margin: 6px 0 2px; color: #eff0f2;">
 
                     <div class="col-md-12">
                         <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -521,7 +528,16 @@
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                                         aria-controls="panelsStayOpen-collapseOne">
-                                        Information
+
+                                        <span class="d-flex align-items-center justify-content-between w-100">
+                                            Information
+                                            <svg class="icon-accordion" width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M3.45463 10.6667H12.2975C12.4539 10.666 12.6066 10.619 12.7363 10.5316C12.866 10.4441 12.9669 10.3202 13.0262 10.1754C13.0854 10.0306 13.1004 9.87153 13.0693 9.71823C13.0381 9.56493 12.9622 9.42432 12.8512 9.31416L8.43763 4.90065C8.36411 4.82651 8.27662 4.76767 8.18024 4.72752C8.08386 4.68736 7.98047 4.66669 7.87606 4.66669C7.77164 4.66669 7.66826 4.68736 7.57188 4.72752C7.47549 4.76767 7.38801 4.82651 7.31448 4.90065L2.90096 9.31416C2.7899 9.42432 2.71399 9.56493 2.68283 9.71823C2.65168 9.87153 2.66669 10.0306 2.72595 10.1754C2.78521 10.3202 2.88607 10.4441 3.01578 10.5316C3.14548 10.619 3.2982 10.666 3.45463 10.6667Z"
+                                                    fill="rgba(0, 0, 0, 0.87)" />
+                                            </svg>
+                                        </span>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
@@ -535,14 +551,22 @@
                                 </div>
                             </div>
 
-                            <hr style="margin: 12px 0 14px">
+                            <hr style="margin: 0px 0 2px; color: #eff0f2;">
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
                                         aria-controls="panelsStayOpen-collapseTwo">
-                                        Activities
+                                        <span class="d-flex align-items-center justify-content-between w-100">
+                                            Activities
+                                            <svg class="icon-accordion" width="16" height="16" viewBox="0 0 16 16"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M3.45463 10.6667H12.2975C12.4539 10.666 12.6066 10.619 12.7363 10.5316C12.866 10.4441 12.9669 10.3202 13.0262 10.1754C13.0854 10.0306 13.1004 9.87153 13.0693 9.71823C13.0381 9.56493 12.9622 9.42432 12.8512 9.31416L8.43763 4.90065C8.36411 4.82651 8.27662 4.76767 8.18024 4.72752C8.08386 4.68736 7.98047 4.66669 7.87606 4.66669C7.77164 4.66669 7.66826 4.68736 7.57188 4.72752C7.47549 4.76767 7.38801 4.82651 7.31448 4.90065L2.90096 9.31416C2.7899 9.42432 2.71399 9.56493 2.68283 9.71823C2.65168 9.87153 2.66669 10.0306 2.72595 10.1754C2.78521 10.3202 2.88607 10.4441 3.01578 10.5316C3.14548 10.619 3.2982 10.666 3.45463 10.6667Z"
+                                                    fill="rgba(0, 0, 0, 0.87)" />
+                                            </svg>
+                                        </span>
                                     </button>
                                 </h2>
                                 <div id="panelsStayOpen-collapseTwo" class="accordion-collapse"

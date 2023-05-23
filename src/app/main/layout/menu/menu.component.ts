@@ -27,6 +27,9 @@ export class MenuComponent implements OnInit {
   idInterval: any;
   idIntervalCountMenu: any;
 
+  modelChannel: any = { id: 0, yourName: '', email: '', idCompany: +this.userInfoStorageService.getCompanyId() }
+
+
   ngOnInit(): void {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
     this.idUser = +this.userInfoStorageService.getIdUser()
@@ -60,6 +63,7 @@ export class MenuComponent implements OnInit {
 
   display: boolean = false
   displayChooseChannel: boolean = false
+  displayChooseChannel2: boolean = false
   status: any = +this.userInfoStorageService.getStatus()
   model: any = {};
   submitted: boolean = false;
@@ -68,6 +72,11 @@ export class MenuComponent implements OnInit {
     description: [this.model.description],
     color: [this.model.color],
     showSidebar: [this.model.showSidebar],
+  });
+
+  formChannel: FormGroup = this._fb.group({
+    yourName: [this.modelChannel.yourName, [Validators.required]],
+    email: [this.modelChannel.email, [Validators.required, Validators.email]],
   });
 
   idCompany: any;
@@ -106,6 +115,9 @@ export class MenuComponent implements OnInit {
     return this.form.controls;
   }
 
+  get fchannel() {
+    return this.formChannel.controls;
+  }
   url: string = this.router.url
   tab: number = 0
   listRouterTab: any[] = [
@@ -188,6 +200,25 @@ export class MenuComponent implements OnInit {
       }
     });
   }
+
+  createChannel() {
+    this.configMailService.addChannel(this.modelChannel).subscribe((result) => {
+      if (result.status == 1) {
+        this.displayChooseChannel2 = false
+        this.getListInbox()
+      }
+      else {
+        this.showError(result.message)
+      }
+    });
+  }
+
+  // update(){
+  //   this.configMailService.putEmailInfo(this.modelChannel).subscribe((result) => {
+  //     this.displayChooseChannel2 = false
+  //   });
+  //   this.submitted = true
+  // }
   
   ngOnDestroy() {
     if (this.idIntervalCountMenu) {

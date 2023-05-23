@@ -816,7 +816,7 @@
                 <div class="name-channel">API</div>
             </div>
         </div>
-        <div class="item-choose-channel col-4 text-center">
+        <div class="item-choose-channel col-4 text-center" (click)="displayChooseChannel2 = true; displayChooseChannel = false">
             <div class="text-center">
                 <div class="icon-channel">
 
@@ -921,6 +921,63 @@
             </div>
         </div>
     </div>
+</p-dialog>
+
+<p-dialog [(visible)]="displayChooseChannel2" [modal]="true" class="box-dialog" [style]="{width: '545px'}"
+    id="channel">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Email Channel
+            </p>
+            <p class="fs-13" style="color: rgba(0, 0, 0, 0.87);">
+                Intergrate you email inbox
+            </p>
+        </div>
+    </ng-template>
+    <hr class="hr-dialog">
+    <form class="row" [formGroup]="formChannel">
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Channel name</div>
+                <input type="text" pInputText [(ngModel)]="modelChannel.yourName" formControlName="yourName"
+                    placeholder="Please enter a label name" class="form-control">
+                <div *ngIf="(fchannel['yourName'].dirty || fchannel['yourName'].touched || submitted) && fchannel['yourName'].invalid"
+                    class="text-danger">
+                    <div *ngIf="fchannel['yourName'].errors?.['required']">
+                        Please enter a channel name
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input mb-0">
+                <div class="text-label" style="margin-top: 8px;">Email</div>
+                <input type="text" pInputText [(ngModel)]="modelChannel.email" formControlName="email"
+                    placeholder="Please enter a label name" class="form-control">
+                <div *ngIf="(fchannel['email'].dirty || fchannel['email'].touched || submitted) && fchannel['email'].invalid"
+                    class="text-danger">
+                    <div *ngIf="fchannel['email'].errors?.['required']">
+                        Please enter a email channel
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <p class="fs-11" style="color: rgba(0, 0, 0, 0.87);margin-top: 4px">Provide the email address where your
+                customers send support requests</p>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt btn-dialog">
+                <button class="btn btn-outline-secondary btn-cancel" (click)="displayChooseChannel2 = false; displayChooseChannel = true">
+                    Back
+                </button>
+                <button type="button" class="btn btn-primary ml-2" [disabled]="fchannel['yourName'].errors || fchannel['email'].errors " (click)="createChannel()">
+                    <span>Create Email Channel</span>
+                </button>
+            </div>
+        </div>
+    </form>
 </p-dialog>
 
 <p-overlayPanel #op>

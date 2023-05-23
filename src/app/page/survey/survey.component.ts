@@ -21,10 +21,6 @@ export class SurveyComponent implements OnInit {
   idCompany: any;
   idGuIdEmailInfo: any;
   ngOnInit(): void {
-    if (localStorage.getItem('idUser')) {
-      this.router.navigate(['/main/conversations/dashboard']);
-    }
-    
     this.idCompany = this.userInfoStorageService.getCompanyId();
     this.activatedRoute.params.subscribe((params) => {
       const { token } = params;      

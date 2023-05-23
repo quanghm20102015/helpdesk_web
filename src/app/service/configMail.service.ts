@@ -58,5 +58,11 @@ export class ConfigMailService {
       AppSettings.HostingAddress + '/EmailInfoes/GetMenuCount',JSON.stringify(request),{headers:this.reqHeaders}
       );
   }
+
+  addChannel(request: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/ConfigMails/AddChannel',JSON.stringify(request),{headers:this.reqHeaders}
+      );
+  }
     
 }

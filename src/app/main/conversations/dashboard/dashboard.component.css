@@ -218,3 +218,12 @@
     height: 36px;
     width: 100%;
 }
+
+.fit-chat{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 528px;
+    padding-right: 273px;
+}
