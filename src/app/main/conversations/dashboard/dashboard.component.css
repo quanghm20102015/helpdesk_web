@@ -221,13 +221,25 @@
 
 .fit-chat{
     position: fixed;
-    bottom: 10px;
     left: 0;
     width: 100%;
-    padding-left: 528px;
-    padding-right: 273px;
+    padding-left: 515px;
+    padding-right: 257px;
+    bottom: 13px;
 }
 
 .text-loadmore{
     
+}
+
+.fit-chat #p-tabpanel-0-label{
+    padding: 0px 12px 0px 0px;
+}
+
+.fit-chat #p-tabpanel-2-label{
+    padding: 12px 12px 0px 0px;
+}
+
+.fit-chat textarea.p-inputtextarea.p-inputtext{
+    height: 107px;
 }

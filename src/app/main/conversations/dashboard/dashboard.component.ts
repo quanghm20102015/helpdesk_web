@@ -242,6 +242,7 @@ export class DashboardComponent implements OnInit {
 
   subject: any = ''
   statusName: any = ''
+  note: any = ''
   readonly: boolean = true
   scrollDemo: any
   Editor: any = ClassicEditor
@@ -251,6 +252,7 @@ export class DashboardComponent implements OnInit {
   status: number = 0
   signature: string = ''
   rows: number = 10
+  tabReply: number = 1
 
   listStatus: any = []
   listStatusUpdate: any = []

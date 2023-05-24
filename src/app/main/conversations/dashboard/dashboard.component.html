@@ -40,7 +40,8 @@
                                                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
                                                     <tr [pSelectableRow]="item"
                                                         [class.p-highlight]="(mailDetails && mailDetails.id === item.id)">
-                                                        <td (click)="detailMail(item); op4.toggle($event)" class="item-chat">
+                                                        <td (click)="detailMail(item); op4.toggle($event)"
+                                                            class="item-chat">
                                                             <div class="d-flex justify-content-between">
                                                                 <div class="box-left">
                                                                     <svg width="16" height="16" viewBox="0 0 16 16"
@@ -186,7 +187,8 @@
 
                 </p-table>
                 <div class="text-center pt-2">
-                    <div class="btn btn-secondary text-loadmore" *ngIf="total > rows" (click)="loadmore()">Load more</div>
+                    <div class="btn btn-secondary text-loadmore" *ngIf="total > rows" (click)="loadmore()">Load more
+                    </div>
                 </div>
             </div>
         </div>
@@ -380,7 +382,7 @@
             <div class="row w-100">
                 <div class="col-md-12">
                     <div class="view-box fill-height">
-                        <ul class="conversation-panel">
+                        <ul class="conversation-panel" *ngIf="listMessenger && listMessenger.length > 0">
                             <ng-template ngFor let-item [ngForOf]="listMessenger" let-i="index">
                                 <li class="message-read mt-3"
                                     [ngClass]="{'mess-in': item.type == 1, 'mess-out': item.type == 2, 'mess-center': item.type == 3, 'mess-note': item.type == 4}">
@@ -398,38 +400,105 @@
                                 </li>
                             </ng-template>
                         </ul>
+                        <div *ngIf="!listMessenger || listMessenger.length == 0"
+                            class="current-chat d-flex align-items-center justify-content-center">
+                            <div>
+                                <img src="//d3tq67kexc2w2i.cloudfront.net/packs/media/dashboard/assets/images/chat-a06542d766feaecc071c3a2b77f313e8.svg"
+                                    alt="No Chat" style="width: 100px">
+                                <span>Please select a conversation from left pane</span>
+                            </div>
+                        </div>
                         <div class="fit-chat">
-                            <div class="conversation-footer">
-                                <ckeditor [editor]="Editor" [(ngModel)]="messenger" [data]="signature"></ckeditor>
-                                <div class="groupt-submit mb-3 ms-3">
-                                    <div class="btn-groupt d-flex align-items-center">
-                                        <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
-                                            [disabled]="!messenger || sending">{{sending? 'Sending':'Send'}}</button>
-                                        <label for="attachment" class="text-secondary me-2">
-                                            <i class="pi pi-paperclip"></i>
-                                        </label>
-                                        <input type="file" name="file[]" id="attachment" (change)="onUpload($event)"
-                                            style="visibility: hidden; position: absolute;" multiple />
-                                        <div>
-                                            <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
+                            <p-tabView>
+                                <p-tabPanel>
+                                    <ng-template pTemplate="header">
+                                        <span class="reply-tab">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_1066_13854)">
+                                                    <path
+                                                        d="M11.3336 12.6667C11.3336 14.5067 9.84025 16.0001 8.00025 16.0001H3.33358C1.49358 16.0001 0.000244141 14.5067 0.000244141 12.6667V8.00008C0.000244141 6.16008 1.49358 4.66675 3.33358 4.66675H4.00025C4.36691 4.66675 4.66691 4.96675 4.66691 5.33341C4.66691 5.70008 4.36691 6.00008 4.00025 6.00008H3.33358C2.23358 6.00008 1.33358 6.90008 1.33358 8.00008V12.6667C1.33358 13.7667 2.23358 14.6667 3.33358 14.6667H8.00025C9.10025 14.6667 10.0002 13.7667 10.0002 12.6667C10.0002 12.3001 10.3002 12.0001 10.6669 12.0001C11.0336 12.0001 11.3336 12.3001 11.3336 12.6667Z"
+                                                        fill="currentColor" />
+                                                    <path
+                                                        d="M14.3689 4.38407L11.5598 1.48158C11.3625 1.27389 11.0302 1.2687 10.8277 1.47119C10.6252 1.67369 10.6148 2.00081 10.8173 2.20331L13.4862 4.95522H9.10908C7.67601 4.95522 6.51294 6.11829 6.51294 7.55136V10.1475C6.51294 10.4331 6.74659 10.6667 7.03217 10.6667C7.31774 10.6667 7.5514 10.4331 7.5514 10.1475V7.55136C7.5514 6.69464 8.25236 5.99368 9.10908 5.99368H13.481L10.8122 8.74559C10.6148 8.95328 10.6148 9.2804 10.8225 9.4777C10.9212 9.57636 11.0562 9.62309 11.186 9.62309C11.3158 9.62309 11.456 9.57116 11.5598 9.46732L14.3637 6.57521C14.9712 5.96772 14.9712 4.98118 14.3689 4.37888V4.38407Z"
+                                                        fill="currentColor" stroke="white" stroke-width="0.3" />
+                                                </g>
+                                                <defs>
+                                                    <clipPath id="clip0_1066_13854">
+                                                        <rect width="16" height="16" fill="currentColor"
+                                                            transform="translate(0.000244141)" />
+                                                    </clipPath>
+                                                </defs>
+                                            </svg>
+
+                                            <span class="reply-header">Reply</span>
+                                        </span>
+                                    </ng-template>
+                                    <div class="conversation-footer">
+                                        <ckeditor [editor]="Editor" [(ngModel)]="messenger" [data]="signature">
+                                        </ckeditor>
+                                        <div class="groupt-submit mb-3 ms-3">
+                                            <div class="btn-groupt d-flex align-items-center">
+                                                <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
+                                                    [disabled]="!note || sending">{{sending?
+                                                    'Sending':'Send'}}</button>
+                                                <label for="attachment" class="text-secondary me-2">
+                                                    <i class="pi pi-paperclip"></i>
+                                                </label>
+                                                <input type="file" name="file[]" id="attachment"
+                                                    (change)="onUpload($event)"
+                                                    style="visibility: hidden; position: absolute;" multiple />
+                                                <div>
+                                                    <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </p-tabPanel>
+                                <p-tabPanel>
+                                    <ng-template pTemplate="header">
+                                        <span class="reply-tab">
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M7.2848 1.33325L7.33357 1.33325C7.70176 1.33325 8.00024 1.63173 8.00024 1.99992C8.00024 2.36811 7.70176 2.66659 7.33357 2.66659C6.05765 2.66659 5.16777 2.668 4.49635 2.75827C3.8441 2.84596 3.4987 3.00636 3.25269 3.25237C3.00668 3.49838 2.84628 3.84378 2.75859 4.49603C2.66832 5.16745 2.66691 6.05733 2.66691 7.33325V8.66659C2.66691 9.94251 2.66832 10.8324 2.75859 11.5038C2.84628 12.1561 3.00668 12.5015 3.25269 12.7475C3.4987 12.9935 3.8441 13.1539 4.49635 13.2416C5.16777 13.3318 6.05765 13.3333 7.33357 13.3333H8.66691C9.94283 13.3333 10.8327 13.3318 11.5041 13.2416C12.1564 13.1539 12.5018 12.9935 12.7478 12.7475C12.9938 12.5015 13.1542 12.1561 13.2419 11.5038C13.3322 10.8324 13.3336 9.94251 13.3336 8.66659C13.3336 8.2984 13.6321 7.99992 14.0002 7.99992C14.3684 7.99992 14.6669 8.2984 14.6669 8.66659V8.71534C14.6669 9.93099 14.6669 10.9108 14.5633 11.6815C14.4558 12.4816 14.2256 13.1552 13.6906 13.6903C13.1556 14.2253 12.4819 14.4554 11.6818 14.563C10.9112 14.6666 9.93131 14.6666 8.71566 14.6666H7.28481C6.06917 14.6666 5.08932 14.6666 4.31868 14.563C3.51859 14.4554 2.84492 14.2253 2.30988 13.6903C1.77485 13.1552 1.54472 12.4816 1.43715 11.6815C1.33354 10.9108 1.33355 9.931 1.33357 8.71536V7.28448C1.33355 6.06884 1.33354 5.089 1.43715 4.31836C1.54472 3.51827 1.77485 2.8446 2.30988 2.30956C2.84492 1.77453 3.51859 1.5444 4.31868 1.43683C5.08932 1.33322 6.06916 1.33323 7.2848 1.33325Z"
+                                                    fill="currentColor" />
+                                                <path
+                                                    d="M14.0002 3.33325H12.6669V1.99992C12.6669 1.82311 12.5967 1.65354 12.4716 1.52851C12.3466 1.40349 12.177 1.33325 12.0002 1.33325C11.8234 1.33325 11.6539 1.40349 11.5288 1.52851C11.4038 1.65354 11.3336 1.82311 11.3336 1.99992V3.33325H10.0002C9.82343 3.33325 9.65386 3.40349 9.52883 3.52851C9.40381 3.65353 9.33357 3.8231 9.33357 3.99991C9.33357 4.17672 9.40381 4.34629 9.52883 4.47132C9.65386 4.59634 9.82343 4.66658 10.0002 4.66658H11.3336V5.99991C11.3336 6.17672 11.4038 6.34629 11.5288 6.47131C11.6539 6.59634 11.8234 6.66658 12.0002 6.66658C12.177 6.66658 12.3466 6.59634 12.4716 6.47131C12.5967 6.34629 12.6669 6.17672 12.6669 5.99991V4.66658H14.0002C14.177 4.66658 14.3466 4.59634 14.4716 4.47132C14.5967 4.34629 14.6669 4.17672 14.6669 3.99991C14.6669 3.8231 14.5967 3.65353 14.4716 3.52851C14.3466 3.40349 14.177 3.33325 14.0002 3.33325Z"
+                                                    fill="currentColor" />
+                                            </svg>
+                                            <span class="reply-header">Private note</span>
+                                        </span>
+                                    </ng-template>
+
+                                    <div class="conversation-footer">
+                                        <textarea [rows]="3" pInputTextarea [autoResize]="true"
+                                            [(ngModel)]="note"></textarea>
+                                        <div class="groupt-submit mb-3 ms-3">
+                                            <div class="btn-groupt d-flex align-items-center">
+                                                <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
+                                                    [disabled]="!messenger || sending">{{sending?
+                                                    'Sending':'Send'}}</button>
+                                                <label for="attachment" class="text-secondary me-2">
+                                                    <i class="pi pi-paperclip"></i>
+                                                </label>
+                                                <input type="file" name="file[]" id="attachment"
+                                                    (change)="onUpload($event)"
+                                                    style="visibility: hidden; position: absolute;" multiple />
+                                                <div>
+                                                    <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p-tabPanel>
+                            </p-tabView>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div *ngIf="!listMessenger || listMessenger.length == 0"
-            class="current-chat d-flex align-items-center justify-content-center" style="min-height: 100vh">
-            <div>
-                <img src="//d3tq67kexc2w2i.cloudfront.net/packs/media/dashboard/assets/images/chat-a06542d766feaecc071c3a2b77f313e8.svg"
-                    alt="No Chat" style="width: 100px">
-                <span>Please select a conversation from left pane</span>
-            </div>
-        </div>
     </div>
     <div class="content-right" *ngIf="viewMail">
         <div class="container">
