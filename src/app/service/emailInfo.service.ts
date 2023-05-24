@@ -54,6 +54,13 @@ export class EmailInfoService {
     );
   }
 
+  SendMailNewConversation(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/SendMailNewConversation',
+      data
+    );
+  }
+
   getByIdCompany(idCompany: any): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/EmailInfoes/GetByIdCompany?idCompany=' + idCompany
@@ -132,4 +139,10 @@ export class EmailInfoService {
     );
   }
 
+  newConversation(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/NewConversation',
+      data
+    );
+  }
 }

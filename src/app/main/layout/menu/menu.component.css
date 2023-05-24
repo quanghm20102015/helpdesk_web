@@ -216,3 +216,27 @@ hr{
 .item-choose-channel:not([disabled])>div{
     cursor: pointer;
 }
+
+.p-field-checkbox{
+    margin-right: 40px;
+}
+
+.p-field-checkbox label{
+    margin-left: 8px;
+}
+
+.row-title-input{
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+
+#NewConvesation .title-input{
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+.input-radio{
+    margin-bottom: 12px;
+}

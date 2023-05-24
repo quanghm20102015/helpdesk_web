@@ -1,17 +1,6 @@
 <div class="d-flex container-box" [ngClass]="{'view-mail': viewMail}">
     <div class="content-left">
         <div class="container">
-            <!-- <div class="search-wrap">
-                <div class="search">
-                    <a class="search--link">
-                        <span class="p-input-icon-left py-3 w-100">
-                            <i class="pi pi-search"></i>
-                            <input type="text" pInputText [(ngModel)]="textSearchChange" placeholder="Search"
-                                (keyup.enter)="onChangeValue()">
-                        </span>
-                    </a>
-                </div>
-            </div> -->
             <div class="row">
                 <div class="col-md-12 group-title">
                     <div class="d-flex justify-content-between align-items-center">
@@ -47,11 +36,11 @@
                                                 style="margin-bottom: 8px;">
                                         </div>
                                         <div>
-                                            <p-table [value]="listChatSearch" [scrollable]="true">
+                                            <p-table [value]="listChatSearch">
                                                 <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
                                                     <tr [pSelectableRow]="item"
                                                         [class.p-highlight]="(mailDetails && mailDetails.id === item.id)">
-                                                        <td (click)="detailMail(item)" class="item-chat">
+                                                        <td (click)="detailMail(item); op4.toggle($event)" class="item-chat">
                                                             <div class="d-flex justify-content-between">
                                                                 <div class="box-left">
                                                                     <svg width="16" height="16" viewBox="0 0 16 16"
@@ -195,15 +184,10 @@
                         </tr>
                     </ng-template>
 
-                    <ng-template pTemplate="loadingbody" let-columns="columns">
-                        <tr style="height:46px">
-                            <td *ngFor="let col of columns; let even = even">
-                                <p-skeleton
-                                    [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
-                            </td>
-                        </tr>
-                    </ng-template>
                 </p-table>
+                <div class="text-center pt-2">
+                    <div class="btn btn-secondary text-loadmore" *ngIf="total > rows" (click)="loadmore()">Load more</div>
+                </div>
             </div>
         </div>
     </div>
@@ -399,7 +383,7 @@
                         <ul class="conversation-panel">
                             <ng-template ngFor let-item [ngForOf]="listMessenger" let-i="index">
                                 <li class="message-read mt-3"
-                                    [ngClass]="{'mess-in': item.type == 1, 'mess-out': item.type == 2, 'mess-center': item.type == 3}">
+                                    [ngClass]="{'mess-in': item.type == 1, 'mess-out': item.type == 2, 'mess-center': item.type == 3, 'mess-note': item.type == 4}">
                                     <div class="activity-wrap">
                                         <div class="message-time mb-1 text-align-right">
                                             <span class="time">
@@ -519,7 +503,7 @@
                         </span>
                     </div>
 
-                    <hr style="margin: 6px 0 2px; color: #eff0f2;">
+                    <hr style="margin: 6px 0 2px; color: #E6E6E8;">
 
                     <div class="col-md-12">
                         <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -551,7 +535,7 @@
                                 </div>
                             </div>
 
-                            <hr style="margin: 0px 0 2px; color: #eff0f2;">
+                            <hr style="margin: 0px 0 2px; color: #E6E6E8;">
 
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="panelsStayOpen-headingTwo">

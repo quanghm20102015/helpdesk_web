@@ -221,9 +221,13 @@
 
 .fit-chat{
     position: fixed;
-    bottom: 10;
+    bottom: 10px;
     left: 0;
     width: 100%;
     padding-left: 528px;
     padding-right: 273px;
+}
+
+.text-loadmore{
+    
 }

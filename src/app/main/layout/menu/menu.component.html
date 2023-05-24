@@ -90,7 +90,7 @@
             <div *ngIf="tab == 1">
                 <div class="title-menu">Greetings</div>
                 <div style="padding: 0px 12px;">
-                    <div class="btn btn-primary btn-new-conversation w-100">
+                    <div class="btn btn-primary btn-new-conversation w-100" (click)="newConversation()">
                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M11.8336 7.33333H9.16691V4.66667C9.16691 4.48986 9.09667 4.32029 8.97165 4.19526C8.84662 4.07024 8.67706 4 8.50024 4C8.32343 4 8.15386 4.07024 8.02884 4.19526C7.90382 4.32029 7.83358 4.48986 7.83358 4.66667V7.33333H5.16691C4.9901 7.33333 4.82053 7.40357 4.69551 7.5286C4.57048 7.65362 4.50024 7.82319 4.50024 8C4.50024 8.17681 4.57048 8.34638 4.69551 8.4714C4.82053 8.59643 4.9901 8.66667 5.16691 8.66667H7.83358V11.3333C7.83358 11.5101 7.90382 11.6797 8.02884 11.8047C8.15386 11.9298 8.32343 12 8.50024 12C8.67706 12 8.84662 11.9298 8.97165 11.8047C9.09667 11.6797 9.16691 11.5101 9.16691 11.3333V8.66667H11.8336C12.0104 8.66667 12.18 8.59643 12.305 8.4714C12.43 8.34638 12.5002 8.17681 12.5002 8C12.5002 7.82319 12.43 7.65362 12.305 7.5286C12.18 7.40357 12.0104 7.33333 11.8336 7.33333Z"
@@ -270,7 +270,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="icon-add" (click)="displayChooseChannel = true">
+                                    <div class="icon-add" (click)="displayChooseChannel = true;">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="m-0"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -816,7 +816,8 @@
                 <div class="name-channel">API</div>
             </div>
         </div>
-        <div class="item-choose-channel col-4 text-center" (click)="displayChooseChannel2 = true; displayChooseChannel = false">
+        <div class="item-choose-channel col-4 text-center"
+            (click)="displayChooseChannel2 = true; displayChooseChannel = false">
             <div class="text-center">
                 <div class="icon-channel">
 
@@ -923,8 +924,7 @@
     </div>
 </p-dialog>
 
-<p-dialog [(visible)]="displayChooseChannel2" [modal]="true" class="box-dialog" [style]="{width: '545px'}"
-    id="channel">
+<p-dialog [(visible)]="displayChooseChannel2" [modal]="true" class="box-dialog" [style]="{width: '545px'}" id="channel">
     <ng-template pTemplate="header">
         <div>
             <p class="p-dialog-title">
@@ -969,16 +969,44 @@
         </div>
         <div class="modal-footer">
             <div class="btn-groupt btn-dialog">
-                <button class="btn btn-outline-secondary btn-cancel" (click)="displayChooseChannel2 = false; displayChooseChannel = true">
+                <button class="btn btn-outline-secondary btn-cancel"
+                    (click)="displayChooseChannel2 = false; displayChooseChannel = true">
                     Back
                 </button>
-                <button type="button" class="btn btn-primary ml-2" [disabled]="fchannel['yourName'].errors || fchannel['email'].errors " (click)="createChannel()">
+                <button type="button" class="btn btn-primary ml-2"
+                    [disabled]="fchannel['yourName'].errors || fchannel['email'].errors "
+                    (click)="createChannel();displayChooseChannel3 = true">
                     <span>Create Email Channel</span>
                 </button>
             </div>
         </div>
     </form>
 </p-dialog>
+
+<p-dialog [(visible)]="displayChooseChannel3" [modal]="true" class="box-dialog" [style]="{width: '633px'}"
+    id="channel-done">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Your channel is ready!
+            </p>
+            <p class="fs-14" style="color: #000000;">
+                Start forwarding your emails to the following email address.
+            </p>
+        </div>
+    </ng-template>
+    <div class="modal-footer justify-content-center">
+        <div class="btn-groupt btn-dialog">
+            <button class="btn btn-outline-secondary btn-cancel" (click)="toSetting()">
+                More setting
+            </button>
+            <button type="button" class="btn btn-primary ml-2" (click)="toTakeMe()">
+                <span>Take me there</span>
+            </button>
+        </div>
+    </div>
+</p-dialog>
+
 
 <p-overlayPanel #op>
     <ng-template pTemplate>
@@ -1048,3 +1076,139 @@
         </div>
     </ng-template>
 </p-overlayPanel>
+
+<p-dialog [(visible)]="displayNewConvesation" [modal]="true" class="box-dialog" [style]="{width: '513px'}"
+    id="NewConvesation">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                New Conversation
+            </p>
+        </div>
+    </ng-template>
+    <div class="row">
+        <div class="col-md-12 d-flex row-title-input" style="border-top: 1px solid #E6E6E8;">
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_91_29600)">
+                    <path
+                        d="M8 8.5C8.79113 8.5 9.56449 8.26541 10.2223 7.82588C10.8801 7.38635 11.3928 6.76164 11.6955 6.03074C11.9983 5.29983 12.0775 4.49556 11.9231 3.71964C11.7688 2.94372 11.3878 2.23098 10.8284 1.67157C10.269 1.11216 9.55629 0.731202 8.78036 0.576861C8.00444 0.42252 7.20017 0.501733 6.46927 0.804484C5.73836 1.10723 5.11365 1.61992 4.67412 2.27772C4.2346 2.93552 4 3.70888 4 4.5C4.00106 5.56054 4.42283 6.57734 5.17274 7.32726C5.92266 8.07718 6.93946 8.49894 8 8.5ZM8 1.83334C8.52742 1.83334 9.04299 1.98973 9.48152 2.28275C9.92005 2.57577 10.2618 2.99224 10.4637 3.47951C10.6655 3.96678 10.7183 4.50296 10.6154 5.02024C10.5125 5.53753 10.2586 6.01268 9.88562 6.38562C9.51268 6.75856 9.03752 7.01254 8.52024 7.11543C8.00296 7.21832 7.46678 7.16551 6.97951 6.96368C6.49224 6.76185 6.07577 6.42005 5.78275 5.98152C5.48973 5.54299 5.33333 5.02742 5.33333 4.5C5.33333 3.79276 5.61428 3.11448 6.11438 2.61438C6.61448 2.11429 7.29276 1.83334 8 1.83334Z"
+                        fill="black" fill-opacity="0.87" />
+                    <path
+                        d="M8 9.83398C6.40924 9.83575 4.88414 10.4685 3.75931 11.5933C2.63447 12.7181 2.00176 14.2432 2 15.834C2 16.0108 2.07024 16.1804 2.19526 16.3054C2.32029 16.4304 2.48986 16.5007 2.66667 16.5007C2.84348 16.5007 3.01305 16.4304 3.13807 16.3054C3.2631 16.1804 3.33333 16.0108 3.33333 15.834C3.33333 14.5963 3.825 13.4093 4.70017 12.5342C5.57534 11.659 6.76232 11.1673 8 11.1673C9.23768 11.1673 10.4247 11.659 11.2998 12.5342C12.175 13.4093 12.6667 14.5963 12.6667 15.834C12.6667 16.0108 12.7369 16.1804 12.8619 16.3054C12.987 16.4304 13.1565 16.5007 13.3333 16.5007C13.5101 16.5007 13.6797 16.4304 13.8047 16.3054C13.9298 16.1804 14 16.0108 14 15.834C13.9982 14.2432 13.3655 12.7181 12.2407 11.5933C11.1159 10.4685 9.59076 9.83575 8 9.83398Z"
+                        fill="black" fill-opacity="0.87" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_91_29600">
+                        <rect width="16" height="16" fill="white" transform="translate(0 0.5)" />
+                    </clipPath>
+                </defs>
+            </svg>
+            <div class="text-label title-input">Requester</div>
+        </div>
+        <div class="col-md-12 flex flex-wrap gap-3 input-radio">
+            <span *ngFor="let category of categories" class="p-field-checkbox">
+                <p-radioButton [inputId]="category.value" [value]="category.value" [(ngModel)]="modelNewConversation.selectedCategory"></p-radioButton>
+                <label [for]="category.value">{{category.name}}</label>
+            </span>
+        </div>
+
+        <div class="col-md-6"
+            *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory == 1">
+            <label class="label-input">
+                <div class="text-label">User name<span class="text-required">*</span></div>
+                <input type="text" pInputText [(ngModel)]="modelNewConversation.username"
+                    placeholder="Please enter user name" class="form-control">
+            </label>
+        </div>
+        <div class="col-md-6"
+            *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory == 1">
+            <label class="label-input">
+                <div class="text-label">Email<span class="text-required">*</span></div>
+                <input type="text" pInputText [(ngModel)]="modelNewConversation.email"
+                    placeholder="Please enter your email" class="form-control">
+            </label>
+        </div>
+
+        <div class="col-md-12"
+            *ngIf="modelNewConversation.selectedCategory && modelNewConversation.selectedCategory == 2">
+            <label class="label-input">
+                <div class="text-label">Agent<span class="text-required">*</span></div>
+                <p-multiSelect [options]="listUser" [(ngModel)]="selectedAgent" display="chip"
+                    optionValue="id" defaultLabel="Please select agents" optionLabel="fullname"
+                    class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div>
+
+        <hr class="hr-dialog">
+
+        <div class="col-md-12 d-flex row-title-input"  style="border-top: 1px solid #E6E6E8; margin-top: 10px;">
+            <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_91_29433)">
+                    <mask id="path-1-inside-1_91_29433" fill="white">
+                        <path
+                            d="M15.9999 7.99789C15.9035 6.4379 15.3527 4.94023 14.4154 3.6895C13.4781 2.43878 12.1952 1.48968 10.725 0.959218C9.25485 0.428752 7.66157 0.34011 6.14161 0.704218C4.62165 1.06833 3.24146 1.86927 2.1712 3.0083C1.10094 4.14733 0.387392 5.57466 0.118526 7.11433C-0.15034 8.65399 0.0372289 10.2387 0.658109 11.673C1.27899 13.1074 2.30604 14.3287 3.61264 15.1864C4.91924 16.0441 6.44827 16.5007 8.01123 16.4999H12.6666C13.5503 16.499 14.3977 16.1475 15.0226 15.5226C15.6475 14.8977 15.999 14.0503 15.9999 13.1666V7.99789ZM14.6666 13.1666C14.6666 13.697 14.4559 14.2057 14.0808 14.5808C13.7057 14.9558 13.197 15.1666 12.6666 15.1666L8.01123 15.1666C7.07052 15.1661 6.14046 14.9674 5.2817 14.5834C4.42293 14.1994 3.65475 13.6387 3.02723 12.9379C2.39668 12.2374 1.92318 11.4102 1.63849 10.5117C1.3538 9.61329 1.2645 8.66435 1.37656 7.72855C1.55352 6.25252 2.21669 4.87735 3.26153 3.81984C4.30636 2.76233 5.67343 2.08263 7.14723 1.88789C7.43472 1.85185 7.72416 1.8336 8.0139 1.83322C9.56755 1.82898 11.0731 2.37182 12.2666 3.36655C12.9636 3.94585 13.5357 4.66066 13.9483 5.46764C14.3608 6.27463 14.6052 7.15698 14.6666 8.06122L14.6666 13.1666Z" />
+                    </mask>
+                    <path
+                        d="M15.9999 7.99789C15.9035 6.4379 15.3527 4.94023 14.4154 3.6895C13.4781 2.43878 12.1952 1.48968 10.725 0.959218C9.25485 0.428752 7.66157 0.34011 6.14161 0.704218C4.62165 1.06833 3.24146 1.86927 2.1712 3.0083C1.10094 4.14733 0.387392 5.57466 0.118526 7.11433C-0.15034 8.65399 0.0372289 10.2387 0.658109 11.673C1.27899 13.1074 2.30604 14.3287 3.61264 15.1864C4.91924 16.0441 6.44827 16.5007 8.01123 16.4999H12.6666C13.5503 16.499 14.3977 16.1475 15.0226 15.5226C15.6475 14.8977 15.999 14.0503 15.9999 13.1666V7.99789ZM14.6666 13.1666C14.6666 13.697 14.4559 14.2057 14.0808 14.5808C13.7057 14.9558 13.197 15.1666 12.6666 15.1666L8.01123 15.1666C7.07052 15.1661 6.14046 14.9674 5.2817 14.5834C4.42293 14.1994 3.65475 13.6387 3.02723 12.9379C2.39668 12.2374 1.92318 11.4102 1.63849 10.5117C1.3538 9.61329 1.2645 8.66435 1.37656 7.72855C1.55352 6.25252 2.21669 4.87735 3.26153 3.81984C4.30636 2.76233 5.67343 2.08263 7.14723 1.88789C7.43472 1.85185 7.72416 1.8336 8.0139 1.83322C9.56755 1.82898 11.0731 2.37182 12.2666 3.36655C12.9636 3.94585 13.5357 4.66066 13.9483 5.46764C14.3608 6.27463 14.6052 7.15698 14.6666 8.06122L14.6666 13.1666Z"
+                        fill="black" fill-opacity="0.87" />
+                    <path
+                        d="M15.9999 7.99789L37.3332 7.99789V7.33925L37.2926 6.68187L15.9999 7.99789ZM8.01123 16.4999L8.01123 -4.83345L8.00036 -4.83344L8.01123 16.4999ZM12.6666 16.4999L12.6666 37.8332H12.6772L12.6879 37.8332L12.6666 16.4999ZM15.9999 13.1666L37.3332 13.1879L37.3332 13.1772V13.1666L15.9999 13.1666ZM14.6666 13.1666L35.9999 13.1666L14.6666 13.1666ZM12.6666 15.1666L12.6666 36.4999L12.6666 15.1666ZM8.01123 15.1666L8.00158 36.4999H8.01123L8.01123 15.1666ZM3.02723 12.9379L18.9206 -1.29283L18.9017 -1.31384L18.8829 -1.33481L3.02723 12.9379ZM1.37656 7.72855L-19.8051 5.18916L-19.8054 5.19187L1.37656 7.72855ZM7.14723 1.88789L4.49418 -19.2798L4.42338 -19.271L4.35264 -19.2616L7.14723 1.88789ZM8.0139 1.83322L8.04168 23.1665L8.05688 23.1665L8.07208 23.1665L8.0139 1.83322ZM12.2666 3.36655L-1.39215 19.7541L-1.38065 19.7637L-1.36913 19.7732L12.2666 3.36655ZM14.6666 8.06122L35.9999 8.06122V7.33785L35.9509 6.61614L14.6666 8.06122ZM37.2926 6.68187C36.9393 0.966069 34.9211 -4.52141 31.4869 -9.10406L-2.65613 16.4831C-4.21581 14.4019 -5.13237 11.9097 -5.2928 9.31391L37.2926 6.68187ZM31.4869 -9.10406C28.0526 -13.6867 23.3523 -17.1642 17.9655 -19.1078L3.48457 21.0263C1.03817 20.1436 -1.09645 18.5643 -2.65613 16.4831L31.4869 -9.10406ZM17.9655 -19.1078C12.5787 -21.0515 6.74093 -21.3762 1.17179 -20.0422L11.1114 21.4506C8.5822 22.0565 5.93097 21.909 3.48457 21.0263L17.9655 -19.1078ZM1.17179 -20.0422C-4.39735 -18.7081 -9.45435 -15.7734 -13.3758 -11.6L17.7182 17.6166C15.9373 19.5119 13.6406 20.8447 11.1114 21.4506L1.17179 -20.0422ZM-13.3758 -11.6C-17.2972 -7.42658 -19.9117 -2.19684 -20.8968 3.4445L21.1338 10.7842C20.6864 13.3462 19.4991 15.7212 17.7182 17.6166L-13.3758 -11.6ZM-20.8968 3.4445C-21.8819 9.08583 -21.1947 14.8921 -18.9198 20.1476L20.236 3.19846C21.2691 5.58522 21.5812 8.22215 21.1338 10.7842L-20.8968 3.4445ZM-18.9198 20.1476C-16.6449 25.4031 -12.8818 29.8779 -8.09436 33.0206L15.3196 -2.64777C17.4938 -1.22056 19.2028 0.811705 20.236 3.19846L-18.9198 20.1476ZM-8.09436 33.0206C-3.30697 36.1632 2.29541 37.8361 8.02211 37.8332L8.00036 -4.83344C10.6011 -4.83477 13.1454 -4.07499 15.3196 -2.64777L-8.09436 33.0206ZM8.01123 37.8332H12.6666L12.6666 -4.83345L8.01123 -4.83345L8.01123 37.8332ZM12.6879 37.8332C19.2222 37.8267 25.4871 35.228 30.1076 30.6075L-0.0623318 0.437659C3.30831 -2.93298 7.87849 -4.82867 12.6453 -4.83343L12.6879 37.8332ZM30.1076 30.6075C34.7281 25.9871 37.3267 19.7222 37.3332 13.1879L-5.33342 13.1453C-5.32866 8.37848 -3.43297 3.8083 -0.0623318 0.437659L30.1076 30.6075ZM37.3332 13.1666V7.99789L-5.33344 7.99789L-5.33344 13.1666L37.3332 13.1666ZM-6.66677 13.1666C-6.66677 8.03905 -4.62988 3.12154 -1.00417 -0.504175L29.1657 29.6657C33.5416 25.2899 35.9999 19.3549 35.9999 13.1666L-6.66677 13.1666ZM-1.00417 -0.504175C2.62154 -4.12989 7.53906 -6.16678 12.6666 -6.16678L12.6666 36.4999C18.8549 36.4999 24.7899 34.0416 29.1657 29.6657L-1.00417 -0.504175ZM12.6666 -6.16678L8.01123 -6.16678L8.01123 36.4999H12.6666L12.6666 -6.16678ZM8.02088 -6.16678C10.0781 -6.16585 12.1121 -5.73132 13.9902 -4.89151L-3.4268 34.0584C0.168793 35.6662 4.06289 36.4981 8.00158 36.4999L8.02088 -6.16678ZM13.9902 -4.89151C15.8683 -4.05171 17.5482 -2.82549 18.9206 -1.29283L-12.8661 27.1686C-10.2387 30.1029 -7.0224 32.4505 -3.4268 34.0584L13.9902 -4.89151ZM18.8829 -1.33481C20.287 0.225016 21.3413 2.06702 21.9753 4.06768L-18.6983 16.9558C-17.495 20.7534 -15.4936 24.2498 -12.8284 27.2106L18.8829 -1.33481ZM21.9753 4.06768C22.6092 6.06835 22.8081 8.18143 22.5585 10.2652L-19.8054 5.19187C-20.2791 9.14727 -19.9016 13.1582 -18.6983 16.9558L21.9753 4.06768ZM22.5582 10.2679C22.1713 13.495 20.7215 16.5015 18.4371 18.8136L-11.9141 -11.1739C-16.2881 -6.74684 -19.0643 -0.989977 -19.8051 5.18916L22.5582 10.2679ZM18.4371 18.8136C16.1528 21.1256 13.164 22.6116 9.94182 23.0374L4.35264 -19.2616C-1.81712 -18.4464 -7.54009 -15.6009 -11.9141 -11.1739L18.4371 18.8136ZM9.80028 23.0556C9.21692 23.1287 8.62961 23.1658 8.04168 23.1665L7.98612 -19.5001C6.81871 -19.4986 5.65252 -19.425 4.49418 -19.2798L9.80028 23.0556ZM8.07208 23.1665C4.61446 23.1759 1.26388 21.9678 -1.39215 19.7541L25.9253 -13.021C20.8823 -17.2242 14.5206 -19.5179 7.95571 -19.5L8.07208 23.1665ZM-1.36913 19.7732C-2.89346 18.5064 -4.14465 16.9431 -5.04686 15.1783L32.9434 -4.24301C31.2161 -7.62181 28.8206 -10.6146 25.9023 -13.0401L-1.36913 19.7732ZM-5.04686 15.1783C-5.94907 13.4135 -6.48351 11.4838 -6.61777 9.50631L35.9509 6.61614C35.6939 2.83015 34.6707 -0.864215 32.9434 -4.24301L-5.04686 15.1783ZM-6.66677 8.06122L-6.66677 13.1666L35.9999 13.1666V8.06122L-6.66677 8.06122Z"
+                        fill="black" fill-opacity="0.87" mask="url(#path-1-inside-1_91_29433)" />
+                    <path
+                        d="M5.33317 6.49984L7.99984 6.49984C8.17665 6.49984 8.34622 6.4296 8.47124 6.30457C8.59627 6.17955 8.6665 6.00998 8.6665 5.83317C8.6665 5.65636 8.59627 5.48679 8.47124 5.36177C8.34622 5.23674 8.17665 5.1665 7.99984 5.1665L5.33317 5.1665C5.15636 5.1665 4.98679 5.23674 4.86177 5.36177C4.73674 5.48679 4.6665 5.65636 4.6665 5.83317C4.6665 6.00998 4.73674 6.17955 4.86177 6.30457C4.98679 6.4296 5.15636 6.49984 5.33317 6.49984Z"
+                        fill="black" fill-opacity="0.87" />
+                    <path
+                        d="M10.6665 7.8335L5.33317 7.8335C5.15636 7.8335 4.98679 7.90373 4.86177 8.02876C4.73674 8.15378 4.6665 8.32335 4.6665 8.50017C4.6665 8.67698 4.73674 8.84655 4.86177 8.97157C4.98679 9.0966 5.15636 9.16684 5.33317 9.16684L10.6665 9.16684C10.8433 9.16684 11.0129 9.0966 11.1379 8.97157C11.2629 8.84655 11.3332 8.67698 11.3332 8.50017C11.3332 8.32335 11.2629 8.15378 11.1379 8.02876C11.0129 7.90373 10.8433 7.8335 10.6665 7.8335Z"
+                        fill="black" fill-opacity="0.87" />
+                    <path
+                        d="M10.6665 10.5L5.33317 10.5C5.15636 10.5 4.98679 10.5702 4.86177 10.6953C4.73674 10.8203 4.6665 10.9899 4.6665 11.1667C4.6665 11.3435 4.73674 11.5131 4.86177 11.6381C4.98679 11.7631 5.15636 11.8333 5.33317 11.8333L10.6665 11.8333C10.8433 11.8333 11.0129 11.7631 11.1379 11.6381C11.2629 11.5131 11.3332 11.3435 11.3332 11.1667C11.3332 10.9899 11.2629 10.8203 11.1379 10.6953C11.0129 10.5702 10.8433 10.5 10.6665 10.5Z"
+                        fill="black" fill-opacity="0.87" />
+                </g>
+                <defs>
+                    <clipPath id="clip0_91_29433">
+                        <rect width="16" height="16" fill="white" transform="translate(0 0.5)" />
+                    </clipPath>
+                </defs>
+            </svg>
+
+            <div class="text-label title-input">Conversation Information</div>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input mb-16">
+                <div class="text-label">Assignees</div>
+                <p-multiSelect [options]="listUser" [(ngModel)]="selectedAssign" display="chip"
+                    defaultLabel="Please select assignees" optionLabel="fullname" optionValue="id" class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input mb-16">
+                <div class="text-label">Watchers</div>
+                <p-multiSelect [options]="listUser" [(ngModel)]="selectedFollow" display="chip"
+                    defaultLabel="Please select watchers" optionLabel="fullname" optionValue="id" class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Label</div>
+                <p-multiSelect [options]="listLabel" [(ngModel)]="selectedLabel" display="chip"
+                    defaultLabel="Please add label" optionLabel="name" optionValue="id" class="multiselect-custom me-2">
+                </p-multiSelect>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt btn-dialog">
+                <button class="btn btn-outline-secondary btn-cancel" (click)="displayNewConvesation = false">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary ml-2" (click)="saveConversation()">
+                    <span>Create with Open</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+
+<p-toast></p-toast>

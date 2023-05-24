@@ -6,6 +6,7 @@ import { LabelService } from '../../../service/label.service';
 import { MessageService } from 'primeng/api';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { UserService } from '../../../service/user.service';
+import { EmailInfoService } from 'src/app/service/emailInfo.service';
 
 @Component({
   selector: 'app-menu',
@@ -21,11 +22,14 @@ export class MenuComponent implements OnInit {
     private labelService: LabelService,
     private messageService: MessageService,
     private userInfoStorageService: UserInfoStorageService,
-    private userService: UserService
+    private userService: UserService,
+    private emailInfoService: EmailInfoService
+    
   ) { }
 
   idInterval: any;
   idIntervalCountMenu: any;
+  displayNewConvesation: boolean = false
 
   modelChannel: any = { id: 0, yourName: '', email: '', idCompany: +this.userInfoStorageService.getCompanyId() }
 
@@ -35,7 +39,7 @@ export class MenuComponent implements OnInit {
     this.idUser = +this.userInfoStorageService.getIdUser()
     this.getListInbox();
     this.getListLabel();
-
+    this.getListUser();
     this.getMenuCount();    
     this.idIntervalCountMenu = setInterval(() => {
       this.getMenuCount();
@@ -64,6 +68,7 @@ export class MenuComponent implements OnInit {
   display: boolean = false
   displayChooseChannel: boolean = false
   displayChooseChannel2: boolean = false
+  displayChooseChannel3: boolean = false
   status: any = +this.userInfoStorageService.getStatus()
   model: any = {};
   submitted: boolean = false;
@@ -78,6 +83,12 @@ export class MenuComponent implements OnInit {
     yourName: [this.modelChannel.yourName, [Validators.required]],
     email: [this.modelChannel.email, [Validators.required, Validators.email]],
   });
+  
+  modelNewConversation: any = {
+    selectedCategory: 1,
+    username: '',
+    email: ''
+  }
 
   idCompany: any;
   idUser: any;
@@ -118,6 +129,7 @@ export class MenuComponent implements OnInit {
   get fchannel() {
     return this.formChannel.controls;
   }
+
   url: string = this.router.url
   tab: number = 0
   listRouterTab: any[] = [
@@ -141,11 +153,14 @@ export class MenuComponent implements OnInit {
       this.listLabel = result;
     });
   }
+
   saveLabel() {
     this.model.idCompany = this.userInfoStorageService.getCompanyId();
     this.labelService.create(this.model).subscribe((result) => {
       if (result.status == 1) {
         this.display = false;
+        this.rebuilForm()
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
         this.getListLabel()
       }
       else {
@@ -205,12 +220,23 @@ export class MenuComponent implements OnInit {
     this.configMailService.addChannel(this.modelChannel).subscribe((result) => {
       if (result.status == 1) {
         this.displayChooseChannel2 = false
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add channel success" });
         this.getListInbox()
       }
       else {
         this.showError(result.message)
       }
     });
+  }
+
+  toSetting(){
+    this.displayChooseChannel3 = false
+    this.router.navigate(['/main/settings/inboxes'])
+  }
+
+  toTakeMe(){
+    this.displayChooseChannel3 = false
+    // this.router.navigate(['/main/settings/inboxes'])
   }
 
   // update(){
@@ -224,5 +250,55 @@ export class MenuComponent implements OnInit {
     if (this.idIntervalCountMenu) {
       clearInterval(this.idIntervalCountMenu);
     }
+  }
+
+  
+  selectedLabel: any[] = []
+  selectedAssign: any[] = []
+  selectedFollow: any[] = []
+  selectedAgent: any[] = []
+  selectedRequester: number = 0;
+  listUser: any = []
+  ingredient: any;
+  getListUser() {
+    this.userService.GetByIdCompany(this.idCompany).subscribe((result) => {
+      this.listUser = result
+    });
+  }
+
+  city: string = '';
+
+  selectedCategory: any = null;
+
+  categories: any[] = [{name: 'End user', value: 1}, {name: 'Member', value: 2}];
+
+  saveConversation(){
+    this.modelNewConversation
+    this.modelNewConversation.listAgent = this.selectedAgent
+    this.modelNewConversation.listLabel = this.selectedLabel
+    this.modelNewConversation.listAssign = this.selectedAssign
+    this.modelNewConversation.listFollow = this.selectedFollow
+    this.modelNewConversation.idCompany = this.idCompany
+    this.modelNewConversation.idConfigEmail = 5
+
+    this.emailInfoService.newConversation(this.modelNewConversation).subscribe((result) => {
+      if(result.status == 1){
+        this.displayNewConvesation = false
+      }
+    });
+  }
+
+  newConversation(){
+    this.displayNewConvesation = true;
+    
+    this.modelNewConversation = {
+      selectedCategory: 1,
+      username: '',
+      email: ''
+    }
+    this.selectedAgent = []
+    this.selectedLabel = []
+    this.selectedAssign = []
+    this.selectedFollow = []
   }
 }
