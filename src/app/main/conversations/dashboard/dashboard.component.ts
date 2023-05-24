@@ -308,7 +308,7 @@ export class DashboardComponent implements OnInit {
     }
     this.sending = true
     if(this.mailDetails.newConversation == false){
-      this.emailInfoService.SendMail(request).subscribe((result) => {
+      this.emailInfoService.SendMail(request, this.uploadedFiles).subscribe((result) => {
         if (result.status == 1) {
           //thành công
           // ("Send success")
@@ -322,7 +322,7 @@ export class DashboardComponent implements OnInit {
       });
     }
     else{      
-      this.emailInfoService.SendMailNewConversation(request).subscribe((result) => {
+      this.emailInfoService.SendMailNewConversation(request, this.uploadedFiles).subscribe((result) => {
         if (result.status == 1) {
           //thành công
           // ("Send success")

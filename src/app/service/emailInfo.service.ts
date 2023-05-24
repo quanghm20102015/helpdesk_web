@@ -47,17 +47,47 @@ export class EmailInfoService {
     );
   }
 
-  SendMail(data: any): Observable<any> {
+  SendMail(data: any, uploadedFiles: any): Observable<any> {
+    let formData = new FormData();
+    
+    for (let file of uploadedFiles) {
+      formData.append('', file);
+    }
+
+    formData.append('to', data.to);
+    formData.append('cc', data.cc);
+    formData.append('bcc', data.bcc);
+    formData.append('subject', data.subject);
+    formData.append('body', data.body);
+    formData.append('idCompany', data.idCompany);
+    formData.append('idConfigEmail', data.idConfigEmail);
+    formData.append('messageId', data.messageId);
+
     return this.http.post(
       AppSettings.HostingAddress + '/EmailInfoes/SendMail',
-      data
+      formData
     );
   }
 
-  SendMailNewConversation(data: any): Observable<any> {
+  SendMailNewConversation(data: any, uploadedFiles: any): Observable<any> {    
+    let formData = new FormData();
+    
+    for (let file of uploadedFiles) {
+      formData.append('', file);
+    }
+
+    formData.append('to', data.to);
+    formData.append('cc', data.cc);
+    formData.append('bcc', data.bcc);
+    formData.append('subject', data.subject);
+    formData.append('body', data.body);
+    formData.append('idCompany', data.idCompany);
+    formData.append('idConfigEmail', data.idConfigEmail);
+    formData.append('messageId', data.messageId);
+
     return this.http.post(
       AppSettings.HostingAddress + '/EmailInfoes/SendMailNewConversation',
-      data
+      formData
     );
   }
 
