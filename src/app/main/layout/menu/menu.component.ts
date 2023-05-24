@@ -273,7 +273,6 @@ export class MenuComponent implements OnInit {
   categories: any[] = [{name: 'End user', value: 1}, {name: 'Member', value: 2}];
 
   saveConversation(){
-    debugger;
     this.modelNewConversation
     this.modelNewConversation.listAgent = this.selectedAgent
     this.modelNewConversation.listLabel = this.selectedLabel
@@ -281,15 +280,25 @@ export class MenuComponent implements OnInit {
     this.modelNewConversation.listFollow = this.selectedFollow
     this.modelNewConversation.idCompany = this.idCompany
     this.modelNewConversation.idConfigEmail = 5
-    if(this.modelNewConversation.selectedCategory.value == 1){
-      this.emailInfoService.newConversation(this.modelNewConversation).subscribe((result) => {
-        debugger
-        this.displayNewConvesation = false
-      });
-    }
-    else if(this.modelNewConversation.selectedCategory.value == 2){
 
-      debugger;
+    this.emailInfoService.newConversation(this.modelNewConversation).subscribe((result) => {
+      if(result.status == 1){
+        this.displayNewConvesation = false
+      }
+    });
+  }
+
+  newConversation(){
+    this.displayNewConvesation = true;
+    
+    this.modelNewConversation = {
+      selectedCategory: 1,
+      username: '',
+      email: ''
     }
+    this.selectedAgent = []
+    this.selectedLabel = []
+    this.selectedAssign = []
+    this.selectedFollow = []
   }
 }
