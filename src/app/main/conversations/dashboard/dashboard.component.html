@@ -476,18 +476,18 @@
                                             [(ngModel)]="note"></textarea>
                                         <div class="groupt-submit mb-3 ms-3">
                                             <div class="btn-groupt d-flex align-items-center">
-                                                <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
+                                                <button class="btn btn-primary btn-lg me-3" (click)="savePrivateNote()"
                                                     [disabled]="!note || sending">{{sending?
                                                     'Sending':'Send'}}</button>
-                                                <label for="attachment" class="text-secondary me-2">
+                                                <!-- <label for="attachment" class="text-secondary me-2">
                                                     <i class="pi pi-paperclip"></i>
-                                                </label>
-                                                <input type="file" name="file[]" id="attachment"
+                                                </label> -->
+                                                <!-- <input type="file" name="file[]" id="attachment"
                                                     (change)="onUpload($event)"
                                                     style="visibility: hidden; position: absolute;" multiple />
                                                 <div>
                                                     <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
