@@ -440,7 +440,7 @@
                                         <div class="groupt-submit mb-3 ms-3">
                                             <div class="btn-groupt d-flex align-items-center">
                                                 <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
-                                                    [disabled]="!note || sending">{{sending?
+                                                    [disabled]="!messenger || sending">{{sending?
                                                     'Sending':'Send'}}</button>
                                                 <label for="attachment" class="text-secondary me-2">
                                                     <i class="pi pi-paperclip"></i>
@@ -477,7 +477,7 @@
                                         <div class="groupt-submit mb-3 ms-3">
                                             <div class="btn-groupt d-flex align-items-center">
                                                 <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
-                                                    [disabled]="!messenger || sending">{{sending?
+                                                    [disabled]="!note || sending">{{sending?
                                                     'Sending':'Send'}}</button>
                                                 <label for="attachment" class="text-secondary me-2">
                                                     <i class="pi pi-paperclip"></i>

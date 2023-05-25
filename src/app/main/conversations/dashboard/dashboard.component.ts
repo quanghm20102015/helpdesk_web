@@ -344,6 +344,7 @@ export class DashboardComponent implements OnInit {
   viewMail: boolean = false;
   detailMail(item: any) {
     this.messenger = "";
+    this.uploadedFiles = []
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
       this.listEmailInfo = result.listEmailInfo
