@@ -88,7 +88,7 @@
       <div class="card mb-0">
         <h6 class="fw-bold">Performance Monitoring</h6>
 
-        <p-tabView class="w-100">
+        <p-tabView class="w-100" (onChange)="onChangePerformance($event)">
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
@@ -98,7 +98,15 @@
               </div>
             </ng-template>
 
-            <p>Content1</p>
+            <div class="pt-2">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [constructorType]="'chart'"
+                [options]="chartOptionsConversations"
+                [(update)]="updateConversationsFlag"
+                style="width: 100%; display: block;">
+              </highcharts-chart>
+            </div>
           </p-tabPanel>
           <p-tabPanel>
             <ng-template pTemplate="header">
@@ -109,7 +117,15 @@
               </div>
             </ng-template>
 
-            <p>Content2</p>
+            <div class="pt-2">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [constructorType]="'chart'"
+                [options]="chartOptionsIncomingMessages"
+                [(update)]="updateIncomingMessagesFlag"
+                style="width: 100%; display: block;">
+              </highcharts-chart>
+            </div>
           </p-tabPanel>
           <p-tabPanel>
             <ng-template pTemplate="header">
@@ -120,7 +136,15 @@
               </div>
             </ng-template>
 
-            <p>Content3</p>
+            <div class="pt-2">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [constructorType]="'chart'"
+                [options]="chartOptionsOutgoingMessages"
+                [(update)]="updateOutgoingMessagesFlag"
+                style="width: 100%; display: block;">
+              </highcharts-chart>
+            </div>
           </p-tabPanel>
           <p-tabPanel>
             <ng-template pTemplate="header">
@@ -131,7 +155,15 @@
               </div>
             </ng-template>
 
-            <p>Content4</p>
+            <div class="pt-2">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [constructorType]="'chart'"
+                [options]="chartOptionsResolvedCount"
+                [(update)]="updateResolvedCountFlag"
+                style="width: 100%; display: block;">
+              </highcharts-chart>
+            </div>
           </p-tabPanel>
           <p-tabPanel>
             <ng-template pTemplate="header">
@@ -142,7 +174,15 @@
               </div>
             </ng-template>
 
-            <p>Content5</p>
+            <div class="pt-2">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [constructorType]="'chart'"
+                [options]="chartOptionsFirstResponseTime"
+                [(update)]="updateFirstResponseTimeFlag"
+                style="width: 100%; display: block;">
+              </highcharts-chart>
+            </div>
           </p-tabPanel>
           <p-tabPanel>
             <ng-template pTemplate="header">
@@ -153,7 +193,15 @@
               </div>
             </ng-template>
 
-            <p>Content6</p>
+            <div class="pt-2">
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [constructorType]="'chart'"
+                [options]="chartOptionsResolvedTime"
+                [(update)]="updateResolvedTimeFlag"
+                style="width: 100%; display: block;">
+              </highcharts-chart>
+            </div>
           </p-tabPanel>
         </p-tabView>
       </div>
@@ -162,9 +210,12 @@
 
   <div class="row pt-3">
     <div class="col-12">
-      <div class="card mb-0">
-        <h6 class="fw-bold">Conversation Traffic</h6>
-
+      <div class="flex card mb-0">
+        <h6 class="fw-bold">Conversation Traffic </h6>
+        <div class="w-live bg-green-100 rounded-5">
+          <span class="rounded-card bg-green-500 rounded-5"></span>
+          <span class="text-green-500">&nbsp; Live</span>
+        </div>
       </div>
     </div>
   </div>
@@ -237,12 +288,11 @@
               <ng-template pTemplate="header">
                 <tr>
                   <th>Label</th>
-                  <th pSortableColumn="usetime">
+                  <th class="text-center" pSortableColumn="usetime">
                     Use time
                     <p-sortIcon field="usetime" sortAscIcon="pi-sort-up" sortDescIcon="pi-sort-down" sortNoneIcon="pi-sort"></p-sortIcon>
-                    <!-- <p-sortIcon field="name"></p-sortIcon> -->
                   </th>
-                  <th pSortableColumn="conversation">
+                  <th class="text-center" pSortableColumn="conversation">
                     Conversation
                     <p-sortIcon field="conversation"></p-sortIcon>
                   </th>
@@ -250,9 +300,9 @@
               </ng-template>
               <ng-template pTemplate="body" let-item>
                 <tr>
-                  <td style="width: 30%; min-width: 7rem;">{{item.name}}</td>
-                  <td style="width: 30%; min-width: 7rem;">{{item.usetime}}</td>
-                  <td style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
+                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.name}}</td>
+                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.usetime}}</td>
+                  <td class="text-center" style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
                 </tr>
               </ng-template>
             </p-table>
@@ -278,6 +328,30 @@
       <div class="card mb-0">
         <h6 class="fw-bold pt-2">Label distribution</h6>
 
+        <div class="row">
+          <div class="col-6">
+            <highcharts-chart
+            [Highcharts]="Highcharts"
+            [constructorType]="'chart'"
+            [options]="chartOptionsDistribution"
+            class="distribution">
+            </highcharts-chart>
+          </div>
+          <div class="col-6">
+            <p-table [value]="listLabelDistribution" [rows]="10">
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td class="text-center" style="width: 30%; min-width: 7rem;">
+                    <span class="distribution-icon bg-green-500 rounded-3 pr-2" [class]="item.className"></span>
+                    {{item.name}}
+                  </td>
+                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.distribution}}</td>
+                  <td class="text-center" style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
       </div>
     </div>
   </div>

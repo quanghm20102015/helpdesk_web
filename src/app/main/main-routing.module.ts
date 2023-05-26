@@ -48,7 +48,7 @@ const routes: Routes = [
       { path: 'contacts/all', component: ContactsComponent },
       { path: 'contacts/detail/:id', component: ContactDetailComponent },
       { path: 'contacts/label/:id', component: ContactsComponent },
-      
+
       { path: 'reports', redirectTo: 'reports/overview', pathMatch: 'full' },
       { path: 'reports/overview', component: OverviewComponent },
       { path: 'reports/conversation', component: ConversationComponent },
