@@ -343,6 +343,7 @@ export class DashboardComponent implements OnInit {
   listLabelEmail: any = [];
   viewMail: boolean = false;
   detailMail(item: any) {
+    this.note = "";
     this.messenger = "";
     this.uploadedFiles = []
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
@@ -584,4 +585,20 @@ export class DashboardComponent implements OnInit {
     this.modelFilter.date = null
     this.filter()
   }
+
+  savePrivateNote(){
+    let requets = {
+      fullName: this.fullName,
+      idEmailInfo: this.mailDetails.id,
+      privateNote: this.note
+    }
+    
+    this.emailInfoService.privateNote(requets).subscribe((result) => {
+      if (result.status == 1) {
+        this.loadListEmail();
+        this.detailMail(this.mailDetails)
+      }
+    });
+  }
+
 }

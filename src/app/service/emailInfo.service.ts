@@ -175,4 +175,12 @@ export class EmailInfoService {
       data
     );
   }
+
+  privateNote(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/PrivateNote',
+      data
+    );
+  }
+  
 }

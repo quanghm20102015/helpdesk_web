@@ -262,7 +262,7 @@
                                         <div class="action-title">Assign to</div>
                                         <p-multiSelect [options]="listAssign" [(ngModel)]="selectedAssign"
                                             defaultLabel="Search for Team or Agent" optionLabel="fullname"
-                                            display="chip" class="multiselect-custom me-2"
+                                            display="chip" class="multiselect-custom me-2" [showToggleAll]="false"
                                             (onChange)="onChangeSelectAssign()">
                                         </p-multiSelect>
                                     </div>
@@ -294,7 +294,7 @@
                                     <div class="action-title">Add label</div>
 
                                     <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel" display="chip"
-                                        defaultLabel="Search for Labels" optionLabel="name"
+                                        defaultLabel="Search for Labels" optionLabel="name" [showToggleAll]="false"
                                         class="multiselect-custom me-2" (onChange)="onChangeSelectLabel()">
                                     </p-multiSelect>
                                 </ng-template>
@@ -325,7 +325,7 @@
                                     <div class="action-title">Add watcher</div>
 
                                     <p-multiSelect [options]="listFollow" [(ngModel)]="selectedFollow" display="chip"
-                                        defaultLabel="Search for Watchers" optionLabel="fullname"
+                                        defaultLabel="Search for Watchers" optionLabel="fullname" [showToggleAll]="false"
                                         class="multiselect-custom me-2" (onChange)="onChangeSelectFollow()">
                                     </p-multiSelect>
                                 </ng-template>
@@ -476,18 +476,18 @@
                                             [(ngModel)]="note"></textarea>
                                         <div class="groupt-submit mb-3 ms-3">
                                             <div class="btn-groupt d-flex align-items-center">
-                                                <button class="btn btn-primary btn-lg me-3" (click)="sendMessenger()"
+                                                <button class="btn btn-primary btn-lg me-3" (click)="savePrivateNote()"
                                                     [disabled]="!note || sending">{{sending?
                                                     'Sending':'Send'}}</button>
-                                                <label for="attachment" class="text-secondary me-2">
+                                                <!-- <label for="attachment" class="text-secondary me-2">
                                                     <i class="pi pi-paperclip"></i>
-                                                </label>
-                                                <input type="file" name="file[]" id="attachment"
+                                                </label> -->
+                                                <!-- <input type="file" name="file[]" id="attachment"
                                                     (change)="onUpload($event)"
                                                     style="visibility: hidden; position: absolute;" multiple />
                                                 <div>
                                                     <div *ngFor="let item of uploadedFiles">{{item.name}}</div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>

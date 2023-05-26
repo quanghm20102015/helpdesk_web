@@ -454,7 +454,7 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
 }
 
 .hide-menu .container-right {
-    padding-left: 65px !important;
+    padding-left: 70px !important;
 }
 
 .btn-collapse {
@@ -912,9 +912,10 @@ input#range {
     background: #4198FF;
 }
 
-.fit-chat .tab-1 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link{
+.fit-chat .p-tabview .p-tabview-nav li .p-tabview-nav-link{
     border-radius: 0px 12px 0px 0px;
 }
+
 
 .fit-chat .tab-2 .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link{
     border-radius: 12px 12px 0px 0px;
@@ -940,4 +941,24 @@ input#range {
 .fit-chat .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link{
     color: #FFFFFF;
     background: #4198FF;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox{
+    display: none !important;
+}
+
+.p-multiselect-panel .p-multiselect-items{
+    padding: 0;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item{
+    padding: 12px;
+}
+
+.fit-chat .p-tabview .p-tabview-panels{
+    padding: 0;
+}
+
+.fit-chat .p-tabview .p-tabview-nav li .p-tabview-nav-link{
+    border: none;
 }
