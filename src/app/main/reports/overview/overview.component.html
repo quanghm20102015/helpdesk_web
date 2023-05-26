@@ -1,22 +1,24 @@
 <div class="d-flex container-box">
-    <div class="w-100">
-        <div class="conv-header container-fluid">
-            <div class="row">
-                <div class="col-md-6 text-middle">
-                    <div class="d-flex">
-                        <div class="tab-btn d-flex">
-                            <span class="tab">Overview</span>
-                            <span class="tab">Agent & Group</span>
-                            <span class="tab">CSAT</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 text-middle text-align-right">
-                    <p-dropdown id="dropdown-report" [options]="listRangeDate" [(ngModel)]="rangeDate" optionLabel="name" optionValue="value"></p-dropdown>
-                </div>
+  <div class="w-100">
+    <div class="conv-header container-fluid">
+      <div class="row">
+        <div class="col-md-6 text-middle">
+          <div class="d-flex">
+            <div class="tab-btn d-flex">
+              <span class="tab">Overview</span>
+              <span class="tab">Agent & Group</span>
+              <span class="tab">CSAT</span>
             </div>
+          </div>
         </div>
-
-        <app-conversation></app-conversation>
+        <div class="col-md-6 text-middle text-align-right">
+          <p-dropdown id="dropdown-report" [options]="listRangeDate" [(ngModel)]="rangeDate" optionLabel="name" optionValue="value"></p-dropdown>
+        </div>
+      </div>
     </div>
+
+    <div class="dashboard-view">
+      <app-conversation></app-conversation>
+    </div>
+  </div>
 </div>

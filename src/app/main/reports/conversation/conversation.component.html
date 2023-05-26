@@ -7,7 +7,7 @@
         </h5>
     </div>
     <div class="col-6">
-      <button class="btn text-primary float-end">
+      <button type="button" class="float-end btn btn-outline-primary border-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
           <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
           <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -27,7 +27,7 @@
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-primary-500 card-number">120 &nbsp;</div>
               <div class="pl-1 bg-green-100">
-                  <i class="pi pi-caret-up text-green-500">20</i>
+                  <i class="pi pi-caret-up text-green-500 card-bob">20</i>
               </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-yellow-500 card-number">120 &nbsp;</div>
               <div class="pl-1 bg-red-100">
-                  <i class="pi pi-caret-down text-red-500">20</i>
+                  <i class="pi pi-caret-down text-red-500 card-bob">20</i>
               </div>
           </div>
         </div>
@@ -59,7 +59,7 @@
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-purple-500 card-number">120 &nbsp;</div>
               <div class="pl-1 bg-red-100">
-                  <i class="pi pi-caret-down text-red-500">20</i>
+                  <i class="pi pi-caret-down text-red-500 card-bob">20</i>
               </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-green-500 card-number">120 &nbsp;</div>
               <div class="pl-1 bg-green-100">
-                  <i class="pi pi-caret-up text-green-500">20</i>
+                  <i class="pi pi-caret-up text-green-500 card-bob">20</i>
               </div>
           </div>
         </div>
@@ -182,14 +182,10 @@
     <div class="col-6">
       <div class=" float-end">
         <button type="button" class="btn btn-outline-secondary border-0" (click)="opFilter.toggle($event)">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M2.00024 3.3335H14.0002M4.00024 8.00016H12.0002M6.00024 12.6668H10.0002"
-                  stroke="#343436" stroke-width="1.4" stroke-linecap="round" />
-          </svg>
+          <svg id="Layer_1" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m14 24a1 1 0 0 1 -.6-.2l-4-3a1 1 0 0 1 -.4-.8v-5.62l-7.016-7.893a3.9 3.9 0 0 1 2.916-6.487h14.2a3.9 3.9 0 0 1 2.913 6.488l-7.013 7.892v8.62a1 1 0 0 1 -1 1zm-3-4.5 2 1.5v-7a1 1 0 0 1 .253-.664l7.268-8.177a1.9 1.9 0 0 0 -1.421-3.159h-14.2a1.9 1.9 0 0 0 -1.421 3.158l7.269 8.178a1 1 0 0 1 .252.664z"/></svg>
           Filter
         </button>
-        <button type="button" class="btn text-primary">
+        <button type="button" class="btn btn-outline-primary border-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -203,14 +199,16 @@
   <p-overlayPanel #opFilter>
     <ng-template pTemplate>
         <div id="tooltip-search">
-
+          <p-multiSelect [options]="listFilter" [(ngModel)]="selectedFilter"
+            defaultLabel="Search for label" optionLabel="name"
+            display="chip" class="multiselect-custom me-2" (onChange)="onChangeSelectFilter()">
+          </p-multiSelect>
         </div>
     </ng-template>
 </p-overlayPanel>
 
   <div class="row pt-2">
     <div class="col-4">
-
       <div class="card mb-0">
         <div class="row">
           <div class="col-8">
@@ -230,6 +228,34 @@
                   </defs>
               </svg>
             </button>
+          </div>
+        </div>
+
+        <div class="row pt-2">
+          <div class="col-12">
+            <p-table [value]="listTrendingLabel" [paginator]="true" [rows]="3" responsiveLayout="scroll" [showCurrentPageReport]="true" currentPageReportTemplate="Total {totalRecords} group">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Label</th>
+                  <th pSortableColumn="usetime">
+                    Use time
+                    <p-sortIcon field="usetime" sortAscIcon="pi-sort-up" sortDescIcon="pi-sort-down" sortNoneIcon="pi-sort"></p-sortIcon>
+                    <!-- <p-sortIcon field="name"></p-sortIcon> -->
+                  </th>
+                  <th pSortableColumn="conversation">
+                    Conversation
+                    <p-sortIcon field="conversation"></p-sortIcon>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td style="width: 30%; min-width: 7rem;">{{item.name}}</td>
+                  <td style="width: 30%; min-width: 7rem;">{{item.usetime}}</td>
+                  <td style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
           </div>
         </div>
       </div>

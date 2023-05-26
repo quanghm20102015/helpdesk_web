@@ -32,6 +32,13 @@
   line-height: 32px;
 }
 
+.card-bob {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+}
+
 .align-items-center {
   align-items: center !important;
 }
@@ -89,6 +96,6 @@
 }
 
 .rounded-card {
-  width: 1rem;
-  height: 1rem;
+  width: 10px;
+  height: 10px;
 }
