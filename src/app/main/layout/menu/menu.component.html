@@ -84,7 +84,7 @@
             <i class="pi pi-sign-out"></i>
         </a> -->
     </div>
-    <div class="secondary-sidebar">
+    <div class="secondary-sidebar" *ngIf="tab != 3">
         <div class="tab-content" id="v-pills-tabContent">
 
             <div *ngIf="tab == 1">
@@ -647,7 +647,7 @@
                             </svg>
                             Custom Attributes
                         </a>
-                    </li> 
+                    </li>
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/automation']" aria-expanded="false">
@@ -667,7 +667,7 @@
                                 Beta
                             </span>
                         </a>
-                    </li> 
+                    </li>
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/canned-response']" aria-expanded="false">
@@ -680,7 +680,7 @@
                             </svg>
                             Canned Responses
                         </a>
-                    </li> 
+                    </li>
                     <li class="sidebar-item">
                         <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
                             [routerLink]="['/main/settings/integrations']" aria-expanded="false">
