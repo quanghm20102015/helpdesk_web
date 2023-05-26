@@ -38,7 +38,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StAgentsComponent } from './settings/st-agents/st-agents.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 
-
 @NgModule({
   declarations: [
     MainComponent,
@@ -81,7 +80,7 @@ import { ContactDetailComponent } from './contacts/contact-detail/contact-detail
     MainRoutingModule,
     RouterModule,
     SharedModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ]
 })
 export class MainModule { }
