@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit {
   listHistory: any = []
   listFollow: any = []
   modelFilter: any = { date: null, status: 1 }
+  statusSend: any = null
   date: any = null
   url: string = ''
   urlOld: string = ''
