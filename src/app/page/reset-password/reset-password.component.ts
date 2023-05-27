@@ -28,9 +28,6 @@ export class ResetPasswordComponent implements OnInit {
   })  
   idUser: any;
   ngOnInit(): void {
-    if (localStorage.getItem('idUser')) {
-      this.router.navigate(['/main/conversations/dashboard']);
-    }
   }
 
   onSubmit(){

@@ -241,5 +241,49 @@
 }
 
 .fit-chat textarea.p-inputtextarea.p-inputtext{
-    height: 107px;
+    height: 107px !important;
+    border: none;
+}
+
+.conversation-footer{
+    border: none !important;
+    position: relative;
+}
+
+.group-submit{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px;
+}
+
+.btn-left .chat-icon{
+    cursor: pointer;
+    padding: 4px;
+}
+
+.btn-left .chat-icon[disabled]{
+    cursor: default;
+    background: rgba(0, 0, 0, 0.12);
+}
+
+.btn-left .chat-icon:not(:first-child){
+    margin-left: 12px;
+}
+
+.btn-send{
+    margin-left: 16px;
+    padding: 8px !important;
+    width: 32px;
+    height: 32px;
+    display: flex;
+}
+
+.btn-send{
+    color: white;
+}
+
+.btn-send[disabled]{
+    color: darkslategray;
 }
