@@ -196,10 +196,6 @@ hr{
     padding: 0px;
 }
 
-.accordion-button.collapsed .icon-accordion{
-    transform: rotate(-180deg);
-}
-
 .text-menu-botton{
     color: #F6F7F9;
 }

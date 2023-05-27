@@ -1,1 +1,142 @@
-<p>csat works!</p>
+<div class="container-fluid conversation">
+  <div class="row">
+    <div class="col-6">
+        <h5 class="fw-bold pt-2">
+          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="16" height="16"><path d="M18.713,12H14a2,2,0,0,1-2-2V5.274a3,3,0,0,0-1.166-2.383,2.871,2.871,0,0,0-2.481-.534,10.969,10.969,0,0,0,.553,21.414A11,11,0,0,0,21.64,15.657a2.876,2.876,0,0,0-.533-2.485A3.055,3.055,0,0,0,18.713,12Zm.988,3.168A8.969,8.969,0,1,1,8.842,4.3a.871.871,0,0,1,.764.172,1.016,1.016,0,0,1,.4.806V10a4,4,0,0,0,4,4h4.712a1.041,1.041,0,0,1,.816.4A.884.884,0,0,1,19.7,15.168Z"/><path d="M23.651,7.446A10.073,10.073,0,0,0,16.582.372,2.1,2.1,0,0,0,16.038.3a2,2,0,0,0-2.019,2V7a3,3,0,0,0,3,3h4.719A2.008,2.008,0,0,0,23.651,7.446ZM21.153,8H17.015a1,1,0,0,1-1-1l-.008-4.693a.048.048,0,0,1,.025-.009l.026,0A8.072,8.072,0,0,1,21.734,8Z"/></svg>
+          CSAT Analysis
+        </h5>
+    </div>
+    <div class="col-6">
+      <button type="button" class="float-end btn btn-outline-primary border-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+        </svg>
+        Download report
+      </button>
+    </div>
+  </div>
+  <div class="pt-2 row">
+    <div class="col-3">
+      <div class="row">
+        <div class="col-12 pb-4">
+          <div class="card card-hight mb-0">
+            <div class="flex align-items-center justify-content-center justify-content-between">
+              <div class="flex align-items-center justify-content-center">
+                  <span class="block text-500 font-medium">&nbsp; Satisfaction score</span>
+              </div>
+              <div class="flex align-items-center justify-content-center">
+                  <div class="font-medium text-primary-500 card-number">120 &nbsp;</div>
+                  <div class="pl-1 bg-red-100">
+                      <i class="pi pi-caret-down text-red-500 card-bob">20</i>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 pb-4">
+          <div class="card card-hight mb-0">
+            <div class="flex align-items-center justify-content-center justify-content-between">
+              <div class="flex align-items-center justify-content-center">
+                <span class="block text-500 font-medium">&nbsp; Response rate</span>
+              </div>
+              <div class="flex align-items-center justify-content-center">
+                  <div class="font-medium text-yellow-500 card-number">120 &nbsp;</div>
+                  <div class="pl-1 bg-red-100">
+                      <i class="pi pi-caret-down text-red-500 card-bob">20</i>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="card card-hight mb-0">
+            <div class="flex align-items-center justify-content-center justify-content-between">
+              <div class="flex align-items-center justify-content-center">
+                  <span class="block text-500 font-medium">&nbsp; Total responses</span>
+              </div>
+              <div class="flex align-items-center justify-content-center">
+                  <div class="font-medium text-purple-500 card-number">1900 &nbsp;</div>
+                  <div class="pl-1 bg-red-100">
+                      <i class="pi pi-caret-down text-red-500 card-bob">20</i>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-9">
+      <div class="card card-distribution mb-0">
+        <h6 class="fw-bold pt-2">Label distribution</h6>
+
+        <div class="row">
+          <div class="col-6">
+            <highcharts-chart
+            [Highcharts]="Highcharts"
+            [constructorType]="'chart'"
+            [options]="chartOptionsDistribution"
+            class="distribution">
+            </highcharts-chart>
+          </div>
+          <div class="col-6">
+            <p-table [value]="listResponseDistribution" [rows]="10">
+              <ng-template pTemplate="body" let-item>
+                <tr>
+                  <td class="text-center" style="width: 30%; min-width: 7rem;">
+                    <span class="distribution-icon bg-green-500 rounded-3 pr-2" [class]="item.className"></span>
+                    {{item.name}}
+                  </td>
+                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.distribution}}</td>
+                  <td class="text-center" style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="conversation-header container-fluid">
+  <div class="row">
+    <div class="col-12">
+        <h5 class="fw-bold pt-2">
+          <i class="pi pi-file"></i>
+          Response details
+        </h5>
+    </div>
+  </div>
+
+  <div class="row pt-2">
+    <div class="col-12">
+      <p-table [value]="listResponseDetails" [paginator]="true" [rows]="5" responsiveLayout="scroll" [showCurrentPageReport]="true" currentPageReportTemplate="Total {totalRecords} group">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID</th>
+            <th>Contact</th>
+            <th>Assigned agent</th>
+            <th>Rating</th>
+            <th>Feedback comment</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>#{{item.id}}</td>
+            <td>
+              <img src="assets/demo/images/product/{{item.image}}" class="shadow-4" width="24" height="24">
+              {{item.contact}}
+            </td>
+            <td>
+              <img src="assets/demo/images/product/{{item.image}}" class="shadow-4" width="24" height="24">
+              {{item.assignedagent}}
+            </td>
+            <td>{{item.rating}}</td>
+            <td>{{item.feedback}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
