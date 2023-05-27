@@ -1,0 +1,133 @@
+
+.row {
+  --bs-gutter-x: 0.5rem;
+}
+
+.conversation {
+  padding: 24px;
+}
+
+.conversation-header {
+  padding: 10px 16px;
+  border-top: 1px solid #EFF0F2;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #E6E6E8;
+  padding: 20px 28px 20px 28px;
+  margin-bottom: 2rem;
+  border-radius: 16px;
+
+  &:last-child {
+      margin-bottom: 0;
+  }
+}
+
+.card-number {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.card-bob {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.flex {
+  display: flex !important;
+}
+
+.bg-green-100 {
+  background-color: #caf1d8;
+}
+
+.bg-green-500 {
+  background-color: #37C541;
+}
+
+.bg-red-100 {
+  background-color: #ffd0ce;
+}
+
+.bg-purple-500 {
+  background-color: #8649FC;
+}
+
+.bg-yellow-500 {
+  background-color: #F5A73B;
+}
+
+.bg-primary-500 {
+  background-color: #3A69DB;
+}
+
+.bg-primary-500 {
+  background-color: #3A69DB;
+}
+
+.bg-gray-500 {
+  background-color: #E6E6E8;
+}
+
+.bg-black-500 {
+  background-color: #00000061;
+}
+
+.text-green-500 {
+  color: #37C541;
+}
+
+.text-yellow-500 {
+  color: #F5A73B;
+}
+
+.text-red-500 {
+  color: #ff3d32;
+}
+
+.text-primary-500 {
+  color: #3b82f6;
+}
+
+.text-purple-500 {
+  color: #8649FC;
+}
+
+.text-gray-500 {
+  color: #E6E6E8;
+}
+
+.text-black-500 {
+  color: rgba(0, 0, 0, 0.38);
+}
+
+.rounded-card {
+  width: 10px;
+  height: 10px;
+}
+
+:host ::ng-deep .p-tabview .p-tabview-nav li {
+  width: 33.3%;
+}
+
+.agent-performance {
+  height: 12.85rem;
+}
+
+.group-performance {
+  height: 15.85rem;
+}

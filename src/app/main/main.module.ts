@@ -38,6 +38,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StAgentsComponent } from './settings/st-agents/st-agents.component';
 import { ContactDetailComponent } from './contacts/contact-detail/contact-detail.component';
 
+import { HighchartsChartModule } from "highcharts-angular";
+
 @NgModule({
   declarations: [
     MainComponent,
@@ -80,7 +82,8 @@ import { ContactDetailComponent } from './contacts/contact-detail/contact-detail
     MainRoutingModule,
     RouterModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HighchartsChartModule
   ]
 })
 export class MainModule { }

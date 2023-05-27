@@ -10,3 +10,8 @@
 .tab-btn .tab{
     padding: 10px 20px;
 }
+
+.dashboard-view {
+  height: calc(100% - 3.5rem);;
+  overflow-x: scroll;
+}
