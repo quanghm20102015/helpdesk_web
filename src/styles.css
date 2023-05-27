@@ -266,11 +266,9 @@ li.message-read>div {
 }
 
 .conversation-footer .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline {
-    border-left: none;
-    border-right: none;
-    border-bottom: none;
+    border: none;
     background: none;
-    height: 75px;
+    height: 70px;
 }
 
 .conversation-footer {
@@ -662,9 +660,9 @@ p-multiselect {
 }
 
 
-.mess-center .ck.ck-editor__main>.ck-editor__editable {
-    background: dimgrey;
-    color: #F6F7F9;
+.mess-center .change-status {
+    background: #F6F7F9;
+    color: #9B9B9E;    
     padding: 12px 16px;
     border-radius: 20px 20px 20px 20px !important;
     border: none;
