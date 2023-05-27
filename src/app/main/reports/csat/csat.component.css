@@ -24,6 +24,18 @@
   }
 }
 
+.card-hight {
+  display: inline-grid;
+  width: 100%;
+  height: 102px;
+}
+
+.card-distribution {
+  display: inline-grid;
+  width: 100%;
+  height: 24.85rem;
+}
+
 .card-number {
   font-family: 'Inter';
   font-style: normal;
@@ -134,5 +146,5 @@
 :host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
   border: 1px solid #dee2e6;
   border-width: 0 0 0 0;
-  padding: 1rem 1rem;
+  padding: .5rem .5rem;
 }
