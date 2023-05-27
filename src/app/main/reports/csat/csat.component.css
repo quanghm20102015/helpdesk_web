@@ -26,7 +26,7 @@
 
 .card-hight {
   display: inline-grid;
-  width: 100%;
+  width: 98%;
   height: 102px;
 }
 
@@ -37,7 +37,6 @@
 }
 
 .card-number {
-  font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
   font-size: 24px;
@@ -110,6 +109,9 @@
 .text-primary-500 {
   color: #3b82f6;
 }
+.text-primary-600 {
+  color: #3A69DB;
+}
 
 .text-purple-500 {
   color: #8649FC;
@@ -143,8 +145,57 @@
   height: 20px;
 }
 
-:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td {
+:host ::ng-deep .table-distribution .p-datatable .p-datatable-tbody > tr > td {
+  text-align: left;
   border: 1px solid #dee2e6;
   border-width: 0 0 0 0;
-  padding: .5rem .5rem;
+  padding: .5rem .5rem !important;
+}
+
+.chart-total {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.chart-total-number {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 32px;
+  color: #343436;
+}
+
+.table-id {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #4A94E1;
+}
+
+.table-contact {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.table-rating {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  color: #3A69DB;
+}
+
+.table-time {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 20px;
+  color: #BDBDBF;
 }

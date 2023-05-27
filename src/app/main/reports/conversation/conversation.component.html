@@ -1,13 +1,13 @@
 <div class="container-fluid conversation">
   <div class="row">
     <div class="col-6">
-        <h5 class="fw-bold pt-2">
+        <h5 class="fs-18 fw-bold pt-2">
           <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="16" height="16"><path d="M24,11.247A12.012,12.012,0,1,0,12.017,24H19a5.005,5.005,0,0,0,5-5V11.247ZM22,19a3,3,0,0,1-3,3H12.017a10.041,10.041,0,0,1-7.476-3.343,9.917,9.917,0,0,1-2.476-7.814,10.043,10.043,0,0,1,8.656-8.761A10.564,10.564,0,0,1,12.021,2,9.921,9.921,0,0,1,18.4,4.3,10.041,10.041,0,0,1,22,11.342Z"/><path d="M8,9h4a1,1,0,0,0,0-2H8A1,1,0,0,0,8,9Z"/><path d="M16,11H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"/><path d="M16,15H8a1,1,0,0,0,0,2h8a1,1,0,0,0,0-2Z"/></svg>
           Conversation
         </h5>
     </div>
     <div class="col-6">
-      <button type="button" class="float-end btn btn-outline-primary border-0">
+      <button type="button" class="float-end btn btn-outline-primary fs-13 border-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
           <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
           <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -22,7 +22,7 @@
         <div class="flex align-items-center justify-content-center justify-content-between">
           <div class="flex align-items-center justify-content-center">
               <span class="rounded-card bg-primary-500 rounded-5"></span>
-              <span class="block text-500 font-medium">&nbsp; Opened</span>
+              <span class="block font-medium">&nbsp; Opened</span>
           </div>
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-primary-500 card-number">120 &nbsp;</div>
@@ -38,7 +38,7 @@
         <div class="flex align-items-center justify-content-center justify-content-between">
           <div class="flex align-items-center justify-content-center">
             <span class="rounded-card bg-yellow-500 rounded-5"></span>
-            <span class="block text-500 font-medium">&nbsp; Unattended</span>
+            <span class="block font-medium">&nbsp; Unattended</span>
           </div>
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-yellow-500 card-number">120 &nbsp;</div>
@@ -54,7 +54,7 @@
         <div class="flex align-items-center justify-content-center justify-content-between">
           <div class="flex align-items-center justify-content-center">
               <span class="rounded-card bg-purple-500 rounded-5"></span>
-              <span class="block text-500 font-medium">&nbsp; Unassigned</span>
+              <span class="block font-medium">&nbsp; Unassigned</span>
           </div>
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-purple-500 card-number">120 &nbsp;</div>
@@ -70,7 +70,7 @@
         <div class="flex align-items-center justify-content-center justify-content-between">
           <div class="flex align-items-center justify-content-center">
               <span class="rounded-card bg-green-500 rounded-5"></span>
-              <span class="block text-green-500 font-medium">&nbsp; Resolved</span>
+              <span class="block font-medium">&nbsp; Resolved</span>
           </div>
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-green-500 card-number">120 &nbsp;</div>
@@ -86,15 +86,15 @@
   <div class="row pt-3">
     <div class="col-12">
       <div class="card mb-0">
-        <h6 class="fw-bold">Performance Monitoring</h6>
+        <h6 class="fs-14 fw-bold">Performance Monitoring</h6>
 
         <p-tabView class="w-100" (onChange)="onChangePerformance($event)">
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Conversations (Total)</span>
+                <span class="tabview-title">Conversations (Total)</span>
                 <br>
-                <span>1600</span>
+                <span class="tabview-number">1600</span>
               </div>
             </ng-template>
 
@@ -111,9 +111,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Incoming Messages (Total)</span>
+                <span class="tabview-title">Incoming Messages (Total)</span>
                 <br>
-                <span>19</span>
+                <span class="tabview-number">19</span>
               </div>
             </ng-template>
 
@@ -130,9 +130,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Outgoing Messages (Total)</span>
+                <span class="tabview-title">Outgoing Messages (Total)</span>
                 <br>
-                <span>19</span>
+                <span class="tabview-number">19</span>
               </div>
             </ng-template>
 
@@ -149,9 +149,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Resolved Count (Total)</span>
+                <span class="tabview-title">Resolved Count (Total)</span>
                 <br>
-                <span>6</span>
+                <span class="tabview-number">6</span>
               </div>
             </ng-template>
 
@@ -168,9 +168,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>First Response Time (Avg)</span>
+                <span class="tabview-title">First Response Time (Avg)</span>
                 <br>
-                <span>22m 33s</span>
+                <span class="tabview-number">22m 33s</span>
               </div>
             </ng-template>
 
@@ -187,9 +187,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Resolved Time (Avg)</span>
+                <span class="tabview-title">Resolved Time (Avg)</span>
                 <br>
-                <span>11 Day 12 Hr</span>
+                <span class="tabview-number">11 Day 12 Hr</span>
               </div>
             </ng-template>
 
@@ -210,22 +210,33 @@
 
   <div class="row pt-3">
     <div class="col-12">
-      <div class="flex card mb-0">
-        <h6 class="fw-bold">Conversation Traffic </h6>
-        <div class="w-live bg-green-100 rounded-5">
-          <span class="rounded-card bg-green-500 rounded-5"></span>
-          <span class="text-green-500">&nbsp; Live</span>
+      <div class="card mb-0">
+        <div class="flex">
+          <h6 class="fs-14 fw-bold traffic">Conversation Traffic &nbsp;</h6>
+          <div class="w-live bg-green-100 rounded-5">
+            <span class="rounded-card bg-green-500 rounded-5"></span>
+            <span class="text-green-500">&nbsp; Live</span>
+          </div>
+        </div>
+
+        <div>
+          <highcharts-chart
+            [Highcharts]="Highcharts"
+            [constructorType]="'chart'"
+            [options]="chartOptionsTraffic"
+            [(update)]="updateTrafficFlag"
+            style="width: 100%; display: block;">
+          </highcharts-chart>
         </div>
       </div>
     </div>
   </div>
-
 </div>
 
 <div class="conversation-header container-fluid">
   <div class="row">
     <div class="col-6">
-        <h5 class="fw-bold pt-2">
+        <h5 class="fs-18 fw-bold pt-2">
           <svg _ngcontent-qvp-c209="" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g _ngcontent-qvp-c209="" clip-path="url(#clip0_705_22963)"><ellipse _ngcontent-qvp-c209="" cx="1.33333" cy="1.33333" rx="1.33333" ry="1.33333" transform="matrix(1 0 0 -1 10.0002 6)" stroke="#7C7C7E" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></ellipse><path _ngcontent-qvp-c209="" d="M1.84971 7.42994C1.18095 8.17684 1.16656 9.30372 1.78033 10.0964C2.9983 11.6695 4.33138 13.0026 5.90444 14.2205C6.69716 14.8343 7.82403 14.8199 8.57094 14.1512C10.5988 12.3354 12.4559 10.4379 14.2481 8.35262C14.4253 8.14646 14.5362 7.89377 14.561 7.62307C14.671 6.42597 14.897 2.9771 13.9604 2.04048C13.0238 1.10386 9.5749 1.32983 8.3778 1.43983C8.1071 1.4647 7.85442 1.57554 7.64826 1.75273C5.56297 3.54496 3.66543 5.40206 1.84971 7.42994Z" stroke="#7C7C7E" stroke-width="1.4"></path></g><defs _ngcontent-qvp-c209=""><clipPath _ngcontent-qvp-c209="" id="clip0_705_22963"><rect _ngcontent-qvp-c209="" width="16" height="16" fill="white" transform="translate(0.000244141)"></rect></clipPath></defs></svg>
           Label
         </h5>
@@ -236,7 +247,7 @@
           <svg id="Layer_1" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m14 24a1 1 0 0 1 -.6-.2l-4-3a1 1 0 0 1 -.4-.8v-5.62l-7.016-7.893a3.9 3.9 0 0 1 2.916-6.487h14.2a3.9 3.9 0 0 1 2.913 6.488l-7.013 7.892v8.62a1 1 0 0 1 -1 1zm-3-4.5 2 1.5v-7a1 1 0 0 1 .253-.664l7.268-8.177a1.9 1.9 0 0 0 -1.421-3.159h-14.2a1.9 1.9 0 0 0 -1.421 3.158l7.269 8.178a1 1 0 0 1 .252.664z"/></svg>
           Filter
         </button>
-        <button type="button" class="btn btn-outline-primary border-0">
+        <button type="button" class="btn btn-outline-primary fs-13 border-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -263,7 +274,7 @@
       <div class="card mb-0">
         <div class="row">
           <div class="col-8">
-            <h6 class="fw-bold pt-2">Top trending label</h6>
+            <h6 class="fs-14 fw-bold pt-2">Top trending label</h6>
           </div>
           <div class="col-4">
             <button type="submit" class="btn btn-outline-secondary border-0 float-end" (click)="opSearch.toggle($event)">
@@ -284,7 +295,7 @@
 
         <div class="row pt-2">
           <div class="col-12">
-            <p-table [value]="listTrendingLabel" [paginator]="true" [rows]="3" responsiveLayout="scroll" [showCurrentPageReport]="true" currentPageReportTemplate="Total {totalRecords} group">
+            <p-table id="trendingabel" [value]="listTrendingLabel" [paginator]="true" [rows]="3" responsiveLayout="scroll" [showCurrentPageReport]="true" currentPageReportTemplate="Total {totalRecords} group">
               <ng-template pTemplate="header">
                 <tr>
                   <th>Label</th>
@@ -325,8 +336,8 @@
     </div>
 
     <div class="col-8">
-      <div class="card mb-0">
-        <h6 class="fw-bold pt-2">Label distribution</h6>
+      <div class="card card-distribution mb-0">
+        <h6 class="fs-14 fw-bold pt-2">Label distribution</h6>
 
         <div class="row">
           <div class="col-6">
@@ -338,7 +349,7 @@
             </highcharts-chart>
           </div>
           <div class="col-6">
-            <p-table [value]="listLabelDistribution" [rows]="10">
+            <p-table class="table-distribution" [value]="listLabelDistribution" [rows]="10">
               <ng-template pTemplate="body" let-item>
                 <tr>
                   <td class="text-center" style="width: 30%; min-width: 7rem;">

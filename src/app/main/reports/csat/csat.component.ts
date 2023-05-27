@@ -51,7 +51,11 @@ export class CsatComponent implements OnInit {
     chart: {
       plotBackgroundColor: undefined,
       plotBorderWidth: 0,
-      plotShadow: false
+      plotShadow: false,
+      style: {
+        fontSize: '14px',
+        fontFamily: 'Inter'
+      }
     },
     title: undefined,
     credits: {
@@ -160,9 +164,9 @@ export class CsatComponent implements OnInit {
 
   getSubtitle() {
     const totalNumber: number = 1900
-    return `<span style="font-size: 1rem">Total response</span>
+    return `<span class="chart-total">Total response</span>
         <br>
-        <span style="font-size: 1rem; text-aign:center">
+        <span class="chart-total-number">
             <b> ${totalNumber}</b>
         </span>`;
   }

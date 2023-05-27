@@ -9,13 +9,13 @@ import More from 'highcharts/highcharts-more';
 })
 
 export class AgentComponent implements OnInit {
-  listTrendingLabel: any = [
-    {name: '#Label1', usetime: 1, conversation: 43},
-    {name: '#Label2', usetime: 2, conversation: 5},
-    {name: '#Label3', usetime: 3, conversation: 88},
-    {name: '#Label4', usetime: 4, conversation: 66},
-    {name: '#Label5', usetime: 5, conversation: 55},
-    {name: '#Label6', usetime: 6, conversation: 44},
+  listConversationAgents: any = [
+    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 1, unattended: 43},
+    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 2, unattended: 59},
+    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 3, unattended: 88},
+    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 4, unattended: 66},
+    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 5, unattended: 55},
+    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 6, unattended: 44},
   ]
 
   listConversationGroups: any = [
@@ -75,6 +75,8 @@ export class AgentComponent implements OnInit {
       this.updateConversationsFlag = true;
     }, 500);
   }
+
+  ngAfterViewInit() {}
 
   onChangePerformance(event: any) {
     console.log(event);
