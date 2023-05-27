@@ -3,6 +3,8 @@ import * as Highcharts from 'highcharts';
 import More from 'highcharts/highcharts-more';
 import HeatmapModule from 'highcharts/modules/heatmap';
 
+import { ReportsConversationService } from 'src/app/service/reports-conversation.service';
+
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
@@ -280,13 +282,22 @@ export class ConversationComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(
+    private conversationService: ReportsConversationService
+  ) { }
 
   ngOnInit(): void {
     More(Highcharts);
     HeatmapModule(Highcharts);
 
+    this.loadOverview();
     this.loadChartConversations();
+  }
+
+  loadOverview() {
+    this.conversationService.getOverview().subscribe((result) => {
+        console.log(result);
+    });
   }
 
   onChangePerformance(event: any) {
