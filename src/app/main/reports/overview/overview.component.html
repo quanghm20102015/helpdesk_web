@@ -1,21 +1,20 @@
 <div class="d-flex container-box">
-    <div class="w-100">
-        <div class="conv-header container-fluid">
-            <div class="row">
-                <div class="col-md-6 text-middle">
-                    <div class="d-flex">
-                        <div class="tab-btn d-flex">
-                            <span class="tab">Overview</span>
-                            <span class="tab">Agent & Group</span>
-                            <span class="tab">CSAT</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 text-middle text-align-right">
-                    <p-dropdown id="dropdown-report" [options]="listRangeDate" [(ngModel)]="rangeDate" optionLabel="name" optionValue="value"></p-dropdown>
-                </div>
-            </div>
-
+  <div class="w-100">
+    <div class="conv-header container-fluid">
+      <div class="row">
+        <div class="col-md-6 text-middle">
+          <p-selectButton [options]="listOptionsDashboard" [(ngModel)]="selectedDefault" optionLabel="label" optionValue="value"></p-selectButton>
         </div>
+        <div class="col-md-6 text-middle text-align-right">
+          <p-dropdown id="dropdown-report" [options]="listRangeDate" [(ngModel)]="rangeDate" optionLabel="name" optionValue="value"></p-dropdown>
+        </div>
+      </div>
     </div>
+
+    <div class="dashboard-view">
+      <app-conversation *ngIf="selectedDefault == 1"></app-conversation>
+      <app-agent *ngIf="selectedDefault == 2"></app-agent>
+      <app-csat *ngIf="selectedDefault == 3"></app-csat>
+    </div>
+  </div>
 </div>

@@ -12,13 +12,14 @@ export class AccountService {
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService
   ) {}
-  
+
+
   getAll(): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/Accounts'
     );
   }
-  
+
   getAccount(idUser: any): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/Accounts/' + idUser
@@ -30,14 +31,14 @@ export class AccountService {
       AppSettings.HostingAddress + '/Accounts/GetByEmail?workemail=' + workemail
     );
   }
-  
+
   create(data: any): Observable<any> {
     return this.http.post(
       AppSettings.HostingAddress + '/Accounts',
       data
     );
   }
-  
+
   update(data: any): Observable<any> {
     return this.http.put(
       AppSettings.HostingAddress + '/Accounts',
@@ -50,7 +51,7 @@ export class AccountService {
       AppSettings.HostingAddress + '/Accounts/' + id
     );
   }
-  
+
   deleteById(id: any): Observable<any> {
     return this.http.delete(
       AppSettings.HostingAddress + '/Accounts/' + id
