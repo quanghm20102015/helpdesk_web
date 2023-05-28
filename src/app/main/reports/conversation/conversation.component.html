@@ -25,9 +25,10 @@
               <span class="block font-medium">&nbsp; Opened</span>
           </div>
           <div class="flex align-items-center justify-content-center">
-              <div class="font-medium text-primary-500 card-number">120 &nbsp;</div>
-              <div class="pl-1 bg-green-100">
-                  <i class="pi pi-caret-up text-green-500 card-bob">20</i>
+              <div class="font-medium text-primary-500 card-number">{{openedViewModel ? openedViewModel.total : 0}} &nbsp;</div>
+              <div class="pl-1" [ngClass]="{'bg-green-100': openedViewModel ? openedViewModel.upDown : 0 >= 0, 'bg-red-100': openedViewModel ? openedViewModel.upDown : 0 < 0}" >
+                <i class="pi pi-caret-up text-green-500 card-bob ">{{openedViewModel ? openedViewModel.upDown : 0}}</i>
+                <!-- <i class="pi pi-caret-down text-red-500 card-bob">{{openedViewModel ? openedViewModel.upDown : 0}}</i> -->
               </div>
           </div>
         </div>
@@ -41,9 +42,9 @@
             <span class="block font-medium">&nbsp; Unattended</span>
           </div>
           <div class="flex align-items-center justify-content-center">
-              <div class="font-medium text-yellow-500 card-number">120 &nbsp;</div>
+              <div class="font-medium text-yellow-500 card-number">{{unattendedViewModel ? unattendedViewModel.total : 0}} &nbsp;</div>
               <div class="pl-1 bg-red-100">
-                  <i class="pi pi-caret-down text-red-500 card-bob">20</i>
+                <i class="pi pi-caret-down text-red-500 card-bob">{{unattendedViewModel ? unattendedViewModel.upDown : 0}}</i>
               </div>
           </div>
         </div>
@@ -57,9 +58,9 @@
               <span class="block font-medium">&nbsp; Unassigned</span>
           </div>
           <div class="flex align-items-center justify-content-center">
-              <div class="font-medium text-purple-500 card-number">120 &nbsp;</div>
+              <div class="font-medium text-purple-500 card-number">{{unassignedViewModel ? unassignedViewModel.total : 0}} &nbsp;</div>
               <div class="pl-1 bg-red-100">
-                  <i class="pi pi-caret-down text-red-500 card-bob">20</i>
+                <i class="pi pi-caret-down text-red-500 card-bob">{{unassignedViewModel ? unassignedViewModel.upDown : 0}}</i>
               </div>
           </div>
         </div>
@@ -73,9 +74,9 @@
               <span class="block font-medium">&nbsp; Resolved</span>
           </div>
           <div class="flex align-items-center justify-content-center">
-              <div class="font-medium text-green-500 card-number">120 &nbsp;</div>
+              <div class="font-medium text-green-500 card-number">{{resolvedViewModel ? resolvedViewModel.total : 0}} &nbsp;</div>
               <div class="pl-1 bg-green-100">
-                  <i class="pi pi-caret-up text-green-500 card-bob">20</i>
+                <i class="pi pi-caret-up text-green-500 card-bob">{{resolvedViewModel ? resolvedViewModel.upDown : 0}}</i>
               </div>
           </div>
         </div>
@@ -94,7 +95,7 @@
               <div>
                 <span class="tabview-title">Conversations (Total)</span>
                 <br>
-                <span class="tabview-number">1600</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.total : 0}}</span>
               </div>
             </ng-template>
 
@@ -113,7 +114,7 @@
               <div>
                 <span class="tabview-title">Incoming Messages (Total)</span>
                 <br>
-                <span class="tabview-number">19</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.incoming : 0}}</span>
               </div>
             </ng-template>
 
@@ -132,7 +133,7 @@
               <div>
                 <span class="tabview-title">Outgoing Messages (Total)</span>
                 <br>
-                <span class="tabview-number">19</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.outgoing : 0}}</span>
               </div>
             </ng-template>
 
@@ -151,7 +152,7 @@
               <div>
                 <span class="tabview-title">Resolved Count (Total)</span>
                 <br>
-                <span class="tabview-number">6</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.resolved : 0}}</span>
               </div>
             </ng-template>
 
@@ -170,7 +171,7 @@
               <div>
                 <span class="tabview-title">First Response Time (Avg)</span>
                 <br>
-                <span class="tabview-number">22m 33s</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.responeTime : ''}}</span>
               </div>
             </ng-template>
 
@@ -189,7 +190,7 @@
               <div>
                 <span class="tabview-title">Resolved Time (Avg)</span>
                 <br>
-                <span class="tabview-number">11 Day 12 Hr</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.resolveTime : ''}}</span>
               </div>
             </ng-template>
 
@@ -312,7 +313,7 @@
               <ng-template pTemplate="body" let-item>
                 <tr>
                   <td style="width: 30%; min-width: 7rem;">{{item.name}}</td>
-                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.usetime}}</td>
+                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.userTime}}</td>
                   <td class="text-center" style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
                 </tr>
               </ng-template>
@@ -345,6 +346,7 @@
             [Highcharts]="Highcharts"
             [constructorType]="'chart'"
             [options]="chartOptionsDistribution"
+            [(update)]="updateDistributionFlag"
             class="distribution">
             </highcharts-chart>
           </div>
@@ -353,7 +355,7 @@
               <ng-template pTemplate="body" let-item>
                 <tr>
                   <td class="text-center" style="width: 30%; min-width: 7rem;">
-                    <span class="distribution-icon bg-green-500 rounded-3 pr-2" [class]="item.className"></span>
+                    <span class="distribution-icon rounded-3 pr-2" [ngStyle]="{'background-color': item.className}"></span>
                     {{item.name}}
                   </td>
                   <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.distribution}}</td>

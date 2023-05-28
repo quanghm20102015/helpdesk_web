@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 import * as Highcharts from 'highcharts';
 import More from 'highcharts/highcharts-more';
+
+import { ReportsAgentService } from 'src/app/service/reports-agent.service';
+import { UserInfoStorageService } from '../../../service/user-info-storage.service';
+import { OverviewService } from 'src/app/service/overview.service';
 
 @Component({
   selector: 'app-agent',
@@ -9,6 +15,8 @@ import More from 'highcharts/highcharts-more';
 })
 
 export class AgentComponent implements OnInit {
+  private optionDateSubscription$?: Subscription;
+
   listConversationAgents: any = [
     {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 1, unattended: 43},
     {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 2, unattended: 59},
@@ -42,9 +50,12 @@ export class AgentComponent implements OnInit {
     {name: '#Label4', value: 4}
   ]
 
-  selectedFilter: any[] = []
-
-  textSearch: string = ''
+  selectedFilter: any[] = [];
+  textSearch: string = '';
+  idCompany: any;
+  fromDate: any;
+  toDate: any;
+  datePipe = new DatePipe('en-US');
 
   Highcharts: typeof Highcharts = Highcharts;
 
@@ -62,7 +73,11 @@ export class AgentComponent implements OnInit {
   chartOptionsFirstResponseTime: any;
   chartOptionsResolvedTime: any;
 
-  constructor() { }
+  constructor(
+    private agentService: ReportsAgentService,
+    private userInfoStorageService: UserInfoStorageService,
+    private overviewService: OverviewService
+  ) { }
 
   ngOnInit(): void {
     More(Highcharts);
@@ -74,6 +89,14 @@ export class AgentComponent implements OnInit {
 
       this.updateConversationsFlag = true;
     }, 500);
+
+    this.optionDateSubscription$ = this.overviewService.optionDateSubject$
+    .subscribe((response: any) => {
+      console.log(response);
+
+      this.fromDate = response.fromDate;
+      this.toDate = response.toDate;
+    });
   }
 
   ngAfterViewInit() {}
@@ -435,6 +458,11 @@ export class AgentComponent implements OnInit {
 
   onChangeSelectFilter() {
 
+  }
+
+  ngOnDestroy(): void {
+    if(this.optionDateSubscription$)
+      this.optionDateSubscription$.unsubscribe();
   }
 
 }

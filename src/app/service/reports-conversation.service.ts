@@ -14,15 +14,33 @@ export class ReportsConversationService {
     private serviceInvoker: ServiceInvokerService
   ) {}
 
-  getOverview(): Observable<any> {
+  GetByIdCompany(idCompany: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Reports/Overview'
+      AppSettings.HostingAddress + '/Labels/GetByIdCompany?idCompany=' + idCompany
     );
   }
 
-  getPerformanceMonitoring (data: any): Observable<any> {
+  getOverview(data: any): Observable<any> {
     return this.http.get(
-      AppSettings.HostingAddress + '/Reports/PerformentMonitor?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
+      AppSettings.HostingAddress + '/Reports/Overview?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
+    );
+  }
+
+  getPerformentMonitorTotal(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Reports/PerformentMonitorTotal?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
+    );
+  }
+
+  getPerformanceMonitor(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Reports/PerformentMonitor?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&type=' + data.type
+    );
+  }
+
+  getLabelDistribution(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Reports/LabelDistribution?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&idLabel=' + data.idLabel
     );
   }
 }

@@ -1,9 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Input, SimpleChanges, Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
+
 import * as Highcharts from 'highcharts';
 import More from 'highcharts/highcharts-more';
 import HeatmapModule from 'highcharts/modules/heatmap';
 
 import { ReportsConversationService } from 'src/app/service/reports-conversation.service';
+import { UserInfoStorageService } from '../../../service/user-info-storage.service';
+import { OverviewService } from 'src/app/service/overview.service';
+
+import { OverViewModel } from '../models/overview-model';
+import { PerformentTotalModel } from '../models/performent-total-model';
 
 @Component({
   selector: 'app-conversation',
@@ -11,34 +19,25 @@ import { ReportsConversationService } from 'src/app/service/reports-conversation
   styleUrls: ['./conversation.component.css']
 })
 export class ConversationComponent implements OnInit {
-  listTrendingLabel: any = [
-    {name: '#Label1', usetime: 1, conversation: 43},
-    {name: '#Label2', usetime: 2, conversation: 5},
-    {name: '#Label3', usetime: 3, conversation: 88},
-    {name: '#Label4', usetime: 4, conversation: 66},
-    {name: '#Label5', usetime: 5, conversation: 55},
-    {name: '#Label6', usetime: 6, conversation: 44},
-  ]
+  private optionDateSubscription$?: Subscription;
 
-  listFilter: any = [
-    {name: '#Label1', value: 1},
-    {name: '#Label2', value: 2},
-    {name: '#Label3', value: 3},
-    {name: '#Label4', value: 4}
-  ]
+  listFilter: any = []
+  listTrendingLabel: any = []
+  listLabelDistribution: any = []
 
-  listLabelDistribution: any = [
-    {name: '#Label1', className: 'bg-purple-500', distribution: 'n%', conversation: 'nnnn'},
-    {name: '#Label2', className: 'bg-primary-500', distribution: 'n%', conversation: 'nnn'},
-    {name: '#Label3', className: 'bg-green-500', distribution: 'n%', conversation: 'nnn'},
-    {name: '#Label4', className: 'bg-green-100', distribution: 'n%', conversation: 'nn'},
-    {name: '#Label5', className: 'bg-yellow-500', distribution: 'n%', conversation: 'nn'},
-    {name: '#Other', className: 'bg-gray-500', distribution: 'n%', conversation: 'nnnn'},
-  ]
+  openedViewModel!: OverViewModel;
+  unattendedViewModel!: OverViewModel;
+  unassignedViewModel!: OverViewModel;
+  resolvedViewModel!: OverViewModel;
 
-  selectedFilter: any[] = []
+  performentTotalModel!: PerformentTotalModel;
 
-  textSearch: string = ''
+  selectedFilter: any[] = [];
+  textSearch: string = '';
+  idCompany: any;
+  fromDate: any;
+  toDate: any;
+  datePipe = new DatePipe('en-US');
 
   Highcharts: typeof Highcharts = Highcharts;
 
@@ -49,8 +48,59 @@ export class ConversationComponent implements OnInit {
   updateFirstResponseTimeFlag = false;
   updateResolvedTimeFlag = false;
   updateTrafficFlag = false;
+  updateDistributionFlag = false;
 
-  chartOptionsConversations: any;
+  chartOptionsConversations: Highcharts.Options = {
+    chart: {
+      type: 'column'
+    },
+    title: undefined,
+    subtitle: undefined,
+    credits: {
+      enabled: false
+    },
+    exporting: {
+      enabled: false
+    },
+    xAxis: {
+      categories: [],
+      crosshair: true
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: undefined
+      }
+    },
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'bottom',
+      x: 0,
+      y: 20,
+      floating: true,
+      enabled: false
+    },
+    // plotOptions: {
+    //   column: {
+    //     pointPadding: 0.2,
+    //     borderWidth: 0
+    //   }
+    // },
+    series: [
+      {
+        name: 'Conversations',
+        type: 'column',
+        color: '#3A69DB',
+        tooltip: {
+          valueSuffix: ''
+        },
+        data: [49, 71.5, 106.4, 129.2, 76.0, 135.6, 56.6]
+      }
+    ]
+  };
   chartOptionsIncomingMessages: any;
   chartOptionsOutgoingMessages: any;
   chartOptionsResolvedCount: any;
@@ -218,9 +268,9 @@ export class ConversationComponent implements OnInit {
     },
     tooltip: {
       valueDecimals: 2,
-      valueSuffix: ' TWh'
+      valueSuffix: ' '
     },
-    colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
+    colors: [],
     legend: {
       floating: false,
       title: {
@@ -233,70 +283,231 @@ export class ConversationComponent implements OnInit {
       align: 'right',
       verticalAlign: 'middle',
     },
-    plotOptions: {
-      pie: {
-        allowPointSelect: false,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          distance: -50,
-          style: {
-            fontWeight: 'bold',
-            color: 'white'
-          }
-        },
-        startAngle: -90,
-        endAngle: -180,
-        center: ['50%', '50%'],
-        size: '100%',
-        showInLegend: false
-      }
-    },
+    // plotOptions: {
+    //   pie: {
+    //     allowPointSelect: false,
+    //     cursor: 'pointer',
+    //     dataLabels: {
+    //       enabled: true,
+    //       distance: -50,
+    //       style: {
+    //         fontWeight: 'bold',
+    //         color: 'white'
+    //       }
+    //     },
+    //     startAngle: -90,
+    //     endAngle: -180,
+    //     center: ['50%', '50%'],
+    //     size: '100%',
+    //     showInLegend: false
+    //   }
+    // },
     series: [
       {
         type: 'pie',
-        name: 'Brands',
+        name: 'Label distribution',
         innerSize: '70%',
         dataLabels: {
           enabled: false
         },
-        data: [
-          {
-            name: 'Chrome',
-            y: 61.41
-          },
-          {
-            name: 'Internet Explorer',
-            y: 11.84
-          },
-          {
-            name: 'Firefox',
-            y: 10.85
-          },
-          {
-            name: 'Edge',
-            y: 4.67
-          },
-        ]
+        data: []
       }
     ]
   }
 
   constructor(
-    private conversationService: ReportsConversationService
+    private conversationService: ReportsConversationService,
+    private userInfoStorageService: UserInfoStorageService,
+    private overviewService: OverviewService
   ) { }
 
   ngOnInit(): void {
     More(Highcharts);
     HeatmapModule(Highcharts);
 
-    this.loadOverview();
-    this.loadChartConversations();
+    this.optionDateSubscription$ = this.overviewService.optionDateSubject$
+    .subscribe((response: any) => {
+      this.fromDate = response.fromDate;
+      this.toDate = response.toDate;
+
+      this.loadOverview();
+      this.loadPerformentMonitorTotal();
+      this.loadChartConversations();
+      this.loadLabelCompany();
+      this.loadLabelDistribution(0);
+    });
   }
 
   loadOverview() {
-    this.conversationService.getOverview().subscribe((result) => {
-        console.log(result);
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.conversationService.getOverview(request).subscribe((respone) => {
+      this.openedViewModel = respone.result.opened;
+      this.unattendedViewModel = respone.result.unattended;
+      this.unassignedViewModel = respone.result.unassigned;
+      this.resolvedViewModel = respone.result.resolved;
+    });
+  }
+
+  loadPerformentMonitorTotal() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.conversationService.getPerformentMonitorTotal(request).subscribe((respone) => {
+      this.performentTotalModel = respone.result;
+    });
+  }
+
+  loadPerformentMonitor(_type: number) {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      type: _type
+    }
+
+    this.conversationService.getPerformanceMonitor(request).subscribe((respone) => {
+      console.log(respone);
+
+      if (_type == 1) {
+        this.chartOptionsConversations.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsConversations.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateConversationsFlag = true;
+      }
+      else if (_type == 2) {
+        this.chartOptionsIncomingMessages.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsIncomingMessages.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateIncomingMessagesFlag = true;
+      }
+      else if (_type == 3) {
+        this.chartOptionsOutgoingMessages.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsOutgoingMessages.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateOutgoingMessagesFlag = true;
+      }
+      else if (_type == 4) {
+        this.chartOptionsResolvedCount.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsResolvedCount.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateResolvedCountFlag = true;
+      }
+      else if (_type == 5) {
+        this.chartOptionsFirstResponseTime.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsFirstResponseTime.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateFirstResponseTimeFlag = true;
+      }
+      else if (_type == 6) {
+        this.chartOptionsResolvedTime.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsResolvedTime.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateResolvedTimeFlag = true;
+      }
+    });
+  }
+
+  loadLabelCompany() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    this.conversationService.GetByIdCompany(this.idCompany).subscribe((respone) => {
+      console.log(respone);
+      this.listFilter = respone
+    });
+  }
+
+  loadLabelDistribution(_idLabel: number) {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      idLabel: _idLabel
+    }
+
+    this.conversationService.getLabelDistribution(request).subscribe((respone) => {
+      this.listTrendingLabel = respone.topTrending
+      this.listLabelDistribution = respone.resultTable
+
+      this.chartOptionsDistribution.colors = respone.colors;
+
+      this.chartOptionsDistribution.series! = [
+        {
+          type: 'pie',
+          data: respone.result
+        }
+      ]
+
+      this.updateDistributionFlag = true;
     });
   }
 
@@ -339,7 +550,7 @@ export class ConversationComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -367,16 +578,18 @@ export class ConversationComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Conversations',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [49, 71.5, 106.4, 129.2, 76.0, 135.6, 56.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(1);
   }
 
   loadChartIncomingMessages() {
@@ -393,7 +606,7 @@ export class ConversationComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -421,16 +634,18 @@ export class ConversationComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Incoming Messages',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [34, 55, 66, 14, 76, 35.6, 56.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(2);
   }
 
   loadChartOutgoingMessages() {
@@ -447,7 +662,7 @@ export class ConversationComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -475,16 +690,18 @@ export class ConversationComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Outgoing Messages',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [55, 44, 87, 43, 44, 56, 6.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(3);
   }
 
   loadChartResolvedCount() {
@@ -501,7 +718,7 @@ export class ConversationComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -529,16 +746,18 @@ export class ConversationComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Resolved Count',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [88, 44, 66, 14, 76, 55.6, 77.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(4);
   }
 
   loadChartFirstResponseTime() {
@@ -555,7 +774,7 @@ export class ConversationComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -583,16 +802,18 @@ export class ConversationComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'First Response Time',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [66, 55, 77, 88, 77, 99.6, 88.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(5);
   }
 
   loadChartResolvedTime() {
@@ -609,7 +830,7 @@ export class ConversationComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -637,16 +858,18 @@ export class ConversationComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Resolved Time',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [34, 55, 66, 14, 76, 35.6, 56.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(6);
   }
   //#endregion
 
@@ -658,4 +881,8 @@ export class ConversationComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    if(this.optionDateSubscription$)
+      this.optionDateSubscription$.unsubscribe();
+  }
 }
