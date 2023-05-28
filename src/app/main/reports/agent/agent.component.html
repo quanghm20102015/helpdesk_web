@@ -1,13 +1,13 @@
 <div class="container-fluid conversation">
   <div class="row">
     <div class="col-6">
-        <h5 class="fw-bold pt-2">
+        <h5 class="fs-18 fw-bold pt-2">
           <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="16" height="16"><path d="M12,12A6,6,0,1,0,6,6,6.006,6.006,0,0,0,12,12ZM12,2A4,4,0,1,1,8,6,4,4,0,0,1,12,2Z"/><path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"/></svg>
           Agent
         </h5>
     </div>
     <div class="col-6">
-      <button type="button" class="float-end btn btn-outline-primary border-0">
+      <button type="button" class="float-end btn btn-outline-primary fs-13 border-0">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
           <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
           <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -22,7 +22,7 @@
         <div class="flex align-items-center justify-content-center justify-content-between">
           <div class="flex align-items-center justify-content-center">
               <span class="rounded-card bg-gray-500 rounded-5"></span>
-              <span class="block text-500 font-medium">&nbsp; Total agent</span>
+              <span class="block font-medium">&nbsp; Total agent</span>
           </div>
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-dark card-number">120 &nbsp;</div>
@@ -35,7 +35,7 @@
         <div class="flex align-items-center justify-content-center justify-content-between">
           <div class="flex align-items-center justify-content-center">
             <span class="rounded-card bg-green-500 rounded-5"></span>
-            <span class="block text-500 font-medium">&nbsp; Online</span>
+            <span class="block text-green-500 font-medium">&nbsp; Online</span>
           </div>
           <div class="flex align-items-center justify-content-center">
             <div class="font-medium text-primary-500 card-number">120 &nbsp;</div>
@@ -48,7 +48,7 @@
         <div class="flex align-items-center justify-content-center justify-content-between">
           <div class="flex align-items-center justify-content-center">
               <span class="rounded-card bg-yellow-500 rounded-5"></span>
-              <span class="block text-500 font-medium">&nbsp; Busy</span>
+              <span class="block text-yellow-500 font-medium">&nbsp; Busy</span>
           </div>
           <div class="flex align-items-center justify-content-center">
               <div class="font-medium text-primary-500 card-number">120 &nbsp;</div>
@@ -76,7 +76,7 @@
       <div class="card mb-0">
         <div class="row">
           <div class="col-8">
-            <h6 class="fw-bold pt-2">Top conversation by agents</h6>
+            <h6 class="fs-14 fw-bold pt-2">Top conversation by agents</h6>
           </div>
           <div class="col-4">
             <button type="submit" class="btn btn-outline-secondary border-0 float-end" (click)="opSearch.toggle($event)">
@@ -97,7 +97,7 @@
 
         <div class="row pt-2">
           <div class="col-12">
-            <p-table [value]="listTrendingLabel" [paginator]="true" [rows]="3" responsiveLayout="scroll" [showCurrentPageReport]="true" currentPageReportTemplate="Total {totalRecords} group">
+            <p-table [value]="listConversationAgents" [paginator]="true" [rows]="3" responsiveLayout="scroll" [showCurrentPageReport]="true" currentPageReportTemplate="Total {totalRecords} group">
               <ng-template pTemplate="header">
                 <tr>
                   <th>Agent</th>
@@ -113,12 +113,21 @@
               </ng-template>
               <ng-template pTemplate="body" let-item>
                 <tr>
-                  <td style="width: 30%; min-width: 7rem;">
-                    <img src="assets/demo/images/product/{{item.image}}" class="shadow-4" width="24" height="24">
-                    {{item.name}}
+                  <td>
+                    <div class="row">
+                      <div class="col-2 table-agent">
+                        <img src="../../../../assets/img/avatar1.png" class="shadow-4" width="24" height="24">
+                      </div>
+                      <div class="col-10">
+                        <span class="fs-13 table-agent-name">{{item.agent}}</span>
+                        <br>
+                        <span class="fs-12 table-agent-mail">{{item.mail}}</span>
+                      </div>
+                    </div>
+
                   </td>
-                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.usetime}}</td>
-                  <td class="text-center" style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
+                  <td class="text-center">{{item.open}}</td>
+                  <td class="text-center">{{item.unattended}}</td>
                 </tr>
               </ng-template>
             </p-table>
@@ -143,7 +152,7 @@
       <div class="card mb-0">
         <div class="row">
           <div class="col-8">
-            <h6 class="fw-bold pt-2">Performance Monitoring</h6>
+            <h6 class="fs-14 fw-bold pt-2">Performance Monitoring</h6>
           </div>
           <div class="col-4">
             <p-dropdown id="dropdown-report" class="float-end" [options]="listAgent" [(ngModel)]="selectedAgent" optionLabel="name" optionValue="value"></p-dropdown>
@@ -154,9 +163,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Conversations</span>
+                <span class="tabview-title">Conversations</span>
                 <br>
-                <span>16</span>
+                <span class="tabview-number">16</span>
               </div>
             </ng-template>
 
@@ -174,9 +183,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Incoming Messages</span>
+                <span class="tabview-title">Incoming Messages</span>
                 <br>
-                <span>19</span>
+                <span class="tabview-number">19</span>
               </div>
             </ng-template>
 
@@ -193,9 +202,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Outgoing Messages</span>
+                <span class="tabview-title">Outgoing Messages</span>
                 <br>
-                <span>19</span>
+                <span class="tabview-number">19</span>
               </div>
             </ng-template>
 
@@ -212,9 +221,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Resolved Count</span>
+                <span class="tabview-title">Resolved Count</span>
                 <br>
-                <span>6</span>
+                <span class="tabview-number">6</span>
               </div>
             </ng-template>
 
@@ -231,9 +240,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>First Response Time</span>
+                <span class="tabview-title">First Response Time</span>
                 <br>
-                <span>22m 33s</span>
+                <span class="tabview-number">22m 33s</span>
               </div>
             </ng-template>
 
@@ -250,9 +259,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Resolved Time</span>
+                <span class="tabview-title">Resolved Time</span>
                 <br>
-                <span>11 Day 12 Hr</span>
+                <span class="tabview-number">11 Day 12 Hr</span>
               </div>
             </ng-template>
 
@@ -275,18 +284,18 @@
 <div class="conversation-header container-fluid">
   <div class="row">
     <div class="col-6">
-        <h5 class="fw-bold pt-2">
+        <h5 class="fs-18 fw-bold pt-2">
           <i class="pi pi-users"></i>
           Group
         </h5>
     </div>
     <div class="col-6">
       <div class=" float-end">
-        <button type="button" class="btn btn-outline-secondary border-0" (click)="opFilter.toggle($event)">
+        <button type="button" class="btn btn-outline-secondary fs-13 border-0" (click)="opFilter.toggle($event)">
           <svg id="Layer_1" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="m14 24a1 1 0 0 1 -.6-.2l-4-3a1 1 0 0 1 -.4-.8v-5.62l-7.016-7.893a3.9 3.9 0 0 1 2.916-6.487h14.2a3.9 3.9 0 0 1 2.913 6.488l-7.013 7.892v8.62a1 1 0 0 1 -1 1zm-3-4.5 2 1.5v-7a1 1 0 0 1 .253-.664l7.268-8.177a1.9 1.9 0 0 0 -1.421-3.159h-14.2a1.9 1.9 0 0 0 -1.421 3.158l7.269 8.178a1 1 0 0 1 .252.664z"/></svg>
           Filter
         </button>
-        <button type="button" class="btn btn-outline-primary border-0">
+        <button type="button" class="btn btn-outline-primary fs-13 border-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
@@ -313,7 +322,7 @@
       <div class="card mb-0">
         <div class="row">
           <div class="col-8">
-            <h6 class="fw-bold pt-2">Top conversation by groups</h6>
+            <h6 class="fs-14 fw-bold pt-2">Top conversation by groups</h6>
           </div>
           <div class="col-4">
             <button type="submit" class="btn btn-outline-secondary border-0 float-end" (click)="opSearch.toggle($event)">
@@ -350,9 +359,9 @@
               </ng-template>
               <ng-template pTemplate="body" let-item>
                 <tr>
-                  <td style="width: 30%; min-width: 7rem;">{{item.groupName}}</td>
-                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.member}}</td>
-                  <td class="text-center" style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
+                  <td>{{item.groupName}}</td>
+                  <td class="text-center">{{item.member}}</td>
+                  <td class="text-center">{{item.conversation}}</td>
                 </tr>
               </ng-template>
             </p-table>
@@ -378,7 +387,7 @@
       <div class="card mb-0">
         <div class="row">
           <div class="col-8">
-            <h6 class="fw-bold pt-2">Performance Monitoring</h6>
+            <h6 class="fs-14 fw-bold pt-2">Performance Monitoring</h6>
           </div>
           <div class="col-4">
             <p-dropdown id="dropdown-report" class="float-end" [options]="listAgent" [(ngModel)]="selectedAgent" optionLabel="name" optionValue="value"></p-dropdown>
@@ -389,9 +398,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Conversations</span>
+                <span class="tabview-title">Conversations</span>
                 <br>
-                <span>16</span>
+                <span class="tabview-number">16</span>
               </div>
             </ng-template>
 
@@ -409,9 +418,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Incoming Messages</span>
+                <span class="tabview-title">Incoming Messages</span>
                 <br>
-                <span>19</span>
+                <span class="tabview-number">19</span>
               </div>
             </ng-template>
 
@@ -428,9 +437,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Outgoing Messages</span>
+                <span class="tabview-title">Outgoing Messages</span>
                 <br>
-                <span>19</span>
+                <span class="tabview-number">19</span>
               </div>
             </ng-template>
 
@@ -447,9 +456,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Resolved Count</span>
+                <span class="tabview-title">Resolved Count</span>
                 <br>
-                <span>6</span>
+                <span class="tabview-number">6</span>
               </div>
             </ng-template>
 
@@ -466,9 +475,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>First Response Time</span>
+                <span class="tabview-title">First Response Time</span>
                 <br>
-                <span>22m 33s</span>
+                <span class="tabview-number">22m 33s</span>
               </div>
             </ng-template>
 
@@ -485,9 +494,9 @@
           <p-tabPanel>
             <ng-template pTemplate="header">
               <div>
-                <span>Resolved Time</span>
+                <span class="tabview-title">Resolved Time</span>
                 <br>
-                <span>11 Day 12 Hr</span>
+                <span class="tabview-number">11 Day 12 Hr</span>
               </div>
             </ng-template>
 

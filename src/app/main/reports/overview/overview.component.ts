@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { OverviewService } from 'src/app/service/overview.service';
 
 @Component({
   selector: 'app-overview',
@@ -6,7 +8,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit, OnDestroy {
-  listRangeDate: any = [
+  listOptionDate: any = [
     {name: 'Today', value: 1},
     {name: 'Last 7 day', value: 2},
     {name: 'Last 30 day', value: 3},
@@ -15,13 +17,19 @@ export class OverviewComponent implements OnInit, OnDestroy {
     {name: 'Last year', value: 6},
   ]
 
-  rangeDate: any = null
+  optionDate: any = null
 
   listOptionsDashboard!: any[];
 
   selectedDefault: number = 1;
 
-  constructor() { }
+  datePipe = new DatePipe('en-US');
+  fromDate: any;
+  toDate: any;
+
+  constructor(
+    private overviewService: OverviewService
+  ) { }
 
   ngOnInit(): void {
     this.loadOptionsDashboard();
@@ -30,12 +38,69 @@ export class OverviewComponent implements OnInit, OnDestroy {
     conllapse.addClass('hide-menu')
   }
 
+  ngAfterViewInit() {
+    this.loadDate(1);
+  }
+
   loadOptionsDashboard() {
     this.listOptionsDashboard = [
       { label: 'Overview', value: 1 },
       { label: 'Agent & Group', value: 2 },
       { label: 'CSAT', value: 3 },
     ];
+  }
+
+  loadDate(option: any) {
+    const currentDate = new Date();
+
+    this.fromDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+    this.toDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+
+    if (option == 1) {
+      this.fromDate = this.datePipe.transform(currentDate, 'yyyy-MM-dd');
+    }
+    else if (option == 2) {
+      const newDate = new Date(new Date().setDate(currentDate.getDate() - 7));
+
+      this.fromDate = this.datePipe.transform(newDate, 'yyyy-MM-dd');
+    }
+    else if (option == 3) {
+      const newDate = new Date(new Date().setDate(currentDate.getDate() - 30));
+
+      this.fromDate = this.datePipe.transform(newDate, 'yyyy-MM-dd');
+    }
+    else if (option == 4) {
+      const newDate = new Date(new Date().setMonth(currentDate.getMonth() - 3));
+
+      this.fromDate = this.datePipe.transform(newDate, 'yyyy-MM-dd');
+    }
+    else if (option == 5) {
+      const newDate = new Date(new Date().setMonth(currentDate.getMonth() - 6));
+
+      this.fromDate = this.datePipe.transform(newDate, 'yyyy-MM-dd');
+    }
+    else if (option == 6) {
+      const newDate = new Date(new Date().setFullYear(currentDate.getFullYear() - 1));
+
+      this.fromDate = this.datePipe.transform(newDate, 'yyyy-MM-dd');
+    }
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate
+    }
+
+    this.overviewService.changeOptionDate(request);
+  }
+
+  onChangeOptionsDashboard(event: any) {
+    setTimeout(() => {
+      this.loadDate(this.selectedDefault);
+    }, 100);
+  }
+
+  onChangeDate(event: any) {
+    this.loadDate(event.value);
   }
 
   ngOnDestroy() {

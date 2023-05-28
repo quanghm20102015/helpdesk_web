@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 import * as Highcharts from 'highcharts';
 import More from 'highcharts/highcharts-more';
+
+import { ReportsCsatService } from 'src/app/service/reports-csat.service';
+import { UserInfoStorageService } from '../../../service/user-info-storage.service';
+import { OverviewService } from 'src/app/service/overview.service';
 
 @Component({
   selector: 'app-csat',
@@ -8,6 +14,8 @@ import More from 'highcharts/highcharts-more';
   styleUrls: ['./csat.component.css']
 })
 export class CsatComponent implements OnInit {
+  private optionDateSubscription$?: Subscription;
+
   listResponseDistribution: any = [
     {name: '#Label1', className: 'bg-purple-500', distribution: 'n%', conversation: 'nnnn'},
     {name: '#Label2', className: 'bg-primary-500', distribution: 'n%', conversation: 'nnn'},
@@ -28,8 +36,11 @@ export class CsatComponent implements OnInit {
 
 
   selectedFilter: any[] = []
-
-  textSearch: string = ''
+  textSearch: string = '';
+  idCompany: any;
+  fromDate: any;
+  toDate: any;
+  datePipe = new DatePipe('en-US');
 
   Highcharts: typeof Highcharts = Highcharts;
 
@@ -51,7 +62,11 @@ export class CsatComponent implements OnInit {
     chart: {
       plotBackgroundColor: undefined,
       plotBorderWidth: 0,
-      plotShadow: false
+      plotShadow: false,
+      style: {
+        fontSize: '14px',
+        fontFamily: 'Inter'
+      }
     },
     title: undefined,
     credits: {
@@ -134,12 +149,24 @@ export class CsatComponent implements OnInit {
     ]
   }
 
-  constructor() { }
+  constructor(
+    private csatService: ReportsCsatService,
+    private userInfoStorageService: UserInfoStorageService,
+    private overviewService: OverviewService
+  ) { }
 
   ngOnInit(): void {
     More(Highcharts);
 
     this.loadChartConversations();
+
+    this.optionDateSubscription$ = this.overviewService.optionDateSubject$
+    .subscribe((response: any) => {
+      console.log(response);
+
+      this.fromDate = response.fromDate;
+      this.toDate = response.toDate;
+    });
   }
 
   onChangePerformance(event: any) {
@@ -160,9 +187,9 @@ export class CsatComponent implements OnInit {
 
   getSubtitle() {
     const totalNumber: number = 1900
-    return `<span style="font-size: 1rem">Total response</span>
+    return `<span class="chart-total">Total response</span>
         <br>
-        <span style="font-size: 1rem; text-aign:center">
+        <span class="chart-total-number">
             <b> ${totalNumber}</b>
         </span>`;
   }
@@ -499,6 +526,11 @@ export class CsatComponent implements OnInit {
 
   onChangeSelectFilter() {
 
+  }
+
+  ngOnDestroy(): void {
+    if(this.optionDateSubscription$)
+      this.optionDateSubscription$.unsubscribe();
   }
 
 }
