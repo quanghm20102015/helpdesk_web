@@ -16,6 +16,8 @@ import { HistoryService } from 'src/app/service/history.service';
 import { formatDate } from '@angular/common';
 import { UploadFileService } from 'src/app/service/uploadfiles.service';
 import { FILETYPE, CONSTANTS } from "../../../constants/CONSTANTS";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MultiSelectFilterOptions } from 'primeng/multiselect';
 
 @Component({
   selector: 'app-dashboard',
@@ -40,6 +42,7 @@ export class DashboardComponent implements OnInit {
     private historyService: HistoryService,
     private confirmationService: ConfirmationService,
     private fileService: UploadFileService,
+    private _fb: FormBuilder,
   ) { }
 
   idInterval: any;
@@ -58,6 +61,7 @@ export class DashboardComponent implements OnInit {
   url: string = ''
   urlOld: string = ''
   onInit: boolean = true
+  displayAddLabel: boolean = false
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       if (params['id']) {
@@ -95,8 +99,8 @@ export class DashboardComponent implements OnInit {
       idUserFollow: 0,
       idUserTrash: 0,
       unAssign: false,
-      fromDate: this.date? this.date[0] : null,
-      toDate: this.date? this.date[1] : null,
+      fromDate: this.date ? this.date[0] : null,
+      toDate: this.date ? this.date[1] : null,
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {
@@ -129,14 +133,14 @@ export class DashboardComponent implements OnInit {
     }
     // this.getCountEmail()
     this.emailInfoService.getFillter(request).subscribe((result) => {
-      this.listChat = result.listEmailInfo.slice(0, this.rows) ;
+      this.listChat = result.listEmailInfo.slice(0, this.rows);
       this.total = result.total
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
       })
-      if(this.onInit && this.router.url.includes('/mentions')){
+      if (this.onInit && this.router.url.includes('/mentions')) {
         this.onInit = false
-        this.detailMail(this.listChat[0])
+        this.getDetailMail(this.listChat[0])
       }
 
     });
@@ -193,7 +197,7 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  loadmore(){
+  loadmore() {
     this.rows += 10
     this.loadListEmail()
   }
@@ -290,16 +294,16 @@ export class DashboardComponent implements OnInit {
     }
     const check = this.fileService.checkFileWasExitsted(event, this.uploadedFiles);
     if (check === 1) {
-      for (let item of event.target.files) {      
+      for (let item of event.target.files) {
         const name = item.name;
         const lastDot = name.lastIndexOf('.');
-      
+
         const fileName = name.substring(0, lastDot);
         const ext = name.substring(lastDot + 1);
-      
+
         item.fileName = fileName;
         item.extension = ext;
-        item.sizeText = (item.size/1048576).toFixed(2) + " MB"
+        item.sizeText = (item.size / 1048576).toFixed(2) + " MB"
         FILETYPE.forEach((fileType) => {
           if (item.type == fileType.text) {
             item.fileType = fileType.value;
@@ -310,7 +314,7 @@ export class DashboardComponent implements OnInit {
     } else if (check === 2) {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Duplicate file name' })
     }
-    if(this.file){
+    if (this.file) {
       this.file.nativeElement.value = "";
     }
 
@@ -342,12 +346,12 @@ export class DashboardComponent implements OnInit {
       assign: 0
     }
     this.sending = true
-    if(this.mailDetails.newConversation == false){
+    if (this.mailDetails.newConversation == false) {
       this.emailInfoService.SendMail(request, this.uploadedFiles).subscribe((result) => {
         if (result.status == 1) {
           //thành công
           // ("Send success")
-          this.detailMail(this.mailDetails)
+          this.getDetailMail(this.mailDetails)
           this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
         }
         else {
@@ -356,12 +360,12 @@ export class DashboardComponent implements OnInit {
         this.sending = false
       });
     }
-    else{      
+    else {
       this.emailInfoService.SendMailNewConversation(request, this.uploadedFiles).subscribe((result) => {
         if (result.status == 1) {
           //thành công
           // ("Send success")
-          this.detailMail(this.mailDetails)
+          this.getDetailMail(this.mailDetails)
           this.addHistory(this.mailDetails.id, 'Reply mail to ' + this.mailDetails.from);
         }
         else {
@@ -375,7 +379,8 @@ export class DashboardComponent implements OnInit {
   mailDetails: any;
   listLabelEmail: any = [];
   viewMail: boolean = false;
-  detailMail(item: any) {
+  listLabelEmailTem: any = []
+  getDetailMail(item: any) {
     this.note = "";
     this.messenger = "";
     this.uploadedFiles = []
@@ -396,9 +401,10 @@ export class DashboardComponent implements OnInit {
       this.viewMail = true;
 
       this.listLabelEmail = result.listLabel
-      this.listLabelEmail.forEach((element:any) => {
+      this.listLabelEmail.forEach((element: any) => {
         element.name = '#' + element.name
       });
+      this.listLabelEmailTem = [...this.listLabelEmail]
       this.listHistory = result.listHistory
       this.listFollow = result.listFollow
       this.listAssign = result.listAssign
@@ -428,6 +434,7 @@ export class DashboardComponent implements OnInit {
           this.selectedLabel.push(item)
         }
       });
+
     });
 
     // this.listMessenger = [];
@@ -463,7 +470,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.UpdateStatus(requets).subscribe((result) => {
       if (result.status == 1) {
         this.loadListEmail();
-        this.detailMail(this.mailDetails)
+        this.getDetailMail(this.mailDetails)
         // this.showSuccess("Change status success");
         if (requets.status == 2) {
           //status resole, send mail survey
@@ -526,7 +533,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.postEmailInfoLabel(request).subscribe((result) => {
       // this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update label to email info');
-      this.detailMail(this.mailDetails)
+      this.getDetailMail(this.mailDetails)
     });
   }
 
@@ -539,7 +546,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.updateAssign(request).subscribe((result) => {
       // this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update assign to email');
-      this.detailMail(this.mailDetails)
+      this.getDetailMail(this.mailDetails)
     });
   }
 
@@ -552,7 +559,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.updateFollow(request).subscribe((result) => {
       // this.showSuccess("Update success");
       this.addHistory(this.mailDetails.id, 'Update follow to email');
-      this.detailMail(this.mailDetails)
+      this.getDetailMail(this.mailDetails)
     });
   }
 
@@ -602,6 +609,23 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  deleteList() {
+    let request = {
+      listIdEmailInfo: [this.mailDetails.id]
+    }
+    this.emailInfoService.deleteList(request).subscribe((result) => {
+      if (result.status == 1) {
+        this.viewMail = false
+        this.loadListEmail()
+        this.displayDelete = false
+        this.mailDetails = {}
+        this.showSuccess('Delete success');
+      } else {
+        this.showError('Error')
+      }
+    });
+  }
+
   confirm() {
     this.confirmationService.confirm({
       header: 'Confirmation delete',
@@ -612,29 +636,29 @@ export class DashboardComponent implements OnInit {
     });
   }
 
-  filter(){
+  filter() {
     this.date = this.modelFilter.date
     this.status = this.modelFilter.status
     this.loadListEmail()
   }
 
-  clearFilter(){
+  clearFilter() {
     this.modelFilter.status = 0
     this.modelFilter.date = null
     this.filter()
   }
 
-  savePrivateNote(){
+  savePrivateNote() {
     let requets = {
       fullName: this.fullName,
       idEmailInfo: this.mailDetails.id,
       privateNote: this.note
     }
-    
+
     this.emailInfoService.privateNote(requets).subscribe((result) => {
       if (result.status == 1) {
         this.loadListEmail();
-        this.detailMail(this.mailDetails)
+        this.getDetailMail(this.mailDetails)
       }
     });
   }
@@ -642,5 +666,41 @@ export class DashboardComponent implements OnInit {
   onRemoveFile(data: any) {
     var index = this.uploadedFiles.indexOf(data);
     this.uploadedFiles.splice(index, 1);
+  }
+
+  onFilter(event: any){
+    this.modelAddLabel.name = event.filter
+  }
+
+  rebuilFormAddLabel() {
+    this.formAddLabel.reset({
+      name: '',
+      description: '',
+    });
+  }
+  modelAddLabel: any = { name: '', description: '' }
+  submitted: boolean = false
+  formAddLabel: FormGroup = this._fb.group({
+    name: [this.modelAddLabel.name, [Validators.required]],
+    description: [this.modelAddLabel.description]
+  });
+
+  get fAddLabel() {
+    return this.formAddLabel.controls;
+  }
+
+  saveLabel() {
+    this.modelAddLabel.idCompany = this.userInfoStorageService.getCompanyId();
+    this.labelService.create(this.modelAddLabel).subscribe((result) => {
+      if (result.status == 1) {
+        this.displayAddLabel = false;
+        this.rebuilFormAddLabel()
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
+        this.getDetailMail(this.mailDetails)
+      }
+      else {
+        this.showError(result.message);
+      }
+    });
   }
 }

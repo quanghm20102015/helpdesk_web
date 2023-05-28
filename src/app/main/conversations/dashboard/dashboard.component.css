@@ -341,3 +341,9 @@
 .message-read .time{
     color: #7C7C7E;
 }
+
+.text-addlabel{
+    color: #3A69DB;
+    font-size: 12px;
+    font-weight: 500;
+}
