@@ -232,9 +232,9 @@
                 </div>
                 <div class="col-md-6" *ngIf="title !== 'Trash'">
                     <div class="header-actions-wrap has-open-sidebar">
-                        <div class="d-flex justify-content-end btn-mobile">
-                            <button type="submit" class="btn btn-outline-secondary border-0 me-2"
-                                pTooltip="Assign member" tooltipPosition="bottom" (click)="op1.toggle($event)">
+                        <div class="d-flex justify-content-end btn-mobile align-items-center">
+                            <button type="submit" class="btn btn-outline-secondary border-0" pTooltip="Assign member"
+                                tooltipPosition="bottom" (click)="op1.toggle($event)">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <g clip-path="url(#clip0_705_22958)">
@@ -270,7 +270,7 @@
                                 </ng-template>
                             </p-overlayPanel>
 
-                            <button type="submit" class="btn btn-outline-secondary border-0 me-2" pTooltip="Add label"
+                            <button type="submit" class="btn btn-outline-secondary border-0" pTooltip="Add label"
                                 tooltipPosition="bottom" (click)="op2.toggle($event)">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -296,9 +296,8 @@
 
                                     <p-multiSelect [options]="listLabelEmail" [(ngModel)]="selectedLabel" display="chip"
                                         (onFilter)="onFilter($event)" defaultLabel="Search for Labels"
-                                        optionLabel="name" [showToggleAll]="false"
-                                        filterPlaceHolder="Search for Labels" class="multiselect-custom me-2"
-                                        (onChange)="onChangeSelectLabel()">
+                                        optionLabel="name" [showToggleAll]="false" filterPlaceHolder="Search for Labels"
+                                        class="multiselect-custom me-2" (onChange)="onChangeSelectLabel()">
 
                                         <ng-template pTemplate="emptyfilter">
                                             <div class="p-inputgroup" (click)="displayAddLabel = true">
@@ -315,7 +314,7 @@
                                 </ng-template>
                             </p-overlayPanel>
 
-                            <button type="submit" class="btn btn-outline-secondary border-0 me-2" pTooltip="Add watcher"
+                            <button type="submit" class="btn btn-outline-secondary border-0" pTooltip="Add watcher"
                                 tooltipPosition="bottom" (click)="op3.toggle($event)">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -341,13 +340,13 @@
 
                                     <p-multiSelect [options]="listFollow" [(ngModel)]="selectedFollow" display="chip"
                                         defaultLabel="Search for Watchers" optionLabel="fullname"
-                                        [showToggleAll]="false" class="multiselect-custom me-2" filterPlaceHolder="Search for Watchers"
-                                        (onChange)="onChangeSelectFollow()">
+                                        [showToggleAll]="false" class="multiselect-custom me-2"
+                                        filterPlaceHolder="Search for Watchers" (onChange)="onChangeSelectFollow()">
                                     </p-multiSelect>
                                 </ng-template>
                             </p-overlayPanel>
 
-                            <button class="btn btn-outline-secondary border-0 me-2" (click)="displayDelete = true"
+                            <button class="btn btn-outline-secondary border-0" (click)="displayDelete = true"
                                 pTooltip="Delete" tooltipPosition="bottom">
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -372,6 +371,7 @@
                             </button>
 
                             <p-dropdown [options]="listStatusUpdate" [(ngModel)]="mailDetails.status"
+                                [ngClass]="{'bg-primary': mailDetails.status == 1, 'bg-success': mailDetails.status == 2, 'bg-warning': mailDetails.status == 3, 'bg-secondary': mailDetails.status == 4}"
                                 id="dropdown-status" placeholder="select" optionValue="id" optionLabel="statusName"
                                 (onChange)="updateStatus()">
                                 <ng-template pTemplate="selectedItem">
@@ -393,7 +393,7 @@
                 </div>
                 <div class="col-md-6" *ngIf="title === 'Trash'">
                     <div class="header-actions-wrap has-open-sidebar">
-                        <div class="d-flex justify-content-end btn-mobile">
+                        <div class="d-flex justify-content-end btn-mobile align-items-center">
 
                             <button class="btn btn-outline-secondary border-0 me-2" (click)="displayDelete = true"
                                 pTooltip="Delete" tooltipPosition="bottom">

@@ -99,6 +99,17 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
+.header-actions-wrap button.btn{
+    padding: 8px;
+    margin-right: 4px;
+    display: flex;
+}
+
+.header-actions-wrap #dropdown-status{
+    margin-left: 4px;
+    border-radius: 8px;
+}
+
 .header-actions-wrap button.btn:hover,
 .content-left .group-title button.btn:hover {
     background-color: #EFF0F2;
@@ -229,8 +240,6 @@
     padding-right: 257px;
     bottom: 13px;
 }
-
-.text-loadmore {}
 
 .fit-chat #p-tabpanel-0-label {
     padding: 0px 12px 0px 0px;
