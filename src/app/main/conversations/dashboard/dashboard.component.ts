@@ -386,6 +386,11 @@ export class DashboardComponent implements OnInit {
     this.uploadedFiles = []
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
+      let listMess:any[] = []
+      result.listEmailInfo.forEach((item: any) => {
+        listMess.push({...item.EmailInfo, ListAttach: item.ListAttach})
+      });
+      result.listEmailInfo = listMess
       this.listEmailInfo = result.listEmailInfo
       this.listMessenger = [];
       this.listEmailInfo.forEach(element => {
@@ -395,9 +400,11 @@ export class DashboardComponent implements OnInit {
           dateTime: new Date(element.date),
           type: element.type,
           textBody: element.textBody,
-          fromName: element.fromName
+          fromName: element.fromName,
+          listAttach: element.ListAttach
         })
       });
+      console.log(this.listMessenger)
       this.viewMail = true;
 
       this.listLabelEmail = result.listLabel

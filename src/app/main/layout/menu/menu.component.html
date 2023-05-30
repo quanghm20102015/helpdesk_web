@@ -359,88 +359,99 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <li class="sidebar-item">
-                            <div>
-                                <span>Channel</span>
-                            </div>
-                            <div routerLinkActive="active-secondary cursor-pointer"
-                                [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/settings/inboxes/new']"
-                                aria-expanded="false" (click)="setTab(5)" class="cursor-pointer"
-                                style="font-size: 20px;">
-                                +</div>
-                        </li>
-                        <li *ngFor="let item of listInboxes" class="sidebar-item color-ffffff cursor-pointer"
-                            routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                            [routerLink]="['/main/conversations/channel/', item.id]" aria-expanded="false">
-                            <div>
-                                {{item.yourName}}
-                            </div>
-                        </li>
-                        <li class="sidebar-item">
-                            <div>
-                                <span>Labels</span>
-                            </div>
-                            <div (click)="display = true" class="cursor-pointer" style="font-size: 20px;">+</div>
-                        </li>
-                        <li *ngFor="let item of listLabel" class="sidebar-item color-ffffff cursor-pointer"
-                            routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                            [routerLink]="['/main/conversations/label/',item.id]" aria-expanded="false">
-                            <div>
-                                {{item.name}}
-                            </div>
-                        </li> -->
                     </ul>
                 </div>
             </div>
 
             <div *ngIf="tab == 2">
-                <ul class="menu vertical mt-3">
-                    <li class="sidebar-item">
-                        <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                            routerLink="/main/contacts/all" aria-expanded="false">
-                            <svg width="14" height="14" fill="none" viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M18.75 4A3.25 3.25 0 0 1 22 7.25v9.505a3.25 3.25 0 0 1-3.25 3.25H5.25A3.25 3.25 0 0 1 2 16.755V7.25a3.25 3.25 0 0 1 3.066-3.245L5.25 4h13.5Zm0 1.5H5.25l-.144.006A1.75 1.75 0 0 0 3.5 7.25v9.505c0 .966.784 1.75 1.75 1.75h13.5a1.75 1.75 0 0 0 1.75-1.75V7.25a1.75 1.75 0 0 0-1.75-1.75Zm-9.497 7a.75.75 0 0 1 .75.75v.582c0 1.272-.969 1.918-2.502 1.918S5 15.104 5 13.831v-.581a.75.75 0 0 1 .75-.75h3.503Zm1.58-.001 1.417.001a.75.75 0 0 1 .75.75v.333c0 .963-.765 1.417-1.875 1.417-.116 0-.229-.005-.337-.015a2.85 2.85 0 0 0 .206-.9l.009-.253v-.582c0-.269-.061-.524-.17-.751Zm4.417.001h3a.75.75 0 0 1 .102 1.493L18.25 14h-3a.75.75 0 0 1-.102-1.493l.102-.007h3-3Zm-7.75-4a1.5 1.5 0 1 1 0 3.001 1.5 1.5 0 0 1 0-3.001Zm3.87.502a1.248 1.248 0 1 1 0 2.496 1.248 1.248 0 0 1 0-2.496Zm3.88.498h3a.75.75 0 0 1 .102 1.493L18.25 11h-3a.75.75 0 0 1-.102-1.493l.102-.007h3-3Z"
-                                    fill="currentColor">
-                                </path>
-                            </svg>
-                            All Contacts
-                        </a>
-                    </li>
-                    <li class="sidebar-item d-block mb-3">
-                        <div>
-                            <span>Tagged with</span>
-                        </div>
-                        <ul class="nested vertical menu">
-                            <li *ngFor="let item of listLabel" class="sidebar-item">
-                                <a routerLinkActive="active-secondary" [routerLinkActiveOptions]="{exact: false}"
-                                    [routerLink]="['/main/contacts/label/',item.id]" aria-expanded="false">
-                                    <span class="badge--label" style="background-color: rgb(11, 240, 138);">
-                                    </span>
-                                    <span [title]="item.name" class="menu-label button__content text-truncate">
-                                        <p-colorPicker [(ngModel)]="item.color" [disabled]="true"></p-colorPicker>
-                                        {{item.name}}
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="menu-item--new">
-                                <a class="fw-light" type="button" (click)="display = true">
-                                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M11.75 3a.75.75 0 0 1 .743.648l.007.102.001 7.25h7.253a.75.75 0 0 1 .102 1.493l-.102.007h-7.253l.002 7.25a.75.75 0 0 1-1.493.101l-.007-.102-.002-7.249H3.752a.75.75 0 0 1-.102-1.493L3.752 11h7.25L11 3.75a.75.75 0 0 1 .75-.75Z"
-                                            fill="currentColor">
-                                        </path>
+                <div class="title-menu">Customer</div>
+                <div>
+                    <ul class="menu vertical w-100 mb-0 pb-2 list-top pt-0">
+                        <li class="sidebar-item cursor-pointer" routerLinkActive="active-secondary"
+                            [routerLinkActiveOptions]="{exact: false}" [routerLink]="['/main/contacts/all']"
+                            aria-expanded="false">
+                            <div>
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <g clip-path="url(#clip0_1429_3606)">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M19.167 15.8333C19.167 16.0543 19.0792 16.2663 18.9229 16.4226C18.7666 16.5789 18.5546 16.6667 18.3336 16.6667H8.33362C8.11261 16.6667 7.90064 16.5789 7.74436 16.4226C7.58808 16.2663 7.50029 16.0543 7.50029 15.8333C7.50029 14.5072 8.02707 13.2355 8.96475 12.2978C9.90243 11.3601 11.1742 10.8333 12.5003 10.8333H14.167C15.493 10.8333 16.7648 11.3601 17.7025 12.2978C18.6402 13.2355 19.167 14.5072 19.167 15.8333ZM13.3336 3.33333C12.6743 3.33333 12.0299 3.52883 11.4817 3.8951C10.9336 4.26137 10.5063 4.78197 10.254 5.39105C10.0017 6.00014 9.93572 6.67036 10.0643 7.31697C10.193 7.96357 10.5104 8.55751 10.9766 9.02369C11.4428 9.48986 12.0367 9.80733 12.6833 9.93595C13.3299 10.0646 14.0001 9.99856 14.6092 9.74626C15.2183 9.49397 15.7389 9.06673 16.1052 8.51857C16.4715 7.9704 16.667 7.32594 16.667 6.66667C16.667 5.78261 16.3158 4.93476 15.6906 4.30964C15.0655 3.68452 14.2177 3.33333 13.3336 3.33333Z" fill="white"/>
+                                    <path d="M5.83362 3.33333C5.17435 3.33333 4.52988 3.52883 3.98172 3.8951C3.43355 4.26137 3.00631 4.78197 2.75402 5.39105C2.50173 6.00014 2.43572 6.67036 2.56433 7.31697C2.69295 7.96357 3.01042 8.55751 3.4766 9.02369C3.94277 9.48986 4.53671 9.80733 5.18332 9.93595C5.82992 10.0646 6.50014 9.99856 7.10923 9.74626C7.71832 9.49397 8.23891 9.06673 8.60518 8.51857C8.97145 7.9704 9.16695 7.32594 9.16695 6.66667C9.16695 5.78261 8.81576 4.93476 8.19064 4.30964C7.56552 3.68452 6.71767 3.33333 5.83362 3.33333Z" fill="#9B9B9E"/>
+                                    <path d="M5.83362 15.8333C5.83238 14.958 6.00483 14.0911 6.34099 13.2829C6.67714 12.4747 7.17032 11.7413 7.79195 11.125C7.28323 10.9329 6.74406 10.8341 6.20028 10.8333H5.46695C4.23879 10.8355 3.06156 11.3244 2.19312 12.1928C1.32468 13.0613 0.835821 14.2385 0.833618 15.4667V15.8333C0.833618 16.0543 0.921415 16.2663 1.0777 16.4226C1.23398 16.5789 1.44594 16.6667 1.66695 16.6667H5.98362C5.8866 16.3994 5.83587 16.1176 5.83362 15.8333Z" fill="#9B9B9E"/>
+                                    </g>
+                                    <defs>
+                                    <clipPath id="clip0_1429_3606">
+                                    <rect width="20" height="20" fill="white" transform="translate(0.000244141)"/>
+                                    </clipPath>
+                                    </defs>
                                     </svg>
-                                    <span>
-                                        New label
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                                    
+                                All customers
+                            </div>
+                            <!-- <div class="text-count fw-500">
+                                {{emailInfoCount.all? emailInfoCount.all:''}}
+                            </div> -->
+                        </li>
+                    </ul>
+                </div>
+                <!-- <div>
+                    <ul class="menu vertical w-100 list-menu-bottom mt-0">
+                        <div class="accordion" id="accordionPanelsStayOpenMenu">
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header d-flex justify-content-between align-items-center"
+                                    id="panelsStayOpen-headingLabel">
+                                    <div class="d-flex align-items-center">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#panelsStayOpen-collapseLabelTab2" aria-expanded="true"
+                                            aria-controls="panelsStayOpen-collapseLabelTab2">
+                                            <span>
+                                                <svg class="icon-accordion" width="16" height="16" viewBox="0 0 16 16"
+                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M3.45463 10.6667H12.2975C12.4539 10.666 12.6066 10.619 12.7363 10.5316C12.866 10.4441 12.9669 10.3202 13.0262 10.1754C13.0854 10.0306 13.1004 9.87153 13.0693 9.71823C13.0381 9.56493 12.9622 9.42432 12.8512 9.31416L8.43763 4.90065C8.36411 4.82651 8.27662 4.76767 8.18024 4.72752C8.08386 4.68736 7.98047 4.66669 7.87606 4.66669C7.77164 4.66669 7.66826 4.68736 7.57188 4.72752C7.47549 4.76767 7.38801 4.82651 7.31448 4.90065L2.90096 9.31416C2.7899 9.42432 2.71399 9.56493 2.68283 9.71823C2.65168 9.87153 2.66669 10.0306 2.72595 10.1754C2.78521 10.3202 2.88607 10.4441 3.01578 10.5316C3.14548 10.619 3.2982 10.666 3.45463 10.6667Z"
+                                                        fill="white" />
+                                                </svg>
+                                            </span>
+                                            Labels
+                                        </button>
+                                    </div>
+
+                                    <div class="icon-add" (click)="display = true">
+                                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="m-0"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M11.3336 7.33333H8.66691V4.66667C8.66691 4.48986 8.59667 4.32029 8.47165 4.19526C8.34662 4.07024 8.17706 4 8.00024 4C7.82343 4 7.65386 4.07024 7.52884 4.19526C7.40382 4.32029 7.33358 4.48986 7.33358 4.66667V7.33333H4.66691C4.4901 7.33333 4.32053 7.40357 4.19551 7.5286C4.07048 7.65362 4.00024 7.82319 4.00024 8C4.00024 8.17681 4.07048 8.34638 4.19551 8.4714C4.32053 8.59643 4.4901 8.66667 4.66691 8.66667H7.33358V11.3333C7.33358 11.5101 7.40382 11.6797 7.52884 11.8047C7.65386 11.9298 7.82343 12 8.00024 12C8.17706 12 8.34662 11.9298 8.47165 11.8047C8.59667 11.6797 8.66691 11.5101 8.66691 11.3333V8.66667H11.3336C11.5104 8.66667 11.68 8.59643 11.805 8.4714C11.93 8.34638 12.0002 8.17681 12.0002 8C12.0002 7.82319 11.93 7.65362 11.805 7.5286C11.68 7.40357 11.5104 7.33333 11.3336 7.33333Z"
+                                                fill="white" />
+                                        </svg>
+                                    </div>
+                                </h2>
+                                <div id="panelsStayOpen-collapseLabelTab2" class="accordion-collapse collapse show"
+                                    aria-labelledby="panelsStayOpen-headingLabel">
+                                    <div class="accordion-body">
+                                        <li *ngFor="let item of listLabel"
+                                            class="sidebar-item color-ffffff cursor-pointer"
+                                            routerLinkActive="active-secondary"
+                                            [routerLinkActiveOptions]="{exact: false}"
+                                            [routerLink]="['/main/conversations/label/', item.id]"
+                                            aria-expanded="false">
+                                            <div class="text-truncate-1 fw-500 text-menu-botton" title="{{item.name}}">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M14.1111 5.2223L11.4395 5.2223L11.8839 1.96401C11.8938 1.89171 11.8893 1.81818 11.8707 1.74761C11.8521 1.67705 11.8199 1.61083 11.7757 1.55274C11.7315 1.49466 11.6764 1.44583 11.6133 1.40907C11.5503 1.3723 11.4807 1.34831 11.4084 1.33846C11.3361 1.32861 11.2625 1.3331 11.192 1.35167C11.1214 1.37023 11.0552 1.40252 10.9971 1.44668C10.939 1.49084 10.8902 1.54601 10.8534 1.60903C10.8167 1.67206 10.7927 1.74171 10.7828 1.81401L10.3184 5.2223H6.43954L6.88398 1.96401C6.89383 1.89171 6.88934 1.81818 6.87077 1.74761C6.8522 1.67705 6.81992 1.61083 6.77576 1.55274C6.7316 1.49466 6.67643 1.44583 6.61341 1.40907C6.55038 1.3723 6.48073 1.34831 6.40843 1.33846C6.33613 1.32861 6.2626 1.3331 6.19204 1.35167C6.12147 1.37023 6.05525 1.40252 5.99717 1.44668C5.93908 1.49084 5.89026 1.54601 5.85349 1.60903C5.81673 1.67206 5.79273 1.74171 5.78288 1.81401L5.31844 5.2223L2.44459 5.2223C2.29725 5.2223 2.15595 5.28083 2.05176 5.38501C1.94758 5.4892 1.88904 5.63051 1.88904 5.77785C1.88904 5.92519 1.94758 6.06649 2.05176 6.17068C2.15595 6.27486 2.29725 6.3334 2.44459 6.3334L5.16678 6.3334L4.71234 9.66669H1.88904C1.7417 9.66669 1.6004 9.72522 1.49621 9.8294C1.39203 9.93359 1.3335 10.0749 1.3335 10.2222C1.3335 10.3696 1.39203 10.5109 1.49621 10.6151C1.6004 10.7193 1.7417 10.7778 1.88904 10.7778H4.56068L4.11624 14.0361C4.09635 14.1821 4.13527 14.33 4.22446 14.4473C4.31364 14.5647 4.44577 14.6417 4.59179 14.6616C4.7378 14.6815 4.88574 14.6426 5.00305 14.5534C5.12036 14.4642 5.19744 14.3321 5.21733 14.1861L5.68177 10.7778H9.56061L9.11617 14.0361C9.09628 14.1821 9.13521 14.33 9.22439 14.4473C9.31358 14.5647 9.44571 14.6417 9.59172 14.6616C9.73774 14.6815 9.88567 14.6426 10.003 14.5534C10.1203 14.4642 10.1974 14.3321 10.2173 14.1861L10.6817 10.7778L13.5556 10.7778C13.7029 10.7778 13.8442 10.7193 13.9484 10.6151C14.0526 10.5109 14.1111 10.3696 14.1111 10.2222C14.1111 10.0749 14.0526 9.93359 13.9484 9.8294C13.8442 9.72522 13.7029 9.66669 13.5556 9.66669L10.8334 9.66669L11.2878 6.3334L14.1111 6.3334C14.2584 6.3334 14.3998 6.27486 14.5039 6.17068C14.6081 6.06649 14.6667 5.92519 14.6667 5.77785C14.6667 5.63051 14.6081 5.4892 14.5039 5.38501C14.3998 5.28083 14.2584 5.2223 14.1111 5.2223ZM9.71228 9.66669H5.83344L6.28788 6.3334L10.1667 6.3334L9.71228 9.66669Z"
+                                                        fill="white" />
+                                                </svg>
+                                                {{item.name}}
+                                            </div>
+                                            <div class="text-count">
+                                                {{item.emailInfoCount? item.emailInfoCount:''}}
+                                            </div>
+                                        </li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div> -->
             </div>
 
             <div *ngIf="tab == 3">
