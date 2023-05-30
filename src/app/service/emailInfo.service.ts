@@ -47,6 +47,19 @@ export class EmailInfoService {
     );
   }
 
+  deleteList(request: any): Observable<any> {
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: request
+    };
+    
+    return this.http.delete(
+      AppSettings.HostingAddress + '/EmailInfoes/Trash', options
+    );
+  }
+
   SendMail(data: any, uploadedFiles: any): Observable<any> {
     let formData = new FormData();
     
@@ -175,4 +188,12 @@ export class EmailInfoService {
       data
     );
   }
+
+  privateNote(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/PrivateNote',
+      data
+    );
+  }
+  
 }

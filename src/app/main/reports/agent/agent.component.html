@@ -165,7 +165,7 @@
               <div>
                 <span class="tabview-title">Conversations</span>
                 <br>
-                <span class="tabview-number">16</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.total : 0}}</span>
               </div>
             </ng-template>
 
@@ -185,7 +185,7 @@
               <div>
                 <span class="tabview-title">Incoming Messages</span>
                 <br>
-                <span class="tabview-number">19</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.incoming : 0}}</span>
               </div>
             </ng-template>
 
@@ -204,7 +204,7 @@
               <div>
                 <span class="tabview-title">Outgoing Messages</span>
                 <br>
-                <span class="tabview-number">19</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.outgoing : 0}}</span>
               </div>
             </ng-template>
 
@@ -223,7 +223,7 @@
               <div>
                 <span class="tabview-title">Resolved Count</span>
                 <br>
-                <span class="tabview-number">6</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.resolved : 0}}</span>
               </div>
             </ng-template>
 
@@ -242,7 +242,7 @@
               <div>
                 <span class="tabview-title">First Response Time</span>
                 <br>
-                <span class="tabview-number">22m 33s</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.responeTime : ''}}</span>
               </div>
             </ng-template>
 
@@ -261,7 +261,7 @@
               <div>
                 <span class="tabview-title">Resolved Time</span>
                 <br>
-                <span class="tabview-number">11 Day 12 Hr</span>
+                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.resolveTime : ''}}</span>
               </div>
             </ng-template>
 
