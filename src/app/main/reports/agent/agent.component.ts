@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import * as Highcharts from 'highcharts';
@@ -7,6 +7,7 @@ import More from 'highcharts/highcharts-more';
 import { ReportsAgentService } from 'src/app/service/reports-agent.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { OverviewService } from 'src/app/service/overview.service';
+import { PerformentTotalModel } from '../models/performent-total-model';
 
 @Component({
   selector: 'app-agent',
@@ -17,14 +18,7 @@ import { OverviewService } from 'src/app/service/overview.service';
 export class AgentComponent implements OnInit {
   private optionDateSubscription$?: Subscription;
 
-  listConversationAgents: any = [
-    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 1, unattended: 43},
-    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 2, unattended: 59},
-    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 3, unattended: 88},
-    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 4, unattended: 66},
-    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 5, unattended: 55},
-    {agent: 'Chris Hoang', mail: 'chrishoang@cavn.vn', open: 6, unattended: 44},
-  ]
+  listConversationAgents: any[] = []
 
   listConversationGroups: any = [
     {groupName: 'Group 1', member: 1, conversation: 43},
@@ -35,13 +29,9 @@ export class AgentComponent implements OnInit {
     {groupName: 'Group 6', member: 6, conversation: 44},
   ]
 
-  listAgent: any = [
-    {name: 'Christ Hoang', value: 1},
-    {name: 'Christ Hoang', value: 2},
-    {name: 'Christ Hoang', value: 3},
-  ]
+  listAgent: any = []
 
-  selectedAgent: any = null
+  selectedAgent: any = 0
 
   listFilter: any = [
     {name: '#Label1', value: 1},
@@ -73,6 +63,8 @@ export class AgentComponent implements OnInit {
   chartOptionsFirstResponseTime: any;
   chartOptionsResolvedTime: any;
 
+  performentTotalModel!: PerformentTotalModel;
+
   constructor(
     private agentService: ReportsAgentService,
     private userInfoStorageService: UserInfoStorageService,
@@ -85,6 +77,8 @@ export class AgentComponent implements OnInit {
     this.loadChartConversations();
 
     setTimeout(() => {
+      this.loadListConversationAgents();
+      this.loadPerformentMonitorTotal();
       this.loadChartConversations();
 
       this.updateConversationsFlag = true;
@@ -96,6 +90,147 @@ export class AgentComponent implements OnInit {
 
       this.fromDate = response.fromDate;
       this.toDate = response.toDate;
+    });
+  }
+
+  loadPerformentMonitorTotal() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      idUser: this.selectedAgent
+    }
+
+    this.agentService.performentMonitorAgentTotal(request).subscribe((respone) => {
+      this.performentTotalModel = respone.result;
+    });
+  }
+  
+  
+  loadPerformentMonitor(_type: number) {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      type: _type,
+      idUser: this.selectedAgent
+    }
+
+    this.agentService.getPerformanceMonitorAgent(request).subscribe((respone) => {
+      console.log(respone);
+
+      if (_type == 1) {
+        this.chartOptionsConversations.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsConversations.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateConversationsFlag = true;
+      }
+      else if (_type == 2) {
+        this.chartOptionsIncomingMessages.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsIncomingMessages.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateIncomingMessagesFlag = true;
+      }
+      else if (_type == 3) {
+        this.chartOptionsOutgoingMessages.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsOutgoingMessages.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateOutgoingMessagesFlag = true;
+      }
+      else if (_type == 4) {
+        this.chartOptionsResolvedCount.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsResolvedCount.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateResolvedCountFlag = true;
+      }
+      else if (_type == 5) {
+        this.chartOptionsFirstResponseTime.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsFirstResponseTime.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateFirstResponseTimeFlag = true;
+      }
+      else if (_type == 6) {
+        this.chartOptionsResolvedTime.xAxis = {
+          categories: respone.result.label,
+          crosshair: true
+        }
+
+        this.chartOptionsResolvedTime.series! = [
+          {
+            type: 'column',
+            data: respone.result.data
+          }
+        ]
+
+        this.updateResolvedTimeFlag = true;
+      }
+    });
+  }
+
+  loadListConversationAgents() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.agentService.topConversationAgent(request).subscribe((respone) => {
+      this.listConversationAgents = respone.result;
+
+      this.listConversationAgents.forEach((element) => {
+        this.listAgent.push({name: element.agent, value: element.idUser});
+      });
     });
   }
 
@@ -141,7 +276,7 @@ export class AgentComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -169,16 +304,18 @@ export class AgentComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Conversations',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [49, 71.5, 106.4, 129.2, 76.0, 135.6, 56.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(1);
   }
 
   loadChartIncomingMessages() {
@@ -195,7 +332,7 @@ export class AgentComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -223,16 +360,18 @@ export class AgentComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Incoming Messages',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [34, 55, 66, 14, 76, 35.6, 56.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(2);
   }
 
   loadChartOutgoingMessages() {
@@ -249,7 +388,7 @@ export class AgentComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -277,16 +416,18 @@ export class AgentComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Outgoing Messages',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [55, 44, 87, 43, 44, 56, 6.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(3);
   }
 
   loadChartResolvedCount() {
@@ -303,7 +444,7 @@ export class AgentComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -331,16 +472,18 @@ export class AgentComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Resolved Count',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [88, 44, 66, 14, 76, 55.6, 77.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(4);
   }
 
   loadChartFirstResponseTime() {
@@ -357,7 +500,7 @@ export class AgentComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -385,16 +528,18 @@ export class AgentComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'First Response Time',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [66, 55, 77, 88, 77, 99.6, 88.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(5);
   }
 
   loadChartResolvedTime() {
@@ -411,7 +556,7 @@ export class AgentComponent implements OnInit {
         enabled: false
       },
       xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
+          categories: [],
           crosshair: true
       },
       yAxis: {
@@ -439,19 +584,20 @@ export class AgentComponent implements OnInit {
       },
       series: [
         {
-          name: 'Test',
+          name: 'Resolved Time',
           type: 'column',
           color: '#3A69DB',
           tooltip: {
             valueSuffix: ''
           },
-          data: [34, 55, 66, 14, 76, 35.6, 56.6]
+          data: []
         }
       ]
     };
+
+    this.loadPerformentMonitor(6);
   }
   //#endregion
-
   onKeyupSearch() {
 
   }
