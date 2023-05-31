@@ -11,7 +11,8 @@ export class ReportsAgentService {
 
   constructor(
     private http: HttpClient,
-    private serviceInvoker: ServiceInvokerService) { }
+    private serviceInvoker: ServiceInvokerService
+  ) { }
 
     getOverview(data: any): Observable<any> {
       return this.http.get(
@@ -37,4 +38,21 @@ export class ReportsAgentService {
       );
     }
 
+    groupTopConversation(data: any): Observable<any> {
+      return this.http.get(
+        AppSettings.HostingAddress + '/Reports/GroupTopConversation?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
+      );
+    }
+
+    groupPerformentMonitorTotal(data: any): Observable<any> {
+      return this.http.get(
+        AppSettings.HostingAddress + '/Reports/GroupPerformentMonitorTotal?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&idUser=' + data.idUser
+      );
+    }
+
+    groupPerformentMonitor(data: any): Observable<any> {
+      return this.http.get(
+        AppSettings.HostingAddress + '/Reports/GroupPerformentMonitor?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&type=' + data.type + '&idUser=' + data.idUser
+      );
+    }
 }

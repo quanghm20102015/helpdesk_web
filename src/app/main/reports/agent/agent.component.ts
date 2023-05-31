@@ -22,14 +22,8 @@ export class AgentComponent implements OnInit {
   listAgent: any = []
   listConversationAgents: any[] = []
 
-  listConversationGroups: any = [
-    {groupName: 'Group 1', member: 1, conversation: 43},
-    {groupName: 'Group 2', member: 2, conversation: 5},
-    {groupName: 'Group 3', member: 3, conversation: 88},
-    {groupName: 'Group 4', member: 4, conversation: 66},
-    {groupName: 'Group 5', member: 5, conversation: 55},
-    {groupName: 'Group 6', member: 6, conversation: 44},
-  ]
+  listGroup: any = []
+  listConversationGroups: any[] = []
 
   total: number = 0;
   online: number = 0;
@@ -37,6 +31,7 @@ export class AgentComponent implements OnInit {
   offline: number = 0;
 
   selectedAgent: any = 0
+  selectedGroup: any = 0
 
   textSearch: string = '';
   idCompany: any;
@@ -120,7 +115,7 @@ export class AgentComponent implements OnInit {
       enabled: false
     },
     xAxis: {
-      categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22' ],
+      categories: [],
       crosshair: true
     },
     yAxis: {
@@ -147,12 +142,13 @@ export class AgentComponent implements OnInit {
         tooltip: {
           valueSuffix: ''
         },
-        data: [41, 24, 57, 66, 44, 33, 77]
+        data: []
       }
     ]
   };
 
-  performentTotalModel!: PerformentTotalModel;
+  performentAgentsTotalModel!: PerformentTotalModel;
+  performentGroupTotalModel!: PerformentTotalModel;
 
   constructor(
     private agentService: ReportsAgentService,
@@ -169,9 +165,14 @@ export class AgentComponent implements OnInit {
       this.toDate = response.toDate;
 
       this.loadOverview();
+
       this.loadListConversationAgents();
       this.loadPerformentMonitorTotal();
-      this.loadPerformentMonitor(1);
+      this.loadPerformentMonitorAgents(1);
+
+      this.loadListConversationGroup();
+      this.loadPerformentMonitorGroupTotal();
+      this.loadPerformentMonitorGroup(1);
     });
   }
 
@@ -194,6 +195,7 @@ export class AgentComponent implements OnInit {
     });
   }
 
+  //#region Agents
   loadPerformentMonitorTotal() {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
 
@@ -205,11 +207,11 @@ export class AgentComponent implements OnInit {
     }
 
     this.agentService.agentPerformentMonitorTotal(request).subscribe((respone) => {
-      this.performentTotalModel = respone.result;
+      this.performentAgentsTotalModel = respone.result;
     });
   }
 
-  loadPerformentMonitor(_type: number) {
+  loadPerformentMonitorAgents(_type: number) {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
 
     let request = {
@@ -268,15 +270,94 @@ export class AgentComponent implements OnInit {
       });
     });
   }
+  //#endregion
+
+  //#region Group
+  loadPerformentMonitorGroupTotal() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      idUser: this.selectedGroup
+    }
+
+    this.agentService.groupPerformentMonitorTotal(request).subscribe((respone) => {
+      this.performentGroupTotalModel = respone.result;
+    });
+  }
+
+  loadPerformentMonitorGroup(_type: number) {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      type: _type,
+      idUser: this.selectedGroup
+    }
+
+    this.agentService.groupPerformentMonitor(request).subscribe((respone) => {
+      let nameChart = '';
+
+      if (_type == 1)
+        nameChart = 'Conversations'
+      else if (_type == 2)
+        nameChart = 'Outgoing Messages'
+      else if (_type == 3)
+        nameChart = 'Resolved Count'
+      else if (_type == 4)
+        nameChart = 'First Response Time'
+      else if (_type == 5)
+        nameChart = 'Resolved Time'
+
+      this.chartOptionsGroup.xAxis = {
+        categories: respone.result.label,
+        crosshair: true
+      }
+
+      this.chartOptionsGroup.series! = [
+        {
+          type: 'column',
+          name: nameChart,
+          data: respone.result.data
+        }
+      ]
+
+      this.updateGroupFlag = true;
+    });
+  }
+
+  loadListConversationGroup() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.agentService.groupTopConversation(request).subscribe((respone) => {
+      this.listConversationGroups = respone.result;
+
+      this.listConversationGroups.forEach((element) => {
+        this.listGroup.push({name: element.agent, value: element.idUser});
+      });
+    });
+  }
+  //#endregion
 
   onChangePerformance(event: any, action: number) {
     //action: 1:Agent; 2: Group
 
-    if (action == 1) {
-      let index = event.index + 1;
+    let index = event.index + 1;
 
-      this.loadPerformentMonitor(index);
-    }
+    if (action == 1)
+      this.loadPerformentMonitorAgents(index);
+    else
+      this.loadPerformentMonitorGroup(index);
   }
 
   onKeyupSearch() {

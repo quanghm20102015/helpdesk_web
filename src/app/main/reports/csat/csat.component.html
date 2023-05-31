@@ -195,6 +195,7 @@
         [paginator]="true"
         [rows]="pageSize"
         [totalRecords]="totalRecords"
+        [lazy]="true"
         (onLazyLoad)="loadDataResponseDetails($event)"
         responsiveLayout="scroll"
         [showCurrentPageReport]="true"

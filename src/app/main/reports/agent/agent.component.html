@@ -165,7 +165,7 @@
               <div>
                 <span class="tabview-title">Conversations</span>
                 <br>
-                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.total : 0}}</span>
+                <span class="tabview-number">{{performentAgentsTotalModel ? performentAgentsTotalModel.total : 0}}</span>
               </div>
             </ng-template>
 
@@ -185,7 +185,7 @@
               <div>
                 <span class="tabview-title">Outgoing Messages</span>
                 <br>
-                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.outgoing : 0}}</span>
+                <span class="tabview-number">{{performentAgentsTotalModel ? performentAgentsTotalModel.outgoing : 0}}</span>
               </div>
             </ng-template>
 
@@ -195,6 +195,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsAgent"
                 [(update)]="updateAgentFlag"
+                class="agent-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -204,7 +205,7 @@
               <div>
                 <span class="tabview-title">Resolved Count</span>
                 <br>
-                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.resolved : 0}}</span>
+                <span class="tabview-number">{{performentAgentsTotalModel ? performentAgentsTotalModel.resolved : 0}}</span>
               </div>
             </ng-template>
 
@@ -214,6 +215,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsAgent"
                 [(update)]="updateAgentFlag"
+                class="agent-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -223,7 +225,7 @@
               <div>
                 <span class="tabview-title">First Response Time</span>
                 <br>
-                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.responeTime : ''}}</span>
+                <span class="tabview-number">{{performentAgentsTotalModel ? performentAgentsTotalModel.responeTime : ''}}</span>
               </div>
             </ng-template>
 
@@ -233,6 +235,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsAgent"
                 [(update)]="updateAgentFlag"
+                class="agent-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -242,7 +245,7 @@
               <div>
                 <span class="tabview-title">Resolved Time</span>
                 <br>
-                <span class="tabview-number">{{performentTotalModel ? performentTotalModel.resolveTime : ''}}</span>
+                <span class="tabview-number">{{performentAgentsTotalModel ? performentAgentsTotalModel.resolveTime : ''}}</span>
               </div>
             </ng-template>
 
@@ -252,6 +255,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsAgent"
                 [(update)]="updateAgentFlag"
+                class="agent-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -356,7 +360,7 @@
             <h6 class="fs-14 fw-bold pt-2">Performance Monitoring</h6>
           </div>
           <div class="col-4">
-            <p-dropdown id="dropdown-report" class="float-end" [options]="listAgent" [(ngModel)]="selectedAgent" optionLabel="name" optionValue="value"></p-dropdown>
+            <p-dropdown id="dropdown-report" class="float-end" [options]="listGroup" [(ngModel)]="selectedGroup" optionLabel="name" optionValue="value"></p-dropdown>
           </div>
         </div>
 
@@ -366,7 +370,7 @@
               <div>
                 <span class="tabview-title">Conversations</span>
                 <br>
-                <span class="tabview-number">16</span>
+                <span class="tabview-number">{{performentGroupTotalModel ? performentGroupTotalModel.total : 0}}</span>
               </div>
             </ng-template>
 
@@ -386,7 +390,7 @@
               <div>
                 <span class="tabview-title">Outgoing Messages</span>
                 <br>
-                <span class="tabview-number">19</span>
+                <span class="tabview-number">{{performentGroupTotalModel ? performentGroupTotalModel.outgoing : 0}}</span>
               </div>
             </ng-template>
 
@@ -396,6 +400,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsGroup"
                 [(update)]="updateGroupFlag"
+                class="group-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -405,7 +410,7 @@
               <div>
                 <span class="tabview-title">Resolved Count</span>
                 <br>
-                <span class="tabview-number">6</span>
+                <span class="tabview-number">{{performentGroupTotalModel ? performentGroupTotalModel.resolved : 0}}</span>
               </div>
             </ng-template>
 
@@ -415,6 +420,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsGroup"
                 [(update)]="updateGroupFlag"
+                class="group-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -424,7 +430,7 @@
               <div>
                 <span class="tabview-title">First Response Time</span>
                 <br>
-                <span class="tabview-number">22m 33s</span>
+                <span class="tabview-number">{{performentGroupTotalModel ? performentGroupTotalModel.resolveTime : 0}}</span>
               </div>
             </ng-template>
 
@@ -434,6 +440,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsGroup"
                 [(update)]="updateGroupFlag"
+                class="group-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -443,7 +450,7 @@
               <div>
                 <span class="tabview-title">Resolved Time</span>
                 <br>
-                <span class="tabview-number">11 Day 12 Hr</span>
+                <span class="tabview-number">{{performentGroupTotalModel ? performentGroupTotalModel.responeTime : 0}}</span>
               </div>
             </ng-template>
 
@@ -453,6 +460,7 @@
                 [constructorType]="'chart'"
                 [options]="chartOptionsGroup"
                 [(update)]="updateGroupFlag"
+                class="group-performance"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>

@@ -41,4 +41,10 @@ export class ReportsConversationService {
   getLabelDistribution(data: any): Observable<any> {
     return this.http.post(AppSettings.HostingAddress + '/Reports/LabelDistribution', data);
   }
+
+  getConversationTraffic(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Reports/Traffic?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
+    );
+  }
 }
