@@ -23,13 +23,16 @@
           <div class="card card-hight mb-0">
             <div class="flex align-items-center justify-content-center justify-content-between">
               <div class="flex align-items-center justify-content-center">
-                  <span class="block text-500 font-medium">&nbsp; Satisfaction score</span>
+                <span class="block text-500 font-medium">&nbsp; Satisfaction score</span>
               </div>
+
               <div class="flex align-items-center justify-content-center">
-                  <div class="font-medium text-primary-500 card-number">{{satisfactionScoreModel ? satisfactionScoreModel.total : 0}} &nbsp;</div>
-                  <div class="pl-1" [ngClass]="{'bg-green-100': satisfactionScoreModel ? satisfactionScoreModel.upDown : 0 >= 0, 'bg-red-100': satisfactionScoreModel ? satisfactionScoreModel.upDown : 0 < 0}" >
-                      <i class="pi pi-caret-down text-red-500 card-bob">{{satisfactionScoreModel ? satisfactionScoreModel.upDown : 0}}</i>
-                  </div>
+                <div class="font-medium text-primary-500 card-number">{{satisfactionScoreModel ? satisfactionScoreModel.total : 0}} &nbsp;</div>
+                <div class="pl-1 " [ngClass]="{ 'bg-green-100': satisfactionScoreModel && satisfactionScoreModel.total! >= 0, 'bg-red-100': satisfactionScoreModel && satisfactionScoreModel.total! < 0 }">
+                  <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="satisfactionScoreModel && satisfactionScoreModel.upDown! > 0">{{satisfactionScoreModel ? satisfactionScoreModel.upDown : 0}}</i>
+                  <i class="pi pi-caret-down text-red-500 card-bob" *ngIf="satisfactionScoreModel && satisfactionScoreModel.upDown! < 0">{{satisfactionScoreModel ? satisfactionScoreModel.upDown : 0}}</i>
+                  <span class="text-green-500 card-bob" *ngIf="satisfactionScoreModel && satisfactionScoreModel.upDown! == 0">{{satisfactionScoreModel ? satisfactionScoreModel.upDown : 0}}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -40,11 +43,14 @@
               <div class="flex align-items-center justify-content-center">
                 <span class="block text-500 font-medium">&nbsp; Response rate</span>
               </div>
+
               <div class="flex align-items-center justify-content-center">
-                  <div class="font-medium text-yellow-500 card-number">{{responseRateModel ? responseRateModel.total : 0}} &nbsp;</div>
-                  <div class="pl-1" [ngClass]="{'bg-green-100': responseRateModel ? responseRateModel.upDown : 0 >= 0, 'bg-red-100': responseRateModel ? responseRateModel.upDown : 0 < 0}" >
-                      <i class="pi pi-caret-down text-red-500 card-bob">{{responseRateModel ? responseRateModel.upDown : 0}}</i>
-                  </div>
+                <div class="font-medium text-yellow-500 card-number">{{responseRateModel ? responseRateModel.total : 0}} &nbsp;</div>
+                <div class="pl-1 " [ngClass]="{ 'bg-green-100': responseRateModel && responseRateModel.total! >= 0, 'bg-red-100': responseRateModel && responseRateModel.total! < 0 }">
+                  <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="responseRateModel && responseRateModel.upDown! > 0">{{responseRateModel ? responseRateModel.upDown : 0}}</i>
+                  <i class="pi pi-caret-down text-red-500 card-bob" *ngIf="responseRateModel && responseRateModel.upDown! < 0">{{responseRateModel ? responseRateModel.upDown : 0}}</i>
+                  <span class="text-green-500 card-bob" *ngIf="responseRateModel && responseRateModel.upDown! == 0">{{responseRateModel ? responseRateModel.upDown : 0}}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -53,13 +59,16 @@
           <div class="card card-hight mb-0">
             <div class="flex align-items-center justify-content-center justify-content-between">
               <div class="flex align-items-center justify-content-center">
-                  <span class="block text-500 font-medium">&nbsp; Total responses</span>
+                <span class="block text-500 font-medium">&nbsp; Total responses</span>
               </div>
+
               <div class="flex align-items-center justify-content-center">
-                  <div class="font-medium text-purple-500 card-number">{{totalResponsesModel ? totalResponsesModel.total : 0}} &nbsp;</div>
-                  <div class="pl-1" [ngClass]="{'bg-green-100': totalResponsesModel ? totalResponsesModel.upDown : 0 >= 0, 'bg-red-100': totalResponsesModel ? totalResponsesModel.upDown : 0 < 0}" >
-                      <i class="pi pi-caret-down text-red-500 card-bob">{{totalResponsesModel ? totalResponsesModel.upDown : 0}}</i>
-                  </div>
+                <div class="font-medium text-purple-500 card-number">{{totalResponsesModel ? totalResponsesModel.total : 0}} &nbsp;</div>
+                <div class="pl-1 " [ngClass]="{ 'bg-green-100': totalResponsesModel && totalResponsesModel.total! >= 0, 'bg-red-100': totalResponsesModel && totalResponsesModel.total! < 0 }">
+                  <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="totalResponsesModel && totalResponsesModel.upDown! > 0">{{totalResponsesModel ? totalResponsesModel.upDown : 0}}</i>
+                  <i class="pi pi-caret-down text-red-500 card-bob" *ngIf="totalResponsesModel && totalResponsesModel.upDown! < 0">{{totalResponsesModel ? totalResponsesModel.upDown : 0}}</i>
+                  <span class="text-green-500 card-bob" *ngIf="totalResponsesModel && totalResponsesModel.upDown! == 0">{{totalResponsesModel ? totalResponsesModel.upDown : 0}}</span>
+                </div>
               </div>
             </div>
           </div>
@@ -189,6 +198,7 @@
         [paginator]="true"
         [rows]="pageSize"
         [totalRecords]="totalRecords"
+        [lazy]="true"
         (onLazyLoad)="loadDataResponseDetails($event)"
         responsiveLayout="scroll"
         [showCurrentPageReport]="true"
