@@ -19,9 +19,13 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   optionDate: any = 2
 
-  listOptionsDashboard!: any[];
+  listOptionsDashboard: any = [
+    { label: 'Overview', value: 1 },
+    { label: 'Agent & Group', value: 2 },
+    { label: 'CSAT', value: 3 },
+  ];
 
-  selectedDefault: number =  3;
+  selectedDefault: number =  1;
 
   datePipe = new DatePipe('en-US');
   fromDate: any;
@@ -32,8 +36,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.loadOptionsDashboard();
-
     let conllapse = $('#btncollapse')
     conllapse.addClass('hide-menu')
   }
@@ -42,14 +44,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.loadDate(2);
 
     localStorage.setItem('reports-date', '2');
-  }
-
-  loadOptionsDashboard() {
-    this.listOptionsDashboard = [
-      { label: 'Overview', value: 1 },
-      { label: 'Agent & Group', value: 2 },
-      { label: 'CSAT', value: 3 },
-    ];
   }
 
   loadDate(option: any) {
@@ -98,10 +92,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
   onChangeOptionsDashboard(event: any) {
     setTimeout(() => {
       if (localStorage.getItem('reports-date')) {
-        this.selectedDefault = parseInt(localStorage.getItem('reports-date')!);
+        this.optionDate = parseInt(localStorage.getItem('reports-date')!);
       }
 
-      this.loadDate(this.selectedDefault);
+      this.loadDate(this.optionDate);
     }, 100);
   }
 

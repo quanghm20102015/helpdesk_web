@@ -149,8 +149,6 @@ export class CsatComponent implements OnInit {
     }
 
     this.csatService.getOverview(request).subscribe((respone) => {
-      console.log('getOverview', respone);
-
       this.responseRateModel = respone.result.responseRate;
       this.totalResponsesModel = respone.result.totalResponses;
       this.satisfactionScoreModel = respone.result.satisfactionScore;
@@ -208,8 +206,6 @@ export class CsatComponent implements OnInit {
     }
 
     this.csatService.getResponeDetail(request).subscribe((respone) => {
-      console.log(respone);
-
       this.listResponseDetails = respone.result
     });
   }
