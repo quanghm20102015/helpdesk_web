@@ -17,11 +17,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
     {name: 'Last year', value: 6},
   ]
 
-  optionDate: any = null
+  optionDate: any = 2
 
   listOptionsDashboard!: any[];
 
-  selectedDefault: number = 1;
+  selectedDefault: number =  3;
 
   datePipe = new DatePipe('en-US');
   fromDate: any;
@@ -39,7 +39,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    this.loadDate(1);
+    this.loadDate(2);
+
+    localStorage.setItem('reports-date', '2');
   }
 
   loadOptionsDashboard() {
@@ -95,12 +97,18 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   onChangeOptionsDashboard(event: any) {
     setTimeout(() => {
+      if (localStorage.getItem('reports-date')) {
+        this.selectedDefault = parseInt(localStorage.getItem('reports-date')!);
+      }
+
       this.loadDate(this.selectedDefault);
     }, 100);
   }
 
   onChangeDate(event: any) {
     this.loadDate(event.value);
+
+    localStorage.setItem('reports-date', event.value);
   }
 
   ngOnDestroy() {

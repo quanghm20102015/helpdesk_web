@@ -103,8 +103,8 @@
               <highcharts-chart
                 [Highcharts]="Highcharts"
                 [constructorType]="'chart'"
-                [options]="chartOptionsConversations"
-                [(update)]="updateConversationsFlag"
+                [options]="chartOptions"
+                [(update)]="updateFlag"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -122,8 +122,8 @@
               <highcharts-chart
                 [Highcharts]="Highcharts"
                 [constructorType]="'chart'"
-                [options]="chartOptionsIncomingMessages"
-                [(update)]="updateIncomingMessagesFlag"
+                [options]="chartOptions"
+                [(update)]="updateFlag"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -141,8 +141,8 @@
               <highcharts-chart
                 [Highcharts]="Highcharts"
                 [constructorType]="'chart'"
-                [options]="chartOptionsOutgoingMessages"
-                [(update)]="updateOutgoingMessagesFlag"
+                [options]="chartOptions"
+                [(update)]="updateFlag"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -160,8 +160,8 @@
               <highcharts-chart
                 [Highcharts]="Highcharts"
                 [constructorType]="'chart'"
-                [options]="chartOptionsResolvedCount"
-                [(update)]="updateResolvedCountFlag"
+                [options]="chartOptions"
+                [(update)]="updateFlag"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -179,8 +179,8 @@
               <highcharts-chart
                 [Highcharts]="Highcharts"
                 [constructorType]="'chart'"
-                [options]="chartOptionsFirstResponseTime"
-                [(update)]="updateFirstResponseTimeFlag"
+                [options]="chartOptions"
+                [(update)]="updateFlag"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>
@@ -198,8 +198,8 @@
               <highcharts-chart
                 [Highcharts]="Highcharts"
                 [constructorType]="'chart'"
-                [options]="chartOptionsResolvedTime"
-                [(update)]="updateResolvedTimeFlag"
+                [options]="chartOptions"
+                [(update)]="updateFlag"
                 style="width: 100%; display: block;">
               </highcharts-chart>
             </div>

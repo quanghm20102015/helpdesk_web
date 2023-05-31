@@ -33,24 +33,24 @@ export class ConversationComponent implements OnInit {
   performentTotalModel!: PerformentTotalModel;
 
   selectedFilter: any[] = [];
+  listLabelFilter: any = []
+
   textSearch: string = '';
   idCompany: any;
   fromDate: any;
   toDate: any;
   datePipe = new DatePipe('en-US');
 
+  totalPie: number = 0;
+
   Highcharts: typeof Highcharts = Highcharts;
 
-  updateConversationsFlag = false;
-  updateIncomingMessagesFlag = false;
-  updateOutgoingMessagesFlag = false;
-  updateResolvedCountFlag = false;
-  updateFirstResponseTimeFlag = false;
-  updateResolvedTimeFlag = false;
+  updateFlag = false;
+
   updateTrafficFlag = false;
   updateDistributionFlag = false;
 
-  chartOptionsConversations: Highcharts.Options = {
+  chartOptions: Highcharts.Options = {
     chart: {
       type: 'column'
     },
@@ -83,12 +83,6 @@ export class ConversationComponent implements OnInit {
       floating: true,
       enabled: false
     },
-    // plotOptions: {
-    //   column: {
-    //     pointPadding: 0.2,
-    //     borderWidth: 0
-    //   }
-    // },
     series: [
       {
         name: 'Conversations',
@@ -101,11 +95,6 @@ export class ConversationComponent implements OnInit {
       }
     ]
   };
-  chartOptionsIncomingMessages: any;
-  chartOptionsOutgoingMessages: any;
-  chartOptionsResolvedCount: any;
-  chartOptionsFirstResponseTime: any;
-  chartOptionsResolvedTime: any;
 
   chartOptionsTraffic: Highcharts.Options = {
     chart: {
@@ -193,7 +182,6 @@ export class ConversationComponent implements OnInit {
     },
     tooltip: {
       formatter: function () {
-        // console.log(this.point);
         return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> sold <br><b>' +
           this.point.value + '</b> items on <br><b>Conversation Traffic</b>';
       },
@@ -332,9 +320,9 @@ export class ConversationComponent implements OnInit {
 
       this.loadOverview();
       this.loadPerformentMonitorTotal();
-      this.loadChartConversations();
       this.loadLabelCompany();
-      this.loadLabelDistribution(0);
+      this.loadLabelDistribution();
+      this.loadPerformentMonitor(1);
     });
   }
 
@@ -380,98 +368,35 @@ export class ConversationComponent implements OnInit {
     }
 
     this.conversationService.getPerformanceMonitor(request).subscribe((respone) => {
-      console.log(respone);
+      let nameChart = '';
 
-      if (_type == 1) {
-        this.chartOptionsConversations.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
+      if (_type == 1)
+        nameChart = 'Conversations'
+      else if (_type == 2)
+        nameChart = 'Incoming Messages'
+      else if (_type == 3)
+        nameChart = 'Outgoing Messages'
+      else if (_type == 4)
+        nameChart = 'Resolved Count'
+      else if (_type == 5)
+        nameChart = 'First Response Time'
+      else if (_type == 6)
+        nameChart = 'Resolved Time'
 
-        this.chartOptionsConversations.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateConversationsFlag = true;
+      this.chartOptions.xAxis = {
+        categories: respone.result.label,
+        crosshair: true
       }
-      else if (_type == 2) {
-        this.chartOptionsIncomingMessages.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
+
+      this.chartOptions.series! = [
+        {
+          type: 'column',
+          name: nameChart,
+          data: respone.result.data
         }
+      ]
 
-        this.chartOptionsIncomingMessages.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateIncomingMessagesFlag = true;
-      }
-      else if (_type == 3) {
-        this.chartOptionsOutgoingMessages.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsOutgoingMessages.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateOutgoingMessagesFlag = true;
-      }
-      else if (_type == 4) {
-        this.chartOptionsResolvedCount.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsResolvedCount.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateResolvedCountFlag = true;
-      }
-      else if (_type == 5) {
-        this.chartOptionsFirstResponseTime.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsFirstResponseTime.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateFirstResponseTimeFlag = true;
-      }
-      else if (_type == 6) {
-        this.chartOptionsResolvedTime.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsResolvedTime.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateResolvedTimeFlag = true;
-      }
+      this.updateFlag = true;
     });
   }
 
@@ -479,24 +404,37 @@ export class ConversationComponent implements OnInit {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
 
     this.conversationService.GetByIdCompany(this.idCompany).subscribe((respone) => {
-      console.log(respone);
       this.listFilter = respone
     });
   }
 
-  loadLabelDistribution(_idLabel: number) {
+  loadLabelDistribution() {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
 
     let request = {
       fromDate: this.fromDate,
       toDate: this.toDate,
       idCompany: this.idCompany,
-      idLabel: _idLabel
+      idLabel: this.listLabelFilter
     }
 
     this.conversationService.getLabelDistribution(request).subscribe((respone) => {
+      this.totalPie = respone.total;
       this.listTrendingLabel = respone.topTrending
       this.listLabelDistribution = respone.resultTable
+
+      this.chartOptionsDistribution.subtitle = {
+        useHTML: true,
+        text: this.getSubtitle(),
+        floating: true,
+        align: 'center',
+        verticalAlign: 'middle',
+        style: {
+          textTransform: 'capitalize',
+          textAlign: 'center',
+        },
+        y: 0
+      }
 
       this.chartOptionsDistribution.colors = respone.colors;
 
@@ -512,373 +450,30 @@ export class ConversationComponent implements OnInit {
   }
 
   onChangePerformance(event: any) {
-    if (event.index == 0)
-      this.loadChartConversations();
-    else if (event.index == 1)
-      this.loadChartIncomingMessages();
-    else if (event.index == 2)
-      this.loadChartOutgoingMessages();
-    else if (event.index == 3)
-      this.loadChartResolvedCount();
-    else if (event.index == 4)
-      this.loadChartFirstResponseTime();
-    else if (event.index == 5)
-      this.loadChartResolvedTime();
+    let index = event.index + 1;
+
+    this.loadPerformentMonitor(index);
   }
 
   getSubtitle() {
-    const totalNumber: number = 1900
     return `<span class="chart-total">Total use time</span>
-        <br>
-        <h2 class="chart-total-number">
-            <b> ${totalNumber}</b>
-        </h2>`;
+          <br>
+          <h2 class="chart-total-number">
+              <b> ${this.totalPie}</b>
+          </h2>`;
   }
-
-  //#region Load Performance Monitoring
-  loadChartConversations() {
-    this.chartOptionsConversations = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Conversations',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(1);
-  }
-
-  loadChartIncomingMessages() {
-    this.chartOptionsIncomingMessages = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Incoming Messages',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(2);
-  }
-
-  loadChartOutgoingMessages() {
-    this.chartOptionsOutgoingMessages = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Outgoing Messages',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(3);
-  }
-
-  loadChartResolvedCount() {
-    this.chartOptionsResolvedCount = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Resolved Count',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(4);
-  }
-
-  loadChartFirstResponseTime() {
-    this.chartOptionsFirstResponseTime = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'First Response Time',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(5);
-  }
-
-  loadChartResolvedTime() {
-    this.chartOptionsResolvedTime = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Resolved Time',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(6);
-  }
-  //#endregion
 
   onKeyupSearch() {
 
   }
 
   onChangeSelectFilter() {
+    this.listLabelFilter = []
+    this.selectedFilter.forEach((x: { id: any; }) => {
+      this.listLabelFilter.push(x.id)
+    })
 
+    this.loadLabelDistribution();
   }
 
   ngOnDestroy(): void {
