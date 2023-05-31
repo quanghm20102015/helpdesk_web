@@ -39,8 +39,6 @@ export class ReportsConversationService {
   }
 
   getLabelDistribution(data: any): Observable<any> {
-    return this.http.get(
-      AppSettings.HostingAddress + '/Reports/LabelDistribution?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&idLabel=' + data.idLabel
-    );
+    return this.http.post(AppSettings.HostingAddress + '/Reports/LabelDistribution', data);
   }
 }

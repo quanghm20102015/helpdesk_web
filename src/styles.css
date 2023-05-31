@@ -234,6 +234,11 @@ input.p-inputtext {
     padding: 10px 12px;
 }
 
+
+.filter-content .p-dropdown.p-component{
+    width: 100%;
+}
+
 .conv-header p-dropdown .p-dropdown {
     height: 34px;
 }

@@ -7,6 +7,7 @@ import More from 'highcharts/highcharts-more';
 import { ReportsAgentService } from 'src/app/service/reports-agent.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { OverviewService } from 'src/app/service/overview.service';
+
 import { PerformentTotalModel } from '../models/performent-total-model';
 
 @Component({
@@ -18,6 +19,7 @@ import { PerformentTotalModel } from '../models/performent-total-model';
 export class AgentComponent implements OnInit {
   private optionDateSubscription$?: Subscription;
 
+  listAgent: any = []
   listConversationAgents: any[] = []
 
   listConversationGroups: any = [
@@ -29,18 +31,13 @@ export class AgentComponent implements OnInit {
     {groupName: 'Group 6', member: 6, conversation: 44},
   ]
 
-  listAgent: any = []
+  total: number = 0;
+  online: number = 0;
+  busy: number = 0;
+  offline: number = 0;
 
   selectedAgent: any = 0
 
-  listFilter: any = [
-    {name: '#Label1', value: 1},
-    {name: '#Label2', value: 2},
-    {name: '#Label3', value: 3},
-    {name: '#Label4', value: 4}
-  ]
-
-  selectedFilter: any[] = [];
   textSearch: string = '';
   idCompany: any;
   fromDate: any;
@@ -48,20 +45,98 @@ export class AgentComponent implements OnInit {
   datePipe = new DatePipe('en-US');
 
   Highcharts: typeof Highcharts = Highcharts;
+  updateAgentFlag = false;
+  updateGroupFlag = false;
 
-  updateConversationsFlag = false;
-  updateIncomingMessagesFlag = false;
-  updateOutgoingMessagesFlag = false;
-  updateResolvedCountFlag = false;
-  updateFirstResponseTimeFlag = false;
-  updateResolvedTimeFlag = false;
+  chartOptionsAgent: Highcharts.Options = {
+    chart: {
+      type: 'column'
+    },
+    title: undefined,
+    subtitle: undefined,
+    credits: {
+      enabled: false
+    },
+    exporting: {
+      enabled: false
+    },
+    xAxis: {
+      categories: [],
+      crosshair: true
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: undefined
+      }
+    },
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'bottom',
+      x: 0,
+      y: 20,
+      floating: true,
+      enabled: false
+    },
+    series: [
+      {
+        type: 'column',
+        color: '#3A69DB',
+        tooltip: {
+          valueSuffix: ''
+        },
+        data: []
+      }
+    ]
+  };
 
-  chartOptionsConversations: any;
-  chartOptionsIncomingMessages: any;
-  chartOptionsOutgoingMessages: any;
-  chartOptionsResolvedCount: any;
-  chartOptionsFirstResponseTime: any;
-  chartOptionsResolvedTime: any;
+  chartOptionsGroup: Highcharts.Options = {
+    chart: {
+      type: 'column'
+    },
+    title: undefined,
+    subtitle: undefined,
+    credits: {
+      enabled: false
+    },
+    exporting: {
+      enabled: false
+    },
+    xAxis: {
+      categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22' ],
+      crosshair: true
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: undefined
+      }
+    },
+    tooltip: {
+      shared: true
+    },
+    legend: {
+      align: 'center',
+      verticalAlign: 'bottom',
+      x: 0,
+      y: 20,
+      floating: true,
+      enabled: false
+    },
+    series: [
+      {
+        type: 'column',
+        color: '#3A69DB',
+        tooltip: {
+          valueSuffix: ''
+        },
+        data: [41, 24, 57, 66, 44, 33, 77]
+      }
+    ]
+  };
 
   performentTotalModel!: PerformentTotalModel;
 
@@ -74,22 +149,34 @@ export class AgentComponent implements OnInit {
   ngOnInit(): void {
     More(Highcharts);
 
-    this.loadChartConversations();
-
-    setTimeout(() => {
-      this.loadListConversationAgents();
-      this.loadPerformentMonitorTotal();
-      this.loadChartConversations();
-
-      this.updateConversationsFlag = true;
-    }, 500);
-
     this.optionDateSubscription$ = this.overviewService.optionDateSubject$
     .subscribe((response: any) => {
-      console.log(response);
-
       this.fromDate = response.fromDate;
       this.toDate = response.toDate;
+
+      this.loadOverview();
+      this.loadListConversationAgents();
+      this.loadPerformentMonitorTotal();
+      this.loadPerformentMonitor(1);
+    });
+  }
+
+  ngAfterViewInit() {}
+
+  loadOverview() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.agentService.getOverview(request).subscribe((respone) => {
+      this.total = respone.result.total;
+      this.online = respone.result.online;
+      this.busy = respone.result.busy;
+      this.offline = respone.result.offline;
     });
   }
 
@@ -103,12 +190,11 @@ export class AgentComponent implements OnInit {
       idUser: this.selectedAgent
     }
 
-    this.agentService.performentMonitorAgentTotal(request).subscribe((respone) => {
+    this.agentService.agentPerformentMonitorTotal(request).subscribe((respone) => {
       this.performentTotalModel = respone.result;
     });
   }
-  
-  
+
   loadPerformentMonitor(_type: number) {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
 
@@ -120,99 +206,34 @@ export class AgentComponent implements OnInit {
       idUser: this.selectedAgent
     }
 
-    this.agentService.getPerformanceMonitorAgent(request).subscribe((respone) => {
-      console.log(respone);
+    this.agentService.agentPerformentMonitor(request).subscribe((respone) => {
+      let nameChart = '';
 
-      if (_type == 1) {
-        this.chartOptionsConversations.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
+      if (_type == 1)
+        nameChart = 'Conversations'
+      else if (_type == 2)
+        nameChart = 'Outgoing Messages'
+      else if (_type == 3)
+        nameChart = 'Resolved Count'
+      else if (_type == 4)
+        nameChart = 'First Response Time'
+      else if (_type == 5)
+        nameChart = 'Resolved Time'
 
-        this.chartOptionsConversations.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateConversationsFlag = true;
+      this.chartOptionsAgent.xAxis = {
+        categories: respone.result.label,
+        crosshair: true
       }
-      else if (_type == 2) {
-        this.chartOptionsIncomingMessages.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
+
+      this.chartOptionsAgent.series! = [
+        {
+          type: 'column',
+          name: nameChart,
+          data: respone.result.data
         }
+      ]
 
-        this.chartOptionsIncomingMessages.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateIncomingMessagesFlag = true;
-      }
-      else if (_type == 3) {
-        this.chartOptionsOutgoingMessages.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsOutgoingMessages.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateOutgoingMessagesFlag = true;
-      }
-      else if (_type == 4) {
-        this.chartOptionsResolvedCount.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsResolvedCount.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateResolvedCountFlag = true;
-      }
-      else if (_type == 5) {
-        this.chartOptionsFirstResponseTime.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsFirstResponseTime.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateFirstResponseTimeFlag = true;
-      }
-      else if (_type == 6) {
-        this.chartOptionsResolvedTime.xAxis = {
-          categories: respone.result.label,
-          crosshair: true
-        }
-
-        this.chartOptionsResolvedTime.series! = [
-          {
-            type: 'column',
-            data: respone.result.data
-          }
-        ]
-
-        this.updateResolvedTimeFlag = true;
-      }
+      this.updateAgentFlag = true;
     });
   }
 
@@ -225,7 +246,7 @@ export class AgentComponent implements OnInit {
       idCompany: this.idCompany
     }
 
-    this.agentService.topConversationAgent(request).subscribe((respone) => {
+    this.agentService.agentTopConversation(request).subscribe((respone) => {
       this.listConversationAgents = respone.result;
 
       this.listConversationAgents.forEach((element) => {
@@ -234,370 +255,16 @@ export class AgentComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit() {}
+  onChangePerformance(event: any, action: number) {
+    //action: 1:Agent; 2: Group
 
-  onChangePerformance(event: any) {
-    console.log(event);
-    if (event.index == 0)
-      this.loadChartConversations();
-    else if (event.index == 1)
-      this.loadChartIncomingMessages();
-    else if (event.index == 2)
-      this.loadChartOutgoingMessages();
-    else if (event.index == 3)
-      this.loadChartResolvedCount();
-    else if (event.index == 4)
-      this.loadChartFirstResponseTime();
-    else if (event.index == 5)
-      this.loadChartResolvedTime();
+    if (action == 1) {
+      let index = event.index + 1;
+
+      this.loadPerformentMonitor(index);
+    }
   }
 
-  getSubtitle() {
-    const totalNumber: number = 1900
-    return `<span style="font-size: 1.5rem">Total use time</span>
-        <br>
-        <span style="font-size: 1.5rem; text-aign:center">
-            <b> ${totalNumber}</b>
-        </span>`;
-  }
-
-  //#region Load Performance Monitoring
-  loadChartConversations() {
-    this.chartOptionsConversations = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Conversations',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(1);
-  }
-
-  loadChartIncomingMessages() {
-    this.chartOptionsIncomingMessages = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Incoming Messages',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(2);
-  }
-
-  loadChartOutgoingMessages() {
-    this.chartOptionsOutgoingMessages = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Outgoing Messages',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(3);
-  }
-
-  loadChartResolvedCount() {
-    this.chartOptionsResolvedCount = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Resolved Count',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(4);
-  }
-
-  loadChartFirstResponseTime() {
-    this.chartOptionsFirstResponseTime = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'First Response Time',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(5);
-  }
-
-  loadChartResolvedTime() {
-    this.chartOptionsResolvedTime = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: [],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Resolved Time',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: []
-        }
-      ]
-    };
-
-    this.loadPerformentMonitor(6);
-  }
-  //#endregion
   onKeyupSearch() {
 
   }

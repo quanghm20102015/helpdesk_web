@@ -13,23 +13,27 @@ export class ReportsAgentService {
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService) { }
 
-  
-    topConversationAgent(data: any): Observable<any> {
+    getOverview(data: any): Observable<any> {
       return this.http.get(
-        AppSettings.HostingAddress + '/Reports/TopConversationAgent?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
+        AppSettings.HostingAddress + '/Reports/AgentOverview?idCompany=' + data.idCompany
       );
     }
 
-    performentMonitorAgentTotal(data: any): Observable<any> {
+    agentTopConversation(data: any): Observable<any> {
       return this.http.get(
-        AppSettings.HostingAddress + '/Reports/PerformentMonitorAgentTotal?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&idUser=' + data.idUser
+        AppSettings.HostingAddress + '/Reports/AgentTopConversation?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
       );
     }
 
-    
-    getPerformanceMonitorAgent(data: any): Observable<any> {
+    agentPerformentMonitorTotal(data: any): Observable<any> {
       return this.http.get(
-        AppSettings.HostingAddress + '/Reports/PerformentMonitorAgent?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&type=' + data.type + '&idUser=' + data.idUser
+        AppSettings.HostingAddress + '/Reports/AgentPerformentMonitorTotal?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&idUser=' + data.idUser
+      );
+    }
+
+    agentPerformentMonitor(data: any): Observable<any> {
+      return this.http.get(
+        AppSettings.HostingAddress + '/Reports/AgentPerformentMonitor?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&type=' + data.type + '&idUser=' + data.idUser
       );
     }
 

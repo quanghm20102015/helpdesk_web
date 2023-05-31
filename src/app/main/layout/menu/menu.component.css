@@ -110,19 +110,20 @@ hr{
 }
 
 .sidebar-item.active-secondary,
-.sidebar-item:hover,
-.options-menu .active-secondary {
-    background: #f5faff;
+.sidebar-item:hover{
     color: #FFFFFF !important;
     border-color: #f5faff;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.16);
 }
 
+.options-menu .active-secondary {
+    background: #f5faff;
+    color: #1f93ff !important;
+}
+
 .sidebar-item.active-secondary .text-count,
-.sidebar-item:hover .text-count,
-.options-menu .active-secondary .text-count,
-.options-menu:hover .text-count{
+.sidebar-item:hover .text-count{
     color: #FFFFFF !important;
 }
 

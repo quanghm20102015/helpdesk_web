@@ -8,6 +8,9 @@ import { ReportsCsatService } from 'src/app/service/reports-csat.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { OverviewService } from 'src/app/service/overview.service';
 
+import { OverViewModel } from '../models/overview-model';
+import { LazyLoadEvent } from 'primeng/api';
+
 @Component({
   selector: 'app-csat',
   templateUrl: './csat.component.html',
@@ -16,49 +19,29 @@ import { OverviewService } from 'src/app/service/overview.service';
 export class CsatComponent implements OnInit {
   private optionDateSubscription$?: Subscription;
 
-  listResponseDistribution: any = [
-    {name: '#Label1', className: 'bg-purple-500', distribution: 'n%', conversation: 'nnnn'},
-    {name: '#Label2', className: 'bg-primary-500', distribution: 'n%', conversation: 'nnn'},
-    {name: '#Label3', className: 'bg-green-500', distribution: 'n%', conversation: 'nnn'},
-    {name: '#Label4', className: 'bg-green-100', distribution: 'n%', conversation: 'nn'},
-    {name: '#Label5', className: 'bg-yellow-500', distribution: 'n%', conversation: 'nn'},
-    {name: '#Other', className: 'bg-gray-500', distribution: 'n%', conversation: 'nnnn'},
-  ]
+  listResponseDistribution: any = []
+  listResponseDetails: any = []
 
-  listResponseDetails: any = [
-    {id: 1, contact: 'Thu Hong Nguyen', assignedagent: 'Chrish Hoang', rating: 'Very good', feedback: 'Lorem ipsum dolor sit amet consectetur'},
-    {id: 2, contact: 'Thu Hong Nguyen', assignedagent: 'Chrish Hoang', rating: 'Very good', feedback: 'Lorem ipsum dolor sit amet consectetur'},
-    {id: 3, contact: 'Thu Hong Nguyen', assignedagent: 'Chrish Hoang', rating: 'Very good', feedback: 'Lorem ipsum dolor sit amet consectetur'},
-    {id: 4, contact: 'Thu Hong Nguyen', assignedagent: 'Chrish Hoang', rating: 'Very good', feedback: 'Lorem ipsum dolor sit amet consectetur'},
-    {id: 5, contact: 'Thu Hong Nguyen', assignedagent: 'Chrish Hoang', rating: 'Very good', feedback: 'Lorem ipsum dolor sit amet consectetur'},
-    {id: 6, contact: 'Thu Hong Nguyen', assignedagent: 'Chrish Hoang', rating: 'Very good', feedback: 'Lorem ipsum dolor sit amet consectetur'},
-  ]
+  responseRateModel!: OverViewModel;
+  totalResponsesModel!: OverViewModel;
+  satisfactionScoreModel!: OverViewModel;
 
-
-  selectedFilter: any[] = []
-  textSearch: string = '';
   idCompany: any;
   fromDate: any;
   toDate: any;
   datePipe = new DatePipe('en-US');
 
+  totalPie: number = 0;
+
+  totalRecords: number = 99;
+  pageSize: number = 1;
+  pageIndex: number = 0;
+
   Highcharts: typeof Highcharts = Highcharts;
 
-  updateConversationsFlag = false;
-  updateIncomingMessagesFlag = false;
-  updateOutgoingMessagesFlag = false;
-  updateResolvedCountFlag = false;
-  updateFirstResponseTimeFlag = false;
-  updateResolvedTimeFlag = false;
+  updateDistributionFlag = false;
 
-  chartOptionsConversations: any;
-  chartOptionsIncomingMessages: any;
-  chartOptionsOutgoingMessages: any;
-  chartOptionsResolvedCount: any;
-  chartOptionsFirstResponseTime: any;
-  chartOptionsResolvedTime: any;
-
-  chartOptionsDistribution: Highcharts.Options = {
+  chartsDistribution: Highcharts.Options = {
     chart: {
       plotBackgroundColor: undefined,
       plotBorderWidth: 0,
@@ -89,9 +72,9 @@ export class CsatComponent implements OnInit {
     },
     tooltip: {
       valueDecimals: 2,
-      valueSuffix: ' TWh'
+      valueSuffix: ' '
     },
-    colors: ['#FCE700', '#F8C4B4', '#f6e1ea', '#B8E8FC', '#BCE29E'],
+    colors: [],
     legend: {
       floating: false,
       title: {
@@ -126,25 +109,12 @@ export class CsatComponent implements OnInit {
     series: [
       {
         type: 'pie',
-        name: 'Brands',
+        name: 'Response distribution',
         innerSize: '70%',
         dataLabels: {
             enabled: false
         },
-        data: [{
-            name: 'Chrome',
-            y: 61.41
-        }, {
-            name: 'Internet Explorer',
-            y: 11.84
-        }, {
-            name: 'Firefox',
-            y: 10.85
-        }, {
-            name: 'Edge',
-            y: 4.67
-        },
-        ]
+        data: []
       }
     ]
   }
@@ -158,367 +128,103 @@ export class CsatComponent implements OnInit {
   ngOnInit(): void {
     More(Highcharts);
 
-    this.loadChartConversations();
-
     this.optionDateSubscription$ = this.overviewService.optionDateSubject$
     .subscribe((response: any) => {
-      console.log(response);
-
       this.fromDate = response.fromDate;
       this.toDate = response.toDate;
+
+      this.loadOverview();
+      this.loadLabelDistribution();
+      this.loadResponeDetail();
     });
   }
 
-  onChangePerformance(event: any) {
-    console.log(event);
-    if (event.index == 0)
-      this.loadChartConversations();
-    else if (event.index == 1)
-      this.loadChartIncomingMessages();
-    else if (event.index == 2)
-      this.loadChartOutgoingMessages();
-    else if (event.index == 3)
-      this.loadChartResolvedCount();
-    else if (event.index == 4)
-      this.loadChartFirstResponseTime();
-    else if (event.index == 5)
-      this.loadChartResolvedTime();
+  loadOverview() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.csatService.getOverview(request).subscribe((respone) => {
+      this.responseRateModel = respone.result.responseRate;
+      this.totalResponsesModel = respone.result.totalResponses;
+      this.satisfactionScoreModel = respone.result.satisfactionScore;
+    });
+  }
+
+  loadLabelDistribution() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.csatService.getCsatResponeDistribution(request).subscribe((respone) => {
+      this.totalPie = respone.total;
+      this.listResponseDistribution = respone.resultTable
+
+      this.chartsDistribution.subtitle = {
+        useHTML: true,
+        text: this.getSubtitle(),
+        floating: true,
+        align: 'center',
+        verticalAlign: 'middle',
+        style: {
+          textTransform: 'capitalize',
+          textAlign: 'center',
+        },
+        y: 0
+      }
+
+      this.chartsDistribution.colors = respone.colors;
+
+      this.chartsDistribution.series! = [
+        {
+          type: 'pie',
+          data: respone.result
+        }
+      ]
+
+      this.updateDistributionFlag = true;
+    });
+  }
+
+  loadResponeDetail() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize
+    }
+
+    this.csatService.getResponeDetail(request).subscribe((respone) => {
+      this.listResponseDetails = respone.result
+    });
   }
 
   getSubtitle() {
-    const totalNumber: number = 1900
-    return `<span class="chart-total">Total response</span>
-        <br>
-        <span class="chart-total-number">
-            <b> ${totalNumber}</b>
-        </span>`;
+    return `<span class="chart-total">Total use time</span>
+          <br>
+          <h2 class="chart-total-number">
+              <b> ${this.totalPie}</b>
+          </h2>`;
   }
 
-  //#region Load Performance Monitoring
-  loadChartConversations() {
-    this.chartOptionsConversations = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Test',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: [49, 71.5, 106.4, 129.2, 76.0, 135.6, 56.6]
-        }
-      ]
-    };
-  }
+  loadDataResponseDetails(event?: LazyLoadEvent) {
+    const currentPage = event ? event.first! / event.rows! + 1 : 1;
 
-  loadChartIncomingMessages() {
-    this.chartOptionsIncomingMessages = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Test',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: [34, 55, 66, 14, 76, 35.6, 56.6]
-        }
-      ]
-    };
-  }
+    console.log('currentPage', currentPage);
 
-  loadChartOutgoingMessages() {
-    this.chartOptionsOutgoingMessages = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Test',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: [55, 44, 87, 43, 44, 56, 6.6]
-        }
-      ]
-    };
-  }
 
-  loadChartResolvedCount() {
-    this.chartOptionsResolvedCount = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Test',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: [88, 44, 66, 14, 76, 55.6, 77.6]
-        }
-      ]
-    };
   }
-
-  loadChartFirstResponseTime() {
-    this.chartOptionsFirstResponseTime = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Test',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: [66, 55, 77, 88, 77, 99.6, 88.6]
-        }
-      ]
-    };
-  }
-
-  loadChartResolvedTime() {
-    this.chartOptionsResolvedTime = {
-      chart: {
-        type: 'column'
-      },
-      title: undefined,
-      subtitle: undefined,
-      credits: {
-        enabled: false
-      },
-      exporting: {
-        enabled: false
-      },
-      xAxis: {
-          categories: ['28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22', '28 Dec,22'],
-          crosshair: true
-      },
-      yAxis: {
-        min: 0,
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        shared: true
-      },
-      legend: {
-        align: 'center',
-        verticalAlign: 'bottom',
-        x: 0,
-        y: 20,
-        floating: true,
-        enabled: false
-      },
-      plotOptions: {
-        column: {
-          pointPadding: 0.2,
-          borderWidth: 0
-        }
-      },
-      series: [
-        {
-          name: 'Test',
-          type: 'column',
-          color: '#3A69DB',
-          tooltip: {
-            valueSuffix: ''
-          },
-          data: [34, 55, 66, 14, 76, 35.6, 56.6]
-        }
-      ]
-    };
-  }
-  //#endregion
 
   onKeyupSearch() {
 
@@ -532,5 +238,4 @@ export class CsatComponent implements OnInit {
     if(this.optionDateSubscription$)
       this.optionDateSubscription$.unsubscribe();
   }
-
 }
