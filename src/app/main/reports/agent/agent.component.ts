@@ -50,7 +50,14 @@ export class AgentComponent implements OnInit {
 
   chartOptionsAgent: Highcharts.Options = {
     chart: {
-      type: 'column'
+      type: 'column',
+      events:{
+        render:function(){
+          setTimeout(() => {
+            this.reflow()
+          }, 200);
+        }
+      }
     },
     title: undefined,
     subtitle: undefined,
@@ -95,7 +102,14 @@ export class AgentComponent implements OnInit {
 
   chartOptionsGroup: Highcharts.Options = {
     chart: {
-      type: 'column'
+      type: 'column',
+      events:{
+        render:function(){
+          setTimeout(() => {
+            this.reflow()
+          }, 200);
+        }
+      }
     },
     title: undefined,
     subtitle: undefined,

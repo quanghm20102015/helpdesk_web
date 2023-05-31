@@ -91,7 +91,7 @@ export class ConversationComponent implements OnInit {
         tooltip: {
           valueSuffix: ''
         },
-        data: [49, 71.5, 106.4, 129.2, 76.0, 135.6, 56.6]
+        data: []
       }
     ]
   };
@@ -102,6 +102,13 @@ export class ConversationComponent implements OnInit {
       style: {
         fontFamily: 'Inter',
         fontSize: '14px'
+      },
+      events:{
+        render:function(){
+          setTimeout(() => {
+            this.reflow()
+          }, 200);
+        }
       },
       plotBorderWidth: 0
     },
@@ -147,15 +154,6 @@ export class ConversationComponent implements OnInit {
     },
     yAxis: {
       categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      // categories:[
-      //   { id: 1, labels: 'Monday' },
-      //   { id: 2, labels: 'Tuesday' },
-      //   { id: 3, labels: 'Wednesday' },
-      //   { id: 4, labels: 'Thursday' },
-      //   { id: 5, labels: 'Friday' },
-      //   { id: 6, labels: 'Saturday' },
-      //   { id: 7, labels: 'Sunday' },
-      // ],
       title: {
         text: undefined
       },
