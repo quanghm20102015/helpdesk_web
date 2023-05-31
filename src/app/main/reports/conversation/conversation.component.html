@@ -27,8 +27,9 @@
           <div class="flex align-items-center justify-content-center">
             <div class="font-medium text-primary-500 card-number">{{openedViewModel ? openedViewModel.total : 0}} &nbsp;</div>
             <div class="pl-1 " [ngClass]="{ 'bg-green-100': openedViewModel && openedViewModel.total! >= 0, 'bg-red-100': openedViewModel && openedViewModel.total! < 0 }">
-              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="openedViewModel && openedViewModel.upDown! >= 0">{{openedViewModel ? openedViewModel.upDown : 0}}</i>
+              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="openedViewModel && openedViewModel.upDown! > 0">{{openedViewModel ? openedViewModel.upDown : 0}}</i>
               <i class="pi pi-caret-down text-red-500 card-bob" *ngIf="openedViewModel && openedViewModel.upDown! < 0">{{openedViewModel ? openedViewModel.upDown : 0}}</i>
+              <span class="text-green-500 card-bob" *ngIf="openedViewModel && openedViewModel.upDown! == 0">{{openedViewModel ? openedViewModel.upDown : 0}}</span>
             </div>
           </div>
         </div>
@@ -44,8 +45,9 @@
           <div class="flex align-items-center justify-content-center">
             <div class="font-medium text-yellow-500 card-number">{{unattendedViewModel ? unattendedViewModel.total : 0}} &nbsp;</div>
             <div class="pl-1 " [ngClass]="{ 'bg-green-100': unattendedViewModel && unattendedViewModel.total! >= 0, 'bg-red-100': unattendedViewModel && unattendedViewModel.total! < 0 }">
-              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="unattendedViewModel && unattendedViewModel.upDown! >= 0">{{unattendedViewModel ? unattendedViewModel.upDown : 0}}</i>
+              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="unattendedViewModel && unattendedViewModel.upDown! > 0">{{unattendedViewModel ? unattendedViewModel.upDown : 0}}</i>
               <i class="pi pi-caret-down text-red-500 card-bob" *ngIf="unattendedViewModel && unattendedViewModel.upDown! < 0">{{unattendedViewModel ? unattendedViewModel.upDown : 0}}</i>
+              <span class="text-green-500 card-bob" *ngIf="unattendedViewModel && unattendedViewModel.upDown! == 0">{{unattendedViewModel ? unattendedViewModel.upDown : 0}}</span>
             </div>
           </div>
         </div>
@@ -61,8 +63,9 @@
           <div class="flex align-items-center justify-content-center">
             <div class="font-medium text-purple-500 card-number">{{unassignedViewModel ? unassignedViewModel.total : 0}} &nbsp;</div>
             <div class="pl-1 " [ngClass]="{ 'bg-green-100': unassignedViewModel && unassignedViewModel.total! >= 0, 'bg-red-100': unassignedViewModel && unassignedViewModel.total! < 0 }">
-              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="unassignedViewModel && unassignedViewModel.upDown! >= 0">{{unassignedViewModel ? unassignedViewModel.upDown : 0}}</i>
+              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="unassignedViewModel && unassignedViewModel.upDown! > 0">{{unassignedViewModel ? unassignedViewModel.upDown : 0}}</i>
               <i class="pi pi-caret-down text-red-500 card-bob" *ngIf="unassignedViewModel && unassignedViewModel.upDown! < 0">{{unassignedViewModel ? unassignedViewModel.upDown : 0}}</i>
+              <span class="text-green-500 card-bob" *ngIf="unassignedViewModel && unassignedViewModel.upDown! == 0">{{unassignedViewModel ? unassignedViewModel.upDown : 0}}</span>
             </div>
           </div>
         </div>
@@ -78,8 +81,9 @@
           <div class="flex align-items-center justify-content-center">
             <div class="font-medium text-green-500 card-number">{{resolvedViewModel ? resolvedViewModel.total : 0}} &nbsp;</div>
             <div class="pl-1 " [ngClass]="{ 'bg-green-100': resolvedViewModel && resolvedViewModel.total! >= 0, 'bg-red-100': resolvedViewModel && resolvedViewModel.total! < 0 }">
-              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="resolvedViewModel && resolvedViewModel.upDown! >= 0">{{resolvedViewModel ? resolvedViewModel.upDown : 0}}</i>
+              <i class="pi pi-caret-up text-green-500 card-bob" *ngIf="resolvedViewModel && resolvedViewModel.upDown! > 0">{{resolvedViewModel ? resolvedViewModel.upDown : 0}}</i>
               <i class="pi pi-caret-down text-red-500 card-bob" *ngIf="resolvedViewModel && resolvedViewModel.upDown! < 0">{{resolvedViewModel ? resolvedViewModel.upDown : 0}}</i>
+              <span class="text-green-500 card-bob" *ngIf="resolvedViewModel && resolvedViewModel.upDown! == 0">{{resolvedViewModel ? resolvedViewModel.upDown : 0}}</span>
             </div>
           </div>
         </div>
