@@ -45,10 +45,8 @@ export class MenuComponent implements OnInit {
       this.getMenuCount();
     }, 5000);
 
-    console.log(this.router.url);
     this.listRouterTab.forEach(item => {
-      console.log('Url: ', this.url)
-      if (this.url.includes(item.uri)) {
+      if (this.router.url.includes(item.uri)) {
         this.tab = item.tab
       }
     })
@@ -63,6 +61,14 @@ export class MenuComponent implements OnInit {
     // this.idInterval = setInterval(() => {
     //   this.postLogin();
     // }, 10000);
+  }
+
+  ngAfterContentChecked(): void {
+    this.listRouterTab.forEach(item => {
+      if (this.router.url.includes(item.uri)) {
+        this.tab = item.tab
+      }
+    })
   }
 
   display: boolean = false

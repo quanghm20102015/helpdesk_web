@@ -18,8 +18,16 @@ export class UserService {
       AppSettings.HostingAddress + '/Accounts'
     );
   }
+
   createUser(data: any): Observable<any> {
     return this.http.post(
+      AppSettings.HostingAddress + '/Accounts',
+      data
+    );
+  }
+
+  updateUser(data: any): Observable<any> {
+    return this.http.put(
       AppSettings.HostingAddress + '/Accounts',
       data
     );
@@ -59,7 +67,6 @@ export class UserService {
        data
     );
   }
-
   
   changeStatus(data: any): Observable<any> {
     return this.http.post(

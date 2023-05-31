@@ -386,14 +386,29 @@ export class DashboardComponent implements OnInit {
     this.uploadedFiles = []
     this.emailInfoService.getEmailInfo(item.id).subscribe((result) => {
       this.mailDetails = result.emailInfo
-      let listMess:any[] = []
+      let listMess: any[] = []
       result.listEmailInfo.forEach((item: any) => {
-        listMess.push({...item.EmailInfo, ListAttach: item.ListAttach})
+        listMess.push({ ...item.EmailInfo, ListAttach: item.ListAttach })
       });
       result.listEmailInfo = listMess
       this.listEmailInfo = result.listEmailInfo
       this.listMessenger = [];
       this.listEmailInfo.forEach(element => {
+        if (element.ListAttach.length > 0) {
+          element.ListAttach.forEach((file: any) => {
+            FILETYPE.forEach((fileType) => {
+              if (file.type == fileType.text) {
+                file.fileType = fileType.value;
+              }
+            });
+          });
+          FILETYPE.forEach((fileType) => {
+            if (item.type == fileType.text) {
+              item.fileType = fileType.value;
+              this.uploadedFiles.push(item);
+            }
+          });
+        }
         this.listMessenger.push({
           id: element.id,
           messenger: element.textBody,
@@ -675,7 +690,7 @@ export class DashboardComponent implements OnInit {
     this.uploadedFiles.splice(index, 1);
   }
 
-  onFilter(event: any){
+  onFilter(event: any) {
     this.modelAddLabel.name = event.filter
   }
 
@@ -709,5 +724,20 @@ export class DashboardComponent implements OnInit {
         this.showError(result.message);
       }
     });
+  }
+
+  blob: any
+  downloadFile(file: any) {
+    let request = { pathFile: file.pathFile, idEmailInfo: file.id }
+    this.emailInfoService.emailInfoDownloadFile(request).subscribe((result) => {
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.style.display = 'none';
+      const blob = new Blob([result], { type: file.type });
+      const url = window.URL.createObjectURL(blob);
+      a.href = url; a.download = file.name; a.click();
+      window.URL.revokeObjectURL(url);
+    }
+    )
   }
 }
