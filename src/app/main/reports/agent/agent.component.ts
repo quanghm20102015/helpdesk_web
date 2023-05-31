@@ -173,8 +173,6 @@ export class AgentComponent implements OnInit {
     }
 
     this.agentService.getOverview(request).subscribe((respone) => {
-      console.log('getOverview', respone);
-
       this.total = respone.result.total;
       this.online = respone.result.online;
       this.busy = respone.result.busy;
@@ -250,7 +248,6 @@ export class AgentComponent implements OnInit {
 
     this.agentService.agentTopConversation(request).subscribe((respone) => {
       this.listConversationAgents = respone.result;
-      console.log('topConversationAgent', respone);
 
       this.listConversationAgents.forEach((element) => {
         this.listAgent.push({name: element.agent, value: element.idUser});
