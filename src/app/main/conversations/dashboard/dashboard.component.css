@@ -360,8 +360,3 @@
 .list-file{
     margin-top: 10px;
 }
-
-.p-datatable-wrapper {
-    /* min-height: 300px; */
-    max-height: calc(100vh - 147px);
-}

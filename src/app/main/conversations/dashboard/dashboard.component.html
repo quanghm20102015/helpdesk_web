@@ -1,4 +1,4 @@
-<div class="d-flex container-box" [ngClass]="{'view-mail': viewMail}">
+<div class="d-flex container-box dashboard" [ngClass]="{'view-mail': viewMail}">
     <div class="content-left">
         <div class="container">
             <div class="row">
@@ -636,7 +636,7 @@
                                 <span>Please select a conversation from left pane</span>
                             </div>
                         </div>
-                        <div class="fit-chat">
+                        <div class="fit-chat" *ngIf="title !== 'Trash'">
                             <p-tabView>
                                 <p-tabPanel>
                                     <ng-template pTemplate="header">

@@ -1000,3 +1000,8 @@ input#range {
     max-height: calc( 100vh - 85px );
     overflow: auto;
 }
+
+.dashboard .p-datatable-wrapper {
+    /* min-height: 300px; */
+    max-height: calc(100vh - 147px);
+}
