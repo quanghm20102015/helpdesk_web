@@ -18,13 +18,12 @@ export class StLabelsComponent implements OnInit {
     private messageService: MessageService
   ) { }
   display: boolean = false;
-  model: any = { name: '', description: '', color: '#000000', showSidebar: false }
+  model: any = { name: '', description: '', showSidebar: false }
   submitted: boolean = false
   idCompany: number = +(localStorage.getItem('companyId') || 0);
   form: FormGroup = this._fb.group({
     name: [this.model.name, [Validators.required]],
     description: [this.model.description],
-    color: [this.model.color],
     showSidebar: [this.model.showSidebar],
   })
   listData: any = []
@@ -38,7 +37,6 @@ export class StLabelsComponent implements OnInit {
     this.form.reset({
       name: '',
       description: '',
-      color: '',
       showSidebar: false,
     })
   }
@@ -51,6 +49,9 @@ export class StLabelsComponent implements OnInit {
     if (this.idCompany != 0)
       this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
         this.listData = result;
+        this.listData.forEach((element: any) => {
+          element.name = '#' + element.name
+        });
       })
   }
 
@@ -70,7 +71,7 @@ export class StLabelsComponent implements OnInit {
     this.display = true
   }
 
-  confirmDelete(id: number) {
+  confirm(id: number) {
     this.confirmationService.confirm({
       header: 'Confirmation delete',
       icon: 'pi pi-exclamation-triangle',

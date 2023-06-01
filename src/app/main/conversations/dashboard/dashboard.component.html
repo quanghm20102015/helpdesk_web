@@ -448,7 +448,7 @@
                                             <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
                                                 [disabled]="readonly"></ckeditor>
                                             <div class="list-file" *ngIf="item.listAttach.length > 0">
-                                                <span *ngFor="let file of item.listAttach">
+                                                <span *ngFor="let file of item.listAttach" (click)="downloadFile(file)">
                                                     <span class="aria-fle-upload mb5" title="{{ file.name }}">
                                                         <span class="icon-file" *ngIf="file.fileType == 1">
                                                             <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
@@ -607,10 +607,11 @@
                                                             </svg>
 
                                                         </span>
-                                                        <span class="box-info-file fs-10" title="{{file.name}}">{{
-                                                            file.fileName.substring(0, 10) }}... .{{file.extension}}
-                                                            <span class="text-size fs-12">{{file.sizeText}}
-                                                            </span>
+                                                        <span class="box-info-file fs-10" title="{{file.name}}">
+                                                            {{file.fileName.substring(0, 10) }}<span
+                                                                *ngIf="file.fileName.length > 10">...
+                                                            </span>.{{file.extension}}
+                                                            <span class="text-size fs-12">{{file.sizeText}}</span>
                                                         </span>
                                                     </span>
                                                 </span>
@@ -903,10 +904,12 @@
                                                                 </svg>
 
                                                             </span>
-                                                            <span class="box-info-file fs-10" title="{{item.name}}">{{
-                                                                item.fileName.substring(0, 10) }}... .{{item.extension}}
-                                                                <span
-                                                                    class="text-size fs-12">{{item.sizeText}}</span></span>
+                                                            <span class="box-info-file fs-10" title="{{item.name}}">
+                                                                {{item.fileName.substring(0, 10) }}<span
+                                                                    *ngIf="item.fileName.length > 10">...
+                                                                </span>.{{item.extension}}
+                                                                <span class="text-size fs-12">{{item.sizeText}}</span>
+                                                            </span>
                                                             <svg width="13" height="12" viewBox="0 0 13 12" fill="none"
                                                                 class="icon-delete-file" (click)="onRemoveFile(item)"
                                                                 xmlns="http://www.w3.org/2000/svg">
@@ -1198,10 +1201,12 @@
                                                                 </svg>
 
                                                             </span>
-                                                            <span class="box-info-file fs-10" title="{{item.name}}">{{
-                                                                item.fileName.substring(0, 10) }}... .{{item.extension}}
-                                                                <span
-                                                                    class="text-size fs-12">{{item.sizeText}}</span></span>
+                                                            <span class="box-info-file fs-10" title="{{item.name}}">
+                                                                {{item.fileName.substring(0, 10) }}<span
+                                                                    *ngIf="item.fileName.length > 10">...
+                                                                </span>.{{item.extension}}
+                                                                <span class="text-size fs-12">{{item.sizeText}}</span>
+                                                            </span>
                                                             <svg width="13" height="12" viewBox="0 0 13 12" fill="none"
                                                                 class="icon-delete-file" (click)="onRemoveFile(item)"
                                                                 xmlns="http://www.w3.org/2000/svg">

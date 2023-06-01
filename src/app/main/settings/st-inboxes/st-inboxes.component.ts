@@ -43,7 +43,7 @@ export class StInboxesComponent implements OnInit {
 
   loadListConfigMail(){    
     this.configMailService.GetByIdCompany(this.idCompany).subscribe((result) => {
-      this.listData = result;
+      this.listData = result.listConfigMail;
     });
   }
 
@@ -59,10 +59,6 @@ export class StInboxesComponent implements OnInit {
         })
       }
     });
-  }
-
-  edit(item: any){
-    
   }
 
   update(){

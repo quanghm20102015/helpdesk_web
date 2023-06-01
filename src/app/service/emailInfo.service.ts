@@ -196,4 +196,10 @@ export class EmailInfoService {
     );
   }
   
+  emailInfoDownloadFile(request: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/EmailInfoes/EmailInfoDownloadFile',request
+    );
+  }
+  
 }
