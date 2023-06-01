@@ -91,7 +91,7 @@ export class ConversationComponent implements OnInit {
         tooltip: {
           valueSuffix: ''
         },
-        data: [49, 71.5, 106.4, 129.2, 76.0, 135.6, 56.6]
+        data: []
       }
     ]
   };
@@ -102,6 +102,13 @@ export class ConversationComponent implements OnInit {
       style: {
         fontFamily: 'Inter',
         fontSize: '14px'
+      },
+      events:{
+        render:function(){
+          setTimeout(() => {
+            this.reflow()
+          }, 200);
+        }
       },
       plotBorderWidth: 0
     },
@@ -146,23 +153,9 @@ export class ConversationComponent implements OnInit {
       },
     },
     yAxis: {
-      categories: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-      // categories:[
-      //   { id: 1, labels: 'Monday' },
-      //   { id: 2, labels: 'Tuesday' },
-      //   { id: 3, labels: 'Wednesday' },
-      //   { id: 4, labels: 'Thursday' },
-      //   { id: 5, labels: 'Friday' },
-      //   { id: 6, labels: 'Saturday' },
-      //   { id: 7, labels: 'Sunday' },
-      // ],
+      categories: [],
       title: {
         text: undefined
-      },
-      labels: {
-        formatter: function () {
-          return '<b class="chart-yAxis-label">' + this.value + '</b> <br>' + '<span class="block font-medium">Apr 24,2023</span>';
-        }
       },
       reversed: true
     },
@@ -182,7 +175,7 @@ export class ConversationComponent implements OnInit {
     },
     tooltip: {
       formatter: function () {
-        return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> sold <br><b>' +
+        return '<b>' + this.series.xAxis.categories[this.point.x] + '</b> <br><b>' +
           this.point.value + '</b> items on <br><b>Conversation Traffic</b>';
       },
       enabled: true
@@ -199,32 +192,7 @@ export class ConversationComponent implements OnInit {
           enabled: false,
           color: '#000000'
         },
-        data: [
-          [0, 0, 0], [0, 1, 19], [0, 2, 86], [0, 3, 24], [0, 4, 67], [0, 5, 24], [0, 6, 64],
-          [1, 0, 92], [1, 1, 58], [1, 2, 78], [1, 3, 77], [1, 4, 48], [1, 5, 34], [1, 6, 67],
-          [2, 0, 0], [2, 1, 0], [2, 2, 66], [2, 3, 64], [2, 4, 52], [2, 5, 23], [2, 6, 54],
-          [3, 0, 0], [3, 1, 0], [3, 2, 44], [3, 3, 19], [3, 4, 16], [3, 5, 65], [3, 6, 45],
-          [4, 0, 0], [4, 1, 0], [4, 2, 86], [4, 3, 77], [4, 4, 55], [4, 5, 24], [4, 6, 34],
-          [5, 0, 88], [5, 1, 0], [5, 2, 12], [5, 3, 64], [5, 4, 55], [5, 5, 54], [5, 6, 12],
-          [6, 0, 13], [6, 1, 44], [6, 2, 88], [6, 3, 98], [6, 4, 96], [6, 5, 45], [6, 6, 34],
-          [7, 0, 31], [7, 1, 17], [7, 2, 82], [7, 3, 32], [7, 4, 30], [7, 5, 34], [7, 6, 44],
-          [8, 0, 85], [8, 1, 97], [8, 2, 66], [8, 3, 64], [8, 4, 84], [8, 5, 45], [8, 6, 76],
-          [9, 0, 47], [9, 1, 66], [9, 2, 31], [9, 3, 48], [9, 4, 91], [9, 5, 67], [9, 6, 34],
-          [10, 0, 33], [10, 1, 66], [10, 2, 31], [10, 3, 48], [10, 4, 91], [10, 5, 24], [10, 6, 65],
-          [11, 0, 55], [11, 1, 66], [11, 2, 45], [11, 3, 88], [11, 4, 23], [11, 5, 44], [11, 6, 45],
-          [12, 0, 47], [12, 1, 33], [12, 2, 34], [12, 3, 87], [12, 4, 45], [12, 5, 66], [12, 6, 67],
-          [13, 0, 55], [13, 1, 66], [13, 2, 43], [13, 3, 48], [13, 4, 65], [13, 5, 55], [13, 6, 67],
-          [14, 0, 47], [14, 1, 88], [14, 2, 76], [14, 3, 67], [14, 4, 34], [14, 5, 24], [14, 6, 31],
-          [15, 0, 66], [15, 1, 86], [15, 2, 66], [15, 3, 53], [15, 4, 32], [15, 5, 55], [15, 6, 12],
-          [16, 0, 57], [16, 1, 77], [16, 2, 34], [16, 3, 48], [16, 4, 23], [16, 5, 26], [16, 6, 11],
-          [17, 0, 88], [17, 1, 66], [17, 2, 44], [17, 3, 34], [17, 4, 14], [17, 5, 55], [17, 6, 67],
-          [18, 0, 47], [18, 1, 66], [18, 2, 54], [18, 3, 48], [18, 4, 45], [18, 5, 44], [18, 6, 22],
-          [19, 0, 47], [19, 1, 43], [19, 2, 23], [19, 3, 23], [19, 4, 65], [19, 5, 86], [19, 6, 11],
-          [20, 0, 12], [20, 1, 36], [20, 2, 34], [20, 3, 48], [20, 4, 34], [20, 5, 66], [20, 6, 33],
-          [21, 0, 33], [21, 1, 66], [21, 2, 86], [21, 3, 96], [21, 4, 23], [21, 5, 55], [21, 6, 23],
-          [22, 0, 33], [22, 1, 36], [22, 2, 34], [22, 3, 56], [22, 4, 45], [22, 5, 23], [22, 6, 45],
-          [23, 0, 26], [23, 1, 66], [23, 2, 67], [23, 3, 34], [23, 4, 24], [23, 5, 34], [23, 6, 34]
-        ],
+        data: [],
       }
     ],
   }
@@ -319,10 +287,14 @@ export class ConversationComponent implements OnInit {
       this.toDate = response.toDate;
 
       this.loadOverview();
+
       this.loadPerformentMonitorTotal();
+      this.loadPerformentMonitor(1);
+
+      this.loadConversationTraffic();
+
       this.loadLabelCompany();
       this.loadLabelDistribution();
-      this.loadPerformentMonitor(1);
     });
   }
 
@@ -397,6 +369,50 @@ export class ConversationComponent implements OnInit {
       ]
 
       this.updateFlag = true;
+    });
+  }
+
+  loadConversationTraffic() {
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.conversationService.getConversationTraffic(request).subscribe((respone) => {
+      this.chartOptionsTraffic.yAxis! = {
+        categories: respone.categories.map((item: { id: any; }) => item.id),
+        title: {
+          text: undefined
+        },
+        labels: {
+          formatter: function () {
+            const context = respone.categories.filter((item: { id: any; }) => item.id === this.value)[0];
+            return '<b class="chart-yAxis-label">' + context.days + '</b> <br>' + '<span class="block font-medium">' + context.labels + '</span>';
+          }
+        },
+        reversed: true
+      }
+
+      this.chartOptionsTraffic.series! = [
+        {
+          type: 'heatmap',
+          name: 'Conversation Traffic',
+          borderWidth: 0,
+          borderRadius: 10,
+          colsize: 0.5,
+          rowsize: 0.7,
+          dataLabels: {
+            enabled: false,
+            color: '#000000'
+          },
+          data: respone.data
+        }
+      ]
+
+      this.updateTrafficFlag = true;
     });
   }
 

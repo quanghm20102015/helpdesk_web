@@ -100,4 +100,19 @@ export class StTeamsComponent implements OnInit {
     }
   }
 
+  
+  confirm(id: number) {
+    this.confirmationService.confirm({
+      header: 'Confirmation delete',
+      icon: 'pi pi-exclamation-triangle',
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        this.teamService.deleteById(id).subscribe((result) => {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete success' });
+          this.getList()
+        })
+      }
+    });
+  }
+
 }

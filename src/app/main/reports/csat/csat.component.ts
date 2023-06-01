@@ -33,8 +33,8 @@ export class CsatComponent implements OnInit {
 
   totalPie: number = 0;
 
-  totalRecords: number = 99;
-  pageSize: number = 1;
+  totalRecords: number = 0;
+  pageSize: number = 5;
   pageIndex: number = 0;
 
   Highcharts: typeof Highcharts = Highcharts;
@@ -207,6 +207,8 @@ export class CsatComponent implements OnInit {
 
     this.csatService.getResponeDetail(request).subscribe((respone) => {
       this.listResponseDetails = respone.result
+
+      this.totalRecords = respone.total;
     });
   }
 
@@ -219,11 +221,13 @@ export class CsatComponent implements OnInit {
   }
 
   loadDataResponseDetails(event?: LazyLoadEvent) {
-    const currentPage = event ? event.first! / event.rows! + 1 : 1;
+    const currentPage = event ? event.first! / event.rows! : 1;
 
     console.log('currentPage', currentPage);
+    this.pageIndex = currentPage;
 
-
+    if (this.fromDate != undefined && this.toDate != undefined)
+      this.loadResponeDetail();
   }
 
   onKeyupSearch() {

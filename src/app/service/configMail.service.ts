@@ -65,4 +65,9 @@ export class ConfigMailService {
       );
   }
     
+  GetById(id: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/ConfigMails/'+ id
+    );
+  }
 }

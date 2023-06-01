@@ -4,6 +4,7 @@ import { ConfigMailService } from '../../../service/configMail.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { EncrDecrService } from '../../../service/encr-decr.service';
 
 @Component({
   selector: 'app-st-inboxes',
@@ -21,6 +22,7 @@ export class StInboxesComponent implements OnInit {
     private configMailService: ConfigMailService,
     private userInfoStorageService: UserInfoStorageService,
     private messageService: MessageService,
+    private encrdecrService: EncrDecrService,
     private router: Router) { }
   display: boolean = false;
   model: any = { yourName: '', email: '', password: '', incoming: '', incomingPort: '', outgoing: '', outgoingPort: '' }
@@ -43,7 +45,7 @@ export class StInboxesComponent implements OnInit {
 
   loadListConfigMail(){    
     this.configMailService.GetByIdCompany(this.idCompany).subscribe((result) => {
-      this.listData = result;
+      this.listData = result.listConfigMail;
     });
   }
 
@@ -61,10 +63,6 @@ export class StInboxesComponent implements OnInit {
     });
   }
 
-  edit(item: any){
-    
-  }
-
   update(){
     this.configMailService.putEmailInfo(this.model).subscribe((result) => {
       this.display = false
@@ -77,7 +75,9 @@ export class StInboxesComponent implements OnInit {
   }
 
   showDialogUpdate(item: any) {
-    this.model = { ...item }
+    this.configMailService.GetById(item.id).subscribe((result) => {
+      this.model = result
+    });
     this.display = true
   }
 }
