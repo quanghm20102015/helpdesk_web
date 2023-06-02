@@ -19,7 +19,13 @@ export class CsatService {
       data
     );
   }
-
+  updateCsat(data: any): Observable<any> {
+    return this.http.put(
+      AppSettings.HostingAddress + '/Csats/UpdateCsat',
+      data
+    );
+  }
+  
   sendMail(data: any): Observable<any> {
     return this.http.post(
       AppSettings.HostingAddress + '/Csats/SendMail',
