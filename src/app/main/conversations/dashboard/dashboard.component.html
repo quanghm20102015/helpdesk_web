@@ -448,7 +448,7 @@
                                             <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
                                                 [disabled]="readonly"></ckeditor>
                                             <div class="list-file" *ngIf="item.listAttach.length > 0">
-                                                <span *ngFor="let file of item.listAttach" (click)="downloadFile(file)">
+                                                <span *ngFor="let file of item.listAttach" (click)="downloadDocument(file)">
                                                     <span class="aria-fle-upload mb5" title="{{ file.name }}">
                                                         <span class="icon-file" *ngIf="file.fileType == 1">
                                                             <svg width="17" height="16" viewBox="0 0 17 16" fill="none"

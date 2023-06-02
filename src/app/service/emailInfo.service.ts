@@ -195,11 +195,14 @@ export class EmailInfoService {
       data
     );
   }
-  
-  emailInfoDownloadFile(request: any): Observable<any> {
-    return this.http.post(
-      AppSettings.HostingAddress + '/EmailInfoes/EmailInfoDownloadFile',request
-    );
-  }
+
+  documentsDownload(fileUrl: string) {
+    return this.http.get(AppSettings.HostingAddress + '/EmailInfoes/EmailInfoDownloadFile?fileUrl=' + fileUrl, {
+        reportProgress: true,
+        observe: 'events',
+        responseType: 'blob'
+    });
+}
+
   
 }
