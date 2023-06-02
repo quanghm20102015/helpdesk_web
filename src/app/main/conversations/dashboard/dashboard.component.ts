@@ -750,17 +750,4 @@ export class DashboardComponent implements OnInit {
     });
 }
 
-  downloadFile(file: any) {
-    let request = { pathFile: file.pathFile, idEmailInfo: file.id }
-    this.emailInfoService.emailInfoDownloadFile(request).subscribe((result) => {
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.style.display = 'none';
-      const blob = new Blob([result], { type: file.type });
-      const url = window.URL.createObjectURL(blob);
-      a.href = url; a.download = file.name; a.click();
-      window.URL.revokeObjectURL(url);
-    }
-    )
-  }
 }
