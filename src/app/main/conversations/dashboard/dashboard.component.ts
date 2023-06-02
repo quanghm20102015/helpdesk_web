@@ -522,6 +522,8 @@ export class DashboardComponent implements OnInit {
     let request = {
       to: this.mailDetails.from,
       link: AppSettings.WebAddress + "/survey/" + idGuId,
+      idGuIdEmailInfo: idGuId,
+      idCompany: this.idCompany
     }
 
     this.csatService.sendMail(request).subscribe((result) => {

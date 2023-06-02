@@ -41,7 +41,7 @@ export class SurveyComponent implements OnInit {
       idCompany: this.idCompany
     }
     
-    this.csatService.create(request).subscribe((result) => {
+    this.csatService.updateCsat(request).subscribe((result) => {
       if(result.status == 1){        
         this.title = 'Thank you for submitting the rating';
       }
