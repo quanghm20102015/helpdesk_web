@@ -307,12 +307,12 @@
               <ng-template pTemplate="header">
                 <tr>
                   <th>Label</th>
-                  <th class="text-center" pSortableColumn="usetime">
+                  <!-- <th class="text-center" pSortableColumn="usetime">
                     Use time
                     <p-sortIcon field="usetime" sortAscIcon="pi-sort-up" sortDescIcon="pi-sort-down" sortNoneIcon="pi-sort"></p-sortIcon>
-                  </th>
+                  </th> -->
                   <th class="text-center" pSortableColumn="conversation">
-                    Conversation
+                    Use time
                     <p-sortIcon field="conversation"></p-sortIcon>
                   </th>
                 </tr>
@@ -320,7 +320,7 @@
               <ng-template pTemplate="body" let-item>
                 <tr>
                   <td style="width: 30%; min-width: 7rem;">{{item.name}}</td>
-                  <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.userTime}}</td>
+                  <!-- <td class="text-center" style="width: 30%; min-width: 7rem;">{{item.userTime}}</td> -->
                   <td class="text-center" style="width: 40%; min-width: 8rem;">{{item.conversation}}</td>
                 </tr>
               </ng-template>
