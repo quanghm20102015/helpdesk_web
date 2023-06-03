@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AccountService } from 'src/app/service/account.service';
 import { UserInfoStorageService } from 'src/app/service/user-info-storage.service';
+import { UserService } from '../../../service/user.service';
+import { EncrDecrService } from '../../../service/encr-decr.service';
 
 @Component({
   selector: 'app-account',
@@ -14,7 +16,9 @@ export class AccountComponent implements OnInit {
     private _fb: FormBuilder,
     private userInfoStorageService: UserInfoStorageService,
     private accountService: AccountService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userService: UserService,
+    private encrdecrService: EncrDecrService,
 
   ) { }
   disabled: boolean = true
@@ -23,6 +27,7 @@ export class AccountComponent implements OnInit {
   idUser: number = +(this.userInfoStorageService.getIdUser() || 0)
   model: any = { fullname: '', company: '', workemail: '', idCompany: 0, confirm: false }
   modelChangePassword: any = { passworkOld: '', passwordNew: '', passwordNewConfirm: '' }
+  modelOld: any;
 
   form: FormGroup = this._fb.group({
     fullname: [this.model.fullname, [Validators.required]],
@@ -78,8 +83,37 @@ export class AccountComponent implements OnInit {
     })
   }
 
-  onChangePassword() {
+  onChangePassword() {   
+    let passwordOld = this.modelChangePassword.passworkOld;
 
+    this.userService.GetById(this.idUser).subscribe((result) => {
+      this.modelOld = result;
+      let passwordDecrypt = this.encrdecrService.set("mypassword", passwordOld).toString()
+
+      if(this.modelOld.password != passwordDecrypt){
+        this.showError("Old password is not correct")
+        return
+      }
+      else{
+        let password = this.encrdecrService.set("mypassword", this.modelChangePassword.passwordNew).toString()
+        let request = {
+          idGuId: this.modelOld.idGuId,
+          password: password
+        }
+        this.userService.resetPassword(request).subscribe((result) => {
+          if (result.status === 1) {
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Change status success' });
+            this.modelChangePassword = { passworkOld: '', passwordNew: '', passwordNewConfirm: '' }
+          } else {
+            
+          }
+        })
+      }
+    });
+  }
+
+  showError(message: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
 
   url: any = 'https://app.chatwoot.com/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBL3RBVXc9PSIsImV4cCI6bnVsbCwicHVyIjoiYmxvYl9pZCJ9fQ==--4124222e04993bf596b60e55006f5ba50c03862d/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2QzNKbGMybDZaVWtpRERJMU1IZ3lOVEFHT3daVSIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--d5bd8600745fd77201f6159b61f8b9f6f6f54b0a/unnamed.jpg'
