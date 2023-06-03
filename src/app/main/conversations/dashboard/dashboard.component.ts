@@ -18,6 +18,7 @@ import { UploadFileService } from 'src/app/service/uploadfiles.service';
 import { FILETYPE, CONSTANTS } from "../../../constants/CONSTANTS";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MultiSelectFilterOptions } from 'primeng/multiselect';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -729,17 +730,26 @@ export class DashboardComponent implements OnInit {
   }
 
   blob: any
-  downloadFile(file: any) {
-    let request = { pathFile: file.pathFile, idEmailInfo: file.id }
-    this.emailInfoService.emailInfoDownloadFile(request).subscribe((result) => {
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.style.display = 'none';
-      const blob = new Blob([result], { type: file.type });
-      const url = window.URL.createObjectURL(blob);
-      a.href = url; a.download = file.name; a.click();
-      window.URL.revokeObjectURL(url);
-    }
-    )
-  }
+  fileUrl: string = ''
+  async downloadDocument(file: any) {
+    this.fileUrl = file.pathFile; 
+    this.emailInfoService.documentsDownload(this.fileUrl).subscribe(async (event) => {
+        let data = event as HttpResponse < Blob > ;
+        const downloadedFile = new Blob([data.body as BlobPart], {
+            type: data.body?.type
+        });
+        console.log("ddd", downloadedFile)
+        if (downloadedFile.type != "") {
+            const a = document.createElement('a');
+            a.setAttribute('style', 'display:none;');
+            document.body.appendChild(a);
+            a.download = this.fileUrl;
+            a.href = URL.createObjectURL(downloadedFile);
+            a.target = '_blank';
+            a.click();
+            document.body.removeChild(a);
+        }
+    });
+}
+
 }
