@@ -82,6 +82,7 @@ export class StAgentsComponent implements OnInit {
     this.model.password = this.encrdecrService.set("mypassword", "123456").toString()
     this.model.company = this.userInfoStorageService.getCompany()
     this.model.idCompany = this.userInfoStorageService.getCompanyId()
+    this.model.confirm = true
     this.accountService.create(this.model).subscribe((result) => {
       if(result.status == 1){
         this.display = false

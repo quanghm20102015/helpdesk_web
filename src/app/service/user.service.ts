@@ -102,4 +102,12 @@ export class UserService {
       data
     );
   }
+
+  GetById(data: any): Observable<any> {
+    return this.http.get(
+      AppSettings.HostingAddress + '/Accounts/' + data,
+       data
+    );
+  }
+  
 }

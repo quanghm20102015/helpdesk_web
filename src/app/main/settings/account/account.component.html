@@ -89,15 +89,15 @@
                 <form [formGroup]="formChangePassword" (ngSubmit)="onChangePassword()">
                     <div class="item-label">
                         <label class="text-label">Current password</label>
-                        <input type="text" pInputText placeholder="Current password" class="form-control">
+                        <input type="password" pInputText placeholder="Current password" class="form-control" [(ngModel)]="modelChangePassword.passworkOld" formControlName="passworkOld">
                     </div>
                     <div class="item-label">
                         <label class="text-label">New password</label>
-                        <input type="text" pInputText placeholder="New password" class="form-control">
+                        <input type="password" pInputText placeholder="New password" class="form-control" [(ngModel)]="modelChangePassword.passwordNew" formControlName="passwordNew">
                     </div>
                     <div class="item-label">
                         <label class="text-label">Confirm new password</label>
-                        <input type="text" pInputText placeholder="Confirm new password" class="form-control">
+                        <input type="password" pInputText placeholder="Confirm new password" class="form-control" [(ngModel)]="modelChangePassword.passwordNewConfirm" formControlName="passwordNewConfirm">
                     </div>
                     <button class="btn btn-primary">
                         <span>
