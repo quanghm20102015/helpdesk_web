@@ -37,10 +37,11 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.idCompany = +this.userInfoStorageService.getCompanyId()
     this.idUser = +this.userInfoStorageService.getIdUser()
-    this.getListInbox();
-    this.getListLabel();
-    this.getListUser();
-    this.getMenuCount();    
+    this.getListInbox()
+    this.getListLabel()
+    this.getListGroup()
+    this.getListUser()
+    this.getMenuCount()    
     this.idIntervalCountMenu = setInterval(() => {
       this.getMenuCount();
     }, 5000);
@@ -72,17 +73,25 @@ export class MenuComponent implements OnInit {
   }
 
   display: boolean = false
+  displayAddGroup: boolean = false
   displayChooseChannel: boolean = false
   displayChooseChannel2: boolean = false
   displayChooseChannel3: boolean = false
   status: any = +this.userInfoStorageService.getStatus()
   model: any = {};
+  modelAddGroup: any = {};
   submitted: boolean = false;
   form: FormGroup = this._fb.group({
     name: [this.model.name, [Validators.required]],
     description: [this.model.description],
     color: [this.model.color],
     showSidebar: [this.model.showSidebar],
+  });
+
+  formAddGroup: FormGroup = this._fb.group({
+    name: [this.modelAddGroup.name, [Validators.required]],
+    description: [this.modelAddGroup.description],
+    color: [this.modelAddGroup.color],
   });
 
   formChannel: FormGroup = this._fb.group({
@@ -128,8 +137,20 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  rebuilFormAddGroup() {
+    this.formAddGroup.reset({
+      name: '',
+      description: '',
+      color: '',
+    });
+  }
+
   get f() {
     return this.form.controls;
+  }
+
+  get fg() {
+    return this.formAddGroup.controls;
   }
 
   get fchannel() {
@@ -147,6 +168,7 @@ export class MenuComponent implements OnInit {
   ]
 
   listLabel: any = []
+  listGroup: any = []
 
   listInboxes: any = []
 
@@ -158,6 +180,13 @@ export class MenuComponent implements OnInit {
     this.labelService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
       this.listLabel = result;
     });
+  }
+
+  getListGroup() {
+    this.listGroup = [{name: 'group1', description: 'description', color: '#333333', emailInfoCount: 5}]
+    // this.groupService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
+    //   this.listGroup = result;
+    // });
   }
 
   saveLabel() {
@@ -174,6 +203,22 @@ export class MenuComponent implements OnInit {
       }
     });
   }
+
+  saveGroup() {
+    this.modelAddGroup.idCompany = this.userInfoStorageService.getCompanyId();
+    // this.groupService.create(this.modelAddGroup).subscribe((result) => {
+    //   if (result.status == 1) {
+    //     this.displayAddGroup = false;
+    //     this.rebuilFormAddGroup()
+    //     this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
+    //     this.getListGroup()
+    //   }
+    //   else {
+    //     this.showError(result.message);
+    //   }
+    // });
+  }
+
   showError(message: any) {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
   }
