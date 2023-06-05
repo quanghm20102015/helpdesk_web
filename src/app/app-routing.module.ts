@@ -8,6 +8,7 @@ import { SetNewPasswordComponent } from './page/set-new-password/set-new-passwor
 import { ConfirmResetPasswordComponent } from './page/signup/confirm-reset-password.component';
 
 import { SurveyComponent } from './page/survey/survey.component';
+import { SetPasswordComponent } from './page/set-password/set-password.component';
 
 const routes: Routes = [
   // {path: "", component: HomepageComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: "set-new-password/:token", component: SetNewPasswordComponent},
   {path: "survey/:token", component: SurveyComponent},
   {path: "reset-password/:id", component: ConfirmResetPasswordComponent},
+  {path: "set-password/:id", component: SetPasswordComponent},
 ];
 
 @NgModule({

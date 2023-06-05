@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'primeng/toast';
 import { SetNewPasswordComponent } from './page/set-new-password/set-new-password.component';
 import { SurveyComponent } from './page/survey/survey.component';
+import { SetPasswordComponent } from './page/set-password/set-password.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { SurveyComponent } from './page/survey/survey.component';
     ResetPasswordComponent,
     ReportsComponent,
     SetNewPasswordComponent,
-    SurveyComponent
+    SurveyComponent,
+    SetPasswordComponent
   ],
   imports: [
     BrowserModule,
