@@ -16,7 +16,7 @@ export class AppComponent {
   ngOnInit(): void {
     if (!this.userId) {
       let url = window.location.pathname
-      let arrLink = ['/login','/signup','/confirm-sigup','/reset-password','/set-new-password','/survey']
+      let arrLink = ['/login','/signup','/confirm-sigup','/reset-password','/set-new-password','/survey','/set-password']
       if(!arrLink.includes(url)){
         this.router.navigate(['/login']);
       }

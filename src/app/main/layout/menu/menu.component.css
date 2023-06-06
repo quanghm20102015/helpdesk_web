@@ -1,4 +1,4 @@
-*{
+* {
     font-size: 13px;
 }
 
@@ -42,7 +42,7 @@
     margin: 32px 20px 24px;
 }
 
-.btn-new-conversation{
+.btn-new-conversation {
     padding: 8px 0;
     font-weight: 500;
 }
@@ -76,23 +76,23 @@
     border-radius: 12px;
 }
 
-.menu.vertical{
+.menu.vertical {
     padding: 12px;
 }
 
-.menu.vertical.list-top svg{
+.menu.vertical.list-top svg {
     margin-right: 12px;
 }
 
-.menu.vertical.list-menu-bottom svg{
+.menu.vertical.list-menu-bottom svg {
     margin-right: 8px;
 }
 
-.list-menu-bottom{
+.list-menu-bottom {
     margin-top: 20px;
 }
 
-hr{
+hr {
     border: 1px solid #FFFFFF29;
     margin: 0;
 }
@@ -110,7 +110,7 @@ hr{
 }
 
 .sidebar-item.active-secondary,
-.sidebar-item:hover{
+.sidebar-item:hover {
     color: #FFFFFF !important;
     border-color: #f5faff;
     border-radius: 8px;
@@ -123,13 +123,14 @@ hr{
 }
 
 .sidebar-item.active-secondary .text-count,
-.sidebar-item:hover .text-count{
+.sidebar-item:hover .text-count {
     color: #FFFFFF !important;
 }
 
-.sidebar-item>div{
+.sidebar-item>div {
     align-self: center
 }
+
 .btn-bottom {
     position: absolute;
     bottom: 0;
@@ -160,80 +161,80 @@ hr{
     bottom: 0;
 }
 
-.list-menu-bottom .color-ffffff{
+.list-menu-bottom .color-ffffff {
     color: #FFFFFF;
-}   
+}
 
-.main-menu{
+.main-menu {
     max-height: 100vh;
 }
 
-.accordion-header{
+.accordion-header {
     margin-bottom: 8px;
 }
 
-#panelsStayOpen-headingLabel{
-    margin-top: 8px;    
+#panelsStayOpen-headingLabel {
+    margin-top: 8px;
 }
 
-.accordion-header .icon-add{
+.accordion-header .icon-add {
     cursor: pointer;
     padding-right: 8px;
 }
 
-.accordion-item{
+.accordion-item {
     background: none;
     border: none;
 }
 
-.accordion-button{
+.accordion-button {
     background: none;
     color: rgba(255, 255, 255, 0.7);
     box-shadow: none;
     padding: 8px 12px;
 }
 
-.accordion-body{
+.accordion-body {
     padding: 0px;
 }
 
-.text-menu-botton{
+.text-menu-botton {
     color: #F6F7F9;
 }
 
-.item-choose-channel .icon-channel{
+.item-choose-channel .icon-channel {
     padding: 8px 32px;
 }
 
-.item-choose-channel[disabled]>div{
+.item-choose-channel[disabled]>div {
     background: #fafafa;
     border-radius: 8px;
 }
 
-.item-choose-channel:not([disabled])>div{
+.item-choose-channel:not([disabled])>div {
     cursor: pointer;
 }
 
-.p-field-checkbox{
+.p-field-checkbox {
     margin-right: 40px;
 }
 
-.p-field-checkbox label{
+.p-field-checkbox label {
     margin-left: 8px;
 }
 
-.row-title-input{
+.row-title-input {
     padding-top: 16px;
     padding-bottom: 16px;
 }
 
-#NewConvesation .title-input{
+#NewConvesation .title-input {
     color: rgba(0, 0, 0, 0.87);
     font-size: 14px;
     font-weight: 600;
     margin-left: 8px;
 }
 
-.input-radio{
+.input-radio {
     margin-bottom: 12px;
 }

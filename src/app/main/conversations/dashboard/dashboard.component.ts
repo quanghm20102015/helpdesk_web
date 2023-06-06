@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
     this.virtualChats = Array.from({ length: 10000 });
     this.idInterval = setInterval(() => {
       this.loadListEmail();
-    }, 5000);
+    }, 60000);
     this.messenger = this.signature
   }
   ngAfterContentChecked(): void {
@@ -102,6 +102,7 @@ export class DashboardComponent implements OnInit {
       unAssign: false,
       fromDate: this.date ? this.date[0] : null,
       toDate: this.date ? this.date[1] : null,
+      pageSize: this.rows
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {
@@ -134,7 +135,8 @@ export class DashboardComponent implements OnInit {
     }
     // this.getCountEmail()
     this.emailInfoService.getFillter(request).subscribe((result) => {
-      this.listChat = result.listEmailInfo.slice(0, this.rows);
+      // this.listChat = result.listEmailInfo.slice(0, this.rows);
+      this.listChat = result.listEmailInfo
       this.total = result.total
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
@@ -166,7 +168,8 @@ export class DashboardComponent implements OnInit {
       idLabel: 0,
       idUserFollow: 0,
       idUserTrash: 0,
-      unAssign: false
+      unAssign: false,
+      pageSize: 20
     }
     if (this.router.url.includes('/dashboard')) { this.title = 'Conversations' }
     else if (this.router.url.includes('/mentions')) {

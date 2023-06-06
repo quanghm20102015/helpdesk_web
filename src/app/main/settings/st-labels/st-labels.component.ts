@@ -50,7 +50,7 @@ export class StLabelsComponent implements OnInit {
       this.labelService.getByIdCompany(this.idCompany).subscribe((result) => {
         this.listData = result;
         this.listData.forEach((element: any) => {
-          element.name = '#' + element.name
+          element.name = element.name
         });
       })
   }

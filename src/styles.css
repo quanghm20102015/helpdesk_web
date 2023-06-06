@@ -546,8 +546,6 @@ body {
     margin-bottom: 280px;
 }
 
-
-
 #tooltip-search .p-datatable-wrapper {
     height: 322px !important;
 }
@@ -1001,7 +999,15 @@ input#range {
     overflow: auto;
 }
 
-.dashboard .p-datatable-wrapper {
-    /* min-height: 300px; */
-    max-height: calc(100vh - 147px);
+.color-round input {
+    background-color: rgb(51, 51, 51);
+    border-radius: 50%;
+    width: 12px !important;
+    height: 12px !important;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.conversations-list .p-datatable-wrapper{
+    height: calc(100vh - 145px);
 }

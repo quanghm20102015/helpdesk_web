@@ -400,7 +400,7 @@
                         </li>
                     </ul>
                 </div>
-                <!-- <div>
+                <div>
                     <ul class="menu vertical w-100 list-menu-bottom mt-0">
                         <div class="accordion" id="accordionPanelsStayOpenMenu">
 
@@ -409,8 +409,8 @@
                                     id="panelsStayOpen-headingLabel">
                                     <div class="d-flex align-items-center">
                                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#panelsStayOpen-collapseLabelTab2" aria-expanded="true"
-                                            aria-controls="panelsStayOpen-collapseLabelTab2">
+                                            data-bs-target="#panelsStayOpen-collapseLabelTab3" aria-expanded="true"
+                                            aria-controls="panelsStayOpen-collapseLabelTab3">
                                             <span>
                                                 <svg class="icon-accordion" width="16" height="16" viewBox="0 0 16 16"
                                                     fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -419,11 +419,11 @@
                                                         fill="white" />
                                                 </svg>
                                             </span>
-                                            Labels
+                                            Group
                                         </button>
                                     </div>
 
-                                    <div class="icon-add" (click)="display = true">
+                                    <div class="icon-add" (click)="displayAddGroup = true">
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="m-0"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -432,22 +432,13 @@
                                         </svg>
                                     </div>
                                 </h2>
-                                <div id="panelsStayOpen-collapseLabelTab2" class="accordion-collapse collapse show"
+                                <div id="panelsStayOpen-collapseLabelTab3" class="accordion-collapse collapse show"
                                     aria-labelledby="panelsStayOpen-headingLabel">
                                     <div class="accordion-body">
-                                        <li *ngFor="let item of listLabel"
-                                            class="sidebar-item color-ffffff cursor-pointer"
-                                            routerLinkActive="active-secondary"
-                                            [routerLinkActiveOptions]="{exact: false}"
-                                            [routerLink]="['/main/conversations/label/', item.id]"
-                                            aria-expanded="false">
-                                            <div class="text-truncate-1 fw-500 text-menu-botton" title="{{item.name}}">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M14.1111 5.2223L11.4395 5.2223L11.8839 1.96401C11.8938 1.89171 11.8893 1.81818 11.8707 1.74761C11.8521 1.67705 11.8199 1.61083 11.7757 1.55274C11.7315 1.49466 11.6764 1.44583 11.6133 1.40907C11.5503 1.3723 11.4807 1.34831 11.4084 1.33846C11.3361 1.32861 11.2625 1.3331 11.192 1.35167C11.1214 1.37023 11.0552 1.40252 10.9971 1.44668C10.939 1.49084 10.8902 1.54601 10.8534 1.60903C10.8167 1.67206 10.7927 1.74171 10.7828 1.81401L10.3184 5.2223H6.43954L6.88398 1.96401C6.89383 1.89171 6.88934 1.81818 6.87077 1.74761C6.8522 1.67705 6.81992 1.61083 6.77576 1.55274C6.7316 1.49466 6.67643 1.44583 6.61341 1.40907C6.55038 1.3723 6.48073 1.34831 6.40843 1.33846C6.33613 1.32861 6.2626 1.3331 6.19204 1.35167C6.12147 1.37023 6.05525 1.40252 5.99717 1.44668C5.93908 1.49084 5.89026 1.54601 5.85349 1.60903C5.81673 1.67206 5.79273 1.74171 5.78288 1.81401L5.31844 5.2223L2.44459 5.2223C2.29725 5.2223 2.15595 5.28083 2.05176 5.38501C1.94758 5.4892 1.88904 5.63051 1.88904 5.77785C1.88904 5.92519 1.94758 6.06649 2.05176 6.17068C2.15595 6.27486 2.29725 6.3334 2.44459 6.3334L5.16678 6.3334L4.71234 9.66669H1.88904C1.7417 9.66669 1.6004 9.72522 1.49621 9.8294C1.39203 9.93359 1.3335 10.0749 1.3335 10.2222C1.3335 10.3696 1.39203 10.5109 1.49621 10.6151C1.6004 10.7193 1.7417 10.7778 1.88904 10.7778H4.56068L4.11624 14.0361C4.09635 14.1821 4.13527 14.33 4.22446 14.4473C4.31364 14.5647 4.44577 14.6417 4.59179 14.6616C4.7378 14.6815 4.88574 14.6426 5.00305 14.5534C5.12036 14.4642 5.19744 14.3321 5.21733 14.1861L5.68177 10.7778H9.56061L9.11617 14.0361C9.09628 14.1821 9.13521 14.33 9.22439 14.4473C9.31358 14.5647 9.44571 14.6417 9.59172 14.6616C9.73774 14.6815 9.88567 14.6426 10.003 14.5534C10.1203 14.4642 10.1974 14.3321 10.2173 14.1861L10.6817 10.7778L13.5556 10.7778C13.7029 10.7778 13.8442 10.7193 13.9484 10.6151C14.0526 10.5109 14.1111 10.3696 14.1111 10.2222C14.1111 10.0749 14.0526 9.93359 13.9484 9.8294C13.8442 9.72522 13.7029 9.66669 13.5556 9.66669L10.8334 9.66669L11.2878 6.3334L14.1111 6.3334C14.2584 6.3334 14.3998 6.27486 14.5039 6.17068C14.6081 6.06649 14.6667 5.92519 14.6667 5.77785C14.6667 5.63051 14.6081 5.4892 14.5039 5.38501C14.3998 5.28083 14.2584 5.2223 14.1111 5.2223ZM9.71228 9.66669H5.83344L6.28788 6.3334L10.1667 6.3334L9.71228 9.66669Z"
-                                                        fill="white" />
-                                                </svg>
+                                        <li *ngFor="let item of listGroup"
+                                            class="sidebar-item color-ffffff cursor-pointer">
+                                            <div class="text-truncate-1 fw-500 text-menu-botton d-flex" title="{{item.name}}">
+                                                <p-colorPicker [(ngModel)]="item.color" class="color-round"></p-colorPicker>
                                                 {{item.name}}
                                             </div>
                                             <div class="text-count">
@@ -459,7 +450,7 @@
                             </div>
                         </div>
                     </ul>
-                </div> -->
+                </div>
             </div>
 
             <div *ngIf="tab == 3">
@@ -797,7 +788,6 @@
     </form>
 </p-dialog>
 
-
 <p-dialog [(visible)]="displayChooseChannel" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
     <ng-template pTemplate="header">
         <div>
@@ -1035,6 +1025,54 @@
     </div>
 </p-dialog>
 
+
+<p-dialog [(visible)]="displayAddGroup" [modal]="true" class="box-dialog" [style]="{width: '513px'}">
+    <ng-template pTemplate="header">
+        <div>
+            <p class="p-dialog-title">
+                Add group
+            </p>
+        </div>
+    </ng-template>
+    <form class="row" [formGroup]="formAddGroup">
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Group Name</div>
+                <input type="text" pInputText [(ngModel)]="modelAddGroup.name" formControlName="name"
+                    placeholder="Please enter a group name" class="form-control">
+                <div *ngIf="(fg['name'].dirty || fg['name'].touched || submitted) && fg['name'].invalid"
+                    class="text-danger">
+                    <div *ngIf="fg['name'].errors?.['required']">
+                        Group name is required
+                    </div>
+                </div>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Description</div>
+                <textarea [rows]="3" pInputTextarea [autoResize]="true" placeholder="Please enter description"
+                    [(ngModel)]="modelAddGroup.description" formControlName="description" class="form-control"></textarea>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <div class="text-label">Color</div>
+                <p-colorPicker [(ngModel)]="modelAddGroup.color" formControlName="color"></p-colorPicker>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <div class="btn-groupt btn-dialog">
+                <button class="btn btn-outline-secondary btn-cancel" (click)="display = false">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-primary ml-2" [disabled]="fg['name'].errors" (click)="saveGroup()">
+                    <span>Add</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</p-dialog>
 
 <p-overlayPanel #op>
     <ng-template pTemplate>
