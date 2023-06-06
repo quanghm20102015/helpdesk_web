@@ -546,8 +546,6 @@ body {
     margin-bottom: 280px;
 }
 
-
-
 #tooltip-search .p-datatable-wrapper {
     height: 322px !important;
 }
@@ -1008,4 +1006,8 @@ input#range {
     height: 12px !important;
     padding: 0;
     margin-right: 10px;
+}
+
+.conversations-list .p-datatable-wrapper{
+    height: calc(100vh - 145px);
 }
