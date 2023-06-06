@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="row max-height-box">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <p-table [value]="listData">
                     <ng-template pTemplate="body" let-item>
                         <tr>
@@ -52,8 +52,7 @@
                             </td>
                             <td>
                                 <div class="button-wrapper text-end">
-                                    <button class="btn btn-sm btn-default"
-                                        (click)="showDialogUpdate(item)">
+                                    <button class="btn btn-sm btn-default" (click)="showDialogUpdate(item)">
                                         <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_1490_6513)">
@@ -100,7 +99,7 @@
                     </ng-template>
                 </p-table>
             </div>
-            <div class="col-md-4">
+            <!-- <div class="col-md-4">
                 <span>
                     <p><b>Inbox</b></p>
                     <p> When you connect a website or a facebook Page to Chatwoot, it is called an <b>Inbox</b>. You
@@ -114,7 +113,7 @@
                         left
                         pane of the dashboard. </p>
                 </span>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

@@ -5,7 +5,7 @@ import { EncrDecrService } from '../../../service/encr-decr.service';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { AccountService } from 'src/app/service/account.service';
-
+import { AppSettings } from "../../../constants/app-setting";
 
 @Component({
   selector: 'app-st-agents',
@@ -88,12 +88,28 @@ export class StAgentsComponent implements OnInit {
         this.display = false
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Create success' });
         this.loadListAgent()
+        
+        let requestConfirm = {
+          linkConfirm: AppSettings.WebAddress + "/set-password/" + result.idGuId,
+          to: this.model.workemail,
+          fullName: this.model.fullname
+        }
+        this.sendMailConfirm(requestConfirm);
       }
       else{
       }
     });
   }
   
+  sendMailConfirm(request: any){    
+    this.userService.sendMailConfirm(request).subscribe((result) => {
+      if(result.status == 1){
+      }
+      else{
+      }
+    });
+  }
+
   updateAgent(){    
     this.model.company = this.userInfoStorageService.getCompany()
     this.model.idCompany = this.userInfoStorageService.getCompanyId()
