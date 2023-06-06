@@ -137,6 +137,7 @@ export class DashboardComponent implements OnInit {
     this.emailInfoService.getFillter(request).subscribe((result) => {
       // this.listChat = result.listEmailInfo.slice(0, this.rows);
       this.listChat = result.listEmailInfo
+      this.total = result.total
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
       })
