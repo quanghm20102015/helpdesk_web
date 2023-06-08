@@ -360,3 +360,7 @@
 .list-file{
     margin-top: 10px;
 }
+
+#box-messages{
+    padding: 0px 16px;
+}

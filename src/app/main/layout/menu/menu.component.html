@@ -978,6 +978,9 @@
                     <div *ngIf="fchannel['email'].errors?.['required']">
                         Please enter a email channel
                     </div>
+                    <div *ngIf="fchannel['email'].errors?.['email']">
+                        Please enter a valid email
+                    </div>
                 </div>
             </label>
         </div>
