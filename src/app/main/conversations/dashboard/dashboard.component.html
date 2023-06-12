@@ -637,7 +637,7 @@
                             </div>
                         </div>
                         <div class="fit-chat" *ngIf="title !== 'Trash'">
-                            <p-tabView>
+                            <p-tabView *ngIf="mailDetails.status != 2">
                                 <p-tabPanel>
                                     <ng-template pTemplate="header">
                                         <span class="reply-tab">
