@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ContactService } from 'src/app/service/contact.service';
 import { CountryService } from 'src/app/service/country.service';
@@ -24,6 +24,7 @@ export class ContactDetailComponent implements OnInit {
     private userInfoStorageService: UserInfoStorageService,
     private labelService: LabelService,
     private messageService: MessageService,
+    private router: Router,
 
   ) { }
 
@@ -105,6 +106,7 @@ export class ContactDetailComponent implements OnInit {
       accept: () => {
         this.contactService.deleteContact(this.model.id).subscribe((result) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete contact success' });
+          this.router.navigate(['/main/contacts/all'])
         })
       }
     });

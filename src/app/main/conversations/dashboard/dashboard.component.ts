@@ -234,6 +234,7 @@ export class DashboardComponent implements OnInit {
       listAssign: this.listIdAssignSelect
     }
     this.emailInfoService.updateAssign(request).subscribe((result) => {
+      this.getDetailMail(this.mailDetails)
       // this.messageService.add({ severity: 'success', summary: 'Success', detail: "Update success" });
     });
   }
