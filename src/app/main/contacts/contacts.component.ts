@@ -4,6 +4,7 @@ import { CountryService } from '../../service/country.service';
 import { ContactService } from '../../service/contact.service';
 import { UserInfoStorageService } from '../../service/user-info-storage.service';
 import { ActivatedRoute } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 declare var $: any;
 @Component({
@@ -18,13 +19,15 @@ export class ContactsComponent implements OnInit {
     private _fb: FormBuilder,
     private countryService: CountryService,
     private contactService: ContactService,
-    private userInfoStorageService: UserInfoStorageService
+    private userInfoStorageService: UserInfoStorageService,
+    private messageService: MessageService,
     ) { }
 
   textSearch: string = ''
   scrollDemo: any
   contacts: any = []
   countries: any = []
+  submitted: boolean = false
   model: any = 
   { 
     fullname: '',
@@ -53,7 +56,7 @@ export class ContactsComponent implements OnInit {
   
   form: FormGroup = this._fb.group({
     fullname: [this.model.fullname, [Validators.required]],
-    email: [this.model.email],
+    email: [this.model.email,[Validators.required, Validators.email]],
     bio: [this.model.bio],
     phoneNumber: [this.model.phoneNumber],
     company: [this.model.company],
@@ -103,10 +106,12 @@ export class ContactsComponent implements OnInit {
   }
 
   onSubmit(){    
+    this.submitted = true
     this.model.idCompany = this.idCompany
     this.contactService.create(this.model).subscribe((result) => {
       if(result.status == 1){
         $("#newCOntact").modal("hide");
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add contact success' });
         this.getContact();
       }
     });
@@ -123,5 +128,9 @@ export class ContactsComponent implements OnInit {
   import(){
     $("#import").modal("show");
   }
-  
+    
+  get f() {
+    return this.form.controls;
+  }
+
 }
