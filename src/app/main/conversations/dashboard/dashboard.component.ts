@@ -81,9 +81,8 @@ export class DashboardComponent implements OnInit {
   }
   ngAfterContentChecked(): void {
     if (this.id != this.idOld) {
-      this.loadListEmail()
-      this.idOld = this.id
       this.rows = 10
+      this.loadListEmail()
     }
   }
   title: string = ''
@@ -141,8 +140,9 @@ export class DashboardComponent implements OnInit {
       this.listChat.forEach((item) => {
         item['dateTime'] = new Date(item.date)
       })
-      if (this.onInit && this.router.url.includes('/mentions')) {
+      if (this.onInit || this.id != this.idOld) {
         this.onInit = false
+        this.idOld = this.id
         this.getDetailMail(this.listChat[0])
       }
 
@@ -398,7 +398,7 @@ export class DashboardComponent implements OnInit {
       result.listEmailInfo = listMess
       this.listEmailInfo = result.listEmailInfo
       this.listMessenger = [];
-      this.listEmailInfo.forEach(element => {
+      this.listEmailInfo.forEach((element,index) => {
         if (element.ListAttach.length > 0) {
           element.ListAttach.forEach((file: any) => {
             FILETYPE.forEach((fileType) => {
@@ -424,7 +424,6 @@ export class DashboardComponent implements OnInit {
           listAttach: element.ListAttach
         })
       });
-      console.log(this.listMessenger)
       this.viewMail = true;
 
       this.listLabelEmail = result.listLabel
