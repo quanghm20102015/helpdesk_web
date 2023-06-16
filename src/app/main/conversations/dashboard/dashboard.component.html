@@ -433,6 +433,11 @@
                                 <li class="message-read mt-3"
                                     [ngClass]="{'mess-in': item.type == 1, 'mess-out': item.type == 2, 'mess-center': item.type == 3, 'mess-note': item.type == 4}">
                                     <div class="activity-wrap">
+                                        <div class="message-subject mb-1 d-flex" *ngIf="i == 0">
+                                            <span class="fw-500 fs-14">Subject:
+                                                {{subject}}
+                                            </span>
+                                        </div>
                                         <div class="message-time mb-1 d-flex justify-content-between"
                                             *ngIf="item.type != 3">
                                             <span>
@@ -448,7 +453,8 @@
                                             <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
                                                 [disabled]="readonly"></ckeditor>
                                             <div class="list-file" *ngIf="item.listAttach.length > 0">
-                                                <span *ngFor="let file of item.listAttach" (click)="downloadDocument(file)" class="cursor-pointer">
+                                                <span *ngFor="let file of item.listAttach"
+                                                    (click)="downloadDocument(file)" class="cursor-pointer">
                                                     <span class="aria-fle-upload mb5" title="{{ file.name }}">
                                                         <span class="icon-file" *ngIf="file.fileType == 1">
                                                             <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
