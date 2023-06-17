@@ -424,6 +424,7 @@ export class DashboardComponent implements OnInit {
           listAttach: element.ListAttach
         })
       });
+      this.listMessenger[0].messenger = '<p >[Subject: ' + item.subject + ']</p>' + this.listMessenger[0].textBody
       this.viewMail = true;
 
       this.listLabelEmail = result.listLabel

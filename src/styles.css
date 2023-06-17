@@ -432,7 +432,7 @@ input.p-colorpicker-preview.p-inputtext.ng-star-inserted {
     opacity: 1;
 }
 
-.p-dialog .p-dialog-content {
+.p-dialog .p-dialog-content, .modal-body {
     padding: 0 24px 24px 24px;
     overflow: inherit;
 }
@@ -718,7 +718,7 @@ p-dropdown#dropdown-report {
     margin: 0px !important;
 }
 
-.p-dialog .p-dialog-content:last-of-type {
+.p-dialog .p-dialog-content:last-of-type, .modal-body {
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;
 }
@@ -727,7 +727,7 @@ p-dropdown#dropdown-report {
     justify-content: center;
 }
 
-.p-dialog .p-dialog-header {
+.p-dialog .p-dialog-header,.modal-header {
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
     padding: 24px;
@@ -994,8 +994,8 @@ input#range {
     border-bottom: 1px solid #E6E6E8;
 }
 
-.max-height-box{
-    max-height: calc( 100vh - 85px );
+.max-height-box {
+    max-height: calc(100vh - 85px);
     overflow: auto;
 }
 
@@ -1008,18 +1008,33 @@ input#range {
     margin-right: 10px;
 }
 
-.conversations-list .p-datatable-wrapper{
+.conversations-list .p-datatable-wrapper {
     height: calc(100vh - 145px);
 }
 
-.box-container{
+.box-container {
     height: 100vh;
 }
 
-.box-contacts table tbody{
+.box-contacts table tbody {
     max-height: calc(100vh - 50px);
 }
 
-.p-datatable.p-component.p-datatable-scrollable{
+.p-datatable.p-component.p-datatable-scrollable {
     height: 100%;
+}
+
+#nth0.message-text .ck.ck-editor__editable_inline>:first-child {
+    margin-bottom: 15px !important;
+    font-weight: 500;
+}
+
+.text-required{
+    color: #F95353;
+}
+
+.add-contact .modal-footer{
+    border: none;
+    margin-top: 0;
+    padding-bottom: 24px;
 }
