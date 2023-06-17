@@ -37,6 +37,7 @@ export class ContactsComponent implements OnInit {
     company: '',
     city: '',
     country: '',
+    address: '',
     facebook: '',
     twitter: '',
     linkedin: '',
@@ -62,6 +63,7 @@ export class ContactsComponent implements OnInit {
     company: [this.model.company],
     city: [this.model.city],
     country: [this.model.country],
+    address: [this.model.address],
     facebook: [this.model.facebook],
     twitter: [this.model.twitter],
     linkedin: [this.model.linkedin],
@@ -113,6 +115,8 @@ export class ContactsComponent implements OnInit {
         $("#newCOntact").modal("hide");
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add contact success' });
         this.getContact();
+      } else {
+        this.messageService.add({ severity: 'warn', summary: 'Waning', detail: result.message });
       }
     });
   }
