@@ -9,6 +9,7 @@ import { UserInfoStorageService } from '../../../service/user-info-storage.servi
 import { OverviewService } from 'src/app/service/overview.service';
 
 import { PerformentTotalModel } from '../models/performent-total-model';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-agent',
@@ -372,5 +373,39 @@ export class AgentComponent implements OnInit {
     if(this.optionDateSubscription$)
       this.optionDateSubscription$.unsubscribe();
   }
+  onChangeAgent(event: any){
 
+    this.loadListConversationAgents();
+    this.loadPerformentMonitorTotal();
+    this.loadPerformentMonitorAgents(1);
+  }
+
+  downloadAgent(){
+    
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.agentService.agentTopConversationExcel(request).subscribe(async (event) => {
+      let data = event as HttpResponse < Blob > ;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+          type: data.body?.type
+      });
+      
+      if (downloadedFile.type != "") {
+          const a = document.createElement('a');
+          a.setAttribute('style', 'display:none;');
+          document.body.appendChild(a);
+          a.download = "AgentTopConversation";
+          a.href = URL.createObjectURL(downloadedFile);
+          a.target = '_blank';
+          a.click();
+          document.body.removeChild(a);
+      }
+    });
+  }
 }
