@@ -55,4 +55,12 @@ export class ReportsAgentService {
         AppSettings.HostingAddress + '/Reports/GroupPerformentMonitor?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&type=' + data.type + '&idUser=' + data.idUser
       );
     }
+    
+    agentTopConversationExcel(data: any): Observable<any> {
+      return this.http.get(AppSettings.HostingAddress + '/Reports/AgentTopConversationExcel?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany, {
+        reportProgress: true,
+        observe: 'events',
+        responseType: 'blob'
+      });
+    }
 }

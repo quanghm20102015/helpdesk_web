@@ -47,4 +47,19 @@ export class ReportsConversationService {
       AppSettings.HostingAddress + '/Reports/Traffic?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany
     );
   }
+
+  getOverviewExcel(data: any): Observable<any> {
+    return this.http.get(AppSettings.HostingAddress + '/Reports/OverviewExcel?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
+  }
+  getLabelDistributionExcel(data: any): Observable<any> {
+    return this.http.get(AppSettings.HostingAddress + '/Reports/LabelDistributionExcel?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
+  }
 }

@@ -12,6 +12,7 @@ import { OverviewService } from 'src/app/service/overview.service';
 
 import { OverViewModel } from '../models/overview-model';
 import { PerformentTotalModel } from '../models/performent-total-model';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-conversation',
@@ -34,6 +35,7 @@ export class ConversationComponent implements OnInit {
 
   selectedFilter: any[] = [];
   listLabelFilter: any = []
+  listLabelFilterDơnload: any = []
 
   textSearch: string = '';
   idCompany: any;
@@ -495,5 +497,61 @@ export class ConversationComponent implements OnInit {
   ngOnDestroy(): void {
     if(this.optionDateSubscription$)
       this.optionDateSubscription$.unsubscribe();
+  }
+
+  downloadOverview(){
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+
+    this.conversationService.getOverviewExcel(request).subscribe(async (event) => {
+      let data = event as HttpResponse < Blob > ;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+          type: data.body?.type
+      });
+      
+      if (downloadedFile.type != "") {
+          const a = document.createElement('a');
+          a.setAttribute('style', 'display:none;');
+          document.body.appendChild(a);
+          a.download = "Overview";
+          a.href = URL.createObjectURL(downloadedFile);
+          a.target = '_blank';
+          a.click();
+          document.body.removeChild(a);
+      }
+    });
+  }
+
+  downloadTopTrendingLabel(){
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany
+    }
+    
+    this.conversationService.getLabelDistributionExcel(request).subscribe(async (event) => {
+      let data = event as HttpResponse < Blob > ;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+          type: data.body?.type
+      });
+      
+      if (downloadedFile.type != "") {
+          const a = document.createElement('a');
+          a.setAttribute('style', 'display:none;');
+          document.body.appendChild(a);
+          a.download = "TopTrendingLable";
+          a.href = URL.createObjectURL(downloadedFile);
+          a.target = '_blank';
+          a.click();
+          document.body.removeChild(a);
+      }
+    });
   }
 }

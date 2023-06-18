@@ -10,6 +10,7 @@ import { OverviewService } from 'src/app/service/overview.service';
 
 import { OverViewModel } from '../models/overview-model';
 import { LazyLoadEvent } from 'primeng/api';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-csat',
@@ -242,4 +243,35 @@ export class CsatComponent implements OnInit {
     if(this.optionDateSubscription$)
       this.optionDateSubscription$.unsubscribe();
   }
+
+  download(){
+    this.idCompany = +this.userInfoStorageService.getCompanyId()
+
+    let request = {
+      fromDate: this.fromDate,
+      toDate: this.toDate,
+      idCompany: this.idCompany,
+      pageIndex: this.pageIndex,
+      pageSize: this.pageSize
+    }
+
+    this.csatService.getResponeDetailExcel(request).subscribe(async (event) => {
+      let data = event as HttpResponse < Blob > ;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+          type: data.body?.type
+      });
+      
+      if (downloadedFile.type != "") {
+          const a = document.createElement('a');
+          a.setAttribute('style', 'display:none;');
+          document.body.appendChild(a);
+          a.download = "CsatResponeDetail";
+          a.href = URL.createObjectURL(downloadedFile);
+          a.target = '_blank';
+          a.click();
+          document.body.removeChild(a);
+      }
+    });
+  }
+
 }
