@@ -31,4 +31,11 @@ export class ReportsCsatService {
       AppSettings.HostingAddress + '/Reports/CsatResponeDetail?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize
     );
   }
+  getResponeDetailExcel(data: any): Observable<any> {
+    return this.http.get(AppSettings.HostingAddress + '/Reports/CsatResponeDetailExcel?fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&idCompany=' + data.idCompany + '&pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize, {
+      reportProgress: true,
+      observe: 'events',
+      responseType: 'blob'
+    });
+  }
 }
