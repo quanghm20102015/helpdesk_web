@@ -453,8 +453,8 @@
                                             <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
                                                 [disabled]="readonly"></ckeditor>
                                             <div class="list-file" *ngIf="item.listAttach.length > 0">
-                                                <span *ngFor="let file of item.listAttach"
-                                                    (click)="downloadDocument(file)" class="cursor-pointer">
+                                                <span *ngFor="let file of item.listAttach" (click)="viewFile(file)"
+                                                    class="cursor-pointer">
                                                     <span class="aria-fle-upload mb5" title="{{ file.name }}">
                                                         <span class="icon-file" *ngIf="file.fileType == 1">
                                                             <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
@@ -1474,4 +1474,24 @@
             </div>
         </div>
     </form>
+</p-dialog>
+
+<p-dialog [(visible)]="displayViewFile" [modal]="true" class="box-dialog" [style]="{width: '80vw'}">
+    <ngx-doc-viewer [url]="urlViewFile" viewer="google" style="width:100%;height:70vh;"></ngx-doc-viewer>
+
+    <!-- <hr>
+    <div class="office-viewer">
+        <iframe [src]='urlSafe' width='100%' height='100%' frameborder='0'></iframe>
+    </div> -->
+    <div class="modal-footer">
+        <div class="btn-groupt btn-dialog">
+            <button class="btn btn-outline-secondary btn-cancel" (click)="displayViewFile = false">
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary ml-2"
+                (click)="downloadFile()">
+                <span>Download</span>
+            </button>
+        </div>
+    </div>
 </p-dialog>

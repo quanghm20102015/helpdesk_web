@@ -19,6 +19,7 @@ import { FILETYPE, CONSTANTS } from "../../../constants/CONSTANTS";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MultiSelectFilterOptions } from 'primeng/multiselect';
 import { HttpResponse } from '@angular/common/http';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private fileService: UploadFileService,
     private _fb: FormBuilder,
+    public sanitizer: DomSanitizer
   ) { }
 
   idInterval: any;
@@ -398,7 +400,7 @@ export class DashboardComponent implements OnInit {
       result.listEmailInfo = listMess
       this.listEmailInfo = result.listEmailInfo
       this.listMessenger = [];
-      this.listEmailInfo.forEach((element,index) => {
+      this.listEmailInfo.forEach((element, index) => {
         if (element.ListAttach.length > 0) {
           element.ListAttach.forEach((file: any) => {
             FILETYPE.forEach((fileType) => {
@@ -733,27 +735,75 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+  urlViewFile: string = ""
+  urlSafe: SafeResourceUrl = {};
+  displayViewFile: boolean = false
+  fileDownload: any = {}
+  viewFile(file: any) {
+    this.displayViewFile = true
+    this.urlViewFile = AppSettings.HostingAddress + '/EmailInfoes/EmailInfoDownloadFile?fileUrl=' + file.pathFile
+    console.log(file.pathFile)
+    console.log(this.urlViewFile)
+    this.fileDownload = file
+    // this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
+    //   this.urlViewFile
+    // );
+    // this.fileUrl = file.pathFile;
+    // this.emailInfoService.documentsDownload(this.fileUrl).subscribe(async (event) => {
+    //   let data = event as HttpResponse<Blob>;
+    //   const downloadedFile = new Blob([data.body as BlobPart], {
+    //     type: data.body?.type
+    //   });
+    //   let url = window.URL.createObjectURL(downloadedFile)
+    //   if (downloadedFile.type != "") {
+    //     window.open(url)
+    //   }
+
+    // });
+  }
+
   blob: any
   fileUrl: string = ''
   async downloadDocument(file: any) {
-    this.fileUrl = file.pathFile; 
+    this.fileUrl = file.pathFile;
     this.emailInfoService.documentsDownload(this.fileUrl).subscribe(async (event) => {
-        let data = event as HttpResponse < Blob > ;
-        const downloadedFile = new Blob([data.body as BlobPart], {
-            type: data.body?.type
-        });
-        console.log("ddd", downloadedFile)
-        if (downloadedFile.type != "") {
-            const a = document.createElement('a');
-            a.setAttribute('style', 'display:none;');
-            document.body.appendChild(a);
-            a.download = this.fileUrl;
-            a.href = URL.createObjectURL(downloadedFile);
-            a.target = '_blank';
-            a.click();
-            document.body.removeChild(a);
-        }
+      let data = event as HttpResponse<Blob>;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+        type: data.body?.type
+      });
+      console.log("ddd", downloadedFile)
+      if (downloadedFile.type != "") {
+        const a = document.createElement('a');
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        a.download = this.fileUrl;
+        a.href = URL.createObjectURL(downloadedFile);
+        a.target = '_blank';
+        a.click();
+        document.body.removeChild(a);
+      }
     });
-}
+  }
+  async downloadFile() {
+    this.fileUrl = this.fileDownload.pathFile;
+    this.emailInfoService.documentsDownload(this.fileUrl).subscribe(async (event) => {
+      let data = event as HttpResponse<Blob>;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+        type: data.body?.type
+      });
+      console.log("ddd", downloadedFile)
+      if (downloadedFile.type != "") {
+        const a = document.createElement('a');
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        a.download = this.fileUrl;
+        a.href = URL.createObjectURL(downloadedFile);
+        a.target = '_blank';
+        a.click();
+        document.body.removeChild(a);
+      }
+    });
+  }
 
 }
