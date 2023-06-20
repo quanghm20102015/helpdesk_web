@@ -260,7 +260,8 @@
                                 <ng-template pTemplate>
                                     <div>
                                         <div class="action-title">Assign to</div>
-                                        <p-multiSelect [options]="listAssign" [(ngModel)]="selectedAssign"
+                                        <p-multiSelect [options]="listAssignGroup" [(ngModel)]="selectedAssign"
+                                            [group]="true" optionGroupLabel="nameTeam" optionGroupChildren="listAssign"
                                             defaultLabel="Search for Team or Agent" optionLabel="fullname"
                                             display="chip" class="multiselect-custom me-2" [showToggleAll]="false"
                                             filterPlaceHolder="Search for Team or Agent"
@@ -1477,19 +1478,16 @@
 </p-dialog>
 
 <p-dialog [(visible)]="displayViewFile" [modal]="true" class="box-dialog" [style]="{width: '80vw'}">
-    <ngx-doc-viewer [url]="urlViewFile" viewer="google" style="width:100%;height:70vh;"></ngx-doc-viewer>
-
-    <!-- <hr>
-    <div class="office-viewer">
-        <iframe [src]='urlSafe' width='100%' height='100%' frameborder='0'></iframe>
-    </div> -->
+    <ngx-doc-viewer [url]="urlViewFile" viewer="google" style="width:100%;height:70vh;" *ngIf="!isImg"></ngx-doc-viewer>
+    <div class="d-flex align-items-center justify-content-center">
+        <img [src]="urlImg" alt="" style="height:70vh;" *ngIf="isImg">
+    </div>
     <div class="modal-footer">
         <div class="btn-groupt btn-dialog">
             <button class="btn btn-outline-secondary btn-cancel" (click)="displayViewFile = false">
                 Cancel
             </button>
-            <button type="button" class="btn btn-primary ml-2"
-                (click)="downloadFile()">
+            <button type="button" class="btn btn-primary ml-2" (click)="downloadFile()">
                 <span>Download</span>
             </button>
         </div>
