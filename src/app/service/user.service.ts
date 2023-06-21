@@ -81,6 +81,13 @@ export class UserService {
       data
     );
   }
+
+  SendMailConfirmAddAgent(data: any): Observable<any> {
+    return this.http.post(
+      AppSettings.HostingAddress + '/Accounts/SendMailConfirmAddAgent',
+      data
+    );
+  }  
   
   confirmSigup(data: any): Observable<any> {
     return this.http.post(
