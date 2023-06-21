@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { UserService } from '../../../service/user.service';
 import { EmailInfoService } from 'src/app/service/emailInfo.service';
+import { LabelGroupService } from '../../../service/labelGroup.service';
 
 @Component({
   selector: 'app-menu',
@@ -23,7 +24,8 @@ export class MenuComponent implements OnInit {
     private messageService: MessageService,
     private userInfoStorageService: UserInfoStorageService,
     private userService: UserService,
-    private emailInfoService: EmailInfoService
+    private emailInfoService: EmailInfoService,
+    private labelGroupService: LabelGroupService
     
   ) { }
 
@@ -183,10 +185,10 @@ export class MenuComponent implements OnInit {
   }
 
   getListGroup() {
-    this.listGroup = [{name: 'group1', description: 'description', color: '#333333', emailInfoCount: 5}]
-    // this.groupService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
-    //   this.listGroup = result;
-    // });
+    // this.listGroup = [{name: 'group1', description: 'description', color: '#333333', emailInfoCount: 5}]
+    this.labelGroupService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
+      this.listGroup = result;
+    });
   }
 
   saveLabel() {
@@ -206,17 +208,17 @@ export class MenuComponent implements OnInit {
 
   saveGroup() {
     this.modelAddGroup.idCompany = this.userInfoStorageService.getCompanyId();
-    // this.groupService.create(this.modelAddGroup).subscribe((result) => {
-    //   if (result.status == 1) {
-    //     this.displayAddGroup = false;
-    //     this.rebuilFormAddGroup()
-    //     this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
-    //     this.getListGroup()
-    //   }
-    //   else {
-    //     this.showError(result.message);
-    //   }
-    // });
+    this.labelGroupService.create(this.modelAddGroup).subscribe((result) => {
+      if (result.status == 1) {
+        this.displayAddGroup = false;
+        this.rebuilFormAddGroup()
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
+        this.getListGroup()
+      }
+      else {
+        this.showError(result.message);
+      }
+    });
   }
 
   showError(message: any) {
