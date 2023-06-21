@@ -21,43 +21,43 @@ export class ContactsComponent implements OnInit {
     private contactService: ContactService,
     private userInfoStorageService: UserInfoStorageService,
     private messageService: MessageService,
-    ) { }
+  ) { }
 
   textSearch: string = ''
   scrollDemo: any
   contacts: any = []
   countries: any = []
   submitted: boolean = false
-  model: any = 
-  { 
-    fullname: '',
-    email: '',
-    bio: '',
-    phoneNumber: '',
-    company: '',
-    city: '',
-    country: '',
-    address: '',
-    facebook: '',
-    twitter: '',
-    linkedin: '',
-    github: ''
+  model: any =
+    {
+      fullname: '',
+      email: '',
+      bio: '',
+      phoneNumber: '',
+      company: '',
+      city: '',
+      country: '',
+      address: '',
+      facebook: '',
+      twitter: '',
+      linkedin: '',
+      github: ''
 
-    // socialProfiles: '',
-    // lastActivity: '',
-    // createAt: '',
-    // conversations: ''
-  };
+      // socialProfiles: '',
+      // lastActivity: '',
+      // createAt: '',
+      // conversations: ''
+    };
   idCompany: any
 
   file: any = {}
   formImport: FormGroup = this._fb.group({
     file: [this.file, [Validators.required]]
   })
-  
+
   form: FormGroup = this._fb.group({
     fullname: [this.model.fullname, [Validators.required]],
-    email: [this.model.email,[Validators.required, Validators.email]],
+    email: [this.model.email, [Validators.required, Validators.email]],
     bio: [this.model.bio],
     phoneNumber: [this.model.phoneNumber],
     company: [this.model.company],
@@ -68,11 +68,6 @@ export class ContactsComponent implements OnInit {
     twitter: [this.model.twitter],
     linkedin: [this.model.linkedin],
     github: [this.model.github]
-
-    // socialProfiles: [this.model.socialProfiles],
-    // lastActivity: [this.model.lastActivity],
-    // createAt: [this.model.createAt],
-    // conversations: [this.model.conversations]
   });
   idLabel: any
   ngOnInit(): void {
@@ -90,28 +85,28 @@ export class ContactsComponent implements OnInit {
     // })
   }
 
-  getAllCountry(){
+  getAllCountry() {
     this.countryService.getAllCountry().subscribe((result) => {
       this.countries = result;
     });
   }
 
-  getContact(){
-      let request = {
-        idCompany: this.idCompany,
-        idLabel: this.idLabel? this.idLabel : 0,
-        textSearch: this.textSearch
-      }
-      this.contactService.getFillter(request).subscribe((result) => {
-        this.contacts = result;
-      });
+  getContact() {
+    let request = {
+      idCompany: this.idCompany,
+      idLabel: this.idLabel ? this.idLabel : 0,
+      textSearch: this.textSearch
+    }
+    this.contactService.getFillter(request).subscribe((result) => {
+      this.contacts = result;
+    });
   }
 
-  onSubmit(){    
+  onSubmit() {
     this.submitted = true
     this.model.idCompany = this.idCompany
     this.contactService.create(this.model).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
         $("#newCOntact").modal("hide");
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add contact success' });
         this.getContact();
@@ -121,18 +116,18 @@ export class ContactsComponent implements OnInit {
     });
   }
 
-  onSubmitFile(){
+  onSubmitFile() {
 
   }
 
-  createContact(){
-    $("#newCOntact").modal("show");
+  createContact() {
+    $("#newContact").modal("show");
   }
 
-  import(){
+  import() {
     $("#import").modal("show");
   }
-    
+
   get f() {
     return this.form.controls;
   }

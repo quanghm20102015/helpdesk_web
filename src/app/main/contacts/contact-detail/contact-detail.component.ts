@@ -32,6 +32,7 @@ export class ContactDetailComponent implements OnInit {
   countries: any = []
   notes: string = ''
   listNote: any = []
+  submitted: boolean = false
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.model.id = +params['id']
@@ -42,12 +43,13 @@ export class ContactDetailComponent implements OnInit {
 
   form: FormGroup = this._fb.group({
     fullname: [this.model.fullname, [Validators.required]],
-    email: [this.model.email],
+    email: [this.model.email,[Validators.required, Validators.email]],
     bio: [this.model.bio],
     phoneNumber: [this.model.phoneNumber],
     company: [this.model.company],
     city: [this.model.city],
     country: [this.model.country],
+    address: [this.model.address],
     facebook: [this.model.facebook],
     twitter: [this.model.twitter],
     linkedin: [this.model.linkedin],
@@ -106,16 +108,18 @@ export class ContactDetailComponent implements OnInit {
       accept: () => {
         this.contactService.deleteContact(this.model.id).subscribe((result) => {
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Delete contact success' });
-          this.router.navigate(['/main/contacts/all'])
+          this.getData()
         })
       }
     });
   }
 
   onSubmitUpdate() {
+    this.submitted = true
     this.contactService.update(this.model).subscribe((result) => {
       if (result.status == 1) {
-        this.displayPosition = false
+        $("#newContact").modal("hide");
+        this.submitted = false
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update contact success' });
       }
     });
@@ -138,6 +142,14 @@ export class ContactDetailComponent implements OnInit {
     this.contactService.postContactLabel(request).subscribe((result) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update success' });
     });
+  }
+
+  createContact(){
+    $("#newContact").modal("show");
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
 }
