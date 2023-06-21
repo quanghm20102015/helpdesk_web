@@ -19,6 +19,7 @@ import { FILETYPE, CONSTANTS } from "../../../constants/CONSTANTS";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MultiSelectFilterOptions } from 'primeng/multiselect';
 import { HttpResponse } from '@angular/common/http';
+import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -44,6 +45,7 @@ export class DashboardComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private fileService: UploadFileService,
     private _fb: FormBuilder,
+    public sanitizer: DomSanitizer
   ) { }
 
   idInterval: any;
@@ -279,6 +281,7 @@ export class DashboardComponent implements OnInit {
   listMessenger: any[] = []
   listEmailInfo: any[] = []
   listAssign: any[] = []
+  listAssignGroup: any[] = []
   filteredListAssign: any[] = []
 
   onSelectChat(event: any) {
@@ -398,7 +401,7 @@ export class DashboardComponent implements OnInit {
       result.listEmailInfo = listMess
       this.listEmailInfo = result.listEmailInfo
       this.listMessenger = [];
-      this.listEmailInfo.forEach((element,index) => {
+      this.listEmailInfo.forEach((element, index) => {
         if (element.ListAttach.length > 0) {
           element.ListAttach.forEach((file: any) => {
             FILETYPE.forEach((fileType) => {
@@ -424,7 +427,9 @@ export class DashboardComponent implements OnInit {
           listAttach: element.ListAttach
         })
       });
-      this.listMessenger[0].messenger = '<p >[Subject: ' + item.subject + ']</p>' + this.listMessenger[0].textBody
+      if (this.listMessenger && this.listMessenger.length > 0) {
+        this.listMessenger[0].messenger = '<p >[Subject: ' + item.subject + ']</p>' + this.listMessenger[0].textBody
+      }
       this.viewMail = true;
 
       this.listLabelEmail = result.listLabel
@@ -435,6 +440,16 @@ export class DashboardComponent implements OnInit {
       this.listHistory = result.listHistory
       this.listFollow = result.listFollow
       this.listAssign = result.listAssign
+      this.listAssignGroup = []
+
+      const key = 'idTeam';
+      this.listAssignGroup = [...new Map(this.listAssign.map(item =>
+        [item[key], item])).values()];
+
+      // this.listAssignGroup.sort((a, b) => (b.idTeam - a.idTeam))
+      this.listAssignGroup.forEach(itemGroup => {
+        itemGroup['listAssign'] = this.listAssign.filter(x => x.idTeam == itemGroup.idTeam)
+      });
 
       if (this.mailDetails.status > 0) {
         this.statusName = this.listStatusUpdate.filter((x: { id: any; }) => x.id == this.mailDetails.status)[0].statusName
@@ -733,27 +748,81 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+
+  urlViewFile: string = ""
+  urlSafe: SafeResourceUrl = {};
+  displayViewFile: boolean = false
+  fileDownload: any = {}
+  urlImg: any
+  isImg: boolean = false
+  viewFile(file: any) {
+    this.displayViewFile = true
+    this.urlViewFile = AppSettings.HostingAddress + '/EmailInfoes/EmailInfoDownloadFile?fileUrl=' + file.pathFile
+
+    // this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(
+    //   this.urlViewFile
+    // );
+    if (file.fileType == 4) {
+      this.isImg = true
+    } else {
+      this.isImg = false
+    }
+    this.fileDownload = file
+    this.fileUrl = file.pathFile;
+    this.emailInfoService.documentsDownload(this.fileUrl).subscribe(async (event) => {
+      let data = event as HttpResponse<Blob>;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+        type: data.body?.type
+      });
+      if (downloadedFile.type != "") {
+        let url = window.URL.createObjectURL(downloadedFile)
+        this.urlImg = this.sanitizer.bypassSecurityTrustUrl(url)
+      }
+
+    });
+  }
+
   blob: any
   fileUrl: string = ''
-  async downloadDocument(file: any) {
-    this.fileUrl = file.pathFile; 
+  // async downloadDocument(file: any) {
+  //   this.fileUrl = file.pathFile;
+  //   this.emailInfoService.documentsDownload(this.fileUrl).subscribe(async (event) => {
+  //     let data = event as HttpResponse<Blob>;
+  //     const downloadedFile = new Blob([data.body as BlobPart], {
+  //       type: data.body?.type
+  //     });
+  //     console.log("ddd", downloadedFile)
+  //     if (downloadedFile.type != "") {
+  //       const a = document.createElement('a');
+  //       a.setAttribute('style', 'display:none;');
+  //       document.body.appendChild(a);
+  //       a.download = this.fileUrl;
+  //       a.href = URL.createObjectURL(downloadedFile);
+  //       a.target = '_blank';
+  //       a.click();
+  //       document.body.removeChild(a);
+  //     }
+  //   });
+  // }
+  async downloadFile() {
+    this.fileUrl = this.fileDownload.pathFile;
     this.emailInfoService.documentsDownload(this.fileUrl).subscribe(async (event) => {
-        let data = event as HttpResponse < Blob > ;
-        const downloadedFile = new Blob([data.body as BlobPart], {
-            type: data.body?.type
-        });
-        console.log("ddd", downloadedFile)
-        if (downloadedFile.type != "") {
-            const a = document.createElement('a');
-            a.setAttribute('style', 'display:none;');
-            document.body.appendChild(a);
-            a.download = this.fileUrl;
-            a.href = URL.createObjectURL(downloadedFile);
-            a.target = '_blank';
-            a.click();
-            document.body.removeChild(a);
-        }
+      let data = event as HttpResponse<Blob>;
+      const downloadedFile = new Blob([data.body as BlobPart], {
+        type: data.body?.type
+      });
+      console.log("ddd", downloadedFile)
+      if (downloadedFile.type != "") {
+        const a = document.createElement('a');
+        a.setAttribute('style', 'display:none;');
+        document.body.appendChild(a);
+        a.download = this.fileUrl;
+        a.href = URL.createObjectURL(downloadedFile);
+        a.target = '_blank';
+        a.click();
+        document.body.removeChild(a);
+      }
     });
-}
+  }
 
 }

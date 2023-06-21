@@ -80,6 +80,7 @@ import { TreeTableModule } from 'primeng/treetable';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 @NgModule({
   declarations: [
@@ -165,7 +166,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     TreeTableModule,
     VirtualScrollerModule,
     FormsModule,
-    CKEditorModule
+    CKEditorModule,
+    NgxDocViewerModule
   ],
   exports: [
     CommonModule,
@@ -248,6 +250,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     TreeTableModule,
     VirtualScrollerModule,
     CKEditorModule,
+    NgxDocViewerModule
   ],
   providers: [ConfirmationService, MessageService]
 })

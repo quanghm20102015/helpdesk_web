@@ -976,6 +976,11 @@ input#range {
     padding: 12px 34px;
 }
 
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item-group {
+    padding: 12px 34px;
+    color: rgba(0, 0, 0, 0.38);
+}
+
 .fit-chat .p-tabview .p-tabview-panels {
     padding: 0 !important;
     border-top: 1px solid #EFF0F2;

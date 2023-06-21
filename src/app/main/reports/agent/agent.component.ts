@@ -281,7 +281,7 @@ export class AgentComponent implements OnInit {
       fromDate: this.fromDate,
       toDate: this.toDate,
       idCompany: this.idCompany,
-      idUser: this.selectedGroup
+      idGroup: this.selectedGroup
     }
 
     this.agentService.groupPerformentMonitorTotal(request).subscribe((respone) => {
@@ -297,7 +297,7 @@ export class AgentComponent implements OnInit {
       toDate: this.toDate,
       idCompany: this.idCompany,
       type: _type,
-      idUser: this.selectedGroup
+      idGroup: this.selectedGroup
     }
 
     this.agentService.groupPerformentMonitor(request).subscribe((respone) => {
@@ -344,7 +344,7 @@ export class AgentComponent implements OnInit {
       this.listConversationGroups = respone.result;
 
       this.listConversationGroups.forEach((element) => {
-        this.listGroup.push({name: element.agent, value: element.idUser});
+        this.listGroup.push({name: element.groupname, value: element.idgroup});
       });
     });
   }
