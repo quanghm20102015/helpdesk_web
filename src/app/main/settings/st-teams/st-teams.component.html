@@ -122,19 +122,16 @@
     <ng-template pTemplate="header">
         <div>
             <p class="p-dialog-title">
-                {{title}} a group
-            </p>
-            <p class="text-secondary">
-                {{title}} a title and description to your group.
+                {{title}} new group
             </p>
         </div>
     </ng-template>
     <form class="row" [formGroup]="form" (ngSubmit)="onCreateUpdate()">
         <div class="col-md-12">
             <label class="label-input">
-                <span class="text-label">Group name</span>
-                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name"
-                    placeholder="Example: Sales, Customer Support" class="form-control">
+                <span class="text-label">Team name</span>
+                <input type="text" pInputText [(ngModel)]="model.name" formControlName="name" placeholder="Team name"
+                    class="form-control">
                 <div *ngIf="(f['name'].dirty || f['name'].touched || submitted) && f['name'].invalid"
                     class="text-danger">
                     <div *ngIf="f['name'].errors?.['required']">
@@ -145,9 +142,25 @@
         </div>
         <div class="col-md-12">
             <label class="label-input">
-                <span class="text-label">Group description</span>
+                <span class="text-label">Team Description</span>
                 <input type="text" pInputText [(ngModel)]="model.description" formControlName="description"
-                    placeholder="Group description" class="form-control">
+                    placeholder="Please enter group description" class="form-control">
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <span class="text-label">Add Agents</span>
+                <p-multiSelect [options]="listAgent" [(ngModel)]="model.listAgent" formControlName="listAgent"
+                    defaultLabel="Search for Team or Agent" optionLabel="fullname" optionValue="id" display="chip"
+                    class="multiselect-custom me-2" [showToggleAll]="false"
+                    filterPlaceHolder="Search for Team or Agent">
+                </p-multiSelect>
+            </label>
+        </div>
+        <div class="col-md-12">
+            <label class="label-input">
+                <p-checkbox [(ngModel)]="model.autoAssign" [binary]="true" formControlName="autoAssign"></p-checkbox>
+                Allow auto assign for this team
             </label>
         </div>
         <div class="modal-footer">

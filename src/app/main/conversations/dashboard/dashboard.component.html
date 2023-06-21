@@ -260,7 +260,8 @@
                                 <ng-template pTemplate>
                                     <div>
                                         <div class="action-title">Assign to</div>
-                                        <p-multiSelect [options]="listAssign" [(ngModel)]="selectedAssign"
+                                        <p-multiSelect [options]="listAssignGroup" [(ngModel)]="selectedAssign"
+                                            [group]="true" optionGroupLabel="nameTeam" optionGroupChildren="listAssign"
                                             defaultLabel="Search for Team or Agent" optionLabel="fullname"
                                             display="chip" class="multiselect-custom me-2" [showToggleAll]="false"
                                             filterPlaceHolder="Search for Team or Agent"
@@ -453,8 +454,8 @@
                                             <ckeditor id="message{{item.id}}" [editor]="Editor" [data]="item.messenger"
                                                 [disabled]="readonly"></ckeditor>
                                             <div class="list-file" *ngIf="item.listAttach.length > 0">
-                                                <span *ngFor="let file of item.listAttach"
-                                                    (click)="downloadDocument(file)" class="cursor-pointer">
+                                                <span *ngFor="let file of item.listAttach" (click)="viewFile(file)"
+                                                    class="cursor-pointer">
                                                     <span class="aria-fle-upload mb5" title="{{ file.name }}">
                                                         <span class="icon-file" *ngIf="file.fileType == 1">
                                                             <svg width="17" height="16" viewBox="0 0 17 16" fill="none"
@@ -1474,4 +1475,21 @@
             </div>
         </div>
     </form>
+</p-dialog>
+
+<p-dialog [(visible)]="displayViewFile" [modal]="true" class="box-dialog" [style]="{width: '80vw'}">
+    <ngx-doc-viewer [url]="urlViewFile" viewer="google" style="width:100%;height:70vh;" *ngIf="!isImg"></ngx-doc-viewer>
+    <div class="d-flex align-items-center justify-content-center">
+        <img [src]="urlImg" alt="" style="height:70vh;" *ngIf="isImg">
+    </div>
+    <div class="modal-footer">
+        <div class="btn-groupt btn-dialog">
+            <button class="btn btn-outline-secondary btn-cancel" (click)="displayViewFile = false">
+                Cancel
+            </button>
+            <button type="button" class="btn btn-primary ml-2" (click)="downloadFile()">
+                <span>Download</span>
+            </button>
+        </div>
+    </div>
 </p-dialog>

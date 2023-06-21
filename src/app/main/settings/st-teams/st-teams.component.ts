@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { TRISTATECHECKBOX_VALUE_ACCESSOR } from 'primeng/tristatecheckbox';
+import { AccountService } from 'src/app/service/account.service';
 import { TeamService } from 'src/app/service/team.service';
 
 @Component({
@@ -14,27 +16,31 @@ export class StTeamsComponent implements OnInit {
     private _fb: FormBuilder, 
     private confirmationService: ConfirmationService,
     private teamService: TeamService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private accountService: AccountService,
     ) { }
   display: boolean = false;
-  model: any = { name: '', description: '' }
   submitted: boolean = false
+  listAgent: any = []
   idCompany: number = +(localStorage.getItem('companyId') || 0);
+  model: any = { id: 0, name: '', description: '', listAgent: [],autoAssign: false  }
   form: FormGroup = this._fb.group({
     name: [this.model.name, [Validators.required]],
     description: [this.model.description],
+    listAgent: [this.model.listAgent],
+    autoAssign: [this.model.autoAssign],
   })
   listData: any = []
 
   ngOnInit(): void {
     this.getList()
-    this.rebuilForm();
+    this.rebuilForm()
+    this.getListAgent()
   }
 
   rebuilForm() {
     this.form.reset({
-      name: '',
-      description: '' 
+      id: 0, name: '', description: '', listAgent: [],autoAssign: false
     })
   }
 
@@ -42,6 +48,12 @@ export class StTeamsComponent implements OnInit {
     return this.form.controls
   }
   
+  getListAgent(){
+    this.accountService.getByIdCompany(this.idCompany).subscribe((result) => {
+      this.listAgent = result;
+    })
+  }
+
   getList() {
     if (this.idCompany != 0)
       this.teamService.getByIdCompany(this.idCompany).subscribe((result) => {
@@ -61,7 +73,10 @@ export class StTeamsComponent implements OnInit {
   showDialogUpdate(item: any) {
     this.title = 'Update'
     this.type = 2
-    this.model = { ...item }
+    this.teamService.getById(item.id).subscribe((result) => {
+      this.model = result;
+    })
+    // this.model = { ...item }
     this.display = true
   }
 
