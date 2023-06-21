@@ -1042,7 +1042,7 @@
             <label class="label-input">
                 <div class="text-label">Group Name</div>
                 <input type="text" pInputText [(ngModel)]="modelAddGroup.name" formControlName="name"
-                    placeholder="Please enter a group name" class="form-control">
+                    placeholder="Please enter group name" class="form-control">
                 <div *ngIf="(fg['name'].dirty || fg['name'].touched || submitted) && fg['name'].invalid"
                     class="text-danger">
                     <div *ngIf="fg['name'].errors?.['required']">
@@ -1066,11 +1066,11 @@
         </div>
         <div class="modal-footer">
             <div class="btn-groupt btn-dialog">
-                <button class="btn btn-outline-secondary btn-cancel" (click)="display = false">
+                <button class="btn btn-outline-secondary btn-cancel" (click)="displayAddGroup = false">
                     Cancel
                 </button>
                 <button type="button" class="btn btn-primary ml-2" [disabled]="fg['name'].errors" (click)="saveGroup()">
-                    <span>Add</span>
+                    <span>Create</span>
                 </button>
             </div>
         </div>

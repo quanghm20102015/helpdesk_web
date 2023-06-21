@@ -58,8 +58,8 @@
         </div>
     </div>
     <div class="row box-contacts">
-        <div class="col-12" style="max-height:calc(100vh - 95px);">
-            <p-table [value]="contacts" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="100%">
+        <div class="col-12 p-0" style="max-height:calc(100vh - 95px);">
+            <p-table [value]="contacts" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="100%" id="box-content">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>NAME</th>
@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<div id="newCOntact" class="modal add-contact" tabindex="-1">
+<div id="newContact" class="modal add-contact" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -187,8 +187,8 @@
                                     <span class="text-social">
                                         https://facebook.com/
                                     </span>
-                                    <input type="text" pInputText [(ngModel)]="model.facebook" formControlName="facebook"
-                                        placeholder="..." class="form-control">
+                                    <input type="text" pInputText [(ngModel)]="model.facebook"
+                                        formControlName="facebook" placeholder="..." class="form-control">
                                 </div>
                                 <div class="d-flex align-items-center mb-2">
                                     <span class="text-social">
@@ -201,8 +201,8 @@
                                     <span class="text-social">
                                         https://linkedin.com/
                                     </span>
-                                    <input type="text" pInputText [(ngModel)]="model.linkedin" formControlName="linkedin"
-                                        placeholder="..." class="form-control">
+                                    <input type="text" pInputText [(ngModel)]="model.linkedin"
+                                        formControlName="linkedin" placeholder="..." class="form-control">
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <span class="text-social">
