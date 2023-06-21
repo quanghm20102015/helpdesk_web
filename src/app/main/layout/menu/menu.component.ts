@@ -7,6 +7,7 @@ import { MessageService } from 'primeng/api';
 import { UserInfoStorageService } from '../../../service/user-info-storage.service';
 import { UserService } from '../../../service/user.service';
 import { EmailInfoService } from 'src/app/service/emailInfo.service';
+import { LabelGroupService } from '../../../service/labelGroup.service';
 
 @Component({
   selector: 'app-menu',
@@ -23,7 +24,8 @@ export class MenuComponent implements OnInit {
     private messageService: MessageService,
     private userInfoStorageService: UserInfoStorageService,
     private userService: UserService,
-    private emailInfoService: EmailInfoService
+    private emailInfoService: EmailInfoService,
+    private labelGroupService: LabelGroupService
     
   ) { }
 
@@ -41,7 +43,7 @@ export class MenuComponent implements OnInit {
     this.getListLabel()
     this.getListGroup()
     this.getListUser()
-    this.getMenuCount()    
+    this.getMenuCount()
     this.idIntervalCountMenu = setInterval(() => {
       this.getMenuCount();
     }, 60000);
@@ -98,7 +100,7 @@ export class MenuComponent implements OnInit {
     yourName: [this.modelChannel.yourName, [Validators.required]],
     email: [this.modelChannel.email, [Validators.required, Validators.email]],
   });
-  
+
   modelNewConversation: any = {
     selectedCategory: 1,
     username: '',
@@ -110,9 +112,9 @@ export class MenuComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
   }
-  
+
   emailInfoCount: any = {}
-  getMenuCount(){
+  getMenuCount() {
     let request = {
       idCompany: this.idCompany,
       idUser: this.idUser
@@ -183,10 +185,10 @@ export class MenuComponent implements OnInit {
   }
 
   getListGroup() {
-    this.listGroup = [{name: 'group1', description: 'description', color: '#333333', emailInfoCount: 5}]
-    // this.groupService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
-    //   this.listGroup = result;
-    // });
+    // this.listGroup = [{name: 'group1', description: 'description', color: '#333333', emailInfoCount: 5}]
+    this.labelGroupService.getMenuByIdCompany(this.idCompany).subscribe((result) => {
+      this.listGroup = result;
+    });
   }
 
   saveLabel() {
@@ -206,17 +208,17 @@ export class MenuComponent implements OnInit {
 
   saveGroup() {
     this.modelAddGroup.idCompany = this.userInfoStorageService.getCompanyId();
-    // this.groupService.create(this.modelAddGroup).subscribe((result) => {
-    //   if (result.status == 1) {
-    //     this.displayAddGroup = false;
-    //     this.rebuilFormAddGroup()
-    //     this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
-    //     this.getListGroup()
-    //   }
-    //   else {
-    //     this.showError(result.message);
-    //   }
-    // });
+    this.labelGroupService.create(this.modelAddGroup).subscribe((result) => {
+      if (result.status == 1) {
+        this.displayAddGroup = false;
+        this.rebuilFormAddGroup()
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
+        this.getListGroup()
+      }
+      else {
+        this.showError(result.message);
+      }
+    });
   }
 
   showError(message: any) {
@@ -247,7 +249,7 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  onLogout(){
+  onLogout() {
     localStorage.clear();
     this.router.navigate(['/login'])
   }
@@ -280,12 +282,12 @@ export class MenuComponent implements OnInit {
     });
   }
 
-  toSetting(){
+  toSetting() {
     this.displayChooseChannel3 = false
     this.router.navigate(['/main/settings/inboxes'])
   }
 
-  toTakeMe(){
+  toTakeMe() {
     this.displayChooseChannel3 = false
     // this.router.navigate(['/main/settings/inboxes'])
   }
@@ -296,14 +298,14 @@ export class MenuComponent implements OnInit {
   //   });
   //   this.submitted = true
   // }
-  
+
   ngOnDestroy() {
     if (this.idIntervalCountMenu) {
       clearInterval(this.idIntervalCountMenu);
     }
   }
 
-  
+
   selectedLabel: any[] = []
   selectedAssign: any[] = []
   selectedFollow: any[] = []
@@ -321,9 +323,9 @@ export class MenuComponent implements OnInit {
 
   selectedCategory: any = null;
 
-  categories: any[] = [{name: 'End user', value: 1}, {name: 'Member', value: 2}];
+  categories: any[] = [{ name: 'End user', value: 1 }, { name: 'Member', value: 2 }];
 
-  saveConversation(){
+  saveConversation() {
     this.modelNewConversation
     this.modelNewConversation.listAgent = this.selectedAgent
     this.modelNewConversation.listLabel = this.selectedLabel
@@ -333,15 +335,15 @@ export class MenuComponent implements OnInit {
     this.modelNewConversation.idConfigEmail = 5
 
     this.emailInfoService.newConversation(this.modelNewConversation).subscribe((result) => {
-      if(result.status == 1){
+      if (result.status == 1) {
         this.displayNewConvesation = false
       }
     });
   }
 
-  newConversation(){
+  newConversation() {
     this.displayNewConvesation = true;
-    
+
     this.modelNewConversation = {
       selectedCategory: 1,
       username: '',

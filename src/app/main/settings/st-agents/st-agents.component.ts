@@ -102,7 +102,7 @@ export class StAgentsComponent implements OnInit {
   }
   
   sendMailConfirm(request: any){    
-    this.userService.sendMailConfirm(request).subscribe((result) => {
+    this.userService.SendMailConfirmAddAgent(request).subscribe((result) => {
       if(result.status == 1){
       }
       else{
