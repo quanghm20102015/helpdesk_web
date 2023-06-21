@@ -209,7 +209,7 @@ export class MenuComponent implements OnInit {
   saveGroup() {
     this.modelAddGroup.idCompany = this.userInfoStorageService.getCompanyId();
     this.labelGroupService.create(this.modelAddGroup).subscribe((result) => {
-      if (result.status == 1) {
+      if (result.id != 0) {
         this.displayAddGroup = false;
         this.rebuilFormAddGroup()
         this.messageService.add({ severity: 'success', summary: 'Success', detail: "Add label success" });
