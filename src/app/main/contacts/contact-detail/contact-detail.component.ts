@@ -119,6 +119,7 @@ export class ContactDetailComponent implements OnInit {
     this.contactService.update(this.model).subscribe((result) => {
       if (result.status == 1) {
         $("#newContact").modal("hide");
+        this.getData()
         this.submitted = false
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update contact success' });
       }
