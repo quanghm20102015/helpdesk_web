@@ -1,0 +1,60 @@
+
+.contact-info--header{
+    font-size: 16px;
+    font-weight: 600;
+    color: #343436;
+}
+
+.btn-edit{
+    font-weight: 500;
+    font-size: 13px;
+    color: #3A69DB;
+}
+
+.contact-label{
+    font-size: 13px;
+    font-weight: 500;
+    color: #7C7C7E;
+}
+
+.contact-value{
+    font-size: 13px;
+    font-weight: 600;
+    color: #343436;
+}
+
+.box-note-contect{
+    padding: 16px;
+    border-left: 1px solid #E6E6E8;
+    position: relative;
+}
+
+.box-note-input{
+
+}
+
+.text-social{
+    padding: 12px 8px;
+    background: #E7EAF9;
+    margin-right: 4px;
+    border-radius: 8px;
+    min-width: 144px;
+    font-size: 12px;
+}
+
+.title-note{
+    margin-bottom: 24px;
+}
+
+.item-note{
+    background: #FFE0B6;
+    border-radius: 20px 20px 0px 20px;
+    padding: 12px 16px 12px 16px;
+    margin-bottom: 10px;
+}
+
+.item-note .p-inputtextarea.p-inputtext.p-component{
+    background: none;
+    border: none;
+    opacity: 1;
+}
