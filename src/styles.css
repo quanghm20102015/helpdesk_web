@@ -598,6 +598,7 @@ body {
 .box-detail-contact {
     border-right: 1px solid #f1f5f8;
     min-height: 100vh;
+    padding: 25px;
 }
 
 .p-button-danger.p-button.p-component.p-button-icon-only {

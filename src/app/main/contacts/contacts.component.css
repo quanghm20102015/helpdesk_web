@@ -4,16 +4,10 @@
     padding: 15px;
 }
 .transparent-contact{
-    background-color: transparent;
-    border-color: transparent;
-    color: #00a200;
-    padding: 15px;
+    height: 32px;
 }
 .transparent-import{
-    background-color: transparent;
-    border-color: transparent;
-    color: #135899;
-    padding: 15px;
+    height: 32px;
 }
 .text-social{
     padding: 12px 8px;
@@ -25,8 +19,15 @@
 }
 
 .box-contacts{
-    margin: 4px;
+    margin: 0px 4px 4px 4px;
     background: white;
-    border-radius: 12px;
+    border-radius: 0 0 12px 12px;
     overflow: hidden;
+    margin-top: 0;
+}
+.header-contact{
+    margin: 4px 4px 0px 4px;
+    background: #FFFFFF;
+    border-radius: 12px 12px 0 0;
+    border-bottom: 1px solid #E6E6E8;
 }

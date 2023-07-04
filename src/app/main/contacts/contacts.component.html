@@ -1,65 +1,71 @@
 <div class="p-3 box-container" style="overflow: hidden">
-    <div class="row ms-3">
+    <div class="row header-contact">
         <div class="col-md-6">
-            <h3 title="Contacts" class="page-title p-10">
-                Contacts
-            </h3>
+            <div class="search">
+                <a class="search--link">
+                    <span class="p-input-icon-left py-3 w-100">
+                        <i class="pi pi-search"></i>
+                        <input type="text" pInputText [(ngModel)]="textSearch" placeholder="Search"
+                            (keyup.enter)="getContact()">
+                    </span>
+                </a>
+            </div>
         </div>
-        <div class="col-md-6">
-            <div class="d-flex justify-content-end">
-                <div class="search">
-                    <a class="search--link">
-                        <span class="p-input-icon-left py-3 w-100">
-                            <i class="pi pi-search"></i>
-                            <input type="text" pInputText [(ngModel)]="textSearch" placeholder="Search"
-                                (keyup.enter)="getContact()">
-                        </span>
-                    </a>
-                </div>
+        <div class="col-md-6 text-middle">
+            <div class="d-flex justify-content-end align-items-center">
 
                 <!-- <button class="transparent" type="submit">
-                <svg data-v-2beb9cd3="" width="16" height="16" fill="none"
-                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon icon--font filter">
-                    <path
-                        d="M13.5 16a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h3Zm3-5a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1 0-1.5h9Zm3-5a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1 0-1.5h15Z"
-                        fill="currentColor">
-                    </path>
-                </svg>
-                <span class="button__content">
-                    Filter
-                </span>
-            </button> -->
-
-                <button class="transparent-contact" type="submit" (click)="createContact()">
-                    <svg width="16" height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                        class="icon icon--font person-add">
+                    <svg data-v-2beb9cd3="" width="16" height="16" fill="none"
+                        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon icon--font filter">
                         <path
-                            d="M17.5 12a5.5 5.5 0 1 1 0 11a5.5 5.5 0 0 1 0-11zm-5.477 2a6.47 6.47 0 0 0-.709 1.5H4.253a.749.749 0 0 0-.75.75v.577c0 .535.192 1.053.54 1.46c1.253 1.469 3.22 2.214 5.957 2.214c.597 0 1.157-.035 1.68-.106c.246.495.553.954.912 1.367c-.795.16-1.66.24-2.592.24c-3.146 0-5.532-.906-7.098-2.74a3.75 3.75 0 0 1-.898-2.435v-.578A2.249 2.249 0 0 1 4.253 14h7.77zm5.477 0l-.09.008a.5.5 0 0 0-.402.402L17 14.5V17h-2.496l-.09.008a.5.5 0 0 0-.402.402l-.008.09l.008.09a.5.5 0 0 0 .402.402l.09.008H17L17 20.5l.008.09a.5.5 0 0 0 .402.402l.09.008l.09-.008a.5.5 0 0 0 .402-.402L18 20.5V18h2.504l.09-.008a.5.5 0 0 0 .402-.402l.008-.09l-.008-.09a.5.5 0 0 0-.402-.402l-.09-.008H18L18 14.5l-.008-.09a.5.5 0 0 0-.402-.402L17.5 14zM10 2.005a5 5 0 1 1 0 10a5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7z"
+                            d="M13.5 16a.75.75 0 0 1 0 1.5h-3a.75.75 0 0 1 0-1.5h3Zm3-5a.75.75 0 0 1 0 1.5h-9a.75.75 0 0 1 0-1.5h9Zm3-5a.75.75 0 0 1 0 1.5h-15a.75.75 0 0 1 0-1.5h15Z"
                             fill="currentColor">
                         </path>
                     </svg>
                     <span class="button__content">
+                        Filter
+                    </span>
+                </button> -->
+
+                <button class="transparent-import btn btn-outline-secondary me-2" type="submit" (click)="import()">
+                    <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_1769_2739)">
+                            <path
+                                d="M5.88736 3.67018L7.83799 1.71887L7.83333 12.0107C7.83333 12.3789 8.13179 12.6774 8.49998 12.6774C8.86816 12.6774 9.16662 12.3789 9.16662 12.0107L9.17128 1.73022L11.1126 3.67218C11.3774 3.92796 11.7995 3.92065 12.0552 3.65581C12.3048 3.39747 12.3048 2.98788 12.0552 2.72954L9.91461 0.586233C9.13381 -0.195067 7.86752 -0.195473 7.08622 0.585327C7.0859 0.58564 7.08562 0.585921 7.08531 0.586233L4.94468 2.72754C4.68891 2.99238 4.69622 3.41441 4.96106 3.67018C5.2194 3.91971 5.62899 3.91971 5.88736 3.67018Z"
+                                fill="currentColor" />
+                            <path
+                                d="M15.8332 10.6666C15.465 10.6666 15.1665 10.965 15.1665 11.3332V13.9998C15.1665 14.368 14.8681 14.6665 14.4999 14.6665H2.50006C2.13188 14.6665 1.83341 14.368 1.83341 13.9998V11.3332C1.83341 10.965 1.53495 10.6666 1.16677 10.6666C0.798586 10.6666 0.500122 10.965 0.500122 11.3332V13.9998C0.500122 15.1044 1.39555 15.9998 2.50009 15.9998H14.4999C15.6044 15.9998 16.4999 15.1044 16.4999 13.9998V11.3332C16.4998 10.965 16.2013 10.6666 15.8332 10.6666Z"
+                                fill="currentColor" fill-opacity="0.87" />
+                        </g>
+                        <defs>
+                            <clipPath id="clip0_1769_2739">
+                                <rect width="16" height="16" fill="white" transform="translate(0.5)" />
+                            </clipPath>
+                        </defs>
+                    </svg>
+
+                    <span class="button__content">
+                        Import
+                    </span>
+                </button>
+                <button class="transparent-contact btn btn-primary" type="submit" (click)="createContact()">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M11.3333 7.33333H8.66667V4.66667C8.66667 4.48986 8.59643 4.32029 8.4714 4.19526C8.34638 4.07024 8.17681 4 8 4C7.82319 4 7.65362 4.07024 7.5286 4.19526C7.40357 4.32029 7.33333 4.48986 7.33333 4.66667V7.33333H4.66667C4.48986 7.33333 4.32029 7.40357 4.19526 7.5286C4.07024 7.65362 4 7.82319 4 8C4 8.17681 4.07024 8.34638 4.19526 8.4714C4.32029 8.59643 4.48986 8.66667 4.66667 8.66667H7.33333V11.3333C7.33333 11.5101 7.40357 11.6797 7.5286 11.8047C7.65362 11.9298 7.82319 12 8 12C8.17681 12 8.34638 11.9298 8.4714 11.8047C8.59643 11.6797 8.66667 11.5101 8.66667 11.3333V8.66667H11.3333C11.5101 8.66667 11.6797 8.59643 11.8047 8.4714C11.9298 8.34638 12 8.17681 12 8C12 7.82319 11.9298 7.65362 11.8047 7.5286C11.6797 7.40357 11.5101 7.33333 11.3333 7.33333Z"
+                            fill="white" />
+                    </svg>
+
+                    <span class="button__content">
                         New Contact
                     </span>
                 </button>
-                <!-- <button class="transparent-import" type="submit" (click)="import()">
-                <svg width="16"
-                    height="16" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                    class="icon icon--font upload">
-                    <path
-                        d="M6.087 7.75a5.752 5.752 0 0 1 11.326 0h.087a4 4 0 0 1 3.962 4.552 6.534 6.534 0 0 0-1.597-1.364A2.501 2.501 0 0 0 17.5 9.25h-.756a.75.75 0 0 1-.75-.713 4.25 4.25 0 0 0-8.489 0 .75.75 0 0 1-.749.713H6a2.5 2.5 0 0 0 0 5h4.4a6.458 6.458 0 0 0-.357 1.5H6a4 4 0 0 1 0-8h.087ZM22 16.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0Zm-6-1.793V19.5a.5.5 0 0 0 1 0v-4.793l1.646 1.647a.5.5 0 0 0 .708-.708l-2.5-2.5a.5.5 0 0 0-.708 0l-2.5 2.5a.5.5 0 0 0 .708.708L16 14.707Z"
-                        fill="currentColor"></path>
-                </svg>
-                <span class="button__content">
-                    Import
-                </span>
-            </button> -->
             </div>
         </div>
     </div>
     <div class="row box-contacts">
         <div class="col-12 p-0" style="max-height:calc(100vh - 95px);">
-            <p-table [value]="contacts" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="100%" id="box-content">
+            <p-table [value]="contacts" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true" scrollHeight="100%"
+                id="box-content">
                 <ng-template pTemplate="header">
                     <tr>
                         <th>NAME</th>
@@ -135,13 +141,6 @@
                                 </div>
                             </div>
                         </label>
-                        <!-- <label class="input-container">
-                            <span>Bio</span>
-                            <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.bio" formControlName="bio"
-                                    placeholder="Bio" class="form-control">
-                            </div>
-                        </label> -->
                         <label class="input-container">
                             <span>Phone number</span>
                             <div class="group-input">
@@ -226,32 +225,30 @@
 </div>
 
 
-<div id="import" class="modal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Import Contacts</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="content-box">
-                    <form [formGroup]="formImport" (ngSubmit)="onSubmitFile()">
-                        <p>
-                            Import contacts through a CSV file. Download a sample csv.
-                        </p>
-                        <label class="input-container">
-                            <span>CSV File</span>
-                            <div class="group-input">
-                                <button type="button" class="btn" style="border-color: black;">Choose file</button>
-                            </div>
+<p-dialog id="import" [(visible)]="displayImport">
+    <ng-template pTemplate="header">
+        Import Contacts
+    </ng-template>
+    <div class="dialog-body">
+        <div class="content-box">
+            <form [formGroup]="formImport" (ngSubmit)="onSubmitFile()">
+                <p>
+                    Import contacts through a CSV file. <a href="">Download a sample csv here.</a>
+                </p>
+                <label class="input-container">
+                    <span>CSV File</span>
+                    <div class="group-input">
+                        <label for="fileImport" class="btn" style="border-color: black;">
+                            Choose file
                         </label>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            </div>
+                    </div>
+                    <input type="file" id="fileImport" style="visibility: hidden;">
+                </label>
+            </form>
         </div>
     </div>
-</div>
+    <div class="dialog-footer d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary me-3" (click)="displayImport = false">Cancel</button>
+        <button type="button" class="btn btn-primary">Create</button>
+    </div>
+</p-dialog>
