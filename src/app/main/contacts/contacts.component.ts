@@ -28,6 +28,7 @@ export class ContactsComponent implements OnInit {
   contacts: any = []
   countries: any = []
   submitted: boolean = false
+  displayImport: boolean = false
   model: any =
     {
       fullname: '',
@@ -125,7 +126,7 @@ export class ContactsComponent implements OnInit {
   }
 
   import() {
-    $("#import").modal("show");
+    this.displayImport = true
   }
 
   get f() {
