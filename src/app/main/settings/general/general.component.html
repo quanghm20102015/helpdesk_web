@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 profile--settings pt-80 px-30">
+            <div class="col-md-12 profile--settings px-30">
                 <form [formGroup]="formTab1" *ngIf="tab==1">
                     <div class="row border-bottom">
                         <div class="col-md-3">
@@ -166,11 +166,11 @@
                         <div class="col-md-5 col-sm-9">
                             <label class="d-block mb-3">
                                 Message Signature
-                                <textarea pInputTextarea [(ngModel)]="note" [autoResize]="true" class="item-note"
+                                <textarea pInputTextarea [(ngModel)]="model.signature" [autoResize]="true" class="item-note"
                                     [disabled]="true"></textarea>
                             </label>
                             <label class="d-block my-3">
-                                <div class="btn btn-primary">
+                                <div class="btn btn-primary" (click)="saveSignature()">
                                     Save message signature
                                 </div>
                             </label>
@@ -185,20 +185,20 @@
                         </div>
                         <div class="col-md-9 col-sm-9">
                             <label class="d-block mb-3">
-                                <form [formGroup]="formChangePassword">
-                                    <div class="item-label">
+                                <form [formGroup]="formChangePassword" (ngSubmit)="onChangePassword()">
+                                    <div class="item-label mb-3">
                                         <label class="text-label">Current password</label>
                                         <input type="password" pInputText placeholder="Current password"
                                             class="form-control" [(ngModel)]="modelChangePassword.passworkOld"
                                             formControlName="passworkOld">
                                     </div>
-                                    <div class="item-label">
+                                    <div class="item-label mb-3">
                                         <label class="text-label">New password</label>
                                         <input type="password" pInputText placeholder="New password"
                                             class="form-control" [(ngModel)]="modelChangePassword.passwordNew"
                                             formControlName="passwordNew">
                                     </div>
-                                    <div class="item-label">
+                                    <div class="item-label mb-3">
                                         <label class="text-label">Confirm new password</label>
                                         <input type="password" pInputText placeholder="Confirm new password"
                                             class="form-control" [(ngModel)]="modelChangePassword.passwordNewConfirm"
