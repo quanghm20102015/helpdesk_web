@@ -118,44 +118,46 @@
                     </div>
                 </form>
 
-                <form [formGroup]="formProfile" *ngIf="tab==2">
-                    <div class="row border-bottom">
-                        <div class="col-md-3">
-                            <h4 class="block-title">
-                                Profile
-                            </h4>
-                            Your email address is your identity and is used to log in.
-                        </div>
-                        <div class="col-md-9 col-sm-9">
-                            <label class="d-block mb-3">
-                                Full name
-                                <input type="text" pInputText [(ngModel)]="model.fullName" formControlName="fullName"
-                                    placeholder="Full name" class="form-control">
-                                <div *ngIf="(fProfile['fullName'].dirty || fProfile['fullName'].touched || submitted) && fProfile['fullName'].invalid"
-                                    class="text-danger">
-                                    <div *ngIf="fProfile['fullName'].errors?.['fullName']">
-                                        Please enter a valid full name
+                <div *ngIf="tab==2">
+                    <form [formGroup]="formProfile">
+                        <div class="row border-bottom">
+                            <div class="col-md-3">
+                                <h4 class="block-title">
+                                    Profile
+                                </h4>
+                                Your email address is your identity and is used to log in.
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <label class="d-block mb-3">
+                                    Full name
+                                    <input type="text" pInputText [(ngModel)]="model.fullName"
+                                        formControlName="fullName" placeholder="Full name" class="form-control">
+                                    <div *ngIf="(fProfile['fullName'].dirty || fProfile['fullName'].touched || submitted) && fProfile['fullName'].invalid"
+                                        class="text-danger">
+                                        <div *ngIf="fProfile['fullName'].errors?.['fullName']">
+                                            Please enter a valid full name
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                            <label class="d-block mb-3">
-                                Display name
-                                <input type="text" pInputText [(ngModel)]="model.fullName" formControlName="displayName"
-                                    placeholder="Display name" class="form-control">
-                                <div *ngIf="(fProfile['displayName'].dirty || fProfile['displayName'].touched || submitted) && fProfile['displayName'].invalid"
-                                    class="text-danger">
-                                    <div *ngIf="fProfile['displayName'].errors?.['displayName']">
-                                        Please enter a valid full name
+                                </label>
+                                <label class="d-block mb-3">
+                                    Display name
+                                    <input type="text" pInputText [(ngModel)]="model.fullName"
+                                        formControlName="displayName" placeholder="Display name" class="form-control">
+                                    <div *ngIf="(fProfile['displayName'].dirty || fProfile['displayName'].touched || submitted) && fProfile['displayName'].invalid"
+                                        class="text-danger">
+                                        <div *ngIf="fProfile['displayName'].errors?.['displayName']">
+                                            Please enter a valid full name
+                                        </div>
                                     </div>
-                                </div>
-                            </label>
-                            <label class="d-block my-3">
-                                <div class="btn btn-primary">
-                                    Update Profile
-                                </div>
-                            </label>
+                                </label>
+                                <label class="d-block my-3">
+                                    <div class="btn btn-primary">
+                                        Update Profile
+                                    </div>
+                                </label>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                     <div class="row border-bottom">
                         <div class="col-md-3">
                             <h4 class="block-title">
@@ -166,8 +168,8 @@
                         <div class="col-md-5 col-sm-9">
                             <label class="d-block mb-3">
                                 Message Signature
-                                <textarea pInputTextarea [(ngModel)]="model.signature" [autoResize]="true" class="item-note"
-                                    [disabled]="true"></textarea>
+                                <textarea pInputTextarea [(ngModel)]="model.signature" [autoResize]="true"
+                                    class="item-note"></textarea>
                             </label>
                             <label class="d-block my-3">
                                 <div class="btn btn-primary" (click)="saveSignature()">
@@ -213,7 +215,7 @@
                             </label>
                         </div>
                     </div>
-                </form>
+                </div>
 
                 <div *ngIf="tab==3">
                     <div class="row border-bottom mt-2">

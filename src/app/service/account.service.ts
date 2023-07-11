@@ -66,7 +66,7 @@ export class AccountService {
 
   updateSignature(data: any) {
     return this.http.put(
-      AppSettings.HostingAddress + '/UpdateSignature',
+      AppSettings.HostingAddress + '/Accounts/UpdateSignature',
       data
     );
   }
