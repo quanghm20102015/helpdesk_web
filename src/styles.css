@@ -260,6 +260,10 @@ input.p-inputtext {
     min-width: 130px;
 }
 
+.p-dropdown{
+    width: 100%;
+}
+
 .header-actions-wrap .p-dropdown .p-dropdown-trigger {
     color: #FFFFFF;
 }
@@ -559,14 +563,18 @@ body {
     margin-bottom: 5px;
 }
 
-.contact-actions button {
-    margin-left: 5px;
-    width: 30px !important;
-    height: 28px;
+.contact-actions {
+    color: red;
+    padding-right: 25px;
+    cursor: pointer;
 }
 
 .btn-back-contacts:active {
     border: none;
+}
+
+.btn-back-contacts{    
+    padding-left: 0;
 }
 
 .contact--details .contact--metadata svg {
@@ -593,12 +601,6 @@ body {
 
 .pointer {
     cursor: pointer;
-}
-
-.box-detail-contact {
-    border-right: 1px solid #f1f5f8;
-    min-height: 100vh;
-    padding: 25px;
 }
 
 .p-button-danger.p-button.p-component.p-button-icon-only {

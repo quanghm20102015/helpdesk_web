@@ -1,75 +1,357 @@
-<div class="container-fluid">
-    <div class="settings-header">
-        <div class="row bg-white">
-            <div class="col-12 col-header">
-                <h3 class="page-title mb-0">
-                    <svg width="20" height="20" fill="none" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
-                        class="icon briefcase header--icon">
-                        <path
-                            d="M8.75 3h6.5a.75.75 0 0 1 .743.648L16 3.75V7h1.75A3.25 3.25 0 0 1 21 10.25v6.5A3.25 3.25 0 0 1 17.75 20H6.25A3.25 3.25 0 0 1 3 16.75v-6.5A3.25 3.25 0 0 1 6.25 7H8V3.75a.75.75 0 0 1 .648-.743L8.75 3h6.5-6.5Zm9 5.5H6.25a1.75 1.75 0 0 0-1.75 1.75v6.5c0 .966.784 1.75 1.75 1.75h11.5a1.75 1.75 0 0 0 1.75-1.75v-6.5a1.75 1.75 0 0 0-1.75-1.75Zm-3.25-4h-5V7h5V4.5Z"
-                            fill="currentColor">
-                        </path>
-                    </svg>
-                    <span class="ms-2">Account settings</span>
-                </h3>
-
-                <button type="submit" class="btn btn-success">
-                    <span>Update settings</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12 profile--settings pt-80 px-30">
-        <form [formGroup]="form">
-            <div class="row">
-                <div class="col-md-3 text-middle">
-                    <h4 class="block-title">
-                        General settings
-                    </h4>
-                </div>
-                <div class="col-md-5 col-sm-9">
-                    <label class="d-block mb-3">
-                        Account name
-                        <input type="text" pInputText [(ngModel)]="model.username" formControlName="username"
-                            placeholder="Account name" class="form-control">
-                        <div *ngIf="(f['username'].dirty || f['username'].touched || submitted) && f['username'].invalid"
-                            class="text-danger">
-                            <div *ngIf="f['username'].errors?.['username']">
-                                Please enter a valid account name
+<div class="d-flex container-box">
+    <div class="w-100">
+        <div class="container-fluid">
+            <div class="settings-header">
+                <div class="row bg-white border-bottom">
+                    <div class="col-12 col-header">
+                        <h3 class="page-title mb-0">
+                            <svg width="20" height="20" fill="none" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg" class="icon briefcase header--icon">
+                                <path
+                                    d="M8.75 3h6.5a.75.75 0 0 1 .743.648L16 3.75V7h1.75A3.25 3.25 0 0 1 21 10.25v6.5A3.25 3.25 0 0 1 17.75 20H6.25A3.25 3.25 0 0 1 3 16.75v-6.5A3.25 3.25 0 0 1 6.25 7H8V3.75a.75.75 0 0 1 .648-.743L8.75 3h6.5-6.5Zm9 5.5H6.25a1.75 1.75 0 0 0-1.75 1.75v6.5c0 .966.784 1.75 1.75 1.75h11.5a1.75 1.75 0 0 0 1.75-1.75v-6.5a1.75 1.75 0 0 0-1.75-1.75Zm-3.25-4h-5V7h5V4.5Z"
+                                    fill="currentColor">
+                                </path>
+                            </svg>
+                            <span class="ms-2">Account settings</span>
+                        </h3>
+                    </div>
+                    <div class="col-12 col-header mb-2">
+                        <div class="tab-setting">
+                            <div class="tab-item" [ngClass]="{'active': tab==1}" (click)="selectTab(1)">
+                                General
+                            </div>
+                            <div class="tab-item" [ngClass]="{'active': tab==2}" (click)="selectTab(2)">
+                                Profile
+                            </div>
+                            <div class="tab-item" [ngClass]="{'active': tab==3}" (click)="selectTab(3)">
+                                Notification
                             </div>
                         </div>
-                    </label>
-                    <label class="d-block">
-                        Number of days after a ticket should auto resolve if there is no activity
-                        <input type="number" pInputText [(ngModel)]="model.dayResolve" formControlName="dayResolve"
-                            placeholder="Number of days after a ticket should auto resolve" class="form-control">
-                        <div *ngIf="(f['dayResolve'].dirty || f['dayResolve'].touched || submitted) && f['dayResolve'].invalid"
-                            class="text-danger">
-                            <div *ngIf="f['dayResolve'].errors?.['dayResolve']">
-                                Please enter a valid account name
-                            </div>
-                        </div>
-                    </label>
-                </div>
-            </div>
-            <div class="row align-items-center mt-4">
-                <div class="col-md-3">
-                    <h4 class="block-title">
-                        Account ID
-                    </h4>
-                    <p>
-                        This ID is required if you are building an API based integration
-                    </p>
-                </div>
-                <div class="col-md-5 col-sm-9">
-                    <div class="d">
-                        <code class="hljs javascript"><span class="hljs-number">{{model.idUser}}</span></code>
                     </div>
                 </div>
             </div>
-            <div class="current-version text-center py-4">
-                <div>v1.2.0</div>
+            <div class="col-md-12 profile--settings px-30">
+                <form [formGroup]="formTab1" *ngIf="tab==1">
+                    <div class="row border-bottom">
+                        <div class="col-md-3">
+                            <h4 class="block-title">
+                                Account Information
+                            </h4>
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <label class="d-block mb-3">
+                                Account name
+                                <input type="text" pInputText [(ngModel)]="model.username" formControlName="username"
+                                    placeholder="Account name" class="form-control">
+                                <div *ngIf="(f1['username'].dirty || f1['username'].touched || submitted) && f1['username'].invalid"
+                                    class="text-danger">
+                                    <div *ngIf="f1['username'].errors?.['username']">
+                                        Please enter a valid account name
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="d-block mb-3">
+                                Language
+                                <p-dropdown [options]="listLanguage" [(ngModel)]="model.groupLabel" display="chip"
+                                    defaultLabel="Select Language" optionLabel="name" optionValue="id"
+                                    [showClear]="true" placeholder="Select Language" class="multiselect-custom me-2"
+                                    formControlName="language" [filter]="true" filterBy="name">
+                                </p-dropdown>
+                            </label>
+                            <label class="d-block mb-3">
+                                Company name
+                                <input type="text" pInputText [(ngModel)]="model.companyName"
+                                    formControlName="companyName" placeholder="Company name" class="form-control">
+                                <div *ngIf="(f1['companyName'].dirty || f1['companyName'].touched || submitted) && f1['companyName'].invalid"
+                                    class="text-danger">
+                                    <div *ngIf="f1['companyName'].errors?.['companyName']">
+                                        Please enter a valid account name
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="d-block mb-3">
+                                Work email address
+                                <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
+                                    placeholder="Email" class="form-control">
+                            </label>
+                            <label class="d-block">
+                                Number of days after a ticket should auto resolve if there is o activity
+                                <input type="number" pInputText [(ngModel)]="model.dayResolve"
+                                    formControlName="dayResolve"
+                                    placeholder="Number of days after a ticket should auto resolve"
+                                    class="form-control">
+                                <div *ngIf="(f1['dayResolve'].dirty || f1['dayResolve'].touched || submitted) && f1['dayResolve'].invalid"
+                                    class="text-danger">
+                                    <div *ngIf="f1['dayResolve'].errors?.['dayResolve']">
+                                        Please enter a valid account name
+                                    </div>
+                                </div>
+                            </label>
+                            <label class="d-block my-3">
+                                <div class="btn btn-primary">
+                                    Update Setting
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row align-items-center mt-4">
+                        <div class="col-md-3">
+                            <h4 class="block-title">
+                                Account ID
+                            </h4>
+                            <p>
+                                This ID is required if you are building an API based integration
+                            </p>
+                        </div>
+                        <div class="col-md-5 col-sm-9">
+                            <div class="d">
+                                <label class="d-block">
+                                    ID
+                                    <!-- <input type="text" pInputText [(ngModel)]="model.idUser" class="form-control"> -->
+                                    <div>{{model.idUser}}</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="current-version text-center py-4">
+                        <div>v1.2.0</div>
+                    </div>
+                </form>
+
+                <div *ngIf="tab==2">
+                    <form [formGroup]="formProfile">
+                        <div class="row border-bottom">
+                            <div class="col-md-3">
+                                <h4 class="block-title">
+                                    Profile
+                                </h4>
+                                Your email address is your identity and is used to log in.
+                            </div>
+                            <div class="col-md-9 col-sm-9">
+                                <label class="d-block mb-3">
+                                    Full name
+                                    <input type="text" pInputText [(ngModel)]="model.fullName"
+                                        formControlName="fullName" placeholder="Full name" class="form-control">
+                                    <div *ngIf="(fProfile['fullName'].dirty || fProfile['fullName'].touched || submitted) && fProfile['fullName'].invalid"
+                                        class="text-danger">
+                                        <div *ngIf="fProfile['fullName'].errors?.['fullName']">
+                                            Please enter a valid full name
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="d-block mb-3">
+                                    Display name
+                                    <input type="text" pInputText [(ngModel)]="model.fullName"
+                                        formControlName="displayName" placeholder="Display name" class="form-control">
+                                    <div *ngIf="(fProfile['displayName'].dirty || fProfile['displayName'].touched || submitted) && fProfile['displayName'].invalid"
+                                        class="text-danger">
+                                        <div *ngIf="fProfile['displayName'].errors?.['displayName']">
+                                            Please enter a valid full name
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="d-block my-3">
+                                    <div class="btn btn-primary">
+                                        Update Profile
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row border-bottom">
+                        <div class="col-md-3">
+                            <h4 class="block-title">
+                                Personal message signature
+                            </h4>
+                            Your email address is your identity and is used to log in.
+                        </div>
+                        <div class="col-md-5 col-sm-9">
+                            <label class="d-block mb-3">
+                                Message Signature
+                                <textarea pInputTextarea [(ngModel)]="model.signature" [autoResize]="true"
+                                    class="item-note"></textarea>
+                            </label>
+                            <label class="d-block my-3">
+                                <div class="btn btn-primary" (click)="saveSignature()">
+                                    Save message signature
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="block-title">
+                                Personal message signature
+                            </h4>
+                            Your email address is your identity and is used to log in.
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <label class="d-block mb-3">
+                                <form [formGroup]="formChangePassword" (ngSubmit)="onChangePassword()">
+                                    <div class="item-label mb-3">
+                                        <label class="text-label">Current password</label>
+                                        <input type="password" pInputText placeholder="Current password"
+                                            class="form-control" [(ngModel)]="modelChangePassword.passworkOld"
+                                            formControlName="passworkOld">
+                                    </div>
+                                    <div class="item-label mb-3">
+                                        <label class="text-label">New password</label>
+                                        <input type="password" pInputText placeholder="New password"
+                                            class="form-control" [(ngModel)]="modelChangePassword.passwordNew"
+                                            formControlName="passwordNew">
+                                    </div>
+                                    <div class="item-label mb-3">
+                                        <label class="text-label">Confirm new password</label>
+                                        <input type="password" pInputText placeholder="Confirm new password"
+                                            class="form-control" [(ngModel)]="modelChangePassword.passwordNewConfirm"
+                                            formControlName="passwordNewConfirm">
+                                    </div>
+                                    <button class="btn btn-primary">
+                                        <span>
+                                            Change password
+                                        </span>
+                                    </button>
+                                </form>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="tab==3">
+                    <div class="row border-bottom mt-2">
+                        <div class="col-md-3">
+                            <h4 class="block-title">
+                                Audio Notification
+                            </h4>
+                            Your email address is your identity and is used to log in.
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <label class="d-block mb-3">
+                                Alert events:
+                                <div>
+                                    <p-radioButton name="groupname" value="0"
+                                        [(ngModel)]="modelTab3.alertEvent"></p-radioButton>
+                                    None
+                                </div>
+                                <div>
+                                    <p-radioButton name="groupname" value="1"
+                                        [(ngModel)]="modelTab3.alertEvent"></p-radioButton>
+                                    Assigned Conversations
+                                </div>
+                                <div>
+                                    <p-radioButton name="groupname" value="2"
+                                        [(ngModel)]="modelTab3.alertEvent"></p-radioButton>
+                                    All Conversations
+                                </div>
+                            </label>
+                            <label class="d-block mb-3">
+                                Alert tone:
+                                <div>
+                                    <p-radioButton name="groupname" value="1"
+                                        [(ngModel)]="modelTab3.alertTone"></p-radioButton>
+                                    Ding
+                                </div>
+                                <div>
+                                    <p-radioButton name="groupname" value="2"
+                                        [(ngModel)]="modelTab3.alertTone"></p-radioButton>
+                                    Bell
+                                </div>
+                            </label>
+                            <label class="d-block mb-3">
+                                Alert events:
+                                <div>
+                                    <p-checkbox name="groupname" value="1"
+                                        [(ngModel)]="modelTab3.sendAudio"></p-checkbox>
+                                    Send audio alerts only if the browser window is not active
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="2"
+                                        [(ngModel)]="modelTab3.sendAudio"></p-checkbox>
+                                    Send alerts every 30s until all the assigned conversations are read
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row border-bottom mt-2">
+                        <div class="col-md-3">
+                            <h4 class="block-title">
+                                Email Notification
+                            </h4>
+                            Your email address is your identity and is used to log in.
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <label class="d-block mb-3">
+                                <div>
+                                    <p-checkbox name="groupname" value="1"
+                                        [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
+                                    Send email notifications when a new conversation is created
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="2"
+                                        [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
+                                    Send email notifications when a conversation is assigned to me
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="3"
+                                        [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
+                                    Send email notifications when you are mentioned in a conversation
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="4"
+                                        [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
+                                    Send email notifications when a new message is created in an assigned conversation
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row border-bottom mt-2">
+                        <div class="col-md-3">
+                            <h4 class="block-title">
+                                Push Notification
+                            </h4>
+                            Your email address is your identity and is used to log in.
+                        </div>
+                        <div class="col-md-9 col-sm-9">
+                            <label class="d-block mb-3">
+                                <div>
+                                    <p-checkbox name="groupname" value="1"
+                                        [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
+                                    Send push notifications when a new conversation is created
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="2"
+                                        [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
+                                    Send push notifications when a conversation is assigned to me
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="3"
+                                        [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
+                                    Send push notifications when you are mentioned in a conversation
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="4"
+                                        [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
+                                    Send push notifications when a new message is created in an assigned conversation
+                                </div>
+                                <div>
+                                    <p-checkbox name="groupname" value="5"
+                                        [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
+                                    Send push notifications when a new message is created in a participating
+                                    conversation
+                                </div>
+                            </label>
+                            <label class="d-block my-3">
+                                <div class="btn btn-primary">
+                                    Enabled push notification for this browser
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>

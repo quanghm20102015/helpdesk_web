@@ -1,21 +1,46 @@
-<div class="p-3 pt-2 bg-white" style="overflow: hidden; min-height: 100vh;">
+<div class="p-3 pt-2 bg-white box-contact-detail">
     <div class="row">
-        <div class="col-md-12" style="padding-left: 30px; border-bottom: 1px solid #f1f5f8;">
-            <div class="d-flex align-items-center">
-                <div class="btn text-primary fs-3 btn-back-contacts" routerLinkActive="ac"
-                    [routerLinkActiveOptions]="{exact: false}" routerLink="/main/contacts/" aria-expanded="false">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M11.9473 1.00338C11.9471 1.26851 11.8416 1.52269 11.654 1.71005L6.5393 6.82472C6.38449 6.97949 6.26168 7.16324 6.1779 7.36548C6.09411 7.56771 6.05099 7.78448 6.05099 8.00338C6.05099 8.22229 6.09411 8.43905 6.1779 8.64129C6.26168 8.84353 6.38449 9.02728 6.5393 9.18205L11.6473 14.29C11.8295 14.4787 11.9303 14.7313 11.928 14.9935C11.9257 15.2556 11.8205 15.5065 11.6351 15.6919C11.4497 15.8773 11.1989 15.9824 10.9367 15.9847C10.6745 15.987 10.4219 15.8862 10.2333 15.7041L5.1253 10.6C4.43847 9.91188 4.05273 8.97932 4.05273 8.00705C4.05273 7.03478 4.43847 6.10223 5.1253 5.41405L10.24 0.29605C10.3798 0.156106 10.558 0.0607924 10.7521 0.0221697C10.9461 -0.0164531 11.1473 0.00335101 11.33 0.079076C11.5128 0.154801 11.669 0.283043 11.7789 0.447576C11.8888 0.612108 11.9474 0.805536 11.9473 1.00338Z"
-                            fill="black" fill-opacity="0.87" />
-                    </svg>
-                    Contacts
+        <div class="col-md-12" style="padding-left: 30px; border-bottom: 1px solid #e6e6e8;">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                    <div class="btn text-primary fs-3 btn-back-contacts" routerLinkActive="ac"
+                        [routerLinkActiveOptions]="{exact: false}" routerLink="/main/contacts/" aria-expanded="false">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M11.9473 1.00338C11.9471 1.26851 11.8416 1.52269 11.654 1.71005L6.5393 6.82472C6.38449 6.97949 6.26168 7.16324 6.1779 7.36548C6.09411 7.56771 6.05099 7.78448 6.05099 8.00338C6.05099 8.22229 6.09411 8.43905 6.1779 8.64129C6.26168 8.84353 6.38449 9.02728 6.5393 9.18205L11.6473 14.29C11.8295 14.4787 11.9303 14.7313 11.928 14.9935C11.9257 15.2556 11.8205 15.5065 11.6351 15.6919C11.4497 15.8773 11.1989 15.9824 10.9367 15.9847C10.6745 15.987 10.4219 15.8862 10.2333 15.7041L5.1253 10.6C4.43847 9.91188 4.05273 8.97932 4.05273 8.00705C4.05273 7.03478 4.43847 6.10223 5.1253 5.41405L10.24 0.29605C10.3798 0.156106 10.558 0.0607924 10.7521 0.0221697C10.9461 -0.0164531 11.1473 0.00335101 11.33 0.079076C11.5128 0.154801 11.669 0.283043 11.7789 0.447576C11.8888 0.612108 11.9474 0.805536 11.9473 1.00338Z"
+                                fill="black" fill-opacity="0.87" />
+                        </svg>
+                        Contacts
+                    </div>
+                    <h3 class="m-0">{{model.fullname}}</h3>
                 </div>
-                <h3 class="m-0">{{model.fullname}}</h3>
+                <div>
+                    <div class="contact-actions" (click)="confirm()">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_1815_2525)">
+                                <path
+                                    d="M13.9999 2.66667H11.9333C11.7786 1.91428 11.3692 1.23823 10.7741 0.752479C10.1791 0.266727 9.43475 0.000969683 8.66662 0L7.33328 0C6.56515 0.000969683 5.82083 0.266727 5.22578 0.752479C4.63074 1.23823 4.22135 1.91428 4.06662 2.66667H1.99995C1.82314 2.66667 1.65357 2.7369 1.52854 2.86193C1.40352 2.98695 1.33328 3.15652 1.33328 3.33333C1.33328 3.51014 1.40352 3.67971 1.52854 3.80474C1.65357 3.92976 1.82314 4 1.99995 4H2.66662V12.6667C2.66767 13.5504 3.0192 14.3976 3.6441 15.0225C4.26899 15.6474 5.11622 15.9989 5.99995 16H9.99995C10.8837 15.9989 11.7309 15.6474 12.3558 15.0225C12.9807 14.3976 13.3322 13.5504 13.3333 12.6667V4H13.9999C14.1768 4 14.3463 3.92976 14.4714 3.80474C14.5964 3.67971 14.6666 3.51014 14.6666 3.33333C14.6666 3.15652 14.5964 2.98695 14.4714 2.86193C14.3463 2.7369 14.1768 2.66667 13.9999 2.66667ZM7.33328 1.33333H8.66662C9.08013 1.33384 9.48337 1.46225 9.82102 1.70096C10.1587 1.93967 10.4142 2.27699 10.5526 2.66667H5.44728C5.58567 2.27699 5.84122 1.93967 6.17887 1.70096C6.51653 1.46225 6.91977 1.33384 7.33328 1.33333ZM11.9999 12.6667C11.9999 13.1971 11.7892 13.7058 11.4142 14.0809C11.0391 14.456 10.5304 14.6667 9.99995 14.6667H5.99995C5.46952 14.6667 4.96081 14.456 4.58574 14.0809C4.21066 13.7058 3.99995 13.1971 3.99995 12.6667V4H11.9999V12.6667Z"
+                                    fill="#EF4438" />
+                                <path
+                                    d="M6.66667 11.9996C6.84348 11.9996 7.01304 11.9293 7.13807 11.8043C7.26309 11.6793 7.33333 11.5097 7.33333 11.3329V7.33293C7.33333 7.15611 7.26309 6.98655 7.13807 6.86152C7.01304 6.7365 6.84348 6.66626 6.66667 6.66626C6.48985 6.66626 6.32029 6.7365 6.19526 6.86152C6.07024 6.98655 6 7.15611 6 7.33293V11.3329C6 11.5097 6.07024 11.6793 6.19526 11.8043C6.32029 11.9293 6.48985 11.9996 6.66667 11.9996Z"
+                                    fill="#F95353" />
+                                <path
+                                    d="M9.33324 11.9996C9.51005 11.9996 9.67962 11.9293 9.80464 11.8043C9.92967 11.6793 9.99991 11.5097 9.99991 11.3329V7.33293C9.99991 7.15611 9.92967 6.98655 9.80464 6.86152C9.67962 6.7365 9.51005 6.66626 9.33324 6.66626C9.15642 6.66626 8.98685 6.7365 8.86183 6.86152C8.7368 6.98655 8.66656 7.15611 8.66656 7.33293V11.3329C8.66656 11.5097 8.7368 11.6793 8.86183 11.8043C8.98685 11.9293 9.15642 11.9996 9.33324 11.9996Z"
+                                    fill="#EF4438" />
+                            </g>
+                            <defs>
+                                <clipPath id="clip0_1815_2525">
+                                    <rect width="16" height="16" fill="white" />
+                                </clipPath>
+                            </defs>
+                        </svg>
+                        Remove Customer
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-9 box-detail-contact">
+            <div class="col-md-9 box-detail-contact max-height-note p-0">
                 <div class="contact--profile">
                     <div class="row contact--info">
                         <div class="col-md-12 d-flex justify-content-between align-items-center">
@@ -42,11 +67,6 @@
                                     </svg>
                                     Edit
                                 </div>
-                                <div class="contact-actions">
-                                    <button (click)="confirm()" pButton icon="pi pi-trash"
-                                        class="p-button-danger"></button>
-                                </div>
-
                             </div>
                         </div>
                         <div class="contact--details">
@@ -141,11 +161,20 @@
                         </div>
                     </div>
                 </div>
+                <!-- <div class="contact--profile">
+                    <div class="d-flex">
+
+                    </div>
+                </div> -->
             </div>
-            <div class="col-md-3 box-note-contect">
+            <div class="col-md-3 box-note-contect max-height-note">
                 <h4 class="title-note">Note</h4>
-                <div *ngFor="let item of listNote; index as i;" class="item-note">
-                    <textarea pInputTextarea [(ngModel)]="item.note" [autoResize]="true" [disabled]="true"></textarea>
+                <div class="list-note">
+                    <div *ngFor="let item of listNote; index as i;">
+                        <div class="time-note">{{item.timeNote | date:'short'}}</div>
+                        <textarea pInputTextarea [(ngModel)]="item.note" [autoResize]="true" class="item-note"
+                            [disabled]="true"></textarea>
+                    </div>
                 </div>
                 <div class="mb-3 box-note-input">
                     <textarea [rows]="5" [cols]="30" [(ngModel)]="notes" pInputTextarea [autoResize]="true"></textarea>
@@ -204,6 +233,16 @@
                             </div>
                             <p>*Phone number should be of E.164 format eg: +1415555555 [+][country code][area
                                 code][local phone number]</p>
+                        </label>
+                        <label class="input-container">
+                            <span>Group</span>
+                            <div class="group-input">
+                                <p-dropdown [options]="listGroup" [(ngModel)]="model.groupLabel" display="chip"
+                                    defaultLabel="Select group" optionLabel="name" optionValue="id" [showClear]="true"
+                                    placeholder="Select group" class="multiselect-custom me-2"
+                                    formControlName="groupLabel" [filter]="true" filterBy="name">
+                                </p-dropdown>
+                            </div>
                         </label>
                         <label class="input-container">
                             <span>Company name</span>

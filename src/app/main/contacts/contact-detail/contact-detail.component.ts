@@ -6,6 +6,7 @@ import { ContactService } from 'src/app/service/contact.service';
 import { CountryService } from 'src/app/service/country.service';
 import { LabelService } from 'src/app/service/label.service';
 import { UserInfoStorageService } from 'src/app/service/user-info-storage.service';
+import { LabelGroupsService } from 'src/app/service/labelGroups.service';
 
 declare var $: any;
 @Component({
@@ -24,6 +25,7 @@ export class ContactDetailComponent implements OnInit {
     private userInfoStorageService: UserInfoStorageService,
     private labelService: LabelService,
     private messageService: MessageService,
+    private labelGroupsService: LabelGroupsService,
     private router: Router,
 
   ) { }
@@ -39,6 +41,7 @@ export class ContactDetailComponent implements OnInit {
     })
     this.getData()
     this.getAllCountry()
+    this.getListGroup()
   }
 
   form: FormGroup = this._fb.group({
@@ -48,6 +51,7 @@ export class ContactDetailComponent implements OnInit {
     phoneNumber: [this.model.phoneNumber],
     company: [this.model.company],
     city: [this.model.city],
+    groupLabel: [this.model.groupLabel],
     country: [this.model.country],
     address: [this.model.address],
     facebook: [this.model.facebook],
@@ -77,7 +81,7 @@ export class ContactDetailComponent implements OnInit {
       note: this.notes
     }
     this.contactService.postNoteContact(request).subscribe((result) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add note success' });
+      // this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Add note success' });
       this.notes = ''
       this.getData()
     });
@@ -86,6 +90,13 @@ export class ContactDetailComponent implements OnInit {
   getAllCountry() {
     this.countryService.getAllCountry().subscribe((result) => {
       this.countries = result;
+    });
+  }
+
+  listGroup: any = []
+  getListGroup() {
+    this.labelGroupsService.getByIdCompany(this.idCompany).subscribe((result) => {
+      this.listGroup = result;
     });
   }
 
