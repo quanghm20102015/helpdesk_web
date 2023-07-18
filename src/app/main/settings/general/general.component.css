@@ -1,0 +1,21 @@
+.tab-setting{
+    background: #EFF0F2;
+    border-radius: 8px;
+    display: flex;
+    padding: 2px;
+}
+
+.tab-item{
+    padding: 8px 24px 8px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.tab-item.active{
+    color: #FFFFFF;
+    background: #3A69DB;
+}
+
+.border-bottom{
+    border-bottom: 1px solid #E6E6E8;
+}

@@ -11,7 +11,7 @@ export class AccountService {
   constructor(
     private http: HttpClient,
     private serviceInvoker: ServiceInvokerService
-  ) {}
+  ) { }
 
 
   getAll(): Observable<any> {
@@ -61,6 +61,13 @@ export class AccountService {
   getByIdCompany(idCompany: any): Observable<any> {
     return this.http.get(
       AppSettings.HostingAddress + '/Accounts/GetByIdCompany?idCompany=' + idCompany
+    );
+  }
+
+  updateSignature(data: any) {
+    return this.http.put(
+      AppSettings.HostingAddress + '/Accounts/UpdateSignature',
+      data
     );
   }
 }

@@ -29,8 +29,9 @@
     position: relative;
 }
 
-.box-note-input{
-
+.list-note{
+    overflow: scroll;
+    height: calc(100% - 190px);
 }
 
 .text-social{
@@ -51,10 +52,41 @@
     border-radius: 20px 20px 0px 20px;
     padding: 12px 16px 12px 16px;
     margin-bottom: 10px;
+    opacity: 1;
 }
 
 .item-note .p-inputtextarea.p-inputtext.p-component{
     background: none;
     border: none;
     opacity: 1;
+}
+
+.max-height-note{
+    height: calc(100vh - 70px);
+}
+
+.contact--profile {
+    border-right: 1px solid #e6e6e8;
+    border-bottom: 1px solid #e6e6e8;
+    padding: 25px;
+}
+
+.box-contact-detail{
+    overflow: hidden; 
+    height: 100vh; 
+    border: 8px solid #e6e6e8;
+    border-radius: 0 0 8px 8px;
+}
+
+.box-note-input{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-right: 30px;
+}
+
+.time-note{
+    text-align: end;
+    font-size: 12px;
+    color: #7C7C7E;
 }

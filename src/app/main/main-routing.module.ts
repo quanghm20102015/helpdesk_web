@@ -62,7 +62,7 @@ const routes: Routes = [
       { path: 'campaigns/ongoing', component: OngoingComponent },
       { path: 'campaigns/one-off', component: OneOffComponent },
 
-      { path: 'settings', redirectTo: 'settings/agents', pathMatch: 'full' },
+      { path: 'settings', redirectTo: 'settings/general', pathMatch: 'full' },
       { path: 'settings/general', component: GeneralComponent },
       { path: 'settings/account', component: AccountComponent },
       { path: 'settings/agents', component: StAgentsComponent },
