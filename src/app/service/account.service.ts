@@ -70,4 +70,18 @@ export class AccountService {
       data
     );
   }
+
+  updateAccountInformation(data: any) {
+    return this.http.put(
+      AppSettings.HostingAddress + '/Accounts/UpdateGeneral',
+      data
+    );
+  }
+  
+  updateProfile(data: any) {
+    return this.http.put(
+      AppSettings.HostingAddress + '/Accounts/UpdateProfile',
+      data
+    );
+  }
 }

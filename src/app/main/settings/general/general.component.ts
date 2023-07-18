@@ -13,7 +13,15 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./general.component.css']
 })
 export class GeneralComponent implements OnInit {
-  model: any = { username: '', idUser: 0, dayResolve: 0, companyName: this.userInfoStorageService.getCompany(), language: 1, email: this.userInfoStorageService.getWorkemail() }
+  model: any = {
+    username: '',
+    idUser: 0,
+    dayResolve: 0,
+    companyName: this.userInfoStorageService.getCompany(),
+    language: 1,
+    email: this.userInfoStorageService.getWorkemail(),
+    displayName: ''
+  }
   modelChangePassword: any = { passworkOld: '', passwordNew: '', passwordNewConfirm: '' }
   modelTab3: any = { alertEvent: null, alertTone: '', sendAudio: null, emailNotification: null, pushNotification: null }
   tab: any = 1
@@ -31,6 +39,7 @@ export class GeneralComponent implements OnInit {
     email: [this.model.email],
     dayResolve: [this.model.dayResolve],
   });
+
   formProfile: FormGroup = this._fb.group({
     fullName: [this.model.fullName, [Validators.required]],
     displayName: [this.model.displayName, [Validators.required]],
@@ -54,6 +63,7 @@ export class GeneralComponent implements OnInit {
   ngOnInit(): void {
     this.model.idUser = +(this.userInfoStorageService.getIdUser() ? this.userInfoStorageService.getIdUser() : 0)
     this.formTab1.get('email')?.disable();
+    this.selectTab(1)
   }
 
   get f1() {
@@ -65,14 +75,18 @@ export class GeneralComponent implements OnInit {
 
   selectTab(tab: number) {
     this.tab = tab
-    if (tab == 2) {
-      if (this.idUser != 0)
-        this.accountService.getAccount(this.idUser).subscribe((result) => {
-          this.model.signature = result.signature
-          this.model.fullName = result.fullname
-          // this.model.displayName = result.displayName
-        })
-    }
+    if (this.idUser != 0)
+      this.accountService.getAccount(this.idUser).subscribe((result) => {
+
+        this.model.username = result.fullname
+        this.model.idLabel = result.idLabel
+        this.model.idLabel = result.dayResolve
+
+        this.model.fullName = result.fullname
+        this.model.displayName = result.displayName
+
+        this.model.signature = result.signature
+      })
   }
 
   onChangePassword() {
@@ -102,6 +116,30 @@ export class GeneralComponent implements OnInit {
         })
       }
     });
+  }
+
+  updateAccountInformation() {
+    let request = {
+      Id: this.idUser,
+      AccountName: this.model.username,
+      Language: this.model.language,
+      CompanyName: this.model.companyName,
+      NumberDay: this.model.dayResolve,
+    }
+    this.accountService.updateAccountInformation(request).subscribe((result) => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update Account Information' });
+    })
+  }
+
+  updateProfile() {
+    let request = {
+      Id: this.idUser,
+      AccountName: this.model.username,
+      DisplayName: this.model.displayName,
+    }
+    this.accountService.updateProfile(request).subscribe((result) => {
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update Account Information' });
+    })
   }
 
   showError(message: any) {
