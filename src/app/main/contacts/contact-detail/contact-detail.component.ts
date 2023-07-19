@@ -31,6 +31,7 @@ export class ContactDetailComponent implements OnInit {
   ) { }
 
   model: any = {}
+  modelAdd: any = {}
   countries: any = []
   notes: string = ''
   listNote: any = []
@@ -45,19 +46,19 @@ export class ContactDetailComponent implements OnInit {
   }
 
   form: FormGroup = this._fb.group({
-    fullname: [this.model.fullname, [Validators.required]],
-    email: [this.model.email,[Validators.required, Validators.email]],
-    bio: [this.model.bio],
-    phoneNumber: [this.model.phoneNumber],
-    company: [this.model.company],
-    city: [this.model.city],
-    groupLabel: [this.model.groupLabel],
-    country: [this.model.country],
-    address: [this.model.address],
-    facebook: [this.model.facebook],
-    twitter: [this.model.twitter],
-    linkedin: [this.model.linkedin],
-    github: [this.model.github]
+    fullname: [this.modelAdd.fullname, [Validators.required]],
+    email: [this.modelAdd.email,[Validators.required, Validators.email]],
+    bio: [this.modelAdd.bio],
+    phoneNumber: [this.modelAdd.phoneNumber],
+    company: [this.modelAdd.company],
+    city: [this.modelAdd.city],
+    idGroup: [this.modelAdd.idGroup],
+    country: [this.modelAdd.country],
+    address: [this.modelAdd.address],
+    facebook: [this.modelAdd.facebook],
+    twitter: [this.modelAdd.twitter],
+    linkedin: [this.modelAdd.linkedin],
+    github: [this.modelAdd.github]
   });
 
 
@@ -127,7 +128,7 @@ export class ContactDetailComponent implements OnInit {
 
   onSubmitUpdate() {
     this.submitted = true
-    this.contactService.update(this.model).subscribe((result) => {
+    this.contactService.update(this.modelAdd).subscribe((result) => {
       if (result.status == 1) {
         $("#newContact").modal("hide");
         this.getData()
@@ -157,6 +158,7 @@ export class ContactDetailComponent implements OnInit {
   }
 
   createContact(){
+    this.modelAdd = JSON.parse(JSON.stringify(this.model))
     $("#newContact").modal("show");
   }
 

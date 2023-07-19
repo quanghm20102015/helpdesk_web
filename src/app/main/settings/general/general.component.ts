@@ -16,7 +16,7 @@ export class GeneralComponent implements OnInit {
   model: any = {
     username: '',
     idUser: 0,
-    dayResolve: 0,
+    numberDay: 0,
     companyName: this.userInfoStorageService.getCompany(),
     language: 1,
     email: this.userInfoStorageService.getWorkemail(),
@@ -37,7 +37,7 @@ export class GeneralComponent implements OnInit {
     companyName: [this.model.companyName],
     language: [this.model.language],
     email: [this.model.email],
-    dayResolve: [this.model.dayResolve],
+    numberDay: [this.model.numberDay],
   });
 
   formProfile: FormGroup = this._fb.group({
@@ -80,7 +80,7 @@ export class GeneralComponent implements OnInit {
 
         this.model.username = result.fullname
         this.model.idLabel = result.idLabel
-        this.model.idLabel = result.dayResolve
+        this.model.numberDay = result.numberDay
 
         this.model.fullName = result.fullname
         this.model.displayName = result.displayName
@@ -124,7 +124,7 @@ export class GeneralComponent implements OnInit {
       AccountName: this.model.username,
       Language: this.model.language,
       CompanyName: this.model.companyName,
-      NumberDay: this.model.dayResolve,
+      NumberDay: this.model.numberDay,
     }
     this.accountService.updateAccountInformation(request).subscribe((result) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Update Account Information' });

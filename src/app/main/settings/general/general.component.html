@@ -52,7 +52,7 @@
                             </label>
                             <label class="d-block mb-3">
                                 Language
-                                <p-dropdown [options]="listLanguage" [(ngModel)]="model.idLabel" display="chip"
+                                <p-dropdown [options]="listLanguage" [(ngModel)]="model.language" display="chip"
                                     defaultLabel="Select Language" optionLabel="name" optionValue="id"
                                     [showClear]="true" placeholder="Select Language" class="multiselect-custom me-2"
                                     formControlName="language" [filter]="true" filterBy="name">
@@ -76,13 +76,13 @@
                             </label>
                             <label class="d-block">
                                 Number of days after a ticket should auto resolve if there is o activity
-                                <input type="number" pInputText [(ngModel)]="model.dayResolve"
-                                    formControlName="dayResolve"
+                                <input type="number" pInputText [(ngModel)]="model.numberDay"
+                                    formControlName="numberDay"
                                     placeholder="Number of days after a ticket should auto resolve"
                                     class="form-control">
-                                <div *ngIf="(f1['dayResolve'].dirty || f1['dayResolve'].touched || submitted) && f1['dayResolve'].invalid"
+                                <div *ngIf="(f1['numberDay'].dirty || f1['numberDay'].touched || submitted) && f1['numberDay'].invalid"
                                     class="text-danger">
-                                    <div *ngIf="f1['dayResolve'].errors?.['dayResolve']">
+                                    <div *ngIf="f1['numberDay'].errors?.['numberDay']">
                                         Please enter a valid account name
                                     </div>
                                 </div>
