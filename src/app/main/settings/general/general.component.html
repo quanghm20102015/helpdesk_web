@@ -52,7 +52,7 @@
                             </label>
                             <label class="d-block mb-3">
                                 Language
-                                <p-dropdown [options]="listLanguage" [(ngModel)]="model.groupLabel" display="chip"
+                                <p-dropdown [options]="listLanguage" [(ngModel)]="model.idLabel" display="chip"
                                     defaultLabel="Select Language" optionLabel="name" optionValue="id"
                                     [showClear]="true" placeholder="Select Language" class="multiselect-custom me-2"
                                     formControlName="language" [filter]="true" filterBy="name">
@@ -88,7 +88,7 @@
                                 </div>
                             </label>
                             <label class="d-block my-3">
-                                <div class="btn btn-primary">
+                                <div class="btn btn-primary" (click)="updateAccountInformation()">
                                     Update Setting
                                 </div>
                             </label>
@@ -141,17 +141,17 @@
                                 </label>
                                 <label class="d-block mb-3">
                                     Display name
-                                    <input type="text" pInputText [(ngModel)]="model.fullName"
+                                    <input type="text" pInputText [(ngModel)]="model.displayName"
                                         formControlName="displayName" placeholder="Display name" class="form-control">
                                     <div *ngIf="(fProfile['displayName'].dirty || fProfile['displayName'].touched || submitted) && fProfile['displayName'].invalid"
                                         class="text-danger">
                                         <div *ngIf="fProfile['displayName'].errors?.['displayName']">
-                                            Please enter a valid full name
+                                            Please enter a valid display name
                                         </div>
                                     </div>
                                 </label>
                                 <label class="d-block my-3">
-                                    <div class="btn btn-primary">
+                                    <div class="btn btn-primary" (click)="updateProfile()">
                                         Update Profile
                                     </div>
                                 </label>
@@ -228,17 +228,17 @@
                         <div class="col-md-9 col-sm-9">
                             <label class="d-block mb-3">
                                 Alert events:
-                                <div>
+                                <div class="mt-2">
                                     <p-radioButton name="groupname" value="0"
                                         [(ngModel)]="modelTab3.alertEvent"></p-radioButton>
                                     None
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-radioButton name="groupname" value="1"
                                         [(ngModel)]="modelTab3.alertEvent"></p-radioButton>
                                     Assigned Conversations
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-radioButton name="groupname" value="2"
                                         [(ngModel)]="modelTab3.alertEvent"></p-radioButton>
                                     All Conversations
@@ -246,12 +246,12 @@
                             </label>
                             <label class="d-block mb-3">
                                 Alert tone:
-                                <div>
+                                <div class="mt-2">
                                     <p-radioButton name="groupname" value="1"
                                         [(ngModel)]="modelTab3.alertTone"></p-radioButton>
                                     Ding
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-radioButton name="groupname" value="2"
                                         [(ngModel)]="modelTab3.alertTone"></p-radioButton>
                                     Bell
@@ -259,12 +259,12 @@
                             </label>
                             <label class="d-block mb-3">
                                 Alert events:
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="1"
                                         [(ngModel)]="modelTab3.sendAudio"></p-checkbox>
                                     Send audio alerts only if the browser window is not active
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="2"
                                         [(ngModel)]="modelTab3.sendAudio"></p-checkbox>
                                     Send alerts every 30s until all the assigned conversations are read
@@ -282,22 +282,22 @@
                         </div>
                         <div class="col-md-9 col-sm-9">
                             <label class="d-block mb-3">
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="1"
                                         [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
                                     Send email notifications when a new conversation is created
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="2"
                                         [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
                                     Send email notifications when a conversation is assigned to me
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="3"
                                         [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
                                     Send email notifications when you are mentioned in a conversation
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="4"
                                         [(ngModel)]="modelTab3.emailNotification"></p-checkbox>
                                     Send email notifications when a new message is created in an assigned conversation
@@ -315,27 +315,27 @@
                         </div>
                         <div class="col-md-9 col-sm-9">
                             <label class="d-block mb-3">
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="1"
                                         [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
                                     Send push notifications when a new conversation is created
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="2"
                                         [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
                                     Send push notifications when a conversation is assigned to me
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="3"
                                         [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
                                     Send push notifications when you are mentioned in a conversation
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="4"
                                         [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
                                     Send push notifications when a new message is created in an assigned conversation
                                 </div>
-                                <div>
+                                <div class="mt-2">
                                     <p-checkbox name="groupname" value="5"
                                         [(ngModel)]="modelTab3.pushNotification"></p-checkbox>
                                     Send push notifications when a new message is created in a participating
