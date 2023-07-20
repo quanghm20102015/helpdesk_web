@@ -198,7 +198,7 @@
                         <label class="input-container">
                             <span>Full Name<span class="text-required">*</span></span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.fullname" formControlName="fullname"
+                                <input type="text" pInputText [(ngModel)]="modelAdd.fullname" formControlName="fullname"
                                     placeholder="Please enter full name" class="form-control">
                                 <div *ngIf="(f['fullname'].dirty || f['fullname'].touched || submitted) && f['fullname'].invalid"
                                     class="text-danger">
@@ -211,7 +211,7 @@
                         <label class="input-container">
                             <span>Email<span class="text-required">*</span></span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.email" formControlName="email"
+                                <input type="text" pInputText [(ngModel)]="modelAdd.email" formControlName="email"
                                     placeholder="Please enter email" class="form-control">
                                 <div *ngIf="(f['email'].dirty || f['email'].touched || submitted) && f['email'].invalid"
                                     class="text-danger">
@@ -227,7 +227,7 @@
                         <label class="input-container">
                             <span>Phone number</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.phoneNumber"
+                                <input type="text" pInputText [(ngModel)]="modelAdd.phoneNumber"
                                     formControlName="phoneNumber" placeholder="Please enter phone number"
                                     class="form-control">
                             </div>
@@ -237,38 +237,38 @@
                         <label class="input-container">
                             <span>Group</span>
                             <div class="group-input">
-                                <p-dropdown [options]="listGroup" [(ngModel)]="model.groupLabel" display="chip"
+                                <p-dropdown [options]="listGroup" [(ngModel)]="modelAdd.idGroup" display="chip"
                                     defaultLabel="Select group" optionLabel="name" optionValue="id" [showClear]="true"
                                     placeholder="Select group" class="multiselect-custom me-2"
-                                    formControlName="groupLabel" [filter]="true" filterBy="name">
+                                    formControlName="idGroup" [filter]="true" filterBy="name">
                                 </p-dropdown>
                             </div>
                         </label>
                         <label class="input-container">
                             <span>Company name</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.company" formControlName="company"
+                                <input type="text" pInputText [(ngModel)]="modelAdd.company" formControlName="company"
                                     placeholder="Please enter company name" class="form-control">
                             </div>
                         </label>
                         <label class="input-container">
                             <span>Country</span>
                             <div class="group-input">
-                                <p-dropdown [options]="countries" [(ngModel)]="model.country" optionLabel="name"
+                                <p-dropdown [options]="countries" [(ngModel)]="modelAdd.country" optionLabel="name"
                                     optionValue="id" formControlName="country"></p-dropdown>
                             </div>
                         </label>
                         <label class="input-container">
                             <span>City</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.city" formControlName="city"
+                                <input type="text" pInputText [(ngModel)]="modelAdd.city" formControlName="city"
                                     placeholder="Please enter city" class="form-control">
                             </div>
                         </label>
                         <label class="input-container">
                             <span>Address</span>
                             <div class="group-input">
-                                <input type="text" pInputText [(ngModel)]="model.address" formControlName="address"
+                                <input type="text" pInputText [(ngModel)]="modelAdd.address" formControlName="address"
                                     placeholder="Please enter address" class="form-control">
                             </div>
                         </label>
@@ -279,28 +279,28 @@
                                     <span class="text-social">
                                         https://facebook.com/
                                     </span>
-                                    <input type="text" pInputText [(ngModel)]="model.facebook"
+                                    <input type="text" pInputText [(ngModel)]="modelAdd.facebook"
                                         formControlName="facebook" placeholder="..." class="form-control">
                                 </div>
                                 <div class="d-flex align-items-center mb-2">
                                     <span class="text-social">
                                         https://twitter.com/
                                     </span>
-                                    <input type="text" pInputText [(ngModel)]="model.twitter" formControlName="twitter"
+                                    <input type="text" pInputText [(ngModel)]="modelAdd.twitter" formControlName="twitter"
                                         placeholder="..." class="form-control">
                                 </div>
                                 <div class="d-flex align-items-center mb-2">
                                     <span class="text-social">
                                         https://linkedin.com/
                                     </span>
-                                    <input type="text" pInputText [(ngModel)]="model.linkedin"
+                                    <input type="text" pInputText [(ngModel)]="modelAdd.linkedin"
                                         formControlName="linkedin" placeholder="..." class="form-control">
                                 </div>
                                 <div class="d-flex align-items-center">
                                     <span class="text-social">
                                         https://github.com/
                                     </span>
-                                    <input type="text" pInputText [(ngModel)]="model.github" formControlName="github"
+                                    <input type="text" pInputText [(ngModel)]="modelAdd.github" formControlName="github"
                                         placeholder="..." class="form-control">
                                 </div>
                             </div>
